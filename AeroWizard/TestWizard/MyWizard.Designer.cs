@@ -30,9 +30,17 @@
 		{
 			this.wizardControl1 = new AeroWizard.WizardControl();
 			this.introPage = new AeroWizard.WizardPage();
+			this.commandLink2 = new Microsoft.WindowsAPICodePack.Controls.WindowsForms.CommandLink();
+			this.commandLink1 = new Microsoft.WindowsAPICodePack.Controls.WindowsForms.CommandLink();
 			this.middlePage = new AeroWizard.WizardPage();
+			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
 			this.endPage = new AeroWizard.WizardPage();
+			this.label1 = new System.Windows.Forms.Label();
+			this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			((System.ComponentModel.ISupportInitialize)(this.wizardControl1)).BeginInit();
+			this.introPage.SuspendLayout();
+			this.middlePage.SuspendLayout();
+			this.endPage.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// wizardControl1
@@ -45,24 +53,82 @@
 			this.wizardControl1.Pages.Add(this.endPage);
 			this.wizardControl1.Size = new System.Drawing.Size(574, 415);
 			this.wizardControl1.TabIndex = 0;
+			this.wizardControl1.Title = "Modify System";
 			// 
 			// introPage
 			// 
+			this.introPage.Controls.Add(this.commandLink2);
+			this.introPage.Controls.Add(this.commandLink1);
 			this.introPage.Name = "introPage";
 			this.introPage.TabIndex = 0;
-			this.introPage.Text = "Intro";
+			this.introPage.Text = "Choose an activity";
+			// 
+			// commandLink2
+			// 
+			this.commandLink2.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.commandLink2.Location = new System.Drawing.Point(4, 70);
+			this.commandLink2.Name = "commandLink2";
+			this.commandLink2.NoteText = "Starting a C:\\, delete all files on the system. (Not advised)";
+			this.commandLink2.Size = new System.Drawing.Size(453, 60);
+			this.commandLink2.TabIndex = 1;
+			this.commandLink2.Text = "Trash everything";
+			this.commandLink2.UseVisualStyleBackColor = true;
+			this.commandLink2.Click += new System.EventHandler(this.commandLink2_Click);
+			// 
+			// commandLink1
+			// 
+			this.commandLink1.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.commandLink1.Location = new System.Drawing.Point(4, 4);
+			this.commandLink1.Name = "commandLink1";
+			this.commandLink1.NoteText = "Use standard system tools to clean up unnecessary files.";
+			this.commandLink1.Size = new System.Drawing.Size(453, 60);
+			this.commandLink1.TabIndex = 0;
+			this.commandLink1.Text = "Clean up system safely";
+			this.commandLink1.UseVisualStyleBackColor = true;
+			this.commandLink1.Click += new System.EventHandler(this.commandLink1_Click);
 			// 
 			// middlePage
 			// 
+			this.middlePage.Controls.Add(this.linkLabel1);
+			this.middlePage.IsFinishPage = true;
 			this.middlePage.Name = "middlePage";
 			this.middlePage.TabIndex = 1;
-			this.middlePage.Text = "Middle";
+			this.middlePage.Text = "Launch System Cleanup";
+			// 
+			// linkLabel1
+			// 
+			this.linkLabel1.AutoSize = true;
+			this.linkLabel1.Location = new System.Drawing.Point(3, 0);
+			this.linkLabel1.Name = "linkLabel1";
+			this.linkLabel1.Size = new System.Drawing.Size(116, 15);
+			this.linkLabel1.TabIndex = 0;
+			this.linkLabel1.TabStop = true;
+			this.linkLabel1.Text = "Launch SysClean.exe";
 			// 
 			// endPage
 			// 
+			this.endPage.Controls.Add(this.label1);
+			this.endPage.Controls.Add(this.progressBar1);
 			this.endPage.Name = "endPage";
 			this.endPage.TabIndex = 2;
-			this.endPage.Text = "The End";
+			this.endPage.Text = "Bad Choice";
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(4, 5);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(185, 15);
+			this.label1.TabIndex = 1;
+			this.label1.Text = "Hosing your system. Please wait...";
+			// 
+			// progressBar1
+			// 
+			this.progressBar1.Location = new System.Drawing.Point(7, 23);
+			this.progressBar1.Name = "progressBar1";
+			this.progressBar1.Size = new System.Drawing.Size(513, 23);
+			this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+			this.progressBar1.TabIndex = 0;
 			// 
 			// MyWizard
 			// 
@@ -74,6 +140,11 @@
 			this.Name = "MyWizard";
 			this.ShowIcon = false;
 			((System.ComponentModel.ISupportInitialize)(this.wizardControl1)).EndInit();
+			this.introPage.ResumeLayout(false);
+			this.middlePage.ResumeLayout(false);
+			this.middlePage.PerformLayout();
+			this.endPage.ResumeLayout(false);
+			this.endPage.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -84,6 +155,11 @@
 		private AeroWizard.WizardPage introPage;
 		private AeroWizard.WizardPage middlePage;
 		private AeroWizard.WizardPage endPage;
+		private Microsoft.WindowsAPICodePack.Controls.WindowsForms.CommandLink commandLink2;
+		private Microsoft.WindowsAPICodePack.Controls.WindowsForms.CommandLink commandLink1;
+		private System.Windows.Forms.LinkLabel linkLabel1;
+		private System.Windows.Forms.ProgressBar progressBar1;
+		private System.Windows.Forms.Label label1;
 	}
 }
 

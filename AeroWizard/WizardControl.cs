@@ -265,21 +265,33 @@ namespace AeroWizard
                 CloseForm(DialogResult.OK);
         }
 
-        protected virtual void NextPage()
+		public void NextPage()
+		{
+			NextPage(null);
+		}
+
+        public virtual void NextPage(WizardPage nextPage)
         {
-            if (SelectedPage.IsFinishPage || Pages.IndexOf(SelectedPage) == Pages.Count - 1)
-            {
-                FinishWizard();
-                return;
-            }
+			if (nextPage == null)
+			{
+				if (SelectedPage.IsFinishPage || Pages.IndexOf(SelectedPage) == Pages.Count - 1)
+				{
+					FinishWizard();
+					return;
+				}
+			}
+			else if (!Pages.Contains(nextPage))
+				throw new ArgumentException("When specifying a value for nextPage, it must already be in the Pages collection.", "nextPage");
 
             pageHistory.Push(SelectedPage);
             if (SelectedPage.CommitPage())
             {
-                if (SelectedPage.NextPage != null)
-                    SelectedPage = SelectedPage.NextPage;
-                else
-                    SelectedPage = Pages[Pages.IndexOf(SelectedPage) + 1];
+				if (nextPage != null)
+					SelectedPage = nextPage;
+				else if (SelectedPage.NextPage != null)
+					SelectedPage = SelectedPage.NextPage;
+				else
+					SelectedPage = Pages[Pages.IndexOf(SelectedPage) + 1];
             }
         }
 
@@ -328,7 +340,7 @@ namespace AeroWizard
                 temp(this, EventArgs.Empty);
         }
 
-        protected virtual void PreviousPage()
+        public virtual void PreviousPage()
         {
             if (SelectedPage.RollbackPage())
                 SelectedPage = pageHistory.Pop();

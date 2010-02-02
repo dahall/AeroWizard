@@ -33,6 +33,7 @@
 			this.commandLink2 = new Microsoft.WindowsAPICodePack.Controls.WindowsForms.CommandLink();
 			this.commandLink1 = new Microsoft.WindowsAPICodePack.Controls.WindowsForms.CommandLink();
 			this.middlePage = new AeroWizard.WizardPage();
+			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
 			this.endPage = new AeroWizard.WizardPage();
 			this.label1 = new System.Windows.Forms.Label();
@@ -57,6 +58,7 @@
 			// 
 			// introPage
 			// 
+			this.introPage.AllowNext = false;
 			this.introPage.Controls.Add(this.commandLink2);
 			this.introPage.Controls.Add(this.commandLink1);
 			this.introPage.Name = "introPage";
@@ -89,11 +91,24 @@
 			// 
 			// middlePage
 			// 
+			this.middlePage.Controls.Add(this.checkBox1);
 			this.middlePage.Controls.Add(this.linkLabel1);
 			this.middlePage.IsFinishPage = true;
 			this.middlePage.Name = "middlePage";
 			this.middlePage.TabIndex = 1;
 			this.middlePage.Text = "Launch System Cleanup";
+			this.middlePage.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.middlePage_Initialize);
+			// 
+			// checkBox1
+			// 
+			this.checkBox1.AutoSize = true;
+			this.checkBox1.Location = new System.Drawing.Point(6, 41);
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.Size = new System.Drawing.Size(233, 19);
+			this.checkBox1.TabIndex = 1;
+			this.checkBox1.Text = "Desktop Window Composition Enabled";
+			this.checkBox1.UseVisualStyleBackColor = true;
+			this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
 			// 
 			// linkLabel1
 			// 
@@ -160,6 +175,7 @@
 		private System.Windows.Forms.LinkLabel linkLabel1;
 		private System.Windows.Forms.ProgressBar progressBar1;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.CheckBox checkBox1;
 	}
 }
 

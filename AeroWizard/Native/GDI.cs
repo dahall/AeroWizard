@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System;
 using System.Windows.Forms.VisualStyles;
 
-namespace AeroWizard.Native
+namespace System.Windows.Forms.VisualStyles.Internal
 {
 	internal static class GDI
 	{

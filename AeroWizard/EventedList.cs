@@ -21,38 +21,6 @@ namespace System.Collections.Generic
         private object _syncRoot;
         private int _version;
 
-		public class ListChangedEventArgs<T> : EventArgs
-		{
-			public ListChangedEventArgs(ListChangedType type)
-			{
-				this.ItemIndex = -1;
-				this.ListChangedType = type;
-			}
-
-			public ListChangedEventArgs(ListChangedType type, T item, int itemIndex)
-			{
-				this.Item = item;
-				this.ItemIndex = itemIndex;
-				this.ListChangedType = type;
-			}
-
-			public ListChangedEventArgs(ListChangedType type, T item, int itemIndex, T oldItem)
-				: this(type, item, itemIndex)
-			{
-				OldItem = oldItem;
-			}
-
-			public T Item { get; private set; }
-			public T OldItem { get; private set; }
-			public int ItemIndex { get; private set; }
-			public ListChangedType ListChangedType { get; private set; }
-		}
-
-		public event EventHandler<ListChangedEventArgs<T>> Reset;
-		public event EventHandler<ListChangedEventArgs<T>> ItemAdded;
-		public event EventHandler<ListChangedEventArgs<T>> ItemDeleted;
-		public event EventHandler<ListChangedEventArgs<T>> ItemChanged;
-
         /// <summary>
         /// Initializes the <see cref="EventedList&lt;T&gt;"/> class.
         /// </summary>
@@ -113,6 +81,26 @@ namespace System.Collections.Generic
             }
             this._items = new T[capacity];
         }
+
+        /// <summary>
+        /// Occurs when an item has been added.
+        /// </summary>
+        public event EventHandler<ListChangedEventArgs<T>> ItemAdded;
+
+        /// <summary>
+        /// Occurs when an item has changed.
+        /// </summary>
+        public event EventHandler<ListChangedEventArgs<T>> ItemChanged;
+
+        /// <summary>
+        /// Occurs when an item has been deleted.
+        /// </summary>
+        public event EventHandler<ListChangedEventArgs<T>> ItemDeleted;
+
+        /// <summary>
+        /// Occurs when the list has been reset.
+        /// </summary>
+        public event EventHandler<ListChangedEventArgs<T>> Reset;
 
         /// <summary>
         /// Gets or sets the capacity.
@@ -1197,38 +1185,16 @@ namespace System.Collections.Generic
         }
 
         /// <summary>
-        /// Called when [clear].
-        /// </summary>
-        protected virtual void OnReset()
-        {
-			EventHandler<ListChangedEventArgs<T>> h = Reset;
-			if (h != null)
-				h(this, new EventedList<T>.ListChangedEventArgs<T>(ListChangedType.Reset));
-        }
-
-        /// <summary>
         /// Called when [insert].
         /// </summary>
         /// <param name="index">The index.</param>
         /// <param name="value">The value.</param>
         protected virtual void OnItemAdded(int index, T value)
         {
-			EventHandler<ListChangedEventArgs<T>> h = ItemAdded;
-			if (h != null)
-				h(this, new EventedList<T>.ListChangedEventArgs<T>(ListChangedType.ItemAdded, value, index));
-		}
-
-        /// <summary>
-        /// Called when [remove].
-        /// </summary>
-        /// <param name="index">The index.</param>
-        /// <param name="value">The value.</param>
-        protected virtual void OnItemDeleted(int index, T value)
-        {
-			EventHandler<ListChangedEventArgs<T>> h = ItemDeleted;
-			if (h != null)
-				h(this, new EventedList<T>.ListChangedEventArgs<T>(ListChangedType.ItemDeleted, value, index));
-		}
+            EventHandler<ListChangedEventArgs<T>> h = ItemAdded;
+            if (h != null)
+                h(this, new EventedList<T>.ListChangedEventArgs<T>(ListChangedType.ItemAdded, value, index));
+        }
 
         /// <summary>
         /// Called when [set].
@@ -1238,10 +1204,32 @@ namespace System.Collections.Generic
         /// <param name="newValue">The new value.</param>
         protected virtual void OnItemChanged(int index, T oldValue, T newValue)
         {
-			EventHandler<ListChangedEventArgs<T>> h = ItemChanged;
-			if (h != null)
-				h(this, new EventedList<T>.ListChangedEventArgs<T>(ListChangedType.ItemChanged, newValue, index, oldValue));
-		}
+            EventHandler<ListChangedEventArgs<T>> h = ItemChanged;
+            if (h != null)
+                h(this, new EventedList<T>.ListChangedEventArgs<T>(ListChangedType.ItemChanged, newValue, index, oldValue));
+        }
+
+        /// <summary>
+        /// Called when [remove].
+        /// </summary>
+        /// <param name="index">The index.</param>
+        /// <param name="value">The value.</param>
+        protected virtual void OnItemDeleted(int index, T value)
+        {
+            EventHandler<ListChangedEventArgs<T>> h = ItemDeleted;
+            if (h != null)
+                h(this, new EventedList<T>.ListChangedEventArgs<T>(ListChangedType.ItemDeleted, value, index));
+        }
+
+        /// <summary>
+        /// Called when [clear].
+        /// </summary>
+        protected virtual void OnReset()
+        {
+            EventHandler<ListChangedEventArgs<T>> h = Reset;
+            if (h != null)
+                h(this, new EventedList<T>.ListChangedEventArgs<T>(ListChangedType.Reset));
+        }
 
         /// <summary>
         /// Determines whether [is compatible object] [the specified value].
@@ -1386,5 +1374,86 @@ namespace System.Collections.Generic
                 return false;
             }
         }
-    }
+
+        /// <summary>
+        /// An <see cref="EventArgs"/> structure passed to events generated by an <see cref="EventedList{T}"/>.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+#pragma warning disable 693
+		public class ListChangedEventArgs<T> : EventArgs
+        {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="EventedList&lt;T&gt;.ListChangedEventArgs&lt;T&gt;"/> class.
+            /// </summary>
+            /// <param name="type">The type of change.</param>
+            public ListChangedEventArgs(ListChangedType type)
+            {
+                this.ItemIndex = -1;
+                this.ListChangedType = type;
+            }
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="EventedList&lt;T&gt;.ListChangedEventArgs&lt;T&gt;"/> class.
+            /// </summary>
+            /// <param name="type">The type of change.</param>
+            /// <param name="item">The item that has changed.</param>
+            /// <param name="itemIndex">Index of the changed item.</param>
+            public ListChangedEventArgs(ListChangedType type, T item, int itemIndex)
+            {
+                this.Item = item;
+                this.ItemIndex = itemIndex;
+                this.ListChangedType = type;
+            }
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="EventedList&lt;T&gt;.ListChangedEventArgs&lt;T&gt;"/> class.
+            /// </summary>
+            /// <param name="type">The type of change.</param>
+            /// <param name="item">The item that has changed.</param>
+            /// <param name="itemIndex">Index of the changed item.</param>
+            /// <param name="oldItem">The old item when an item has changed.</param>
+            public ListChangedEventArgs(ListChangedType type, T item, int itemIndex, T oldItem)
+                : this(type, item, itemIndex)
+            {
+                OldItem = oldItem;
+            }
+
+            /// <summary>
+            /// Gets the item that has changed.
+            /// </summary>
+            /// <value>The item.</value>
+            public T Item
+            {
+                get; private set;
+            }
+
+            /// <summary>
+            /// Gets the index of the item.
+            /// </summary>
+            /// <value>The index of the item.</value>
+            public int ItemIndex
+            {
+                get; private set;
+            }
+
+            /// <summary>
+            /// Gets the type of change for the list.
+            /// </summary>
+            /// <value>The type of change for the list.</value>
+            public ListChangedType ListChangedType
+            {
+                get; private set;
+            }
+
+            /// <summary>
+            /// Gets the item's previous value.
+            /// </summary>
+            /// <value>The old item.</value>
+            public T OldItem
+            {
+                get; private set;
+            }
+        }
+#pragma warning restore 693
+	}
 }

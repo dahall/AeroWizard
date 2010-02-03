@@ -364,8 +364,8 @@ namespace AeroWizard.Design
 
         private void CheckStatus()
         {
-            verbs[1].Enabled = (this.WizardControl != null && this.WizardControl.Pages.Count > 0);
-            verbs[2].Enabled = (this.WizardControl != null && this.WizardControl.SelectedPage != null);
+            Verbs[1].Enabled = (this.WizardControl != null && this.WizardControl.Pages.Count > 0);
+            Verbs[2].Enabled = (this.WizardControl != null && this.WizardControl.SelectedPage != null);
         }
 
         private WizardPageDesigner GetSelectedWizardPageDesigner()

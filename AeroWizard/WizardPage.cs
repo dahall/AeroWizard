@@ -13,6 +13,9 @@ namespace AeroWizard
     public partial class WizardPage : Control
     {
         private bool initializing = false;
+        private bool allowCancel = true, allowNext = true;
+		private bool showCancel = true, showNext = true;
+		private bool isFinishPage = false;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="WizardPage"/> class.
@@ -22,9 +25,6 @@ namespace AeroWizard
             initializing = true;
             InitializeComponent();
             Margin = Padding.Empty;
-            AllowCancel = AllowNext = true;
-            ShowCancel = ShowNext = true;
-            IsFinishPage = false;
             base.Text = Properties.Resources.WizardHeader;
             initializing = false;
         }
@@ -48,79 +48,111 @@ namespace AeroWizard
 		/// Gets or sets a value indicating whether to enable the Cancel button.
 		/// </summary>
 		/// <value><c>true</c> if Cancel button is enabled; otherwise, <c>false</c>.</value>
-        [DefaultValue(true),
-        Category("Behavior")]
+        [DefaultValue(true), Category("Behavior")]
         public virtual bool AllowCancel
         {
-            get; set;
+			get { return allowCancel; }
+			set
+			{
+				if (allowCancel != value)
+				{
+					allowCancel = value;
+					if (Owner != null && this == Owner.SelectedPage)
+						Owner.UpdateButtons();
+				}
+			}
         }
 
 		/// <summary>
 		/// Gets or sets a value indicating whether to enable the Next/Finish button.
 		/// </summary>
 		/// <value><c>true</c> if Next/Finish button is enabled; otherwise, <c>false</c>.</value>
-		[DefaultValue(true),
-        Category("Behavior")]
+		[DefaultValue(true), Category("Behavior")]
         public virtual bool AllowNext
         {
-            get; set;
-        }
+			get { return allowNext; }
+			set
+			{
+				if (allowNext != value)
+				{
+					allowNext = value;
+					if (Owner != null && this == Owner.SelectedPage)
+						Owner.UpdateButtons();
+				}
+			}
+		}
 
 		/// <summary>
 		/// Gets or sets a value indicating whether this page is the last page in the sequence and should display the Finish text instead of the Next text on the Next/Finish button.
 		/// </summary>
 		/// <value><c>true</c> if this page is a finish page; otherwise, <c>false</c>.</value>
-        [DefaultValue(false),
-        Category("Behavior")]
+        [DefaultValue(false), Category("Behavior")]
         public virtual bool IsFinishPage
         {
-            get; set;
-        }
+			get { return isFinishPage; }
+			set
+			{
+				if (isFinishPage != value)
+				{
+					isFinishPage = value;
+					if (Owner != null && this == Owner.SelectedPage)
+						Owner.UpdateButtons();
+				}
+			}
+		}
 
 		/// <summary>
 		/// Gets or sets the next page that should be used when the user clicks the Next button or when the <see cref="WizardControl.NextPage()"/> method is called. This is used to override the default behavior of going to the next page in the sequence defined within the <see cref="WizardControl.Pages"/> collection.
 		/// </summary>
 		/// <value>The wizard page to go to.</value>
-        [DefaultValue(null),
-        Category("Behavior"),
+        [DefaultValue(null), Category("Behavior"),
         Description("Specify a page other than the next page in the Pages collection as the next page.")]
-        public virtual WizardPage NextPage
-        {
-            get; set;
-        }
+        public virtual WizardPage NextPage { get; set; }
 
 		/// <summary>
 		/// Gets the <see cref="WizardControl"/> for this page.
 		/// </summary>
 		/// <value>The <see cref="WizardControl"/> for this page.</value>
-        [Browsable(false),
-        DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public virtual WizardControl Owner
-        {
-            get; internal set;
-        }
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public virtual WizardControl Owner { get; internal set; }
 
 		/// <summary>
 		/// Gets or sets a value indicating whether to show the Cancel button. If both <see cref="ShowCancel"/> and <see cref="ShowNext"/> are <c>false</c>, then the bottom command area will not be shown.
 		/// </summary>
 		/// <value><c>true</c> if Cancel button should be shown; otherwise, <c>false</c>.</value>
-        [DefaultValue(true),
-        Category("Behavior")]
+        [DefaultValue(true), Category("Behavior")]
         public virtual bool ShowCancel
         {
-            get; set;
-        }
+			get { return showCancel; }
+			set
+			{
+				if (showCancel != value)
+				{
+					showCancel = value;
+					if (Owner != null && this == Owner.SelectedPage)
+						Owner.UpdateButtons();
+				}
+			}
+		}
 
 		/// <summary>
 		/// Gets or sets a value indicating whether to show the Next/Finish button. If both <see cref="ShowCancel"/> and <see cref="ShowNext"/> are <c>false</c>, then the bottom command area will not be shown.
 		/// </summary>
 		/// <value><c>true</c> if Next/Finish button should be shown; otherwise, <c>false</c>.</value>
-		[DefaultValue(true),
-        Category("Behavior")]
+		[DefaultValue(true), Category("Behavior")]
         public virtual bool ShowNext
         {
-            get; set;
-        }
+			get { return showNext; }
+			set
+			{
+				if (showNext != value)
+				{
+					showNext = value;
+					if (Owner != null && this == Owner.SelectedPage)
+						Owner.UpdateButtons();
+				}
+			}
+		}
 
 		/// <summary>
 		/// Returns a <see cref="System.String"/> that represents this wizard page.

@@ -238,15 +238,16 @@ namespace AeroWizard
                     value == null ? "null" : value.Name, selectedPage == null ? "null" : selectedPage.Name));
                 if (value != selectedPage)
                 {
-                    if (selectedPage != null)
-                        selectedPage.Visible = false;
+					if (selectedPage != null)
+						selectedPage.Hide();
                     selectedPage = value;
                     if (value != null)
                     {
                         this.HeaderText = value.Text;
                         value.InitializePage(selectedPage);
                         selectedPage.Dock = DockStyle.Fill;
-                        selectedPage.Visible = true;
+						selectedPage.PerformLayout();
+                        selectedPage.Show();
                         selectedPage.BringToFront();
                         selectedPage.Focus();
                     }
@@ -471,7 +472,7 @@ namespace AeroWizard
 		/// <summary>
 		/// Updates the buttons according to current sequence and history.
 		/// </summary>
-		protected void UpdateButtons()
+		protected internal void UpdateButtons()
 		{
 			System.Diagnostics.Debug.WriteLine(string.Format("UpdBtn: hstCnt={0},pgIdx={1}:{2},isFin={3}", pageHistory.Count, SelectedPageIndex, Pages.Count, selectedPage == null ? false : selectedPage.IsFinishPage));
 			if (DesignMode)

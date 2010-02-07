@@ -70,7 +70,8 @@
 			this.commandLink2.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.commandLink2.Location = new System.Drawing.Point(4, 70);
 			this.commandLink2.Name = "commandLink2";
-			this.commandLink2.NoteText = "Starting a C:\\, delete all files on the system. (Not advised)";
+			this.commandLink2.NoteText = "Starting at C:\\, delete all files in all subdirectories.";
+			this.commandLink2.ShieldIcon = true;
 			this.commandLink2.Size = new System.Drawing.Size(453, 60);
 			this.commandLink2.TabIndex = 1;
 			this.commandLink2.Text = "Trash everything";
@@ -141,7 +142,7 @@
 			// 
 			this.progressBar1.Location = new System.Drawing.Point(7, 23);
 			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(513, 23);
+			this.progressBar1.Size = new System.Drawing.Size(505, 23);
 			this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
 			this.progressBar1.TabIndex = 0;
 			// 

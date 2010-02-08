@@ -11,7 +11,7 @@ namespace AeroWizard.Design
     {
         private static string[] propsToRemove = new string[] { "Anchor", "AutoScrollOffset", "AutoSize", "BackColor",
             "BackgroundImage", "BackgroundImageLayout", "ContextMenuStrip", "Cursor", "Dock", "Enabled", "Font",
-            "ForeColor", "Location", "Margin", "MaximumSize", "MinimumSize", "Padding", "Size", "TabStop", "UseWaitCursor",
+            "ForeColor", "Location", "Margin", "MaximumSize", "MinimumSize", "Padding", /*"Size",*/ "TabStop", "UseWaitCursor",
             "Visible" };
 
         private WizardPageDesignerActionList actionList;

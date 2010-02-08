@@ -155,6 +155,16 @@ namespace AeroWizard
 		}
 
 		/// <summary>
+		/// Gets or sets the height and width of the control.
+		/// </summary>
+		/// <value></value>
+		/// <returns>
+		/// The <see cref="T:System.Drawing.Size"/> that represents the height and width of the control in pixels.
+		/// </returns>
+		[Browsable(false)]
+		public new System.Drawing.Size Size { get { return base.Size; } set { base.Size = value; } }
+
+		/// <summary>
 		/// Returns a <see cref="System.String"/> that represents this wizard page.
 		/// </summary>
 		/// <returns>

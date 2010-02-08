@@ -86,10 +86,8 @@ namespace AeroWizard
                 if (this.Text.Length > 0)
                 {
                     TextFormatFlags tff = CreateTextFormatFlags(this.TextAlign, this.AutoEllipsis, this.UseMnemonic);
-                    if (inDesigner || !DesktopWindowManager.IsCompositionEnabled())
-                    {
+                    if (inDesigner || System.Environment.OSVersion.Version.Major < 6 || !DesktopWindowManager.IsCompositionEnabled())
                         e.Graphics.DrawString(Text, Font, SystemBrushes.ActiveCaptionText, e.ClipRectangle);
-                    }
                     else
                         vs.DrawGlowingText(e.Graphics, base.ClientRectangle, Text, Font, ForeColor, tff);
                 }

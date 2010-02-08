@@ -36,6 +36,7 @@ namespace AeroWizard
 #endif
 	{
         private static ImageList iconList;
+		private static bool isMin6;
 
         private string finishBtnText;
         private Point formMoveLastMousePos;
@@ -51,6 +52,7 @@ namespace AeroWizard
         {
             iconList = new ImageList();
             iconList.Images.Add(Properties.Resources.WizardControlIcon);
+			isMin6 = System.Environment.OSVersion.Version.Major >= 6;
         }
 
         /// <summary>
@@ -393,6 +395,17 @@ namespace AeroWizard
         }
 
 		/// <summary>
+		/// Raises the <see cref="E:System.Windows.Forms.Control.HandleDestroyed"/> event.
+		/// </summary>
+		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
+		protected override void OnHandleDestroyed(EventArgs e)
+		{
+			if (isMin6 && !DesignMode)
+				DesktopWindowManager.CompositionChanged -= DesktopWindowManager_CompositionChanged;
+			base.OnHandleDestroyed(e);
+		}
+
+		/// <summary>
 		/// Raises the <see cref="E:System.Windows.Forms.Control.ControlAdded"/> event.
 		/// </summary>
 		/// <param name="e">A <see cref="T:System.Windows.Forms.ControlEventArgs"/> that contains the event data.</param>
@@ -448,8 +461,12 @@ namespace AeroWizard
         {
             base.OnParentChanged(e);
 
-            if (parentForm != null)
-                parentForm.HandleCreated -= parentForm_HandleCreated;
+			if (parentForm != null)
+			{
+				parentForm.HandleCreated -= parentForm_HandleCreated;
+				if (isMin6 && !DesignMode)
+					DesktopWindowManager.CompositionChanged -= DesktopWindowManager_CompositionChanged;
+			}
             parentForm = base.Parent as Form;
             this.Dock = DockStyle.Fill;
             if (parentForm != null)
@@ -520,9 +537,9 @@ namespace AeroWizard
                 form.DialogResult = dlgResult;
         }
 
-        private void ConfigureWindowFrame(bool compositionEnabled)
+        private void ConfigureWindowFrame()
         {
-            if (compositionEnabled)
+            if (isMin6 && DesktopWindowManager.IsCompositionEnabled())
             {
                 titleBar.BackColor = Color.Black;
                 parentForm.ExtendFrameIntoClientArea(new Padding(0) { Top = titleBar.Height });
@@ -550,7 +567,7 @@ namespace AeroWizard
 
         private void DesktopWindowManager_CompositionChanged(object sender, EventArgs e)
         {
-            ConfigureWindowFrame(DesktopWindowManager.IsCompositionEnabled());
+            ConfigureWindowFrame();
         }
 
         private WizardCommandButtonState GetCmdButtonState(ButtonBase btn)
@@ -623,8 +640,8 @@ namespace AeroWizard
 
         private void parentForm_HandleCreated(object sender, EventArgs e)
         {
-            ConfigureWindowFrame(!DesignMode);
-            if (!DesignMode)
+            ConfigureWindowFrame();
+            if (isMin6 && !DesignMode)
                 DesktopWindowManager.CompositionChanged += DesktopWindowManager_CompositionChanged;
         }
 
@@ -689,40 +706,43 @@ namespace AeroWizard
 
         private void SetLayout()
         {
-            const string aw = "AEROWIZARD";
-            VisualStyleRenderer theme = new VisualStyleRenderer(aw, 0, 0);
-            using (Graphics g = this.CreateGraphics())
-            {
-                // Title
-                theme.SetParameters(aw, 1, 0);
-                titleBar.Height = theme.GetMargins2(g, MarginProperty.ContentMargins).Top;
+			if (isMin6)
+			{
+				const string aw = "AEROWIZARD";
+				VisualStyleRenderer theme = new VisualStyleRenderer(aw, 0, 0);
+				using (Graphics g = this.CreateGraphics())
+				{
+					// Title
+					theme.SetParameters(aw, 1, 0);
+					titleBar.Height = theme.GetMargins2(g, MarginProperty.ContentMargins).Top;
 
-                // Header
-                theme.SetParameters(aw, 2, 0);
-                headerLabel.Margin = theme.GetMargins2(g, MarginProperty.ContentMargins);
-                headerLabel.ForeColor = theme.GetColor(ColorProperty.TextColor);
+					// Header
+					theme.SetParameters(aw, 2, 0);
+					headerLabel.Margin = theme.GetMargins2(g, MarginProperty.ContentMargins);
+					headerLabel.ForeColor = theme.GetColor(ColorProperty.TextColor);
 
-                // Content
-                theme.SetParameters(aw, 3, 0);
-                this.BackColor = theme.GetColor(ColorProperty.FillColor);
-                Padding cp = theme.GetMargins2(g, MarginProperty.ContentMargins);
-                contentArea.ColumnStyles[0].Width = cp.Left;
-                contentArea.RowStyles[1].Height = cp.Bottom;
+					// Content
+					theme.SetParameters(aw, 3, 0);
+					this.BackColor = theme.GetColor(ColorProperty.FillColor);
+					Padding cp = theme.GetMargins2(g, MarginProperty.ContentMargins);
+					contentArea.ColumnStyles[0].Width = cp.Left;
+					contentArea.RowStyles[1].Height = cp.Bottom;
 
-                // Command
-                theme.SetParameters(aw, 4, 0);
-                cp = theme.GetMargins2(g, MarginProperty.ContentMargins);
-                commandArea.RowStyles[0].Height = cp.Top;
-                commandArea.RowStyles[2].Height = cp.Bottom;
-                commandArea.ColumnStyles[2].Width = contentArea.ColumnStyles[2].Width = cp.Right;
-                //commandArea.BackColor = theme.GetColor(4, 0, 3802);
+					// Command
+					theme.SetParameters(aw, 4, 0);
+					cp = theme.GetMargins2(g, MarginProperty.ContentMargins);
+					commandArea.RowStyles[0].Height = cp.Top;
+					commandArea.RowStyles[2].Height = cp.Bottom;
+					commandArea.ColumnStyles[2].Width = contentArea.ColumnStyles[2].Width = cp.Right;
+					//commandArea.BackColor = theme.GetColor(4, 0, 3802);
 
-                // Buttons
-                theme.SetParameters(aw, 5, 0);
-                int btnHeight = theme.GetInteger(IntegerProperty.Height);
-                nextButton.Height = btnHeight;
-                cancelButton.Height = btnHeight;
-            }
+					// Buttons
+					theme.SetParameters(aw, 5, 0);
+					int btnHeight = theme.GetInteger(IntegerProperty.Height);
+					nextButton.Height = btnHeight;
+					cancelButton.Height = btnHeight;
+				}
+			}
         }
 
         private bool ShouldSerializeBackButtonToolTipText()

@@ -65,7 +65,7 @@ namespace AeroWizard
         protected override void PaintButton(Graphics graphics, Rectangle bounds)
         {
             VisualStyleRenderer rnd = new VisualStyleRenderer(StyleClass, StylePart, (int)ButtonState);
-            if (inDesigner || !DesktopWindowManager.IsCompositionEnabled())
+            if (inDesigner || System.Environment.OSVersion.Version.Major < 6 || !DesktopWindowManager.IsCompositionEnabled())
             {
                 graphics.Clear(this.BackColor);
                 rnd.DrawBackground(graphics, this.Bounds, bounds);

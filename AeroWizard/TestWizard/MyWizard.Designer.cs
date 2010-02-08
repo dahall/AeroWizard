@@ -62,6 +62,7 @@
 			this.introPage.Controls.Add(this.commandLink2);
 			this.introPage.Controls.Add(this.commandLink1);
 			this.introPage.Name = "introPage";
+			this.introPage.Size = new System.Drawing.Size(527, 265);
 			this.introPage.TabIndex = 0;
 			this.introPage.Text = "Choose an activity";
 			// 
@@ -96,6 +97,7 @@
 			this.middlePage.Controls.Add(this.linkLabel1);
 			this.middlePage.IsFinishPage = true;
 			this.middlePage.Name = "middlePage";
+			this.middlePage.Size = new System.Drawing.Size(527, 265);
 			this.middlePage.TabIndex = 1;
 			this.middlePage.Text = "Launch System Cleanup";
 			this.middlePage.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.middlePage_Initialize);
@@ -126,6 +128,7 @@
 			this.endPage.Controls.Add(this.label1);
 			this.endPage.Controls.Add(this.progressBar1);
 			this.endPage.Name = "endPage";
+			this.endPage.Size = new System.Drawing.Size(527, 265);
 			this.endPage.TabIndex = 2;
 			this.endPage.Text = "Bad Choice";
 			// 
@@ -140,9 +143,11 @@
 			// 
 			// progressBar1
 			// 
+			this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.progressBar1.Location = new System.Drawing.Point(7, 23);
 			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(505, 23);
+			this.progressBar1.Size = new System.Drawing.Size(400, 23);
 			this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
 			this.progressBar1.TabIndex = 0;
 			// 

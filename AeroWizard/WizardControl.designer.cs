@@ -29,7 +29,6 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WizardControl));
 			this.titleBar = new System.Windows.Forms.TableLayoutPanel();
 			this.title = new AeroWizard.ThemedLabel();
 			this.titleImage = new AeroWizard.ThemedLabel();
@@ -41,6 +40,7 @@
 			this.nextButton = new System.Windows.Forms.Button();
 			this.contentArea = new System.Windows.Forms.TableLayoutPanel();
 			this.commandAreaBorder = new System.Windows.Forms.Panel();
+			this.titleImageList = new System.Windows.Forms.ImageList(this.components);
 			this.titleBar.SuspendLayout();
 			this.header.SuspendLayout();
 			this.commandArea.SuspendLayout();
@@ -72,6 +72,7 @@
 			this.title.Anchor = System.Windows.Forms.AnchorStyles.Left;
 			this.title.AutoSize = true;
 			this.title.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+			this.title.Image = null;
 			this.title.Location = new System.Drawing.Point(59, 5);
 			this.title.Margin = new System.Windows.Forms.Padding(0);
 			this.title.Name = "title";
@@ -85,7 +86,9 @@
 			// 
 			this.titleImage.Anchor = System.Windows.Forms.AnchorStyles.Left;
 			this.titleImage.AutoSize = true;
+			this.titleImage.Image = null;
 			this.titleImage.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+			this.titleImage.ImageList = this.titleImageList;
 			this.titleImage.Location = new System.Drawing.Point(36, 7);
 			this.titleImage.Margin = new System.Windows.Forms.Padding(0, 0, 7, 0);
 			this.titleImage.MinimumSize = new System.Drawing.Size(16, 16);
@@ -205,6 +208,12 @@
 			this.commandAreaBorder.Size = new System.Drawing.Size(609, 1);
 			this.commandAreaBorder.TabIndex = 2;
 			// 
+			// titleImageList
+			// 
+			this.titleImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+			this.titleImageList.ImageSize = new System.Drawing.Size(16, 16);
+			this.titleImageList.TransparentColor = System.Drawing.Color.Transparent;
+			// 
 			// WizardControl
 			// 
 			this.BackColor = System.Drawing.SystemColors.Window;
@@ -239,6 +248,7 @@
 		internal AeroWizard.ThemeImageButton backButton;
 		private System.Windows.Forms.TableLayoutPanel contentArea;
 		private System.Windows.Forms.Panel commandAreaBorder;
+		private System.Windows.Forms.ImageList titleImageList;
 
 	}
 }

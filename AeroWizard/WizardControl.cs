@@ -35,7 +35,6 @@ namespace AeroWizard
 	public partial class WizardControl : Control, ISupportInitialize
 #endif
 	{
-        private static ImageList iconList;
 		private static bool isMin6;
 
         private string finishBtnText;
@@ -47,11 +46,11 @@ namespace AeroWizard
         private Stack<WizardPage> pageHistory;
         private Form parentForm;
         private WizardPage selectedPage;
+		private Icon titleImageIcon;
+		private bool titleImageIconSet = false;
 
         static WizardControl()
         {
-            iconList = new ImageList();
-            iconList.Images.Add(Properties.Resources.WizardControlIcon);
 			isMin6 = System.Environment.OSVersion.Version.Major >= 6;
         }
 
@@ -75,7 +74,7 @@ namespace AeroWizard
             ResetFinishButtonText();
             ResetNextButtonText();
             ResetTitle();
-            ResetTitleImage();
+            ResetTitleIcon();
         }
 
         /// <summary>
@@ -272,15 +271,22 @@ namespace AeroWizard
         }
 
 		/// <summary>
-		/// Gets or sets the optionally displayed image next to the wizard title.
+		/// Gets or sets the optionally displayed icon next to the wizard title.
 		/// </summary>
-		/// <value>The title image.</value>
-        [Category("Wizard"),
-        Localizable(true)]
-        public Image TitleImage
+		/// <value>The title icon.</value>
+        [Category("Wizard"), Localizable(true)]
+        public Icon TitleIcon
         {
-            get { return titleImage.Image; }
-            set { titleImage.Image = value; base.Invalidate(); }
+            get { return titleImageIcon; }
+			set
+			{
+				titleImageIcon = value;
+				titleImageList.Images.Clear();
+				titleImageList.Images.Add(value);
+				titleImage.ImageIndex = 0;
+				titleImageIconSet = true;
+				base.Invalidate();
+			}
         }
 
         internal int SelectedPageIndex
@@ -670,11 +676,10 @@ namespace AeroWizard
             Title = Properties.Resources.WizardTitle;
         }
 
-        private void ResetTitleImage()
+        private void ResetTitleIcon()
         {
-            titleImage.Image = null;
-            titleImage.ImageList = iconList;
-            titleImage.ImageIndex = 0;
+			TitleIcon = Properties.Resources.WizardControlIcon;
+			titleImageIconSet = false;
         }
 
         private void SetCmdButtonState(ButtonBase btn, WizardCommandButtonState value)
@@ -770,9 +775,9 @@ namespace AeroWizard
             return Title != Properties.Resources.WizardTitle;
         }
 
-        private bool ShouldSerializeTitleImage()
+        private bool ShouldSerializeTitleIcon()
         {
-            return titleImage.ImageList == null;
+			return titleImageIconSet;
         }
 
         private void TitleBar_MouseDown(object sender, MouseEventArgs e)

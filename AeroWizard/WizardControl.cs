@@ -348,10 +348,10 @@ namespace AeroWizard
             else if (!Pages.Contains(nextPage))
                 throw new ArgumentException("When specifying a value for nextPage, it must already be in the Pages collection.", "nextPage");
 
-            pageHistory.Push(SelectedPage);
             if (SelectedPage.CommitPage())
             {
-                if (nextPage != null)
+				pageHistory.Push(SelectedPage);
+				if (nextPage != null)
                     SelectedPage = nextPage;
                 else if (SelectedPage.NextPage != null)
                     SelectedPage = SelectedPage.NextPage;

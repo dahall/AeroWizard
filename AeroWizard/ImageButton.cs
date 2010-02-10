@@ -44,7 +44,7 @@ namespace AeroWizard
             get { return base.Text; } set { base.Text = value; }
         }
 
-        [DefaultValue(defaultToolTip)]
+        [DefaultValue(defaultToolTip), Category("Appearance")]
         public string ToolTipText
         {
             get { return toolTip.GetToolTip(this); } set { toolTip.SetToolTip(this, value); }
@@ -170,15 +170,27 @@ namespace AeroWizard
 
         protected virtual void PaintButton(Graphics graphics, Rectangle bounds)
         {
-            VisualStyleRenderer rnd = new VisualStyleRenderer(VisualStyleElement.Button.PushButton.Normal);
-            rnd.DrawParentBackground(graphics, bounds, this);
+			VisualStyleRenderer rnd = null;
+			bool vsOk = Application.RenderWithVisualStyles;
+			if (vsOk)
+			{
+				rnd = new VisualStyleRenderer(VisualStyleElement.Button.PushButton.Normal);
+				rnd.DrawParentBackground(graphics, bounds, this);
+			}
+			else
+				graphics.Clear(this.Parent.BackColor);
             if (this.Image != null || (this.ImageList != null && this.ImageList.Images.Count == 1))
             {
                 Image img = (this.Image != null) ? this.Image : this.ImageList.Images[0];
-                if (Enabled)
-                    rnd.DrawImage(graphics, bounds, img);
-                else
-                    ControlPaint.DrawImageDisabled(graphics, img, 0, 0, this.BackColor);
+				if (Enabled)
+				{
+					if (vsOk)
+						rnd.DrawImage(graphics, bounds, img);
+					else
+						graphics.DrawImage(img, bounds);
+				}
+				else
+					ControlPaint.DrawImageDisabled(graphics, img, 0, 0, this.BackColor);
             }
             else if (this.ImageList != null && this.ImageList.Images.Count > 1)
             {
@@ -187,12 +199,34 @@ namespace AeroWizard
                     idx = ButtonState == PushButtonState.Disabled ? 1 : 0;
                 if (this.ImageList.Images.Count == 3)
                     idx = ButtonState == PushButtonState.Normal ? 0 : idx - 1;
-                rnd.DrawImage(graphics, bounds, this.ImageList, idx);
+				if (vsOk)
+					rnd.DrawImage(graphics, bounds, this.ImageList, idx);
+				else
+					graphics.DrawImage(this.ImageList.Images[idx], bounds);
             }
             else
             {
-                rnd.SetParameters(rnd.Class, rnd.Part, (int)ButtonState);
-                rnd.DrawBackground(graphics, bounds);
+				if (vsOk)
+				{
+					rnd.SetParameters(rnd.Class, rnd.Part, (int)ButtonState);
+					rnd.DrawBackground(graphics, bounds);
+				}
+				else
+				{
+					System.Windows.Forms.ButtonState bs = System.Windows.Forms.ButtonState.Flat;
+					switch (this.ButtonState)
+					{
+						case PushButtonState.Disabled:
+							bs |= System.Windows.Forms.ButtonState.Inactive;
+							break;
+						case PushButtonState.Pressed:
+							bs |= System.Windows.Forms.ButtonState.Pushed;
+							break;
+						default:
+							break;
+					}
+					ControlPaint.DrawButton(graphics, bounds, bs);
+				}
             }
         }
     }

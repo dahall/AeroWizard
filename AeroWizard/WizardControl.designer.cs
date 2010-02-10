@@ -32,6 +32,7 @@
 			this.titleBar = new System.Windows.Forms.TableLayoutPanel();
 			this.title = new AeroWizard.ThemedLabel();
 			this.titleImage = new AeroWizard.ThemedLabel();
+			this.titleImageList = new System.Windows.Forms.ImageList(this.components);
 			this.backButton = new AeroWizard.ThemeImageButton();
 			this.header = new System.Windows.Forms.TableLayoutPanel();
 			this.headerLabel = new System.Windows.Forms.Label();
@@ -40,7 +41,6 @@
 			this.nextButton = new System.Windows.Forms.Button();
 			this.contentArea = new System.Windows.Forms.TableLayoutPanel();
 			this.commandAreaBorder = new System.Windows.Forms.Panel();
-			this.titleImageList = new System.Windows.Forms.ImageList(this.components);
 			this.titleBar.SuspendLayout();
 			this.header.SuspendLayout();
 			this.commandArea.SuspendLayout();
@@ -95,6 +95,12 @@
 			this.titleImage.Name = "titleImage";
 			this.titleImage.Size = new System.Drawing.Size(16, 16);
 			this.titleImage.TabIndex = 1;
+			// 
+			// titleImageList
+			// 
+			this.titleImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+			this.titleImageList.ImageSize = new System.Drawing.Size(16, 16);
+			this.titleImageList.TransparentColor = System.Drawing.Color.Transparent;
 			// 
 			// backButton
 			// 
@@ -208,12 +214,6 @@
 			this.commandAreaBorder.Size = new System.Drawing.Size(609, 1);
 			this.commandAreaBorder.TabIndex = 2;
 			// 
-			// titleImageList
-			// 
-			this.titleImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-			this.titleImageList.ImageSize = new System.Drawing.Size(16, 16);
-			this.titleImageList.TransparentColor = System.Drawing.Color.Transparent;
-			// 
 			// WizardControl
 			// 
 			this.BackColor = System.Drawing.SystemColors.Window;
@@ -223,7 +223,6 @@
 			this.Controls.Add(this.header);
 			this.Controls.Add(this.titleBar);
 			this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.Name = "WizardControl";
 			this.Size = new System.Drawing.Size(609, 414);
 			this.titleBar.ResumeLayout(false);
 			this.titleBar.PerformLayout();

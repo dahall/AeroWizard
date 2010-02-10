@@ -17,6 +17,8 @@ namespace AeroWizard
 
         private static bool inDesigner;
 
+		private Image imageStrip;
+
         static ThemeImageButton()
         {
             inDesigner = LicenseManager.UsageMode == LicenseUsageMode.Designtime;
@@ -33,17 +35,49 @@ namespace AeroWizard
             Text = defaultText;
         }
 
-        [DefaultValue("BUTTON")]
+		/// <summary>
+		/// Gets or sets the compatible image strip used when visual style rendering is not available.
+		/// </summary>
+		/// <value>The compatible image strip.</value>
+		[DefaultValue(null), Category("Appearance")]
+		public Image CompatibleImageStrip
+		{
+			get
+			{
+				return imageStrip;
+			}
+			set
+			{
+				imageStrip = value;
+				/*if (imageStrip == null)
+					base.ImageList = null;
+				else
+				{
+					if (base.ImageList == null)
+						base.ImageList = new ImageList() { ImageSize = new Size(29, 27) };
+					else
+						base.ImageList.Images.Clear();
+					base.ImageList.Images.AddStrip(value);
+				}*/
+			}
+		}
+
+		[DefaultValue("BUTTON"), Category("Appearance")]
         public string StyleClass
         {
             get; set;
         }
 
-        [DefaultValue(1)]
+		[DefaultValue(1), Category("Appearance")]
         public int StylePart
         {
             get; set;
         }
+
+		[Browsable(false),
+		DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),
+		EditorBrowsable(EditorBrowsableState.Never)]
+		public new ImageList ImageList { get { return base.ImageList; } set { base.ImageList = value; } }
 
         [DefaultValue(defaultText),
         Browsable(false),
@@ -64,16 +98,27 @@ namespace AeroWizard
 
         protected override void PaintButton(Graphics graphics, Rectangle bounds)
         {
-            VisualStyleRenderer rnd = new VisualStyleRenderer(StyleClass, StylePart, (int)ButtonState);
-            if (inDesigner || System.Environment.OSVersion.Version.Major < 6 || !DesktopWindowManager.IsCompositionEnabled())
-            {
-                graphics.Clear(this.BackColor);
-                rnd.DrawBackground(graphics, this.Bounds, bounds);
-            }
-            else
-            {
-                rnd.DrawGlassBackground(graphics, this.Bounds, bounds);
-            }
+			if (Application.RenderWithVisualStyles)
+			{
+				VisualStyleRenderer rnd = new VisualStyleRenderer(StyleClass, StylePart, (int)ButtonState);
+				if (inDesigner || System.Environment.OSVersion.Version.Major < 6 || !DesktopWindowManager.IsCompositionEnabled())
+				{
+					graphics.Clear(this.BackColor);
+					rnd.DrawBackground(graphics, this.Bounds, bounds);
+				}
+				else
+				{
+					rnd.DrawGlassBackground(graphics, this.Bounds, bounds);
+				}
+			}
+			else
+			{
+				//base.PaintButton(graphics, bounds);
+				Rectangle sr = this.ClientRectangle;
+				sr.Offset(0, sr.Height * ((int)ButtonState - 1));
+				graphics.Clear(this.Parent.BackColor);
+				graphics.DrawImage(imageStrip, bounds, sr, GraphicsUnit.Pixel);
+			}
         }
     }
 }

@@ -60,6 +60,13 @@ namespace AeroWizard.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap BackBtnStrip {
+            get {
+                object obj = ResourceManager.GetObject("BackBtnStrip", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Returns to a previous page.
         /// </summary>

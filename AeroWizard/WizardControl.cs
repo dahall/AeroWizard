@@ -67,6 +67,7 @@ namespace AeroWizard
             Pages.Reset += Pages_Reset;
 
             InitializeComponent();
+			backButton.CompatibleImageStrip = Properties.Resources.BackBtnStrip;
 
             // Get localized defaults for button text
             ResetBackButtonToolTipText();
@@ -711,7 +712,7 @@ namespace AeroWizard
 
         private void SetLayout()
         {
-			if (isMin6)
+			if (isMin6 && Application.RenderWithVisualStyles)
 			{
 				const string aw = "AEROWIZARD";
 				VisualStyleRenderer theme = new VisualStyleRenderer(aw, 0, 0);

@@ -552,7 +552,7 @@ namespace AeroWizard
                 parentForm.ExtendFrameIntoClientArea(new Padding(0) { Top = titleBar.Height });
             }
             else
-                titleBar.BackColor = SystemColors.ActiveCaption;
+                titleBar.BackColor = commandArea.BackColor;
         }
 
         private void contentArea_Paint(object sender, PaintEventArgs pe)

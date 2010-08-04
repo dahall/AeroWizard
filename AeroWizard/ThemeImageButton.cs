@@ -100,25 +100,32 @@ namespace AeroWizard
         {
 			if (Application.RenderWithVisualStyles)
 			{
-				VisualStyleRenderer rnd = new VisualStyleRenderer(StyleClass, StylePart, (int)ButtonState);
-				if (inDesigner || System.Environment.OSVersion.Version.Major < 6 || !DesktopWindowManager.IsCompositionEnabled())
+				try
 				{
-					graphics.Clear(this.BackColor);
-					rnd.DrawBackground(graphics, this.Bounds, bounds);
+					VisualStyleRenderer rnd = new VisualStyleRenderer(StyleClass, StylePart, (int)ButtonState);
+					if (inDesigner || System.Environment.OSVersion.Version.Major < 6 || !DesktopWindowManager.IsCompositionEnabled())
+					{
+						graphics.Clear(this.BackColor);
+						rnd.DrawBackground(graphics, this.Bounds, bounds);
+					}
+					else
+					{
+						rnd.DrawGlassBackground(graphics, this.Bounds, bounds);
+					}
+					return;
 				}
-				else
-				{
-					rnd.DrawGlassBackground(graphics, this.Bounds, bounds);
-				}
+				catch { }
 			}
-			else
-			{
-				//base.PaintButton(graphics, bounds);
-				Rectangle sr = this.ClientRectangle;
-				sr.Offset(0, sr.Height * ((int)ButtonState - 1));
-				graphics.Clear(this.Parent.BackColor);
+
+			//base.PaintButton(graphics, bounds);
+			Rectangle sr = this.ClientRectangle;
+			sr.Offset(0, sr.Height * ((int)ButtonState - 1));
+			graphics.Clear(this.Parent.BackColor);
+			if (imageStrip != null)
 				graphics.DrawImage(imageStrip, bounds, sr, GraphicsUnit.Pixel);
-			}
+			else
+				using (Brush br = new SolidBrush(this.BackColor))
+					graphics.FillRectangle(br, sr);
         }
     }
 }

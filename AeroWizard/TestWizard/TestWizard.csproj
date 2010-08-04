@@ -59,7 +59,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\WindowsAPICodePack\WindowsAPICodePack\Shell\bin\Release\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+      <HintPath>..\..\..\..\Visual Studio 2008\Projects\WindowsAPICodePack\WindowsAPICodePack\Shell\bin\Release\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />

@@ -61,10 +61,10 @@
 			this.titleBar.Name = "titleBar";
 			this.titleBar.RowCount = 1;
 			this.titleBar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.titleBar.Size = new System.Drawing.Size(609, 30);
+			this.titleBar.Size = new System.Drawing.Size(609, 32);
 			this.titleBar.TabIndex = 0;
-			this.titleBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TitleBar_MouseMove);
 			this.titleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitleBar_MouseDown);
+			this.titleBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TitleBar_MouseMove);
 			this.titleBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TitleBar_MouseUp);
 			// 
 			// title
@@ -73,7 +73,7 @@
 			this.title.AutoSize = true;
 			this.title.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
 			this.title.Image = null;
-			this.title.Location = new System.Drawing.Point(59, 5);
+			this.title.Location = new System.Drawing.Point(59, 6);
 			this.title.Margin = new System.Windows.Forms.Padding(0);
 			this.title.Name = "title";
 			this.title.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
@@ -89,7 +89,7 @@
 			this.titleImage.Image = null;
 			this.titleImage.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
 			this.titleImage.ImageList = this.titleImageList;
-			this.titleImage.Location = new System.Drawing.Point(36, 7);
+			this.titleImage.Location = new System.Drawing.Point(36, 8);
 			this.titleImage.Margin = new System.Windows.Forms.Padding(0, 0, 7, 0);
 			this.titleImage.MinimumSize = new System.Drawing.Size(16, 16);
 			this.titleImage.Name = "titleImage";
@@ -109,7 +109,7 @@
 			this.backButton.Location = new System.Drawing.Point(0, 0);
 			this.backButton.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
 			this.backButton.Name = "backButton";
-			this.backButton.Size = new System.Drawing.Size(29, 27);
+			this.backButton.Size = new System.Drawing.Size(30, 30);
 			this.backButton.StyleClass = "NAVIGATION";
 			this.backButton.TabIndex = 0;
 			this.backButton.UseVisualStyleBackColor = true;
@@ -122,7 +122,7 @@
 			this.header.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.header.Controls.Add(this.headerLabel, 0, 0);
 			this.header.Dock = System.Windows.Forms.DockStyle.Top;
-			this.header.Location = new System.Drawing.Point(0, 30);
+			this.header.Location = new System.Drawing.Point(0, 32);
 			this.header.Name = "header";
 			this.header.RowCount = 1;
 			this.header.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -194,13 +194,13 @@
 			this.contentArea.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.contentArea.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 19F));
 			this.contentArea.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.contentArea.Location = new System.Drawing.Point(0, 89);
+			this.contentArea.Location = new System.Drawing.Point(0, 91);
 			this.contentArea.Name = "contentArea";
 			this.contentArea.RowCount = 2;
 			this.contentArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.contentArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
 			this.contentArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.contentArea.Size = new System.Drawing.Size(609, 282);
+			this.contentArea.Size = new System.Drawing.Size(609, 280);
 			this.contentArea.TabIndex = 1;
 			this.contentArea.Paint += new System.Windows.Forms.PaintEventHandler(this.contentArea_Paint);
 			// 
@@ -223,6 +223,7 @@
 			this.Controls.Add(this.header);
 			this.Controls.Add(this.titleBar);
 			this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.Name = "WizardControl";
 			this.Size = new System.Drawing.Size(609, 414);
 			this.titleBar.ResumeLayout(false);
 			this.titleBar.PerformLayout();

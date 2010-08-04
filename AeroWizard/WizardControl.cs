@@ -718,9 +718,14 @@ namespace AeroWizard
 				VisualStyleRenderer theme = new VisualStyleRenderer(aw, 0, 0);
 				using (Graphics g = this.CreateGraphics())
 				{
+					// Back button
+					theme.SetParameters("NAVIGATION", 1, 0);
+					Size bbSize = theme.GetPartSize(g, ThemeSizeType.Draw);
+
 					// Title
 					theme.SetParameters(aw, 1, 0);
-					titleBar.Height = theme.GetMargins2(g, MarginProperty.ContentMargins).Top;
+					titleBar.Height = Math.Max(theme.GetMargins2(g, MarginProperty.ContentMargins).Top, bbSize.Height + 2);
+					backButton.Size = bbSize;
 
 					// Header
 					theme.SetParameters(aw, 2, 0);

@@ -22,12 +22,11 @@ namespace AeroWizard
         /// </summary>
         public ImageButton()
         {
-            DoubleBuffered = true;
-            ResizeRedraw = true;
-
-            SetStyle(ControlStyles.UserPaint, true);
-            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+			this.SetStyle(ControlStyles.SupportsTransparentBackColor |
+				ControlStyles.OptimizedDoubleBuffer |
+				ControlStyles.AllPaintingInWmPaint |
+				ControlStyles.ResizeRedraw |
+				ControlStyles.UserPaint, true);
 
             this.Text = null;
             this.ButtonState = PushButtonState.Normal;

@@ -42,7 +42,9 @@ namespace System.Windows.Forms.VisualStyles
 			Continuous = 2
 		}
 
-		public static void DrawGlassBackground(this VisualStyleRenderer rnd, IDeviceContext dc, Rectangle bounds, Rectangle clipRectangle)
+		private delegate void DrawWrapperMethod(IntPtr hdc);
+
+		private static void DrawWrapper(VisualStyleRenderer rnd, IDeviceContext dc, Rectangle bounds, DrawWrapperMethod func)
 		{
 			using (SafeGDIHandle primaryHdc = new SafeGDIHandle(dc))
 			{
@@ -53,10 +55,8 @@ namespace System.Windows.Forms.VisualStyles
 					BITMAPINFO info = new BITMAPINFO(bounds.Width, -bounds.Height);
 					using (SafeDCObjectHandle dib = new SafeDCObjectHandle(memoryHdc, GDI.CreateDIBSection(primaryHdc, ref info, 0, 0, IntPtr.Zero, 0)))
 					{
-						RECT rBounds = new RECT(bounds);
-						RECT rClip = new RECT(clipRectangle);
-						// Draw background
-						DrawThemeBackground(rnd.Handle, memoryHdc, rnd.Part, rnd.State, ref rBounds, ref rClip);
+						// Call method
+						func(memoryHdc);
 
 						// Copy to foreground 
 						const int SRCCOPY = 0x00CC0020;
@@ -66,7 +66,61 @@ namespace System.Windows.Forms.VisualStyles
 			}
 		}
 
+		public static void DrawGlassBackground(this VisualStyleRenderer rnd, IDeviceContext dc, Rectangle bounds, Rectangle clipRectangle)
+		{
+			DrawWrapper(rnd, dc, bounds,
+				delegate(IntPtr memoryHdc)
+				{
+					RECT rBounds = new RECT(bounds);
+					RECT rClip = new RECT(clipRectangle);
+					// Draw background
+					DrawThemeBackground(rnd.Handle, memoryHdc, rnd.Part, rnd.State, ref rBounds, ref rClip);
+				}
+			);
+		}
+
+		public static void DrawGlassIcon(this VisualStyleRenderer rnd, Graphics g, Rectangle bounds, ImageList imgList, int imgIndex)
+		{
+			DrawWrapper(rnd, g, bounds,
+				delegate(IntPtr memoryHdc)
+				{
+					RECT rBounds = new RECT(bounds);
+					DrawThemeIcon(rnd.Handle, memoryHdc, rnd.Part, rnd.State, ref rBounds, imgList.Handle, imgIndex);
+				}
+			);
+		}
+
+		public static void DrawGlassImage(this VisualStyleRenderer rnd, Graphics g, Rectangle bounds, Image img)
+		{
+			DrawWrapper(rnd, g, bounds,
+				delegate(IntPtr memoryHdc)
+				{
+					using (Graphics mg = Graphics.FromHdc(memoryHdc))
+						mg.DrawImage(img, bounds);
+				}
+			);
+		}
+
 		public static void DrawGlowingText(this VisualStyleRenderer rnd, IDeviceContext dc, Rectangle bounds, string text, Font font, Color color, System.Windows.Forms.TextFormatFlags flags)
+		{
+			DrawWrapper(rnd, dc, bounds,
+				delegate(IntPtr memoryHdc) {
+					// Create and select font 
+					using (SafeDCObjectHandle fontHandle = new SafeDCObjectHandle(memoryHdc, font.ToHfont()))
+					{
+						// Draw glowing text 
+						DrawThemeTextOptions dttOpts = new DrawThemeTextOptions(true);
+						dttOpts.TextColor = color;
+						dttOpts.GlowSize = 10;
+						dttOpts.AntiAliasedAlpha = true;
+						RECT textBounds = new RECT(4, 0, bounds.Right - bounds.Left, bounds.Bottom - bounds.Top);
+						DrawThemeTextEx(rnd.Handle, memoryHdc, rnd.Part, rnd.State, text, text.Length, (int)flags, ref textBounds, ref dttOpts);
+					}
+				}
+			);
+		}
+
+		/*public static void DrawGlowingText(this VisualStyleRenderer rnd, IDeviceContext dc, Rectangle bounds, string text, Font font, Color color, System.Windows.Forms.TextFormatFlags flags)
 		{
 			using (SafeGDIHandle primaryHdc = new SafeGDIHandle(dc))
 			{
@@ -95,7 +149,7 @@ namespace System.Windows.Forms.VisualStyles
 					}
 				}
 			}
-		}
+		}*/
 
 		public static void DrawText(this VisualStyleRenderer rnd, IDeviceContext dc, ref Rectangle bounds, string text, System.Windows.Forms.TextFormatFlags flags, DrawThemeTextOptions options)
 		{
@@ -115,6 +169,9 @@ namespace System.Windows.Forms.VisualStyles
 
 		[DllImport("uxtheme")]
 		static extern int DrawThemeBackground(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, ref RECT pRect, ref RECT pClipRect);
+
+		[DllImport("uxtheme")]
+		static extern int DrawThemeIcon(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, ref RECT pRect, IntPtr himl, int iImageIndex);
 
 		[DllImport("uxtheme", ExactSpelling = true, PreserveSig = false)]
 		static extern void GetThemeMargins(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, int iPropId, IntPtr prc, out RECT pMargins);

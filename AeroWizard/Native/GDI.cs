@@ -139,101 +139,101 @@ namespace System.Windows.Forms.VisualStyles.Internal
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-    internal struct POINT
-    {
-        public int X;
-        public int Y;
+	internal struct POINT
+	{
+		public int X;
+		public int Y;
 
-        public POINT(int x, int y)
-        {
-            X = x;
-            Y = y;
-        }
+		public POINT(int x, int y)
+		{
+			X = x;
+			Y = y;
+		}
 
-        public POINT(System.Drawing.Point p)
-            : this(p.X, p.Y)
-        {
-        }
+		public POINT(System.Drawing.Point p)
+			: this(p.X, p.Y)
+		{
+		}
 
-        public POINT(System.Drawing.PointF p)
-            : this((int)p.X, (int)p.Y)
-        {
-        }
-    }
+		public POINT(System.Drawing.PointF p)
+			: this((int)p.X, (int)p.Y)
+		{
+		}
+	}
 
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct RECT
-    {
-        public int Left;
-        public int Top;
-        public int Right;
-        public int Bottom;
+	[StructLayout(LayoutKind.Sequential)]
+	internal struct RECT
+	{
+		public int Left;
+		public int Top;
+		public int Right;
+		public int Bottom;
 
-        public RECT(int left, int top, int right, int bottom)
-        {
-            Left = left;
-            Top = top;
-            Right = right;
-            Bottom = bottom;
-        }
+		public RECT(int left, int top, int right, int bottom)
+		{
+			Left = left;
+			Top = top;
+			Right = right;
+			Bottom = bottom;
+		}
 
-        public RECT(System.Drawing.Rectangle rect)
+		public RECT(System.Drawing.Rectangle rect)
 			: this(rect.Left, rect.Top, rect.Right, rect.Bottom)
-        {
-        }
+		{
+		}
 
-        public int Height
-        {
-            get { return Bottom - Top; }
-            set { Bottom = Top + value; }
-        }
+		public int Height
+		{
+			get { return Bottom - Top; }
+			set { Bottom = Top + value; }
+		}
 
-        public int Width
-        {
-            get { return Right - Left; }
-            set { Right = Left + value; }
-        }
+		public int Width
+		{
+			get { return Right - Left; }
+			set { Right = Left + value; }
+		}
 
-        public System.Drawing.Rectangle ToRectangle()
-        {
-            return new System.Drawing.Rectangle(Left, Top, Right - Left, Bottom - Top);
-        }
-    }
+		public System.Drawing.Rectangle ToRectangle()
+		{
+			return new System.Drawing.Rectangle(Left, Top, Right - Left, Bottom - Top);
+		}
+	}
 
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct SIZE
-    {
-        public int width;
-        public int height;
+	[StructLayout(LayoutKind.Sequential)]
+	internal struct SIZE
+	{
+		public int width;
+		public int height;
 
-        public Size ToSize()
-        {
-            return new Size(width, height);
-        }
-    }
+		public Size ToSize()
+		{
+			return new Size(width, height);
+		}
+	}
 
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-    internal class LOGFONT
-    {
-        public int lfHeight = 0;
-        public int lfWidth = 0;
-        public int lfEscapement = 0;
-        public int lfOrientation = 0;
-        public int lfWeight = 0;
-        public byte lfItalic = 0;
-        public byte lfUnderline = 0;
-        public byte lfStrikeOut = 0;
-        public byte lfCharSet = 0;
-        public byte lfOutPrecision = 0;
-        public byte lfClipPrecision = 0;
-        public byte lfQuality = 0;
-        public byte lfPitchAndFamily = 0;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
-        public string lfFaceName = string.Empty;
+	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+	internal class LOGFONT
+	{
+		public int lfHeight = 0;
+		public int lfWidth = 0;
+		public int lfEscapement = 0;
+		public int lfOrientation = 0;
+		public int lfWeight = 0;
+		public byte lfItalic = 0;
+		public byte lfUnderline = 0;
+		public byte lfStrikeOut = 0;
+		public byte lfCharSet = 0;
+		public byte lfOutPrecision = 0;
+		public byte lfClipPrecision = 0;
+		public byte lfQuality = 0;
+		public byte lfPitchAndFamily = 0;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
+		public string lfFaceName = string.Empty;
 
-        public Font ToFont()
-        {
-            return Font.FromLogFont(this);
-        }
-    }
+		public Font ToFont()
+		{
+			return Font.FromLogFont(this);
+		}
+	}
 }

@@ -62,7 +62,7 @@
 			this.introPage.Controls.Add(this.commandLink2);
 			this.introPage.Controls.Add(this.commandLink1);
 			this.introPage.Name = "introPage";
-			this.introPage.Size = new System.Drawing.Size(527, 265);
+			this.introPage.Size = new System.Drawing.Size(527, 263);
 			this.introPage.TabIndex = 0;
 			this.introPage.Text = "Choose an activity";
 			// 

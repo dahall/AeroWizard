@@ -586,7 +586,7 @@ namespace AeroWizard
 
 		private void ConfigureWindowFrame()
 		{
-			if (isMin6 && DesktopWindowManager.IsCompositionEnabled())
+			if (isMin6 && DesktopWindowManager.IsCompositionEnabled() && parentForm.ShowInTaskbar)
 			{
 				titleBar.BackColor = Color.Black;
 				parentForm.ExtendFrameIntoClientArea(new Padding(0) { Top = titleBar.Height });

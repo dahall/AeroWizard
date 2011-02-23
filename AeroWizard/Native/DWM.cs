@@ -106,7 +106,8 @@ namespace Microsoft.Win32.DesktopWindowManager
 		public static void ExtendFrameIntoClientArea(this IWin32Window window, Padding padding)
 		{
 			Margins m = new Margins(padding);
-			DwmExtendFrameIntoClientArea(window.Handle, ref m);
+			try { DwmExtendFrameIntoClientArea(window.Handle, ref m); }
+			catch (ArgumentException) { }
 		}
 
 		/// <summary>

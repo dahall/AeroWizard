@@ -7,33 +7,33 @@ using Microsoft.Win32.DesktopWindowManager;
 
 namespace AeroWizard
 {
-    /// <summary>
-    /// ImageButton
-    /// </summary>
-    [ToolboxBitmap(typeof(Button))]
-    internal class ThemeImageButton : ImageButton
-    {
-        private const string defaultText = "";
+	/// <summary>
+	/// ImageButton
+	/// </summary>
+	[ToolboxBitmap(typeof(Button))]
+	internal class ThemeImageButton : ImageButton
+	{
+		private const string defaultText = "";
 
-        private static bool inDesigner;
+		private static bool inDesigner;
 
 		private Image imageStrip;
 
-        static ThemeImageButton()
-        {
-            inDesigner = LicenseManager.UsageMode == LicenseUsageMode.Designtime;
-        }
+		static ThemeImageButton()
+		{
+			inDesigner = LicenseManager.UsageMode == LicenseUsageMode.Designtime;
+		}
 
-        /// <summary>
-        /// ImageButton
-        /// </summary>
-        public ThemeImageButton()
-        {
-            StyleClass = "BUTTON";
-            StylePart = 1;
+		/// <summary>
+		/// ImageButton
+		/// </summary>
+		public ThemeImageButton()
+		{
+			StyleClass = "BUTTON";
+			StylePart = 1;
 
-            Text = defaultText;
-        }
+			Text = defaultText;
+		}
 
 		/// <summary>
 		/// Gets or sets the compatible image strip used when visual style rendering is not available.
@@ -63,47 +63,47 @@ namespace AeroWizard
 		}
 
 		[DefaultValue("BUTTON"), Category("Appearance")]
-        public string StyleClass
-        {
-            get; set;
-        }
+		public string StyleClass
+		{
+			get; set;
+		}
 
 		[DefaultValue(1), Category("Appearance")]
-        public int StylePart
-        {
-            get; set;
-        }
+		public int StylePart
+		{
+			get; set;
+		}
 
 		[Browsable(false),
 		DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),
 		EditorBrowsable(EditorBrowsableState.Never)]
 		public new ImageList ImageList { get { return base.ImageList; } set { base.ImageList = value; } }
 
-        [DefaultValue(defaultText),
-        Browsable(false),
-        DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),
-        EditorBrowsable(EditorBrowsableState.Never)]
-        public override string Text
-        {
-            get { return base.Text; } set { base.Text = value; }
-        }
+		[DefaultValue(defaultText),
+		Browsable(false),
+		DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),
+		EditorBrowsable(EditorBrowsableState.Never)]
+		public override string Text
+		{
+			get { return base.Text; } set { base.Text = value; }
+		}
 
-        /// <summary>
-        /// Paints the background of the control.
-        /// </summary>
-        /// <param name="pevent">A <see cref="T:System.Windows.Forms.PaintEventArgs"/> that contains information about the control to paint.</param>
-        protected override void OnPaintBackground(PaintEventArgs pevent)
-        {
-        }
+		/// <summary>
+		/// Paints the background of the control.
+		/// </summary>
+		/// <param name="pevent">A <see cref="T:System.Windows.Forms.PaintEventArgs"/> that contains information about the control to paint.</param>
+		protected override void OnPaintBackground(PaintEventArgs pevent)
+		{
+		}
 
-        protected override void PaintButton(Graphics graphics, Rectangle bounds)
-        {
+		protected override void PaintButton(Graphics graphics, Rectangle bounds)
+		{
 			if (Application.RenderWithVisualStyles)
 			{
 				try
 				{
 					VisualStyleRenderer rnd = new VisualStyleRenderer(StyleClass, StylePart, (int)ButtonState);
-					if (inDesigner || System.Environment.OSVersion.Version.Major < 6 || !DesktopWindowManager.IsCompositionEnabled())
+					if (inDesigner || !DesktopWindowManager.IsCompositionEnabled())
 					{
 						graphics.Clear(this.BackColor);
 						rnd.DrawBackground(graphics, this.Bounds, bounds);
@@ -126,6 +126,6 @@ namespace AeroWizard
 			else
 				using (Brush br = new SolidBrush(this.BackColor))
 					graphics.FillRectangle(br, sr);
-        }
-    }
+		}
+	}
 }

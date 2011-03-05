@@ -30,14 +30,14 @@
 		{
 			this.wizardControl1 = new AeroWizard.WizardControl();
 			this.introPage = new AeroWizard.WizardPage();
-			this.commandLink2 = new Microsoft.WindowsAPICodePack.Controls.WindowsForms.CommandLink();
-			this.commandLink1 = new Microsoft.WindowsAPICodePack.Controls.WindowsForms.CommandLink();
 			this.middlePage = new AeroWizard.WizardPage();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
 			this.endPage = new AeroWizard.WizardPage();
 			this.label1 = new System.Windows.Forms.Label();
 			this.progressBar1 = new System.Windows.Forms.ProgressBar();
+			this.button1 = new System.Windows.Forms.Button();
+			this.button2 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.wizardControl1)).BeginInit();
 			this.introPage.SuspendLayout();
 			this.middlePage.SuspendLayout();
@@ -59,37 +59,12 @@
 			// introPage
 			// 
 			this.introPage.AllowNext = false;
-			this.introPage.Controls.Add(this.commandLink2);
-			this.introPage.Controls.Add(this.commandLink1);
+			this.introPage.Controls.Add(this.button2);
+			this.introPage.Controls.Add(this.button1);
 			this.introPage.Name = "introPage";
 			this.introPage.Size = new System.Drawing.Size(527, 263);
 			this.introPage.TabIndex = 0;
 			this.introPage.Text = "Choose an activity";
-			// 
-			// commandLink2
-			// 
-			this.commandLink2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.commandLink2.Location = new System.Drawing.Point(4, 70);
-			this.commandLink2.Name = "commandLink2";
-			this.commandLink2.NoteText = "Starting at C:\\, delete all files in all subdirectories.";
-			this.commandLink2.ShieldIcon = true;
-			this.commandLink2.Size = new System.Drawing.Size(453, 60);
-			this.commandLink2.TabIndex = 1;
-			this.commandLink2.Text = "Trash everything";
-			this.commandLink2.UseVisualStyleBackColor = true;
-			this.commandLink2.Click += new System.EventHandler(this.commandLink2_Click);
-			// 
-			// commandLink1
-			// 
-			this.commandLink1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.commandLink1.Location = new System.Drawing.Point(4, 4);
-			this.commandLink1.Name = "commandLink1";
-			this.commandLink1.NoteText = "Use standard system tools to clean up unnecessary files.";
-			this.commandLink1.Size = new System.Drawing.Size(453, 60);
-			this.commandLink1.TabIndex = 0;
-			this.commandLink1.Text = "Clean up system safely";
-			this.commandLink1.UseVisualStyleBackColor = true;
-			this.commandLink1.Click += new System.EventHandler(this.commandLink1_Click);
 			// 
 			// middlePage
 			// 
@@ -151,6 +126,26 @@
 			this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
 			this.progressBar1.TabIndex = 0;
 			// 
+			// button1
+			// 
+			this.button1.Location = new System.Drawing.Point(3, 3);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(227, 23);
+			this.button1.TabIndex = 2;
+			this.button1.Text = "Cleanup system";
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.commandLink1_Click);
+			// 
+			// button2
+			// 
+			this.button2.Location = new System.Drawing.Point(3, 32);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(227, 23);
+			this.button2.TabIndex = 2;
+			this.button2.Text = "Trash everything";
+			this.button2.UseVisualStyleBackColor = true;
+			this.button2.Click += new System.EventHandler(this.commandLink2_Click);
+			// 
 			// MyWizard
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -176,12 +171,12 @@
 		private AeroWizard.WizardPage introPage;
 		private AeroWizard.WizardPage middlePage;
 		private AeroWizard.WizardPage endPage;
-		private Microsoft.WindowsAPICodePack.Controls.WindowsForms.CommandLink commandLink2;
-		private Microsoft.WindowsAPICodePack.Controls.WindowsForms.CommandLink commandLink1;
 		private System.Windows.Forms.LinkLabel linkLabel1;
 		private System.Windows.Forms.ProgressBar progressBar1;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.CheckBox checkBox1;
+		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.Button button1;
 	}
 }
 

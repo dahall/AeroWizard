@@ -31,7 +31,10 @@ namespace TestWizard
 		private void middlePage_Initialize(object sender, AeroWizard.WizardPageInitEventArgs e)
 		{
 			initMiddle = true;
-			checkBox1.Checked = DesktopWindowManager.IsCompositionEnabled();
+			if (!System.IO.File.Exists(System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.System), "dwmapi.dll")))
+				checkBox1.Enabled = false;
+			else
+				checkBox1.Checked = DesktopWindowManager.IsCompositionEnabled();
 			initMiddle = false;
 		}
 	}

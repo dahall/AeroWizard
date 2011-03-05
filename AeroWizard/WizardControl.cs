@@ -586,7 +586,7 @@ namespace AeroWizard
 
 		private void ConfigureWindowFrame()
 		{
-			if (isMin6 && DesktopWindowManager.IsCompositionEnabled())
+			if (HasGlass())
 			{
 				titleBar.BackColor = Color.Black;
 				try { parentForm.ExtendFrameIntoClientArea(new Padding(0) { Top = titleBar.Height }); }
@@ -629,6 +629,11 @@ namespace AeroWizard
 				else
 					return WizardCommandButtonState.Disabled;
 			}
+		}
+
+		private bool HasGlass()
+		{
+			return isMin6 && DesktopWindowManager.IsCompositionEnabled();
 		}
 
 		private void InitialSetup()
@@ -794,6 +799,10 @@ namespace AeroWizard
 					nextButton.Height = btnHeight;
 					cancelButton.Height = btnHeight;
 				}
+			}
+			else
+			{
+				backButton.Size = new Size(Properties.Resources.BackBtnStrip.Width, Properties.Resources.BackBtnStrip.Height / 4);
 			}
 		}
 

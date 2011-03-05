@@ -16,10 +16,12 @@ namespace AeroWizard
 	internal class ThemedLabel : Label
 	{
 		private static bool inDesigner;
+		private static bool isMin6;
 
 		static ThemedLabel()
 		{
 			inDesigner = LicenseManager.UsageMode == LicenseUsageMode.Designtime;
+			isMin6 = System.Environment.OSVersion.Version.Major >= 6;
 		}
 
 		public ThemedLabel()
@@ -82,14 +84,14 @@ namespace AeroWizard
 					Rectangle ir = CalcImageRenderBounds(this.Image, r, base.RtlTranslateAlignment(this.ImageAlign));
 					if (this.ImageList != null && this.ImageIndex == 0)
 					{
-						if (vsOk & !inDesigner)
+						if (vsOk & !inDesigner & DesktopWindowManager.IsCompositionEnabled())
 							vs.DrawGlassIcon(e.Graphics, r, this.ImageList, this.ImageIndex);
 						else
 							this.ImageList.Draw(e.Graphics, r.X, r.Y, r.Width, r.Height, this.ImageIndex);
 					}
 					else
 					{
-						if (vsOk & !inDesigner)
+						if (vsOk & !inDesigner & DesktopWindowManager.IsCompositionEnabled())
 							vs.DrawGlassImage(e.Graphics, r, this.Image);
 						else
 							e.Graphics.DrawImage(this.Image, r);
@@ -98,8 +100,11 @@ namespace AeroWizard
 				if (this.Text.Length > 0)
 				{
 					TextFormatFlags tff = CreateTextFormatFlags(this.TextAlign, this.AutoEllipsis, this.UseMnemonic);
-					if (inDesigner || !vsOk || System.Environment.OSVersion.Version.Major < 6 || !DesktopWindowManager.IsCompositionEnabled())
-						e.Graphics.DrawString(Text, Font, SystemBrushes.ActiveCaptionText, e.ClipRectangle);
+					if (inDesigner || !vsOk || !DesktopWindowManager.IsCompositionEnabled())
+					{
+						Brush br = DesktopWindowManager.IsCompositionEnabled() ? SystemBrushes.ActiveCaptionText : SystemBrushes.ControlText;
+						e.Graphics.DrawString(Text, Font, br, e.ClipRectangle);
+					}
 					else
 						vs.DrawGlowingText(e.Graphics, base.ClientRectangle, Text, Font, ForeColor, tff);
 				}

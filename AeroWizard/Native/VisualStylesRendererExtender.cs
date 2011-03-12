@@ -6,6 +6,36 @@ namespace System.Windows.Forms.VisualStyles
 {
 	internal static class VisualStyleRendererExtender
 	{
+		public enum DrawThemeTextSystemFonts
+		{
+			Caption = 801,
+			SmallCaption = 802,
+			Menu = 803,
+			Status = 804,
+			MessageBox = 805,
+			IconTitle = 806
+		}
+
+		public enum TextShadowType : int
+		{
+			None = 0,
+			Single = 1,
+			Continuous = 2
+		}
+
+		[Flags]
+		public enum WindowThemeNonClientAttributes : uint
+		{
+			/// <summary>Do Not Draw The Caption (Text)</summary>
+			NoDrawCaption = 0x00000001,
+			/// <summary>Do Not Draw the Icon</summary>
+			NoDrawIcon = 0x00000002,
+			/// <summary>Do Not Show the System Menu</summary>
+			NoSysMenu = 0x00000004,
+			/// <summary>Do Not Mirror the Question mark Symbol</summary>
+			NoMirrorHelp = 0x00000008
+		}
+
 		[Flags]
 		enum DrawThemeTextOptionsFlags : int
 		{
@@ -25,46 +55,12 @@ namespace System.Windows.Forms.VisualStyles
 			Composited = 8192
 		}
 
-		public enum DrawThemeTextSystemFonts
+		enum WindowThemeAttributeType
 		{
-			Caption = 801,
-			SmallCaption = 802,
-			Menu = 803,
-			Status = 804,
-			MessageBox = 805,
-			IconTitle = 806
-		}
-
-		public enum TextShadowType : int
-		{
-			None = 0,
-			Single = 1,
-			Continuous = 2
+			WTA_NONCLIENT = 1,
 		}
 
 		private delegate void DrawWrapperMethod(IntPtr hdc);
-
-		private static void DrawWrapper(VisualStyleRenderer rnd, IDeviceContext dc, Rectangle bounds, DrawWrapperMethod func)
-		{
-			using (SafeGDIHandle primaryHdc = new SafeGDIHandle(dc))
-			{
-				// Create a memory DC so we can work offscreen 
-				using (SafeCompatibleDCHandle memoryHdc = new SafeCompatibleDCHandle(primaryHdc))
-				{
-					// Create a device-independent bitmap and select it into our DC 
-					BITMAPINFO info = new BITMAPINFO(bounds.Width, -bounds.Height);
-					using (SafeDCObjectHandle dib = new SafeDCObjectHandle(memoryHdc, GDI.CreateDIBSection(primaryHdc, ref info, 0, 0, IntPtr.Zero, 0)))
-					{
-						// Call method
-						func(memoryHdc);
-
-						// Copy to foreground 
-						const int SRCCOPY = 0x00CC0020;
-						GDI.BitBlt(primaryHdc, bounds.Left, bounds.Top, bounds.Width, bounds.Height, memoryHdc, 0, 0, SRCCOPY);
-					}
-				}
-			}
-		}
 
 		public static void DrawGlassBackground(this VisualStyleRenderer rnd, IDeviceContext dc, Rectangle bounds, Rectangle clipRectangle)
 		{
@@ -105,10 +101,10 @@ namespace System.Windows.Forms.VisualStyles
 		{
 			DrawWrapper(rnd, dc, bounds,
 				delegate(IntPtr memoryHdc) {
-					// Create and select font 
+					// Create and select font
 					using (SafeDCObjectHandle fontHandle = new SafeDCObjectHandle(memoryHdc, font.ToHfont()))
 					{
-						// Draw glowing text 
+						// Draw glowing text
 						DrawThemeTextOptions dttOpts = new DrawThemeTextOptions(true);
 						dttOpts.TextColor = color;
 						dttOpts.GlowSize = 10;
@@ -124,17 +120,17 @@ namespace System.Windows.Forms.VisualStyles
 		{
 			using (SafeGDIHandle primaryHdc = new SafeGDIHandle(dc))
 			{
-				// Create a memory DC so we can work offscreen 
+				// Create a memory DC so we can work offscreen
 				using (SafeCompatibleDCHandle memoryHdc = new SafeCompatibleDCHandle(primaryHdc))
 				{
-					// Create a device-independent bitmap and select it into our DC 
+					// Create a device-independent bitmap and select it into our DC
 					BITMAPINFO info = new BITMAPINFO(bounds.Width, -bounds.Height);
 					using (SafeDCObjectHandle dib = new SafeDCObjectHandle(memoryHdc, GDI.CreateDIBSection(primaryHdc, ref info, 0, 0, IntPtr.Zero, 0)))
 					{
-						// Create and select font 
+						// Create and select font
 						using (SafeDCObjectHandle fontHandle = new SafeDCObjectHandle(memoryHdc, font.ToHfont()))
 						{
-							// Draw glowing text 
+							// Draw glowing text
 							DrawThemeTextOptions dttOpts = new DrawThemeTextOptions(true);
 							dttOpts.TextColor = color;
 							dttOpts.GlowSize = 10;
@@ -142,7 +138,7 @@ namespace System.Windows.Forms.VisualStyles
 							RECT textBounds = new RECT(4, 0, bounds.Right - bounds.Left, bounds.Bottom - bounds.Top);
 							DrawThemeTextEx(rnd.Handle, memoryHdc, rnd.Part, rnd.State, text, text.Length, (int)flags, ref textBounds, ref dttOpts);
 
-							// Copy to foreground 
+							// Copy to foreground
 							const int SRCCOPY = 0x00CC0020;
 							GDI.BitBlt(primaryHdc, bounds.Left, bounds.Top, bounds.Width, bounds.Height, memoryHdc, 0, 0, SRCCOPY);
 						}
@@ -167,17 +163,58 @@ namespace System.Windows.Forms.VisualStyles
 			return new System.Windows.Forms.Padding(rc.Left, rc.Top, rc.Right, rc.Bottom);
 		}
 
+		/// <summary>
+		/// Sets attributes to control how visual styles are applied to a specified window.
+		/// </summary>
+		/// <param name="window">The window.</param>
+		/// <param name="attr">The attributes to apply or disable.</param>
+		/// <param name="enable">if set to <c>true</c> enable the attribute, otherwise disable it.</param>
+		public static void SetWindowThemeAttribute(this IWin32Window window, WindowThemeNonClientAttributes attr, bool enable = true)
+		{
+			WTA_OPTIONS ops = new WTA_OPTIONS();
+			ops.Flags = attr;
+			ops.Mask = enable ? (uint)attr : 0;
+			try { SetWindowThemeAttribute(window.Handle, WindowThemeAttributeType.WTA_NONCLIENT, ref ops, Marshal.SizeOf(ops)); }
+			catch (EntryPointNotFoundException) { }
+			catch { throw; }
+		}
+
 		[DllImport("uxtheme")]
 		static extern int DrawThemeBackground(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, ref RECT pRect, ref RECT pClipRect);
 
 		[DllImport("uxtheme")]
 		static extern int DrawThemeIcon(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, ref RECT pRect, IntPtr himl, int iImageIndex);
 
+		[DllImport("uxtheme", CharSet = CharSet.Unicode)]
+		static extern int DrawThemeTextEx(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, string text, int iCharCount, int dwFlags, ref RECT pRect, ref DrawThemeTextOptions pOptions);
+
+		private static void DrawWrapper(VisualStyleRenderer rnd, IDeviceContext dc, Rectangle bounds, DrawWrapperMethod func)
+		{
+			using (SafeGDIHandle primaryHdc = new SafeGDIHandle(dc))
+			{
+				// Create a memory DC so we can work offscreen
+				using (SafeCompatibleDCHandle memoryHdc = new SafeCompatibleDCHandle(primaryHdc))
+				{
+					// Create a device-independent bitmap and select it into our DC
+					BITMAPINFO info = new BITMAPINFO(bounds.Width, -bounds.Height);
+					using (SafeDCObjectHandle dib = new SafeDCObjectHandle(memoryHdc, GDI.CreateDIBSection(primaryHdc, ref info, 0, 0, IntPtr.Zero, 0)))
+					{
+						// Call method
+						func(memoryHdc);
+
+						// Copy to foreground
+						const int SRCCOPY = 0x00CC0020;
+						GDI.BitBlt(primaryHdc, bounds.Left, bounds.Top, bounds.Width, bounds.Height, memoryHdc, 0, 0, SRCCOPY);
+					}
+				}
+			}
+		}
+
 		[DllImport("uxtheme", ExactSpelling = true, PreserveSig = false)]
 		static extern void GetThemeMargins(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, int iPropId, IntPtr prc, out RECT pMargins);
 
-		[DllImport("uxtheme", CharSet = CharSet.Unicode)]
-		static extern int DrawThemeTextEx(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, string text, int iCharCount, int dwFlags, ref RECT pRect, ref DrawThemeTextOptions pOptions);
+		[DllImport("uxtheme", ExactSpelling = true, PreserveSig = false)]
+		static extern void SetWindowThemeAttribute(IntPtr hWnd, WindowThemeAttributeType wtype, ref WTA_OPTIONS attributes, int size);
 
 		[StructLayout(LayoutKind.Sequential)]
 		public struct DrawThemeTextOptions
@@ -198,68 +235,19 @@ namespace System.Windows.Forms.VisualStyles
 			int pfnDrawTextCallback;
 			IntPtr lParam;
 
-			public DrawThemeTextOptions(bool init) : this()
+			public DrawThemeTextOptions(bool init)
+				: this()
 			{
 				dwSize = Marshal.SizeOf(typeof(DrawThemeTextOptions));
 			}
 
-			public Color TextColor
+			public Color AlternateColor
 			{
-				get { return ColorTranslator.FromWin32(crText); }
+				get { return ColorTranslator.FromWin32(iColorPropId); }
 				set
 				{
-					crText = ColorTranslator.ToWin32(value);
-					dwFlags |= DrawThemeTextOptionsFlags.TextColor;
-				}
-			}
-
-			public Color BorderColor
-			{
-				get { return ColorTranslator.FromWin32(crBorder); }
-				set
-				{
-					crBorder = ColorTranslator.ToWin32(value);
-					dwFlags |= DrawThemeTextOptionsFlags.BorderColor;
-				}
-			}
-
-			public Color ShadowColor
-			{
-				get { return ColorTranslator.FromWin32(crShadow); }
-				set
-				{
-					crShadow = ColorTranslator.ToWin32(value);
-					dwFlags |= DrawThemeTextOptionsFlags.ShadowColor;
-				}
-			}
-
-			public TextShadowType ShadowType
-			{
-				get { return iTextShadowType; }
-				set
-				{
-					iTextShadowType = value;
-					dwFlags |= DrawThemeTextOptionsFlags.ShadowType;
-				}
-			}
-
-			public Point ShadowOffset
-			{
-				get { return new Point(ptShadowOffset.X, ptShadowOffset.Y); }
-				set
-				{
-					ptShadowOffset = new POINT(value);
-					dwFlags |= DrawThemeTextOptionsFlags.ShadowOffset;
-				}
-			}
-
-			public int BorderSize
-			{
-				get { return iBorderSize; }
-				set
-				{
-					iBorderSize = value;
-					dwFlags |= DrawThemeTextOptionsFlags.BorderSize;
+					iColorPropId = ColorTranslator.ToWin32(value);
+					dwFlags |= DrawThemeTextOptionsFlags.ColorProp;
 				}
 			}
 
@@ -285,28 +273,6 @@ namespace System.Windows.Forms.VisualStyles
 				}
 			}
 
-			public bool ReturnCalculatedRectangle
-			{
-				get { return (dwFlags & DrawThemeTextOptionsFlags.CalcRect) == DrawThemeTextOptionsFlags.CalcRect; }
-				set
-				{
-					if (value)
-						dwFlags |= DrawThemeTextOptionsFlags.CalcRect;
-					else
-						dwFlags &= ~DrawThemeTextOptionsFlags.CalcRect;
-				}
-			}
-
-			public Color AlternateColor
-			{
-				get { return ColorTranslator.FromWin32(iColorPropId); }
-				set
-				{
-					iColorPropId = ColorTranslator.ToWin32(value);
-					dwFlags |= DrawThemeTextOptionsFlags.ColorProp;
-				}
-			}
-
 			public bool ApplyOverlay
 			{
 				get { return fApplyOverlay; }
@@ -314,6 +280,26 @@ namespace System.Windows.Forms.VisualStyles
 				{
 					fApplyOverlay = value;
 					dwFlags |= DrawThemeTextOptionsFlags.ApplyOverlay;
+				}
+			}
+
+			public Color BorderColor
+			{
+				get { return ColorTranslator.FromWin32(crBorder); }
+				set
+				{
+					crBorder = ColorTranslator.ToWin32(value);
+					dwFlags |= DrawThemeTextOptionsFlags.BorderColor;
+				}
+			}
+
+			public int BorderSize
+			{
+				get { return iBorderSize; }
+				set
+				{
+					iBorderSize = value;
+					dwFlags |= DrawThemeTextOptionsFlags.BorderSize;
 				}
 			}
 
@@ -326,6 +312,68 @@ namespace System.Windows.Forms.VisualStyles
 					dwFlags |= DrawThemeTextOptionsFlags.GlowSize;
 				}
 			}
+
+			public bool ReturnCalculatedRectangle
+			{
+				get { return (dwFlags & DrawThemeTextOptionsFlags.CalcRect) == DrawThemeTextOptionsFlags.CalcRect; }
+				set
+				{
+					if (value)
+						dwFlags |= DrawThemeTextOptionsFlags.CalcRect;
+					else
+						dwFlags &= ~DrawThemeTextOptionsFlags.CalcRect;
+				}
+			}
+
+			public Color ShadowColor
+			{
+				get { return ColorTranslator.FromWin32(crShadow); }
+				set
+				{
+					crShadow = ColorTranslator.ToWin32(value);
+					dwFlags |= DrawThemeTextOptionsFlags.ShadowColor;
+				}
+			}
+
+			public Point ShadowOffset
+			{
+				get { return new Point(ptShadowOffset.X, ptShadowOffset.Y); }
+				set
+				{
+					ptShadowOffset = new POINT(value);
+					dwFlags |= DrawThemeTextOptionsFlags.ShadowOffset;
+				}
+			}
+
+			public TextShadowType ShadowType
+			{
+				get { return iTextShadowType; }
+				set
+				{
+					iTextShadowType = value;
+					dwFlags |= DrawThemeTextOptionsFlags.ShadowType;
+				}
+			}
+
+			public Color TextColor
+			{
+				get { return ColorTranslator.FromWin32(crText); }
+				set
+				{
+					crText = ColorTranslator.ToWin32(value);
+					dwFlags |= DrawThemeTextOptionsFlags.TextColor;
+				}
+			}
+		}
+
+		/// <summary>
+		/// The Options of What Attributes to Add/Remove
+		/// </summary>
+		[StructLayout(LayoutKind.Sequential)]
+		struct WTA_OPTIONS
+		{
+			public WindowThemeNonClientAttributes Flags;
+			public uint Mask;
 		}
 	}
 }

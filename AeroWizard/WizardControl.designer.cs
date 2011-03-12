@@ -29,17 +29,17 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			this.titleBar = new System.Windows.Forms.TableLayoutPanel();
+			this.titleBar = new AeroWizard.ThemedTableLayoutPanel();
 			this.title = new AeroWizard.ThemedLabel();
 			this.titleImage = new AeroWizard.ThemedLabel();
 			this.titleImageList = new System.Windows.Forms.ImageList(this.components);
 			this.backButton = new AeroWizard.ThemeImageButton();
-			this.header = new System.Windows.Forms.TableLayoutPanel();
+			this.header = new AeroWizard.ThemedTableLayoutPanel();
 			this.headerLabel = new System.Windows.Forms.Label();
-			this.commandArea = new System.Windows.Forms.TableLayoutPanel();
+			this.commandArea = new AeroWizard.ThemedTableLayoutPanel();
 			this.cancelButton = new System.Windows.Forms.Button();
 			this.nextButton = new System.Windows.Forms.Button();
-			this.contentArea = new System.Windows.Forms.TableLayoutPanel();
+			this.contentArea = new AeroWizard.ThemedTableLayoutPanel();
 			this.commandAreaBorder = new System.Windows.Forms.Panel();
 			this.titleBar.SuspendLayout();
 			this.header.SuspendLayout();
@@ -62,7 +62,9 @@
 			this.titleBar.RowCount = 1;
 			this.titleBar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.titleBar.Size = new System.Drawing.Size(609, 32);
+			this.titleBar.SupportGlass = true;
 			this.titleBar.TabIndex = 0;
+			this.titleBar.WatchFocus = true;
 			this.titleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitleBar_MouseDown);
 			this.titleBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TitleBar_MouseMove);
 			this.titleBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TitleBar_MouseUp);
@@ -72,7 +74,6 @@
 			this.title.Anchor = System.Windows.Forms.AnchorStyles.Left;
 			this.title.AutoSize = true;
 			this.title.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-			this.title.Image = null;
 			this.title.Location = new System.Drawing.Point(59, 6);
 			this.title.Margin = new System.Windows.Forms.Padding(0);
 			this.title.Name = "title";
@@ -86,7 +87,6 @@
 			// 
 			this.titleImage.Anchor = System.Windows.Forms.AnchorStyles.Left;
 			this.titleImage.AutoSize = true;
-			this.titleImage.Image = null;
 			this.titleImage.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
 			this.titleImage.ImageList = this.titleImageList;
 			this.titleImage.Location = new System.Drawing.Point(36, 8);
@@ -118,6 +118,7 @@
 			// header
 			// 
 			this.header.AutoSize = true;
+			this.header.BackColor = System.Drawing.SystemColors.Window;
 			this.header.ColumnCount = 1;
 			this.header.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.header.Controls.Add(this.headerLabel, 0, 0);
@@ -134,6 +135,7 @@
 			// headerLabel
 			// 
 			this.headerLabel.AutoSize = true;
+			this.headerLabel.BackColor = System.Drawing.Color.Transparent;
 			this.headerLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.headerLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(112)))), ((int)(((byte)(171)))));
 			this.headerLabel.Location = new System.Drawing.Point(38, 19);
@@ -189,6 +191,7 @@
 			// 
 			// contentArea
 			// 
+			this.contentArea.BackColor = System.Drawing.SystemColors.Window;
 			this.contentArea.ColumnCount = 3;
 			this.contentArea.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 38F));
 			this.contentArea.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -216,7 +219,6 @@
 			// 
 			// WizardControl
 			// 
-			this.BackColor = System.Drawing.SystemColors.Window;
 			this.Controls.Add(this.commandAreaBorder);
 			this.Controls.Add(this.contentArea);
 			this.Controls.Add(this.commandArea);
@@ -237,16 +239,16 @@
 
 		#endregion
 
-		private System.Windows.Forms.TableLayoutPanel titleBar;
-		private System.Windows.Forms.TableLayoutPanel header;
+		private AeroWizard.ThemedTableLayoutPanel titleBar;
+		private AeroWizard.ThemedTableLayoutPanel header;
 		internal System.Windows.Forms.Label headerLabel;
-		private System.Windows.Forms.TableLayoutPanel commandArea;
+		private AeroWizard.ThemedTableLayoutPanel commandArea;
 		private System.Windows.Forms.Button cancelButton;
 		internal System.Windows.Forms.Button nextButton;
 		private AeroWizard.ThemedLabel title;
 		private AeroWizard.ThemedLabel titleImage;
 		internal AeroWizard.ThemeImageButton backButton;
-		private System.Windows.Forms.TableLayoutPanel contentArea;
+		private AeroWizard.ThemedTableLayoutPanel contentArea;
 		private System.Windows.Forms.Panel commandAreaBorder;
 		private System.Windows.Forms.ImageList titleImageList;
 

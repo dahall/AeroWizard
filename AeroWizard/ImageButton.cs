@@ -8,9 +8,9 @@ using System.Windows.Forms.VisualStyles;
 namespace AeroWizard
 {
 	/// <summary>
-	/// ImageButton
+	/// A button that displays an image and no text.
 	/// </summary>
-	[ToolboxBitmap(typeof(Button))]
+	[ToolboxBitmap(typeof(Button)), DefaultProperty("Image")]
 	internal class ImageButton : ButtonBase
 	{
 		private const string defaultToolTip = "Returns to a previous page";
@@ -18,7 +18,7 @@ namespace AeroWizard
 		private ToolTip toolTip;
 
 		/// <summary>
-		/// ImageButton
+		/// Initializes a new instance of the <see cref="ImageButton"/> class.
 		/// </summary>
 		public ImageButton()
 		{
@@ -34,25 +34,36 @@ namespace AeroWizard
 			toolTip.SetToolTip(this, defaultToolTip);
 		}
 
-		[DefaultValue((string)null),
-		Browsable(false),
-		DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),
-		EditorBrowsable(EditorBrowsableState.Never)]
+		/// <summary>
+		/// Gets or sets the text associated with this control.
+		/// </summary>
+		/// <returns>
+		/// The text associated with this control.
+		/// </returns>
+		[DefaultValue((string)null), Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public override string Text
 		{
-			get { return base.Text; } set { base.Text = value; }
+			get { return base.Text; }
+			set { base.Text = value; }
 		}
 
+		/// <summary>
+		/// Gets or sets the tool tip text.
+		/// </summary>
+		/// <value>The tool tip text.</value>
 		[DefaultValue(defaultToolTip), Category("Appearance")]
 		public string ToolTipText
 		{
-			get { return toolTip.GetToolTip(this); } set { toolTip.SetToolTip(this, value); }
+			get { return toolTip.GetToolTip(this); }
+			set { toolTip.SetToolTip(this, value); }
 		}
 
-		protected PushButtonState ButtonState
-		{
-			get; set;
-		}
+		/// <summary>
+		/// Gets or sets the state of the button.
+		/// </summary>
+		/// <value>The state of the button.</value>
+		protected PushButtonState ButtonState { get; set; }
 
 		/// <summary>
 		/// </summary>
@@ -62,10 +73,7 @@ namespace AeroWizard
 		/// </returns>
 		protected override Size DefaultSize
 		{
-			get
-			{
-				return new Size(30, 30);
-			}
+			get { return new Size(30, 30); }
 		}
 
 		/// <summary>
@@ -167,6 +175,11 @@ namespace AeroWizard
 		{
 		}
 
+		/// <summary>
+		/// Primary function for painting the button. This method should be overridden instead of OnPaint.
+		/// </summary>
+		/// <param name="graphics">The graphics.</param>
+		/// <param name="bounds">The bounds.</param>
 		protected virtual void PaintButton(Graphics graphics, Rectangle bounds)
 		{
 			VisualStyleRenderer rnd = null;

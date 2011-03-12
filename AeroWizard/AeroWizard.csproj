@@ -69,10 +69,14 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlExtension.cs" />
     <Compile Include="ImageButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="EventedList.cs" />
+    <Compile Include="ThemedTableLayoutPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WizardPageDesigner.cs" />
     <Compile Include="Native\DWM.cs" />
     <Compile Include="ThemeImageButton.cs">
@@ -96,7 +100,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WizardControl.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="WizardControl.designer.cs">
       <DependentUpon>WizardControl.cs</DependentUpon>
@@ -109,7 +113,7 @@
       <DependentUpon>WizardPage.cs</DependentUpon>
     </Compile>
     <Compile Include="WizardPageCollection.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>

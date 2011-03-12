@@ -8,6 +8,8 @@ namespace TestWizard
 		public MyWizard()
 		{
 			InitializeComponent();
+			System.Resources.ResourceManager rm = new System.Resources.ResourceManager("AeroWizard.Properties.Resources", typeof(AeroWizard.WizardControl).Assembly);
+			this.Icon = rm.GetObject("WizardControlIcon") as System.Drawing.Icon;
 		}
 
 		private void commandLink1_Click(object sender, System.EventArgs e)

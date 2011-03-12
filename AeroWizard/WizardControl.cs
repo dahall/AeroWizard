@@ -70,6 +70,14 @@ namespace AeroWizard
 			InitializeComponent();
 			backButton.CompatibleImageStrip = Properties.Resources.BackBtnStrip;
 
+			const string aw = "AEROWIZARD";
+			if (!Application.RenderWithVisualStyles)
+				titleBar.BackColor = System.Drawing.SystemColors.Control;
+			titleBar.SetTheme(aw, 1, 1);
+			header.SetTheme(aw, 2, 0);
+			contentArea.SetTheme(aw, 3, 0);
+			commandArea.SetTheme(aw, 4, 0);
+
 			// Get localized defaults for button text
 			ResetBackButtonToolTipText();
 			ResetCancelButtonText();
@@ -154,7 +162,7 @@ namespace AeroWizard
 			set
 			{
 				finishBtnText = value;
-				if (selectedPage != null && selectedPage.IsFinishPage && !DesignMode)
+				if (selectedPage != null && selectedPage.IsFinishPage && !this.IsDesignMode())
 				{
 					nextButton.Text = value;
 					nextButton.Invalidate();
@@ -238,7 +246,7 @@ namespace AeroWizard
 			set
 			{
 				nextBtnText = value;
-				if (!DesignMode && (selectedPage == null || !selectedPage.IsFinishPage))
+				if (!this.IsDesignMode() && (selectedPage == null || !selectedPage.IsFinishPage))
 				{
 					nextButton.Text = value;
 					nextButton.Invalidate();
@@ -298,6 +306,20 @@ namespace AeroWizard
 				}
 			}
 		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether to suppress changing the parent form's icon to match the wizard's <see cref="TitleIcon"/>.
+		/// </summary>
+		/// <value><c>true</c> to not change the parent form's icon to match this wizard's icon; otherwise, <c>false</c>.</value>
+		[Category("Wizard"), DefaultValue(false)]
+		public bool SuppressParentFormIconSync { get; set; }
+
+		/// <summary>
+		/// Gets or sets a value indicating whether to spupress changing the parent form's caption to match the wizard's <see cref="Title"/>.
+		/// </summary>
+		/// <value><c>true</c> to not change the parent form's caption (Text) to match this wizard's title; otherwise, <c>false</c>.</value>
+		[Category("Wizard"), DefaultValue(false)]
+		public bool SuppressParentFormCaptionSync { get; set; }
 
 		/// <summary>
 		/// Gets or sets the title for the wizard.
@@ -370,7 +392,7 @@ namespace AeroWizard
 		/// <param name="nextPage">The wizard page to go to next.</param>
 		public virtual void NextPage(WizardPage nextPage)
 		{
-			if (DesignMode)
+			if (this.IsDesignMode())
 			{
 				int idx = SelectedPageIndex;
 				if (idx < Pages.Count - 1)
@@ -406,7 +428,7 @@ namespace AeroWizard
 		/// </summary>
 		public virtual void PreviousPage()
 		{
-			if (DesignMode)
+			if (this.IsDesignMode())
 			{
 				int idx = SelectedPageIndex;
 				if (idx > 0)
@@ -437,7 +459,7 @@ namespace AeroWizard
 			if (h != null)
 				h(this, EventArgs.Empty);
 
-			if (!DesignMode)
+			if (!this.IsDesignMode())
 				CloseForm(DialogResult.Cancel);
 		}
 
@@ -447,7 +469,7 @@ namespace AeroWizard
 		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
 		protected override void OnHandleDestroyed(EventArgs e)
 		{
-			if (isMin6 && !DesignMode)
+			if (isMin6 && !this.IsDesignMode())
 				DesktopWindowManager.CompositionChanged -= DesktopWindowManager_CompositionChanged;
 			base.OnHandleDestroyed(e);
 		}
@@ -475,7 +497,7 @@ namespace AeroWizard
 			if (h != null)
 				h(this, EventArgs.Empty);
 
-			if (!DesignMode)
+			if (!this.IsDesignMode())
 				CloseForm(DialogResult.OK);
 		}
 
@@ -511,7 +533,7 @@ namespace AeroWizard
 			if (parentForm != null)
 			{
 				parentForm.HandleCreated -= parentForm_HandleCreated;
-				if (isMin6 && !DesignMode)
+				if (isMin6 && !this.IsDesignMode())
 					DesktopWindowManager.CompositionChanged -= DesktopWindowManager_CompositionChanged;
 			}
 			parentForm = base.Parent as Form;
@@ -539,25 +561,25 @@ namespace AeroWizard
 		protected internal void UpdateButtons()
 		{
 			System.Diagnostics.Debug.WriteLine(string.Format("UpdBtn: hstCnt={0},pgIdx={1}:{2},isFin={3}", pageHistory.Count, SelectedPageIndex, Pages.Count, selectedPage == null ? false : selectedPage.IsFinishPage));
-			if (DesignMode)
+			if (this.IsDesignMode())
 				BackButtonState = SelectedPageIndex <= 0 ? WizardCommandButtonState.Disabled : WizardCommandButtonState.Enabled;
 			else
 				BackButtonState = pageHistory.Count == 0 ? WizardCommandButtonState.Disabled : WizardCommandButtonState.Enabled;
 			if (selectedPage == null)
 			{
-				CancelButtonState = this.DesignMode ? WizardCommandButtonState.Disabled : WizardCommandButtonState.Enabled;
+				CancelButtonState = this.IsDesignMode() ? WizardCommandButtonState.Disabled : WizardCommandButtonState.Enabled;
 				NextButtonState = WizardCommandButtonState.Hidden;
 			}
 			else
 			{
-				if (DesignMode)
+				if (this.IsDesignMode())
 				{
 					CancelButtonState = WizardCommandButtonState.Disabled;
 					NextButtonState = SelectedPageIndex == Pages.Count - 1 ? WizardCommandButtonState.Disabled : WizardCommandButtonState.Enabled;
 				}
 				else
 				{
-					CancelButtonState = selectedPage.ShowCancel ? (selectedPage.AllowCancel && !this.DesignMode ? WizardCommandButtonState.Enabled : WizardCommandButtonState.Disabled) : WizardCommandButtonState.Hidden;
+					CancelButtonState = selectedPage.ShowCancel ? (selectedPage.AllowCancel && !this.IsDesignMode() ? WizardCommandButtonState.Enabled : WizardCommandButtonState.Disabled) : WizardCommandButtonState.Hidden;
 					NextButtonState = selectedPage.ShowNext ? (selectedPage.AllowNext ? WizardCommandButtonState.Enabled : WizardCommandButtonState.Disabled) : WizardCommandButtonState.Hidden;
 					if (selectedPage.IsFinishPage || Pages.IndexOf(SelectedPage) == Pages.Count - 1)
 						nextButton.Text = FinishButtonText;
@@ -589,16 +611,28 @@ namespace AeroWizard
 			if (HasGlass())
 			{
 				titleBar.BackColor = Color.Black;
-				try { parentForm.ExtendFrameIntoClientArea(new Padding(0) { Top = titleBar.Height }); }
+				try
+				{
+					parentForm.ExtendFrameIntoClientArea(new Padding(0) { Top = titleBar.Height });
+				}
 				catch { titleBar.BackColor = commandArea.BackColor; }
 			}
 			else
 				titleBar.BackColor = commandArea.BackColor;
+
+			parentForm.SetWindowThemeAttribute(VisualStyleRendererExtender.WindowThemeNonClientAttributes.NoDrawCaption | VisualStyleRendererExtender.WindowThemeNonClientAttributes.NoDrawIcon);
+			if (!this.SuppressParentFormIconSync)
+				parentForm.Text = this.Title;
+			if (!this.SuppressParentFormCaptionSync)
+			{
+				parentForm.Icon = this.TitleIcon;
+				parentForm.ShowIcon = true;
+			}
 		}
 
 		private void contentArea_Paint(object sender, PaintEventArgs pe)
 		{
-			if (this.DesignMode && this.Pages.Count == 0)
+			if (this.IsDesignMode() && this.Pages.Count == 0)
 			{
 				string noPagesText = Properties.Resources.WizardNoPagesNotice;
 				Rectangle r = this.GetContentAreaRectangle(false);
@@ -694,7 +728,7 @@ namespace AeroWizard
 		private void parentForm_HandleCreated(object sender, EventArgs e)
 		{
 			ConfigureWindowFrame();
-			if (isMin6 && !DesignMode)
+			if (isMin6 && !this.IsDesignMode())
 				DesktopWindowManager.CompositionChanged += DesktopWindowManager_CompositionChanged;
 		}
 

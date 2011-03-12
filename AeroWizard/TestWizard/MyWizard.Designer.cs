@@ -30,14 +30,14 @@
 		{
 			this.wizardControl1 = new AeroWizard.WizardControl();
 			this.introPage = new AeroWizard.WizardPage();
+			this.button2 = new System.Windows.Forms.Button();
+			this.button1 = new System.Windows.Forms.Button();
 			this.middlePage = new AeroWizard.WizardPage();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
 			this.endPage = new AeroWizard.WizardPage();
 			this.label1 = new System.Windows.Forms.Label();
 			this.progressBar1 = new System.Windows.Forms.ProgressBar();
-			this.button1 = new System.Windows.Forms.Button();
-			this.button2 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.wizardControl1)).BeginInit();
 			this.introPage.SuspendLayout();
 			this.middlePage.SuspendLayout();
@@ -65,6 +65,26 @@
 			this.introPage.Size = new System.Drawing.Size(527, 263);
 			this.introPage.TabIndex = 0;
 			this.introPage.Text = "Choose an activity";
+			// 
+			// button2
+			// 
+			this.button2.Location = new System.Drawing.Point(3, 32);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(227, 23);
+			this.button2.TabIndex = 2;
+			this.button2.Text = "Trash everything";
+			this.button2.UseVisualStyleBackColor = true;
+			this.button2.Click += new System.EventHandler(this.commandLink2_Click);
+			// 
+			// button1
+			// 
+			this.button1.Location = new System.Drawing.Point(3, 3);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(227, 23);
+			this.button1.TabIndex = 2;
+			this.button1.Text = "Cleanup system";
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.commandLink1_Click);
 			// 
 			// middlePage
 			// 
@@ -126,26 +146,6 @@
 			this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
 			this.progressBar1.TabIndex = 0;
 			// 
-			// button1
-			// 
-			this.button1.Location = new System.Drawing.Point(3, 3);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(227, 23);
-			this.button1.TabIndex = 2;
-			this.button1.Text = "Cleanup system";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.commandLink1_Click);
-			// 
-			// button2
-			// 
-			this.button2.Location = new System.Drawing.Point(3, 32);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(227, 23);
-			this.button2.TabIndex = 2;
-			this.button2.Text = "Trash everything";
-			this.button2.UseVisualStyleBackColor = true;
-			this.button2.Click += new System.EventHandler(this.commandLink2_Click);
-			// 
 			// MyWizard
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -154,7 +154,6 @@
 			this.Controls.Add(this.wizardControl1);
 			this.MaximizeBox = false;
 			this.Name = "MyWizard";
-			this.ShowIcon = false;
 			((System.ComponentModel.ISupportInitialize)(this.wizardControl1)).EndInit();
 			this.introPage.ResumeLayout(false);
 			this.middlePage.ResumeLayout(false);

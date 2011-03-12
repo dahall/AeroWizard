@@ -15,14 +15,7 @@ namespace AeroWizard
 	{
 		private const string defaultText = "";
 
-		private static bool inDesigner;
-
 		private Image imageStrip;
-
-		static ThemeImageButton()
-		{
-			inDesigner = LicenseManager.UsageMode == LicenseUsageMode.Designtime;
-		}
 
 		/// <summary>
 		/// ImageButton
@@ -103,9 +96,9 @@ namespace AeroWizard
 				try
 				{
 					VisualStyleRenderer rnd = new VisualStyleRenderer(StyleClass, StylePart, (int)ButtonState);
-					if (inDesigner || !DesktopWindowManager.IsCompositionEnabled())
+					if (this.IsDesignMode() || !DesktopWindowManager.IsCompositionEnabled())
 					{
-						graphics.Clear(this.BackColor);
+						rnd.DrawParentBackground(graphics, this.Bounds, this);
 						rnd.DrawBackground(graphics, this.Bounds, bounds);
 					}
 					else
@@ -122,7 +115,7 @@ namespace AeroWizard
 			sr.Offset(0, sr.Height * ((int)ButtonState - 1));
 			graphics.Clear(this.Parent.BackColor);
 			if (imageStrip != null)
-				graphics.DrawImage(imageStrip, bounds, sr, GraphicsUnit.Pixel);
+				graphics.DrawImage(imageStrip, this.Bounds, sr, GraphicsUnit.Pixel);
 			else
 				using (Brush br = new SolidBrush(this.BackColor))
 					graphics.FillRectangle(br, sr);

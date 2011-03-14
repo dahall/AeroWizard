@@ -10,11 +10,24 @@ namespace TestWizard
 			InitializeComponent();
 			System.Resources.ResourceManager rm = new System.Resources.ResourceManager("AeroWizard.Properties.Resources", typeof(AeroWizard.WizardControl).Assembly);
 			this.Icon = rm.GetObject("WizardControlIcon") as System.Drawing.Icon;
+			foreach (var i in this.wizardControl1.Pages)
+				i.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(i_Commit);
+			this.wizardControl1.Finished += new System.EventHandler(wizardControl1_Finished);
+		}
+
+		void wizardControl1_Finished(object sender, System.EventArgs e)
+		{
+			System.Diagnostics.Debug.WriteLine("--> Wizard finished.");
+		}
+
+		void i_Commit(object sender, AeroWizard.WizardPageConfirmEventArgs e)
+		{
+			System.Diagnostics.Debug.WriteLine(string.Format("--> Page {0} committed.", e.Page.Name));
 		}
 
 		private void commandLink1_Click(object sender, System.EventArgs e)
 		{
-			wizardControl1.NextPage(); 
+			wizardControl1.NextPage();
 		}
 
 		private void commandLink2_Click(object sender, System.EventArgs e)

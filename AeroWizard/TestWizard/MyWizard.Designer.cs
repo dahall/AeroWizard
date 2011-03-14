@@ -92,7 +92,7 @@
 			this.middlePage.Controls.Add(this.linkLabel1);
 			this.middlePage.IsFinishPage = true;
 			this.middlePage.Name = "middlePage";
-			this.middlePage.Size = new System.Drawing.Size(527, 265);
+			this.middlePage.Size = new System.Drawing.Size(527, 263);
 			this.middlePage.TabIndex = 1;
 			this.middlePage.Text = "Launch System Cleanup";
 			this.middlePage.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.middlePage_Initialize);
@@ -123,7 +123,7 @@
 			this.endPage.Controls.Add(this.label1);
 			this.endPage.Controls.Add(this.progressBar1);
 			this.endPage.Name = "endPage";
-			this.endPage.Size = new System.Drawing.Size(527, 265);
+			this.endPage.Size = new System.Drawing.Size(527, 263);
 			this.endPage.TabIndex = 2;
 			this.endPage.Text = "Bad Choice";
 			// 

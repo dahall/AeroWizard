@@ -118,8 +118,7 @@ namespace AeroWizard
 		/// Gets or sets the back button tool tip text.
 		/// </summary>
 		/// <value>The back button tool tip text.</value>
-		[Category("Wizard"),
-		Localizable(true)]
+		[Category("Wizard"), Localizable(true)]
 		public string BackButtonToolTipText
 		{
 			get { return backButton.ToolTipText; }
@@ -142,8 +141,7 @@ namespace AeroWizard
 		/// Gets or sets the cancel button text.
 		/// </summary>
 		/// <value>The cancel button text.</value>
-		[Category("Wizard"),
-		Localizable(true)]
+		[Category("Wizard"), Localizable(true)]
 		public string CancelButtonText
 		{
 			get { return cancelButton.Text; }
@@ -154,8 +152,7 @@ namespace AeroWizard
 		/// Gets or sets the finish button text.
 		/// </summary>
 		/// <value>The finish button text.</value>
-		[Category("Wizard"),
-		Localizable(true)]
+		[Category("Wizard"), Localizable(true)]
 		public string FinishButtonText
 		{
 			get { return finishBtnText; }
@@ -174,8 +171,7 @@ namespace AeroWizard
 		/// Gets or sets the page header text.
 		/// </summary>
 		/// <value>The page header text.</value>
-		[Browsable(false),
-		EditorBrowsable(EditorBrowsableState.Never),
+		[Browsable(false), EditorBrowsable(EditorBrowsableState.Never),
 		DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public string HeaderText
 		{
@@ -238,8 +234,7 @@ namespace AeroWizard
 		/// Gets or sets the next button text.
 		/// </summary>
 		/// <value>The next button text.</value>
-		[Category("Wizard"),
-		Localizable(true)]
+		[Category("Wizard"), Localizable(true)]
 		public string NextButtonText
 		{
 			get { return nextBtnText; }
@@ -325,8 +320,7 @@ namespace AeroWizard
 		/// Gets or sets the title for the wizard.
 		/// </summary>
 		/// <value>The title text.</value>
-		[Category("Wizard"),
-		Localizable(true)]
+		[Category("Wizard"), Localizable(true)]
 		public string Title
 		{
 			get { return title.Text; }
@@ -400,20 +394,23 @@ namespace AeroWizard
 				return;
 			}
 
-			if (nextPage == null)
-			{
-				if (SelectedPage.IsFinishPage || Pages.IndexOf(SelectedPage) == Pages.Count - 1)
-				{
-					OnFinished();
-					return;
-				}
-			}
-			else if (!Pages.Contains(nextPage))
-				throw new ArgumentException("When specifying a value for nextPage, it must already be in the Pages collection.", "nextPage");
-
 			if (SelectedPage.CommitPage())
 			{
 				pageHistory.Push(SelectedPage);
+
+				if (nextPage == null)
+				{
+					// Check for last page
+					if (SelectedPage.IsFinishPage || Pages.IndexOf(SelectedPage) == Pages.Count - 1)
+					{
+						OnFinished();
+						return;
+					}
+				}
+				else if (!Pages.Contains(nextPage))
+					throw new ArgumentException("When specifying a value for nextPage, it must already be in the Pages collection.", "nextPage");
+
+				// Set new SelectedPage value
 				if (nextPage != null)
 					SelectedPage = nextPage;
 				else if (SelectedPage.NextPage != null)

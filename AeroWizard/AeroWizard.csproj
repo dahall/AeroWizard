@@ -69,6 +69,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="VisualStyleElementEx.cs" />
     <Compile Include="ControlExtension.cs" />
     <Compile Include="ImageButton.cs">
       <SubType>Component</SubType>

@@ -70,13 +70,12 @@ namespace AeroWizard
 			InitializeComponent();
 			backButton.CompatibleImageStrip = Properties.Resources.BackBtnStrip;
 
-			const string aw = "AEROWIZARD";
 			if (!Application.RenderWithVisualStyles)
 				titleBar.BackColor = System.Drawing.SystemColors.Control;
-			titleBar.SetTheme(aw, 1, 1);
-			header.SetTheme(aw, 2, 0);
-			contentArea.SetTheme(aw, 3, 0);
-			commandArea.SetTheme(aw, 4, 0);
+			titleBar.SetTheme(VisualStyleElementEx.AeroWizard.TitleBar.Active);
+			header.SetTheme(VisualStyleElementEx.AeroWizard.HeaderArea.Normal);
+			contentArea.SetTheme(VisualStyleElementEx.AeroWizard.ContentArea.Normal);
+			commandArea.SetTheme(VisualStyleElementEx.AeroWizard.CommandArea.Normal);
 
 			// Get localized defaults for button text
 			ResetBackButtonToolTipText();
@@ -791,33 +790,32 @@ namespace AeroWizard
 		{
 			if (isMin6 && Application.RenderWithVisualStyles)
 			{
-				const string aw = "AEROWIZARD";
-				VisualStyleRenderer theme = new VisualStyleRenderer(aw, 0, 0);
+				VisualStyleRenderer theme;
 				using (Graphics g = this.CreateGraphics())
 				{
 					// Back button
-					theme.SetParameters("NAVIGATION", 1, 0);
+					theme = new VisualStyleRenderer(VisualStyleElementEx.Navigation.BackButton.Normal);
 					Size bbSize = theme.GetPartSize(g, ThemeSizeType.Draw);
 
 					// Title
-					theme.SetParameters(aw, 1, 0);
+					theme.SetParameters(VisualStyleElementEx.AeroWizard.TitleBar.Active);
 					titleBar.Height = Math.Max(theme.GetMargins2(g, MarginProperty.ContentMargins).Top, bbSize.Height + 2);
 					backButton.Size = bbSize;
 
 					// Header
-					theme.SetParameters(aw, 2, 0);
+					theme.SetParameters(VisualStyleElementEx.AeroWizard.HeaderArea.Normal);
 					headerLabel.Margin = theme.GetMargins2(g, MarginProperty.ContentMargins);
 					headerLabel.ForeColor = theme.GetColor(ColorProperty.TextColor);
 
 					// Content
-					theme.SetParameters(aw, 3, 0);
+					theme.SetParameters(VisualStyleElementEx.AeroWizard.ContentArea.Normal);
 					this.BackColor = theme.GetColor(ColorProperty.FillColor);
 					Padding cp = theme.GetMargins2(g, MarginProperty.ContentMargins);
 					contentArea.ColumnStyles[0].Width = cp.Left;
 					contentArea.RowStyles[1].Height = cp.Bottom;
 
 					// Command
-					theme.SetParameters(aw, 4, 0);
+					theme.SetParameters(VisualStyleElementEx.AeroWizard.CommandArea.Normal);
 					cp = theme.GetMargins2(g, MarginProperty.ContentMargins);
 					commandArea.RowStyles[0].Height = cp.Top;
 					commandArea.RowStyles[2].Height = cp.Bottom;
@@ -825,7 +823,7 @@ namespace AeroWizard
 					//commandArea.BackColor = theme.GetColor(4, 0, 3802);
 
 					// Buttons
-					theme.SetParameters(aw, 5, 0);
+					theme.SetParameters(VisualStyleElementEx.AeroWizard.Button.Normal);
 					int btnHeight = theme.GetInteger(IntegerProperty.Height);
 					nextButton.Height = btnHeight;
 					cancelButton.Height = btnHeight;

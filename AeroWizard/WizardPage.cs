@@ -25,6 +25,7 @@ namespace AeroWizard
 			initializing = true;
 			InitializeComponent();
 			Margin = Padding.Empty;
+			Suppress = false;
 			base.Text = Properties.Resources.WizardHeader;
 			initializing = false;
 		}
@@ -32,16 +33,19 @@ namespace AeroWizard
 		/// <summary>
 		/// Occurs when the user has clicked the Next/Finish button but before the page is changed.
 		/// </summary>
+		[Category("Wizard")]
 		public event EventHandler<WizardPageConfirmEventArgs> Commit;
 
 		/// <summary>
 		/// Occurs when this page is entered.
 		/// </summary>
+		[Category("Wizard")]
 		public event EventHandler<WizardPageInitEventArgs> Initialize;
 
 		/// <summary>
 		/// Occurs when the user has clicked the Back button but before the page is changed.
 		/// </summary>
+		[Category("Wizard")]
 		public event EventHandler<WizardPageConfirmEventArgs> Rollback;
 
 		/// <summary>
@@ -163,6 +167,15 @@ namespace AeroWizard
 		/// </returns>
 		[Browsable(false)]
 		public new System.Drawing.Size Size { get { return base.Size; } set { base.Size = value; } }
+
+		/// <summary>
+		/// Gets or sets a value indicating whether this <see cref="WizardPage"/> is suppressed and not shown in the normal flow.
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if suppressed; otherwise, <c>false</c>.
+		/// </value>
+		[DefaultValue(false), Category("Behavior"), Description("Suppresses this page from viewing if selected as next.")]
+		public bool Suppress { get; set; }
 
 		/// <summary>
 		/// Returns a <see cref="System.String"/> that represents this wizard page.

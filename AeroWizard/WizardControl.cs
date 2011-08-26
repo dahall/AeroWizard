@@ -282,13 +282,17 @@ namespace AeroWizard
 					value == null ? "null" : value.Name, selectedPage == null ? "null" : selectedPage.Name));
 				if (value != selectedPage)
 				{
+					WizardPage prev = selectedPage;
 					if (selectedPage != null)
 						selectedPage.Hide();
 					selectedPage = value;
-					if (value != null)
+					int idx = SelectedPageIndex;
+					while (idx < Pages.Count - 1 && selectedPage.Suppress)
+						selectedPage = Pages[++idx];
+					if (selectedPage != null)
 					{
-						this.HeaderText = value.Text;
-						value.InitializePage(selectedPage);
+						this.HeaderText = selectedPage.Text;
+						selectedPage.InitializePage(prev);
 						selectedPage.Dock = DockStyle.Fill;
 						selectedPage.PerformLayout();
 						selectedPage.Show();
@@ -397,25 +401,27 @@ namespace AeroWizard
 			{
 				pageHistory.Push(SelectedPage);
 
-				if (nextPage == null)
+				if (nextPage != null)
 				{
+					if (!Pages.Contains(nextPage))
+						throw new ArgumentException("When specifying a value for nextPage, it must already be in the Pages collection.", "nextPage");
+					SelectedPage = nextPage;
+				}
+				else
+				{
+					WizardPage selNext = GetNextPage(SelectedPage);
+
 					// Check for last page
-					if (SelectedPage.IsFinishPage || Pages.IndexOf(SelectedPage) == Pages.Count - 1)
+					if (SelectedPage.IsFinishPage || selNext == null)
 					{
 						OnFinished();
 						return;
 					}
-				}
-				else if (!Pages.Contains(nextPage))
-					throw new ArgumentException("When specifying a value for nextPage, it must already be in the Pages collection.", "nextPage");
 
-				// Set new SelectedPage value
-				if (nextPage != null)
-					SelectedPage = nextPage;
-				else if (SelectedPage.NextPage != null)
-					SelectedPage = SelectedPage.NextPage;
-				else
-					SelectedPage = Pages[Pages.IndexOf(SelectedPage) + 1];
+					// Set new SelectedPage value
+					SelectedPage = selNext;
+				}
+
 			}
 		}
 
@@ -577,7 +583,7 @@ namespace AeroWizard
 				{
 					CancelButtonState = selectedPage.ShowCancel ? (selectedPage.AllowCancel && !this.IsDesignMode() ? WizardCommandButtonState.Enabled : WizardCommandButtonState.Disabled) : WizardCommandButtonState.Hidden;
 					NextButtonState = selectedPage.ShowNext ? (selectedPage.AllowNext ? WizardCommandButtonState.Enabled : WizardCommandButtonState.Disabled) : WizardCommandButtonState.Hidden;
-					if (selectedPage.IsFinishPage || Pages.IndexOf(SelectedPage) == Pages.Count - 1)
+					if (selectedPage.IsFinishPage || IsLastPage(SelectedPage))
 						nextButton.Text = FinishButtonText;
 					else
 						nextButton.Text = NextButtonText;
@@ -661,6 +667,25 @@ namespace AeroWizard
 			}
 		}
 
+		private WizardPage GetNextPage(WizardPage page)
+		{
+			if (page == null || page.IsFinishPage)
+				return null;
+
+			do
+			{
+				int pgIdx = Pages.IndexOf(page);
+				if (page.NextPage != null)
+					page = page.NextPage;
+				else if (pgIdx == Pages.Count - 1)
+					page = null;
+				else
+					page = Pages[pgIdx + 1];
+			} while (page != null && page.Suppress);
+
+			return page;
+		}
+
 		private bool HasGlass()
 		{
 			return isMin6 && DesktopWindowManager.IsCompositionEnabled();
@@ -677,6 +702,11 @@ namespace AeroWizard
 					UpdateButtons();
 				initialized = true;
 			}
+		}
+
+		private bool IsLastPage(WizardPage page)
+		{
+			return GetNextPage(page) == null;
 		}
 
 		private void nextButton_Click(object sender, EventArgs e)

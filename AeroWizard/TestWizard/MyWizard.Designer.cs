@@ -32,6 +32,10 @@
 			this.introPage = new AeroWizard.WizardPage();
 			this.button2 = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
+			this.suppressedPage = new AeroWizard.WizardPage();
+			this.label2 = new System.Windows.Forms.Label();
+			this.questionPage = new AeroWizard.WizardPage();
+			this.checkBox2 = new System.Windows.Forms.CheckBox();
 			this.middlePage = new AeroWizard.WizardPage();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -40,6 +44,8 @@
 			this.progressBar1 = new System.Windows.Forms.ProgressBar();
 			((System.ComponentModel.ISupportInitialize)(this.wizardControl1)).BeginInit();
 			this.introPage.SuspendLayout();
+			this.suppressedPage.SuspendLayout();
+			this.questionPage.SuspendLayout();
 			this.middlePage.SuspendLayout();
 			this.endPage.SuspendLayout();
 			this.SuspendLayout();
@@ -50,6 +56,8 @@
 			this.wizardControl1.Location = new System.Drawing.Point(0, 0);
 			this.wizardControl1.Name = "wizardControl1";
 			this.wizardControl1.Pages.Add(this.introPage);
+			this.wizardControl1.Pages.Add(this.suppressedPage);
+			this.wizardControl1.Pages.Add(this.questionPage);
 			this.wizardControl1.Pages.Add(this.middlePage);
 			this.wizardControl1.Pages.Add(this.endPage);
 			this.wizardControl1.Size = new System.Drawing.Size(574, 415);
@@ -85,6 +93,45 @@
 			this.button1.Text = "Cleanup system";
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.commandLink1_Click);
+			// 
+			// suppressedPage
+			// 
+			this.suppressedPage.Controls.Add(this.label2);
+			this.suppressedPage.Name = "suppressedPage";
+			this.suppressedPage.Size = new System.Drawing.Size(527, 263);
+			this.suppressedPage.Suppress = true;
+			this.suppressedPage.TabIndex = 3;
+			this.suppressedPage.Text = "Suppressed";
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(0, 4);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(139, 15);
+			this.label2.TabIndex = 0;
+			this.label2.Text = "You should never see me";
+			// 
+			// questionPage
+			// 
+			this.questionPage.AllowBack = false;
+			this.questionPage.AllowNext = false;
+			this.questionPage.Controls.Add(this.checkBox2);
+			this.questionPage.Name = "questionPage";
+			this.questionPage.Size = new System.Drawing.Size(527, 263);
+			this.questionPage.TabIndex = 4;
+			this.questionPage.Text = "Are you sure?";
+			// 
+			// checkBox2
+			// 
+			this.checkBox2.AutoSize = true;
+			this.checkBox2.Location = new System.Drawing.Point(4, 4);
+			this.checkBox2.Name = "checkBox2";
+			this.checkBox2.Size = new System.Drawing.Size(44, 19);
+			this.checkBox2.TabIndex = 0;
+			this.checkBox2.Text = "Yes";
+			this.checkBox2.UseVisualStyleBackColor = true;
+			this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
 			// 
 			// middlePage
 			// 
@@ -138,8 +185,8 @@
 			// 
 			// progressBar1
 			// 
-			this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
+			this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.progressBar1.Location = new System.Drawing.Point(7, 23);
 			this.progressBar1.Name = "progressBar1";
 			this.progressBar1.Size = new System.Drawing.Size(400, 23);
@@ -156,6 +203,10 @@
 			this.Name = "MyWizard";
 			((System.ComponentModel.ISupportInitialize)(this.wizardControl1)).EndInit();
 			this.introPage.ResumeLayout(false);
+			this.suppressedPage.ResumeLayout(false);
+			this.suppressedPage.PerformLayout();
+			this.questionPage.ResumeLayout(false);
+			this.questionPage.PerformLayout();
 			this.middlePage.ResumeLayout(false);
 			this.middlePage.PerformLayout();
 			this.endPage.ResumeLayout(false);
@@ -176,6 +227,10 @@
 		private System.Windows.Forms.CheckBox checkBox1;
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.Button button1;
+		private AeroWizard.WizardPage suppressedPage;
+		private System.Windows.Forms.Label label2;
+		private AeroWizard.WizardPage questionPage;
+		private System.Windows.Forms.CheckBox checkBox2;
 	}
 }
 

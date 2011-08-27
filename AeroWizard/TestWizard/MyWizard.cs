@@ -52,5 +52,11 @@ namespace TestWizard
 				checkBox1.Checked = DesktopWindowManager.IsCompositionEnabled();
 			initMiddle = false;
 		}
+
+		private void checkBox2_CheckedChanged(object sender, System.EventArgs e)
+		{
+			wizardControl1.SelectedPage.AllowNext = checkBox2.Checked;
+			wizardControl1.SelectedPage.AllowBack = !checkBox2.Checked;
+		}
 	}
 }

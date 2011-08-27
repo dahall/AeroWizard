@@ -563,14 +563,10 @@ namespace AeroWizard
 		protected internal void UpdateButtons()
 		{
 			System.Diagnostics.Debug.WriteLine(string.Format("UpdBtn: hstCnt={0},pgIdx={1}:{2},isFin={3}", pageHistory.Count, SelectedPageIndex, Pages.Count, selectedPage == null ? false : selectedPage.IsFinishPage));
-			if (this.IsDesignMode())
-				BackButtonState = SelectedPageIndex <= 0 ? WizardCommandButtonState.Disabled : WizardCommandButtonState.Enabled;
-			else
-				BackButtonState = pageHistory.Count == 0 ? WizardCommandButtonState.Disabled : WizardCommandButtonState.Enabled;
 			if (selectedPage == null)
 			{
 				CancelButtonState = this.IsDesignMode() ? WizardCommandButtonState.Disabled : WizardCommandButtonState.Enabled;
-				NextButtonState = WizardCommandButtonState.Hidden;
+				NextButtonState = BackButtonState = WizardCommandButtonState.Hidden;
 			}
 			else
 			{
@@ -578,6 +574,7 @@ namespace AeroWizard
 				{
 					CancelButtonState = WizardCommandButtonState.Disabled;
 					NextButtonState = SelectedPageIndex == Pages.Count - 1 ? WizardCommandButtonState.Disabled : WizardCommandButtonState.Enabled;
+					BackButtonState = SelectedPageIndex <= 0 ? WizardCommandButtonState.Disabled : WizardCommandButtonState.Enabled;
 				}
 				else
 				{
@@ -587,6 +584,7 @@ namespace AeroWizard
 						nextButton.Text = FinishButtonText;
 					else
 						nextButton.Text = NextButtonText;
+					BackButtonState = (pageHistory.Count == 0 || !selectedPage.AllowBack) ? WizardCommandButtonState.Disabled : WizardCommandButtonState.Enabled;
 				}
 			}
 		}

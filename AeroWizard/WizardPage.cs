@@ -13,7 +13,7 @@ namespace AeroWizard
 	public partial class WizardPage : Control
 	{
 		private bool initializing = false;
-		private bool allowCancel = true, allowNext = true;
+		private bool allowCancel = true, allowNext = true, allowBack = true;
 		private bool showCancel = true, showNext = true;
 		private bool isFinishPage = false;
 
@@ -47,6 +47,25 @@ namespace AeroWizard
 		/// </summary>
 		[Category("Wizard")]
 		public event EventHandler<WizardPageConfirmEventArgs> Rollback;
+
+		/// <summary>
+		/// Gets or sets a value indicating whether to enable the Back button.
+		/// </summary>
+		/// <value><c>true</c> if Back button is enabled; otherwise, <c>false</c>.</value>
+		[DefaultValue(true), Category("Behavior")]
+		public virtual bool AllowBack
+		{
+			get { return allowBack; }
+			set
+			{
+				if (allowBack != value)
+				{
+					allowBack = value;
+					if (Owner != null && this == Owner.SelectedPage)
+						Owner.UpdateButtons();
+				}
+			}
+		}
 
 		/// <summary>
 		/// Gets or sets a value indicating whether to enable the Cancel button.

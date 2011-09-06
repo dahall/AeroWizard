@@ -101,7 +101,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WizardControl.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="WizardControl.designer.cs">
       <DependentUpon>WizardControl.cs</DependentUpon>
@@ -114,7 +114,7 @@
       <DependentUpon>WizardPage.cs</DependentUpon>
     </Compile>
     <Compile Include="WizardPageCollection.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>

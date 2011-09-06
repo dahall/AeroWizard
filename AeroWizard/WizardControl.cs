@@ -442,6 +442,11 @@ namespace AeroWizard
 				SelectedPage = pageHistory.Pop();
 		}
 
+		/// <summary>
+		/// Gets the content area rectangle.
+		/// </summary>
+		/// <param name="parentRelative">if set to <c>true</c> rectangle is relative to parent.</param>
+		/// <returns>Coordinates of content area.</returns>
 		internal Rectangle GetContentAreaRectangle(bool parentRelative)
 		{
 			int[] cw = contentArea.GetColumnWidths();
@@ -463,17 +468,6 @@ namespace AeroWizard
 
 			if (!this.IsDesignMode())
 				CloseForm(DialogResult.Cancel);
-		}
-
-		/// <summary>
-		/// Raises the <see cref="E:System.Windows.Forms.Control.HandleDestroyed"/> event.
-		/// </summary>
-		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
-		protected override void OnHandleDestroyed(EventArgs e)
-		{
-			if (isMin6 && !this.IsDesignMode())
-				DesktopWindowManager.CompositionChanged -= DesktopWindowManager_CompositionChanged;
-			base.OnHandleDestroyed(e);
 		}
 
 		/// <summary>
@@ -522,6 +516,19 @@ namespace AeroWizard
 		{
 			base.OnHandleCreated(e);
 			InitialSetup();
+			if (isMin6 && !this.IsDesignMode())
+				DesktopWindowManager.CompositionChanged += DesktopWindowManager_CompositionChanged;
+		}
+
+		/// <summary>
+		/// Raises the <see cref="E:System.Windows.Forms.Control.HandleDestroyed"/> event.
+		/// </summary>
+		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
+		protected override void OnHandleDestroyed(EventArgs e)
+		{
+			if (isMin6 && !this.IsDesignMode())
+				DesktopWindowManager.CompositionChanged -= DesktopWindowManager_CompositionChanged;
+			base.OnHandleDestroyed(e);
 		}
 
 		/// <summary>
@@ -533,18 +540,11 @@ namespace AeroWizard
 			base.OnParentChanged(e);
 
 			if (parentForm != null)
-			{
-				parentForm.HandleCreated -= parentForm_HandleCreated;
-				if (isMin6 && !this.IsDesignMode())
-					DesktopWindowManager.CompositionChanged -= DesktopWindowManager_CompositionChanged;
-			}
+				parentForm.Activated -= parentForm_Activated;
 			parentForm = base.Parent as Form;
 			this.Dock = DockStyle.Fill;
 			if (parentForm != null)
-			{
-				parentForm.HandleCreated += parentForm_HandleCreated;
-				//Margins margins = new Margins(0) { Top = titleBar.Height };
-			}
+				parentForm.Activated += parentForm_Activated;
 		}
 
 		/// <summary>
@@ -613,20 +613,24 @@ namespace AeroWizard
 				titleBar.BackColor = Color.Black;
 				try
 				{
-					parentForm.ExtendFrameIntoClientArea(new Padding(0) { Top = titleBar.Height });
+					if (parentForm != null)
+						parentForm.ExtendFrameIntoClientArea(new Padding(0) { Top = titleBar.Height });
 				}
 				catch { titleBar.BackColor = commandArea.BackColor; }
 			}
 			else
 				titleBar.BackColor = commandArea.BackColor;
 
-			parentForm.SetWindowThemeAttribute(VisualStyleRendererExtender.WindowThemeNonClientAttributes.NoDrawCaption | VisualStyleRendererExtender.WindowThemeNonClientAttributes.NoDrawIcon);
-			if (!this.SuppressParentFormIconSync)
-				parentForm.Text = this.Title;
-			if (!this.SuppressParentFormCaptionSync)
+			if (parentForm != null)
 			{
-				parentForm.Icon = this.TitleIcon;
-				parentForm.ShowIcon = true;
+				parentForm.SetWindowThemeAttribute(VisualStyleRendererExtender.WindowThemeNonClientAttributes.NoDrawCaption | VisualStyleRendererExtender.WindowThemeNonClientAttributes.NoDrawIcon);
+				if (!this.SuppressParentFormIconSync)
+					parentForm.Text = this.Title;
+				if (!this.SuppressParentFormCaptionSync)
+				{
+					parentForm.Icon = this.TitleIcon;
+					parentForm.ShowIcon = true;
+				}
 			}
 		}
 
@@ -749,11 +753,9 @@ namespace AeroWizard
 				SelectedPage = Pages.Contains(curPage) ? curPage : Pages[0];
 		}
 
-		private void parentForm_HandleCreated(object sender, EventArgs e)
+		private void parentForm_Activated(object sender, EventArgs e)
 		{
 			ConfigureWindowFrame();
-			if (isMin6 && !this.IsDesignMode())
-				DesktopWindowManager.CompositionChanged += DesktopWindowManager_CompositionChanged;
 		}
 
 		private void ResetBackButtonToolTipText()
@@ -851,10 +853,15 @@ namespace AeroWizard
 					//commandArea.BackColor = theme.GetColor(4, 0, 3802);
 
 					// Buttons
-					theme.SetParameters(VisualStyleElementEx.AeroWizard.Button.Normal);
+					/*theme.SetParameters(VisualStyleElementEx.AeroWizard.Button.Normal);
 					int btnHeight = theme.GetInteger(IntegerProperty.Height);
+					theme.SetParameters(VisualStyleElement.Button.PushButton.Normal);
+					Button btn = new Button() { AutoSize = true, AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink, Text = "Wj" };
+					this.Controls.Add(btn);
+					btnHeight = Math.Max(btnHeight, btn.Height);
+					this.Controls.Remove(btn);
 					nextButton.Height = btnHeight;
-					cancelButton.Height = btnHeight;
+					cancelButton.Height = btnHeight;*/
 				}
 			}
 			else

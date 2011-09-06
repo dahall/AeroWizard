@@ -74,11 +74,11 @@
 			this.title.Anchor = System.Windows.Forms.AnchorStyles.Left;
 			this.title.AutoSize = true;
 			this.title.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-			this.title.Location = new System.Drawing.Point(59, 6);
+			this.title.Location = new System.Drawing.Point(59, 4);
 			this.title.Margin = new System.Windows.Forms.Padding(0);
 			this.title.Name = "title";
 			this.title.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
-			this.title.Size = new System.Drawing.Size(79, 19);
+			this.title.Size = new System.Drawing.Size(99, 24);
 			this.title.TabIndex = 2;
 			this.title.Text = "Wizard Title";
 			this.title.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -89,11 +89,11 @@
 			this.titleImage.AutoSize = true;
 			this.titleImage.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
 			this.titleImage.ImageList = this.titleImageList;
-			this.titleImage.Location = new System.Drawing.Point(36, 8);
+			this.titleImage.Location = new System.Drawing.Point(36, 6);
 			this.titleImage.Margin = new System.Windows.Forms.Padding(0, 0, 7, 0);
 			this.titleImage.MinimumSize = new System.Drawing.Size(16, 16);
 			this.titleImage.Name = "titleImage";
-			this.titleImage.Size = new System.Drawing.Size(16, 16);
+			this.titleImage.Size = new System.Drawing.Size(16, 20);
 			this.titleImage.TabIndex = 1;
 			// 
 			// titleImageList
@@ -129,7 +129,7 @@
 			this.header.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.header.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
 			this.header.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
-			this.header.Size = new System.Drawing.Size(609, 59);
+			this.header.Size = new System.Drawing.Size(609, 66);
 			this.header.TabIndex = 0;
 			// 
 			// headerLabel
@@ -141,7 +141,7 @@
 			this.headerLabel.Location = new System.Drawing.Point(38, 19);
 			this.headerLabel.Margin = new System.Windows.Forms.Padding(38, 19, 0, 19);
 			this.headerLabel.Name = "headerLabel";
-			this.headerLabel.Size = new System.Drawing.Size(77, 21);
+			this.headerLabel.Size = new System.Drawing.Size(97, 28);
 			this.headerLabel.TabIndex = 0;
 			this.headerLabel.Text = "Page Title";
 			// 
@@ -156,22 +156,25 @@
 			this.commandArea.Controls.Add(this.cancelButton, 1, 1);
 			this.commandArea.Controls.Add(this.nextButton, 0, 1);
 			this.commandArea.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.commandArea.Location = new System.Drawing.Point(0, 371);
+			this.commandArea.Location = new System.Drawing.Point(0, 364);
 			this.commandArea.Name = "commandArea";
 			this.commandArea.RowCount = 3;
 			this.commandArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
 			this.commandArea.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.commandArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-			this.commandArea.Size = new System.Drawing.Size(609, 43);
+			this.commandArea.Size = new System.Drawing.Size(609, 50);
 			this.commandArea.TabIndex = 2;
 			// 
 			// cancelButton
 			// 
 			this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cancelButton.AutoSize = true;
+			this.cancelButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.cancelButton.Location = new System.Drawing.Point(520, 10);
 			this.cancelButton.Margin = new System.Windows.Forms.Padding(7, 0, 0, 0);
+			this.cancelButton.MinimumSize = new System.Drawing.Size(70, 0);
 			this.cancelButton.Name = "cancelButton";
-			this.cancelButton.Size = new System.Drawing.Size(70, 23);
+			this.cancelButton.Size = new System.Drawing.Size(70, 30);
 			this.cancelButton.TabIndex = 1;
 			this.cancelButton.Text = "Cancel";
 			this.cancelButton.UseVisualStyleBackColor = true;
@@ -180,10 +183,13 @@
 			// nextButton
 			// 
 			this.nextButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.nextButton.AutoSize = true;
+			this.nextButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.nextButton.Location = new System.Drawing.Point(443, 10);
 			this.nextButton.Margin = new System.Windows.Forms.Padding(0);
+			this.nextButton.MinimumSize = new System.Drawing.Size(70, 0);
 			this.nextButton.Name = "nextButton";
-			this.nextButton.Size = new System.Drawing.Size(70, 23);
+			this.nextButton.Size = new System.Drawing.Size(70, 30);
 			this.nextButton.TabIndex = 0;
 			this.nextButton.Text = "&Next >";
 			this.nextButton.UseVisualStyleBackColor = true;
@@ -197,13 +203,13 @@
 			this.contentArea.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.contentArea.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 19F));
 			this.contentArea.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.contentArea.Location = new System.Drawing.Point(0, 91);
+			this.contentArea.Location = new System.Drawing.Point(0, 98);
 			this.contentArea.Name = "contentArea";
 			this.contentArea.RowCount = 2;
 			this.contentArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.contentArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
 			this.contentArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.contentArea.Size = new System.Drawing.Size(609, 280);
+			this.contentArea.Size = new System.Drawing.Size(609, 266);
 			this.contentArea.TabIndex = 1;
 			this.contentArea.Paint += new System.Windows.Forms.PaintEventHandler(this.contentArea_Paint);
 			// 
@@ -211,7 +217,7 @@
 			// 
 			this.commandAreaBorder.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.commandAreaBorder.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.commandAreaBorder.Location = new System.Drawing.Point(0, 370);
+			this.commandAreaBorder.Location = new System.Drawing.Point(0, 363);
 			this.commandAreaBorder.Margin = new System.Windows.Forms.Padding(0);
 			this.commandAreaBorder.Name = "commandAreaBorder";
 			this.commandAreaBorder.Size = new System.Drawing.Size(609, 1);
@@ -232,6 +238,7 @@
 			this.header.ResumeLayout(false);
 			this.header.PerformLayout();
 			this.commandArea.ResumeLayout(false);
+			this.commandArea.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

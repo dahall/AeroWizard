@@ -830,6 +830,8 @@ namespace AeroWizard
 					// Title
 					theme.SetParameters(VisualStyleElementEx.AeroWizard.TitleBar.Active);
 					titleBar.Height = Math.Max(theme.GetMargins2(g, MarginProperty.ContentMargins).Top, bbSize.Height + 2);
+					titleBar.ColumnStyles[0].Width = bbSize.Width + 4F;
+					titleBar.ColumnStyles[1].Width = titleImageIconSet ? titleImageList.ImageSize.Width + 4F : 0;
 					backButton.Size = bbSize;
 
 					// Header
@@ -850,18 +852,6 @@ namespace AeroWizard
 					commandArea.RowStyles[0].Height = cp.Top;
 					commandArea.RowStyles[2].Height = cp.Bottom;
 					commandArea.ColumnStyles[2].Width = contentArea.ColumnStyles[2].Width = cp.Right;
-					//commandArea.BackColor = theme.GetColor(4, 0, 3802);
-
-					// Buttons
-					/*theme.SetParameters(VisualStyleElementEx.AeroWizard.Button.Normal);
-					int btnHeight = theme.GetInteger(IntegerProperty.Height);
-					theme.SetParameters(VisualStyleElement.Button.PushButton.Normal);
-					Button btn = new Button() { AutoSize = true, AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink, Text = "Wj" };
-					this.Controls.Add(btn);
-					btnHeight = Math.Max(btnHeight, btn.Height);
-					this.Controls.Remove(btn);
-					nextButton.Height = btnHeight;
-					cancelButton.Height = btnHeight;*/
 				}
 			}
 			else

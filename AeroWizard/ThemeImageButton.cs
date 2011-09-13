@@ -91,7 +91,7 @@ namespace AeroWizard
 
 		protected override void PaintButton(Graphics graphics, Rectangle bounds)
 		{
-			if (Application.RenderWithVisualStyles)
+			if (Application.RenderWithVisualStyles || DesktopWindowManager.IsCompositionEnabled())
 			{
 				try
 				{

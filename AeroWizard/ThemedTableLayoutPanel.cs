@@ -36,10 +36,10 @@ namespace AeroWizard
 			rnd = null;
 		}
 
-		[DefaultValue(false)]
+		[DefaultValue(false), Category("Behavior")]
 		public bool WatchFocus { get; set; }
 
-		[DefaultValue(false)]
+		[DefaultValue(false), Category("Appearance")]
 		public bool SupportGlass { get; set; }
 
 		protected override void OnHandleCreated(System.EventArgs e)
@@ -51,11 +51,11 @@ namespace AeroWizard
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			if (!this.IsDesignMode() && SupportGlass && DesktopWindowManager.IsCompositionEnabled())
-				e.Graphics.Clear(System.Drawing.Color.Black);
+				try { e.Graphics.Clear(System.Drawing.Color.Black); } catch { }
 			else
 			{
 				if (this.IsDesignMode() || rnd == null)
-					e.Graphics.Clear(this.BackColor);
+					try { e.Graphics.Clear(this.BackColor); } catch { }
 				else
 					rnd.DrawBackground(e.Graphics, this.ClientRectangle, e.ClipRectangle);
 			}

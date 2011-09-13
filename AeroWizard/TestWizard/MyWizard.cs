@@ -58,5 +58,10 @@ namespace TestWizard
 			wizardControl1.SelectedPage.AllowNext = checkBox2.Checked;
 			wizardControl1.SelectedPage.AllowBack = !checkBox2.Checked;
 		}
+
+		private void endPage_Initialize(object sender, AeroWizard.WizardPageInitEventArgs e)
+		{
+			wizardControl1.FinishButtonText = "Sorry, but you are hosed.";
+		}
 	}
 }

@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyWizard));
 			this.wizardControl1 = new AeroWizard.WizardControl();
 			this.introPage = new AeroWizard.WizardPage();
 			this.button2 = new System.Windows.Forms.Button();
@@ -63,6 +64,7 @@
 			this.wizardControl1.Size = new System.Drawing.Size(574, 415);
 			this.wizardControl1.TabIndex = 0;
 			this.wizardControl1.Title = "Modify System";
+			this.wizardControl1.TitleIcon = ((System.Drawing.Icon)(resources.GetObject("wizardControl1.TitleIcon")));
 			// 
 			// introPage
 			// 
@@ -70,7 +72,7 @@
 			this.introPage.Controls.Add(this.button2);
 			this.introPage.Controls.Add(this.button1);
 			this.introPage.Name = "introPage";
-			this.introPage.Size = new System.Drawing.Size(527, 263);
+			this.introPage.Size = new System.Drawing.Size(539, 283);
 			this.introPage.TabIndex = 0;
 			this.introPage.Text = "Choose an activity";
 			// 
@@ -118,7 +120,7 @@
 			this.questionPage.AllowNext = false;
 			this.questionPage.Controls.Add(this.checkBox2);
 			this.questionPage.Name = "questionPage";
-			this.questionPage.Size = new System.Drawing.Size(527, 263);
+			this.questionPage.Size = new System.Drawing.Size(526, 250);
 			this.questionPage.TabIndex = 4;
 			this.questionPage.Text = "Are you sure?";
 			// 
@@ -127,7 +129,7 @@
 			this.checkBox2.AutoSize = true;
 			this.checkBox2.Location = new System.Drawing.Point(4, 4);
 			this.checkBox2.Name = "checkBox2";
-			this.checkBox2.Size = new System.Drawing.Size(44, 19);
+			this.checkBox2.Size = new System.Drawing.Size(33, 15);
 			this.checkBox2.TabIndex = 0;
 			this.checkBox2.Text = "Yes";
 			this.checkBox2.UseVisualStyleBackColor = true;
@@ -139,7 +141,7 @@
 			this.middlePage.Controls.Add(this.linkLabel1);
 			this.middlePage.IsFinishPage = true;
 			this.middlePage.Name = "middlePage";
-			this.middlePage.Size = new System.Drawing.Size(527, 263);
+			this.middlePage.Size = new System.Drawing.Size(526, 250);
 			this.middlePage.TabIndex = 1;
 			this.middlePage.Text = "Launch System Cleanup";
 			this.middlePage.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.middlePage_Initialize);
@@ -149,7 +151,7 @@
 			this.checkBox1.AutoSize = true;
 			this.checkBox1.Location = new System.Drawing.Point(6, 41);
 			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(233, 19);
+			this.checkBox1.Size = new System.Drawing.Size(175, 15);
 			this.checkBox1.TabIndex = 1;
 			this.checkBox1.Text = "Desktop Window Composition Enabled";
 			this.checkBox1.UseVisualStyleBackColor = true;
@@ -170,9 +172,10 @@
 			this.endPage.Controls.Add(this.label1);
 			this.endPage.Controls.Add(this.progressBar1);
 			this.endPage.Name = "endPage";
-			this.endPage.Size = new System.Drawing.Size(527, 263);
+			this.endPage.Size = new System.Drawing.Size(526, 250);
 			this.endPage.TabIndex = 2;
 			this.endPage.Text = "Bad Choice";
+			this.endPage.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.endPage_Initialize);
 			// 
 			// label1
 			// 
@@ -189,7 +192,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.progressBar1.Location = new System.Drawing.Point(7, 23);
 			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(400, 23);
+			this.progressBar1.Size = new System.Drawing.Size(399, 23);
 			this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
 			this.progressBar1.TabIndex = 0;
 			// 

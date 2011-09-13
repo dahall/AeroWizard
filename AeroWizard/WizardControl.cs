@@ -342,8 +342,11 @@ namespace AeroWizard
 			{
 				titleImageIcon = value;
 				titleImageList.Images.Clear();
-				titleImageList.Images.Add(value);
-				titleImage.ImageIndex = 0;
+				if (titleImageIcon != null)
+				{
+					titleImageList.Images.Add(value);
+					titleImage.ImageIndex = 0;
+				}
 				titleImageIconSet = true;
 				base.Invalidate();
 			}
@@ -626,7 +629,7 @@ namespace AeroWizard
 				parentForm.SetWindowThemeAttribute(VisualStyleRendererExtender.WindowThemeNonClientAttributes.NoDrawCaption | VisualStyleRendererExtender.WindowThemeNonClientAttributes.NoDrawIcon);
 				if (!this.SuppressParentFormIconSync)
 					parentForm.Text = this.Title;
-				if (!this.SuppressParentFormCaptionSync)
+				if (!this.SuppressParentFormCaptionSync && this.titleImageIcon != null)
 				{
 					parentForm.Icon = this.TitleIcon;
 					parentForm.ShowIcon = true;
@@ -831,7 +834,7 @@ namespace AeroWizard
 					theme.SetParameters(VisualStyleElementEx.AeroWizard.TitleBar.Active);
 					titleBar.Height = Math.Max(theme.GetMargins2(g, MarginProperty.ContentMargins).Top, bbSize.Height + 2);
 					titleBar.ColumnStyles[0].Width = bbSize.Width + 4F;
-					titleBar.ColumnStyles[1].Width = titleImageIconSet ? titleImageList.ImageSize.Width + 4F : 0;
+					titleBar.ColumnStyles[1].Width = titleImageIcon != null ? titleImageList.ImageSize.Width + 4F : 0;
 					backButton.Size = bbSize;
 
 					// Header

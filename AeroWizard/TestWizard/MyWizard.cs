@@ -8,8 +8,7 @@ namespace TestWizard
 		public MyWizard()
 		{
 			InitializeComponent();
-			System.Resources.ResourceManager rm = new System.Resources.ResourceManager("AeroWizard.Properties.Resources", typeof(AeroWizard.WizardControl).Assembly);
-			this.Icon = rm.GetObject("WizardControlIcon") as System.Drawing.Icon;
+			//this.wizardControl1.TitleIcon = null;
 			foreach (var i in this.wizardControl1.Pages)
 				i.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(i_Commit);
 			this.wizardControl1.Finished += new System.EventHandler(wizardControl1_Finished);
@@ -50,6 +49,7 @@ namespace TestWizard
 				checkBox1.Enabled = false;
 			else
 				checkBox1.Checked = DesktopWindowManager.IsCompositionEnabled();
+			wizardControl1.FinishButtonText = "Finish";
 			initMiddle = false;
 		}
 

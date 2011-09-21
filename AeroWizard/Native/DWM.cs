@@ -99,6 +99,33 @@ namespace Microsoft.Win32.DesktopWindowManager
 		}
 
 		/// <summary>
+		/// Excludes the specified child control from the glass effect.
+		/// </summary>
+		/// <param name="parent">The parent control.</param>
+		/// <param name="control">The control to exclude.</param>
+		/// <exception cref="ArgumentNullException">Occurs if control is null.</exception>
+		/// <exception cref="ArgumentException">Occurs if control is not a child control.</exception>
+		public static void ExcludeChildFromGlass(this Control parent, Control control)
+		{
+			if (control == null)
+				throw new ArgumentNullException("control");
+			if (!parent.Contains(control))
+				throw new ArgumentException("Control must be a child control.");
+
+			if (IsCompositionEnabled())
+			{
+				System.Drawing.Rectangle clientScreen = parent.RectangleToScreen(parent.ClientRectangle);
+				System.Drawing.Rectangle controlScreen = control.RectangleToScreen(control.ClientRectangle);
+
+				Margins margins = new Margins(controlScreen.Left - clientScreen.Left, controlScreen.Top - clientScreen.Top,
+					clientScreen.Right - controlScreen.Right, clientScreen.Bottom - controlScreen.Bottom);
+
+				// Extend the Frame into client area
+				DwmExtendFrameIntoClientArea(parent.Handle, ref margins);
+			}
+		}
+
+		/// <summary>
 		/// Extends the window frame beyond the client area.
 		/// </summary>
 		/// <param name="window">The window.</param>

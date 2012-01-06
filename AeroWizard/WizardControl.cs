@@ -87,9 +87,16 @@ namespace AeroWizard
 		}
 
 		/// <summary>
-		/// Occurs when the user clicks the Cancel button.
+		/// Occurs when the Cancel button has been clicked and the form is closing.
 		/// </summary>
-		public event CancelEventHandler Cancelled;
+		/// <remarks>The <see cref="WizardControl.Cancelled"/> event is obsolete in version 1.2; use the <see cref="WizardControl.Cancelling"/> event instead.</remarks>
+		[Obsolete("The Cancelled event is obsolete in version 1.2; use the Cancelling event instead.")]
+		public event EventHandler Cancelled;
+
+		/// <summary>
+		/// Occurs when the user clicks the Cancel button and allows for programmatic cancellation.
+		/// </summary>
+		public event CancelEventHandler Cancelling;
 
 		/// <summary>
 		/// Occurs when the user clicks the Next/Finish button and the page is set to <see cref="WizardPage.IsFinishPage"/> or this is the last page in the <see cref="Pages"/> collection.
@@ -463,15 +470,32 @@ namespace AeroWizard
 		/// <summary>
 		/// Raises the <see cref="WizardControl.Cancelled"/> event.
 		/// </summary>
+		/// <remarks>The <see cref="WizardControl.OnCancelled"/> method is obsolete in version 1.2; use the <see cref="WizardControl.OnCancelling"/> method instead.</remarks>
+		[Obsolete("The OnCancelled method is obsolete in version 1.2; use the OnCancelling method instead.")]
 		protected virtual void OnCancelled()
 		{
-			CancelEventHandler h = Cancelled;
+			EventHandler h = Cancelled;
+			if (h != null)
+				h(this, EventArgs.Empty);
+
+			if (!this.IsDesignMode())
+				CloseForm(DialogResult.Cancel);
+		}
+
+		/// <summary>
+		/// Raises the <see cref="WizardControl.Cancelling"/> event.
+		/// </summary>
+		protected virtual void OnCancelling()
+		{
+			CancelEventHandler h = Cancelling;
 			CancelEventArgs arg = new CancelEventArgs(true);
 			if (h != null)
 				h(this, arg);
 
-			if (!this.IsDesignMode() && arg.Cancel)
-				CloseForm(DialogResult.Cancel);
+			if (arg.Cancel)
+#pragma warning disable 618
+				OnCancelled();
+#pragma warning restore 618
 		}
 
 		/// <summary>
@@ -600,7 +624,7 @@ namespace AeroWizard
 
 		private void cancelButton_Click(object sender, EventArgs e)
 		{
-			OnCancelled();
+			OnCancelling();
 		}
 
 		private void CloseForm(DialogResult dlgResult)

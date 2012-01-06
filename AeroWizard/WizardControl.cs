@@ -89,7 +89,7 @@ namespace AeroWizard
 		/// <summary>
 		/// Occurs when the user clicks the Cancel button.
 		/// </summary>
-		public event EventHandler Cancelled;
+		public event CancelEventHandler Cancelled;
 
 		/// <summary>
 		/// Occurs when the user clicks the Next/Finish button and the page is set to <see cref="WizardPage.IsFinishPage"/> or this is the last page in the <see cref="Pages"/> collection.
@@ -465,11 +465,12 @@ namespace AeroWizard
 		/// </summary>
 		protected virtual void OnCancelled()
 		{
-			EventHandler h = Cancelled;
+			CancelEventHandler h = Cancelled;
+			CancelEventArgs arg = new CancelEventArgs(true);
 			if (h != null)
-				h(this, EventArgs.Empty);
+				h(this, arg);
 
-			if (!this.IsDesignMode())
+			if (!this.IsDesignMode() && arg.Cancel)
 				CloseForm(DialogResult.Cancel);
 		}
 

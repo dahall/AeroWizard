@@ -59,6 +59,12 @@
     <DocumentationFile>bin\Release\AeroWizard.XML</DocumentationFile>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>AeroWizard.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -128,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="AeroWizard.nuspec" />
+    <None Include="AeroWizard.snk" />
     <None Include="Resources\WizardHat.ico" />
   </ItemGroup>
   <ItemGroup>

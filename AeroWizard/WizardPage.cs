@@ -33,26 +33,26 @@ namespace AeroWizard
 		/// <summary>
 		/// Occurs when the user has clicked the Next/Finish button but before the page is changed.
 		/// </summary>
-		[Category("Wizard")]
+		[Category("Wizard"), Description("Occurs when the user has clicked the Next/Finish button but before the page is changed")]
 		public event EventHandler<WizardPageConfirmEventArgs> Commit;
 
 		/// <summary>
 		/// Occurs when this page is entered.
 		/// </summary>
-		[Category("Wizard")]
+		[Category("Wizard"), Description("Occurs when this page is entered")]
 		public event EventHandler<WizardPageInitEventArgs> Initialize;
 
 		/// <summary>
 		/// Occurs when the user has clicked the Back button but before the page is changed.
 		/// </summary>
-		[Category("Wizard")]
+		[Category("Wizard"), Description("Occurs when the user has clicked the Back button")]
 		public event EventHandler<WizardPageConfirmEventArgs> Rollback;
 
 		/// <summary>
 		/// Gets or sets a value indicating whether to enable the Back button.
 		/// </summary>
 		/// <value><c>true</c> if Back button is enabled; otherwise, <c>false</c>.</value>
-		[DefaultValue(true), Category("Behavior")]
+		[DefaultValue(true), Category("Behavior"), Description("Indicates whether to enable the Back button")]
 		public virtual bool AllowBack
 		{
 			get { return allowBack; }
@@ -71,7 +71,7 @@ namespace AeroWizard
 		/// Gets or sets a value indicating whether to enable the Cancel button.
 		/// </summary>
 		/// <value><c>true</c> if Cancel button is enabled; otherwise, <c>false</c>.</value>
-		[DefaultValue(true), Category("Behavior")]
+		[DefaultValue(true), Category("Behavior"), Description("Indicates whether to enable the Cancel button")]
 		public virtual bool AllowCancel
 		{
 			get { return allowCancel; }
@@ -90,7 +90,7 @@ namespace AeroWizard
 		/// Gets or sets a value indicating whether to enable the Next/Finish button.
 		/// </summary>
 		/// <value><c>true</c> if Next/Finish button is enabled; otherwise, <c>false</c>.</value>
-		[DefaultValue(true), Category("Behavior")]
+		[DefaultValue(true), Category("Behavior"), Description("Indicates whether to enable the Next/Finish button")]
 		public virtual bool AllowNext
 		{
 			get { return allowNext; }
@@ -109,7 +109,7 @@ namespace AeroWizard
 		/// Gets or sets a value indicating whether this page is the last page in the sequence and should display the Finish text instead of the Next text on the Next/Finish button.
 		/// </summary>
 		/// <value><c>true</c> if this page is a finish page; otherwise, <c>false</c>.</value>
-		[DefaultValue(false), Category("Behavior")]
+		[DefaultValue(false), Category("Behavior"), Description("Indicates whether this page is the last page")]
 		public virtual bool IsFinishPage
 		{
 			get { return isFinishPage; }
@@ -143,7 +143,7 @@ namespace AeroWizard
 		/// Gets or sets a value indicating whether to show the Cancel button. If both <see cref="ShowCancel"/> and <see cref="ShowNext"/> are <c>false</c>, then the bottom command area will not be shown.
 		/// </summary>
 		/// <value><c>true</c> if Cancel button should be shown; otherwise, <c>false</c>.</value>
-		[DefaultValue(true), Category("Behavior")]
+		[DefaultValue(true), Category("Behavior"), Description("Indicates whether to show the Cancel button")]
 		public virtual bool ShowCancel
 		{
 			get { return showCancel; }
@@ -162,7 +162,7 @@ namespace AeroWizard
 		/// Gets or sets a value indicating whether to show the Next/Finish button. If both <see cref="ShowCancel"/> and <see cref="ShowNext"/> are <c>false</c>, then the bottom command area will not be shown.
 		/// </summary>
 		/// <value><c>true</c> if Next/Finish button should be shown; otherwise, <c>false</c>.</value>
-		[DefaultValue(true), Category("Behavior")]
+		[DefaultValue(true), Category("Behavior"), Description("Indicates whether to show the Next/Finish button")]
 		public virtual bool ShowNext
 		{
 			get { return showNext; }
@@ -299,19 +299,13 @@ namespace AeroWizard
 		/// </summary>
 		/// <value><c>true</c> if cancel; otherwise, <c>false</c> to allow. Default is <c>false</c>.</value>
 		[DefaultValue(false)]
-		public bool Cancel
-		{
-			get; set;
-		}
+		public bool Cancel { get; set; }
 
 		/// <summary>
 		/// Gets the <see cref="WizardPage"/> that has raised the event.
 		/// </summary>
 		/// <value>The wizard page.</value>
-		public WizardPage Page
-		{
-			get; private set;
-		}
+		public WizardPage Page { get; private set; }
 	}
 
 	/// <summary>
@@ -329,9 +323,6 @@ namespace AeroWizard
 		/// Gets the <see cref="WizardPage"/> that was previously selected when the event was raised.
 		/// </summary>
 		/// <value>The previous wizard page.</value>
-		public WizardPage PreviousPage
-		{
-			get; private set;
-		}
+		public WizardPage PreviousPage { get; private set; }
 	}
 }

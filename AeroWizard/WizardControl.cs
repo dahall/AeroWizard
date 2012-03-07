@@ -91,21 +91,25 @@ namespace AeroWizard
 		/// </summary>
 		/// <remarks>The <see cref="WizardControl.Cancelled"/> event is obsolete in version 1.2; use the <see cref="WizardControl.Cancelling"/> event instead.</remarks>
 		[Obsolete("The Cancelled event is obsolete in version 1.2; use the Cancelling event instead.")]
+		[Category("Behavior"), Description("Occurs when the Cancel button has been clicked and the form is closing.")]
 		public event EventHandler Cancelled;
 
 		/// <summary>
 		/// Occurs when the user clicks the Cancel button and allows for programmatic cancellation.
 		/// </summary>
+		[Category("Behavior"), Description("Occurs when the user clicks the Cancel button and allows for programmatic cancellation.")]
 		public event CancelEventHandler Cancelling;
 
 		/// <summary>
 		/// Occurs when the user clicks the Next/Finish button and the page is set to <see cref="WizardPage.IsFinishPage"/> or this is the last page in the <see cref="Pages"/> collection.
 		/// </summary>
+		[Category("Behavior"), Description("Occurs when the user clicks the Next/Finish button on last page.")]
 		public event EventHandler Finished;
 
 		/// <summary>
 		/// Occurs when the <see cref="WizardControl.SelectedPage"/> property has changed.
 		/// </summary>
+		[Category("Property Changed"), Description("Occurs when the SelectedPage property has changed.")]
 		public event EventHandler SelectedPageChanged;
 
 		/// <summary>
@@ -124,7 +128,7 @@ namespace AeroWizard
 		/// Gets or sets the back button tool tip text.
 		/// </summary>
 		/// <value>The back button tool tip text.</value>
-		[Category("Wizard"), Localizable(true)]
+		[Category("Wizard"), Localizable(true), Description("The back button tool tip text")]
 		public string BackButtonToolTipText
 		{
 			get { return backButton.ToolTipText; }
@@ -147,7 +151,7 @@ namespace AeroWizard
 		/// Gets or sets the cancel button text.
 		/// </summary>
 		/// <value>The cancel button text.</value>
-		[Category("Wizard"), Localizable(true)]
+		[Category("Wizard"), Localizable(true), Description("The cancel button text")]
 		public string CancelButtonText
 		{
 			get { return cancelButton.Text; }
@@ -158,7 +162,7 @@ namespace AeroWizard
 		/// Gets or sets the finish button text.
 		/// </summary>
 		/// <value>The finish button text.</value>
-		[Category("Wizard"), Localizable(true)]
+		[Category("Wizard"), Localizable(true), Description("The finish button text")]
 		public string FinishButtonText
 		{
 			get { return finishBtnText; }
@@ -193,7 +197,7 @@ namespace AeroWizard
 		/// </summary>
 		/// <value><c>true</c> if Next button should display a shield; otherwise, <c>false</c>.</value>
 		/// <exception cref="PlatformNotSupportedException">Setting a UAF shield on a button only works on Vista and later versions of Windows.</exception>
-		[DefaultValue(false), Category("Wizard")]
+		[DefaultValue(false), Category("Wizard"), Description("Show a shield icon on the next button")]
 		public Boolean NextButtonShieldEnabled
 		{
 			get { return nextButtonShieldEnabled; }
@@ -240,7 +244,7 @@ namespace AeroWizard
 		/// Gets or sets the next button text.
 		/// </summary>
 		/// <value>The next button text.</value>
-		[Category("Wizard"), Localizable(true)]
+		[Category("Wizard"), Localizable(true), Description("The next button text.")]
 		public string NextButtonText
 		{
 			get { return nextBtnText; }
@@ -259,12 +263,9 @@ namespace AeroWizard
 		/// Gets the collection of wizard pages in this wizard control.
 		/// </summary>
 		/// <value>The <see cref="WizardPageCollection"/> that contains the <see cref="WizardPage"/> objects in this <see cref="WizardControl"/>.</value>
-		[Category("Wizard")]
+		[Category("Wizard"), Description("Collection of wizard pages.")]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-		public WizardPageCollection Pages
-		{
-			get; private set;
-		}
+		public WizardPageCollection Pages { get; private set; }
 
 		/// <summary>
 		/// Gets the currently selected wizard page.
@@ -316,21 +317,21 @@ namespace AeroWizard
 		/// Gets or sets a value indicating whether to suppress changing the parent form's icon to match the wizard's <see cref="TitleIcon"/>.
 		/// </summary>
 		/// <value><c>true</c> to not change the parent form's icon to match this wizard's icon; otherwise, <c>false</c>.</value>
-		[Category("Wizard"), DefaultValue(false)]
+		[Category("Wizard"), DefaultValue(false), Description("Indicates whether to suppress changing the parent form's icon to match the wizard's")]
 		public bool SuppressParentFormIconSync { get; set; }
 
 		/// <summary>
 		/// Gets or sets a value indicating whether to spupress changing the parent form's caption to match the wizard's <see cref="Title"/>.
 		/// </summary>
 		/// <value><c>true</c> to not change the parent form's caption (Text) to match this wizard's title; otherwise, <c>false</c>.</value>
-		[Category("Wizard"), DefaultValue(false)]
+		[Category("Wizard"), DefaultValue(false), Description("Indicates whether to suppress changing the parent form's caption to match the wizard's")]
 		public bool SuppressParentFormCaptionSync { get; set; }
 
 		/// <summary>
 		/// Gets or sets the title for the wizard.
 		/// </summary>
 		/// <value>The title text.</value>
-		[Category("Wizard"), Localizable(true)]
+		[Category("Wizard"), Localizable(true), Description("Title for the wizard")]
 		public string Title
 		{
 			get { return title.Text; }
@@ -341,7 +342,7 @@ namespace AeroWizard
 		/// Gets or sets the optionally displayed icon next to the wizard title.
 		/// </summary>
 		/// <value>The title icon.</value>
-		[Category("Wizard"), Localizable(true)]
+		[Category("Wizard"), Localizable(true), Description("Icon next to the wizard title")]
 		public Icon TitleIcon
 		{
 			get { return titleImageIcon; }
@@ -359,6 +360,10 @@ namespace AeroWizard
 			}
 		}
 
+		/// <summary>
+		/// Gets the index of the currently selected page.
+		/// </summary>
+		/// <value>The index of the selected page.</value>
 		internal int SelectedPageIndex
 		{
 			get
@@ -453,6 +458,18 @@ namespace AeroWizard
 		}
 
 		/// <summary>
+		/// Restarts the wizard pages from the first page.
+		/// </summary>
+		public void RestartPages()
+		{
+			if (selectedPage != null)
+				selectedPage.Hide();
+			selectedPage = null;
+			pageHistory.Clear();
+			initialized = false;
+		}
+
+		/// <summary>
 		/// Gets the content area rectangle.
 		/// </summary>
 		/// <param name="parentRelative">if set to <c>true</c> rectangle is relative to parent.</param>
@@ -542,6 +559,7 @@ namespace AeroWizard
 		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
 		protected override void OnHandleCreated(EventArgs e)
 		{
+			System.Diagnostics.Debug.WriteLine("OnHandleCreated");
 			base.OnHandleCreated(e);
 			InitialSetup();
 			if (isMin6 && !this.IsDesignMode())
@@ -566,13 +584,12 @@ namespace AeroWizard
 		protected override void OnParentChanged(EventArgs e)
 		{
 			base.OnParentChanged(e);
-
 			if (parentForm != null)
-				parentForm.Activated -= parentForm_Activated;
+				parentForm.Load -= parentForm_Load;
 			parentForm = base.Parent as Form;
 			this.Dock = DockStyle.Fill;
 			if (parentForm != null)
-				parentForm.Activated += parentForm_Activated;
+				parentForm.Load += parentForm_Load;
 		}
 
 		/// <summary>
@@ -636,6 +653,7 @@ namespace AeroWizard
 
 		private void ConfigureWindowFrame()
 		{
+			System.Diagnostics.Debug.WriteLine(string.Format("ConfigureWindowFrame: hasGlass={0},parentForm={1}", HasGlass(), parentForm == null ? "null" : parentForm.Name));
 			if (HasGlass())
 			{
 				titleBar.BackColor = Color.Black;
@@ -651,14 +669,15 @@ namespace AeroWizard
 
 			if (parentForm != null)
 			{
-				parentForm.SetWindowThemeAttribute(VisualStyleRendererExtender.WindowThemeNonClientAttributes.NoDrawCaption | VisualStyleRendererExtender.WindowThemeNonClientAttributes.NoDrawIcon);
-				if (!this.SuppressParentFormIconSync)
+				if (!this.SuppressParentFormCaptionSync)
 					parentForm.Text = this.Title;
-				if (!this.SuppressParentFormCaptionSync && this.titleImageIcon != null)
+				if (!this.SuppressParentFormIconSync && this.titleImageIcon != null)
 				{
 					parentForm.Icon = this.TitleIcon;
 					parentForm.ShowIcon = true;
 				}
+				parentForm.SetWindowThemeAttribute(VisualStyleRendererExtender.WindowThemeNonClientAttributes.NoDrawCaption | VisualStyleRendererExtender.WindowThemeNonClientAttributes.NoDrawIcon | VisualStyleRendererExtender.WindowThemeNonClientAttributes.NoSysMenu);
+				parentForm.Invalidate();
 			}
 		}
 
@@ -781,7 +800,7 @@ namespace AeroWizard
 				SelectedPage = Pages.Contains(curPage) ? curPage : Pages[0];
 		}
 
-		private void parentForm_Activated(object sender, EventArgs e)
+		private void parentForm_Load(object sender, EventArgs e)
 		{
 			ConfigureWindowFrame();
 		}

@@ -52,7 +52,6 @@
 			// 
 			// wizardControl1
 			// 
-			this.wizardControl1.AllowDrop = true;
 			this.wizardControl1.Location = new System.Drawing.Point(0, 0);
 			this.wizardControl1.Name = "wizardControl1";
 			this.wizardControl1.Pages.Add(this.introPage);

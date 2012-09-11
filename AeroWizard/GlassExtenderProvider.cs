@@ -13,6 +13,8 @@ namespace AeroWizard
 	[ProvideProperty("GlassEnabled", typeof(Form))]
 	[ProvideProperty("GlassMarginMovesForm", typeof(Form))]
 	[ProvideProperty("GlassMargins", typeof(Form))]
+	[ToolboxItem(true), ToolboxBitmap(typeof(WizardControl), "GlassExtenderProvider.bmp")]
+	[Description("Extender for a Form that adds Aero glass properties.")]
 	public class GlassExtenderProvider : Component, IExtenderProvider
 	{
 		private Dictionary<Control, GlassFormProperties> formProps = new Dictionary<Control, GlassFormProperties>();

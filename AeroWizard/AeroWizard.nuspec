@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AeroWizard</id>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
     <title>Windows Forms Aero-Wizard Control</title>
     <authors>David Hall</authors>
     <description>Library for simple creation of Aero Wizards (new wizard format in Vista and later). Strictly follows Microsoft guidelines and uses Visual Styles to pull specific settings from the system. Includes nice design-time experience and demonstrates how to render controls on glass.</description>

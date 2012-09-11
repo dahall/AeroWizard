@@ -157,6 +157,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="GlassExtenderProvider.bmp" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>"$(SolutionDir)..\NuGet.exe" pack "$(ProjectDir)$(ProjectName).nuspec" /o "$(ProjectDir)bin\$(ConfigurationName)"</PostBuildEvent>

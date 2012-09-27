@@ -857,7 +857,7 @@ namespace AeroWizard
 
 			if (btn == cancelButton || btn == nextButton)
 			{
-				commandArea.Visible = (cancelButton.Visible || nextButton.Visible);
+				commandArea.Visible = (value == WizardCommandButtonState.Enabled || cancelButton.Visible || nextButton.Visible);
 			}
 
 			base.Invalidate();

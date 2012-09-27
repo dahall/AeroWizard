@@ -137,6 +137,8 @@
 			this.middlePage.Controls.Add(this.linkLabel1);
 			this.middlePage.IsFinishPage = true;
 			this.middlePage.Name = "middlePage";
+			this.middlePage.ShowCancel = false;
+			this.middlePage.ShowNext = false;
 			this.middlePage.Size = new System.Drawing.Size(527, 261);
 			this.middlePage.TabIndex = 1;
 			this.middlePage.Text = "Launch System Cleanup";

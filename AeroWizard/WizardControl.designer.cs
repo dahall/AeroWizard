@@ -41,9 +41,11 @@
 			this.title = new AeroWizard.ThemedLabel();
 			this.titleImage = new AeroWizard.ThemedLabel();
 			this.backButton = new AeroWizard.ThemeImageButton();
+			this.bodyPanel = new System.Windows.Forms.Panel();
 			this.commandArea.SuspendLayout();
 			this.header.SuspendLayout();
 			this.titleBar.SuspendLayout();
+			this.bodyPanel.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// titleImageList
@@ -70,13 +72,13 @@
 			this.contentArea.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.contentArea.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 19F));
 			this.contentArea.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.contentArea.Location = new System.Drawing.Point(0, 91);
+			this.contentArea.Location = new System.Drawing.Point(0, 59);
 			this.contentArea.Name = "contentArea";
 			this.contentArea.RowCount = 2;
 			this.contentArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.contentArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
 			this.contentArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.contentArea.Size = new System.Drawing.Size(609, 278);
+			this.contentArea.Size = new System.Drawing.Size(609, 277);
 			this.contentArea.TabIndex = 1;
 			this.contentArea.Paint += new System.Windows.Forms.PaintEventHandler(this.contentArea_Paint);
 			// 
@@ -138,7 +140,7 @@
 			this.header.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.header.Controls.Add(this.headerLabel, 0, 0);
 			this.header.Dock = System.Windows.Forms.DockStyle.Top;
-			this.header.Location = new System.Drawing.Point(0, 32);
+			this.header.Location = new System.Drawing.Point(0, 0);
 			this.header.Name = "header";
 			this.header.RowCount = 1;
 			this.header.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -194,7 +196,7 @@
 			this.title.Margin = new System.Windows.Forms.Padding(0);
 			this.title.Name = "title";
 			this.title.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
-			this.title.Size = new System.Drawing.Size(69, 19);
+			this.title.Size = new System.Drawing.Size(79, 19);
 			this.title.TabIndex = 2;
 			this.title.Text = "Wizard Title";
 			this.title.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -225,12 +227,21 @@
 			this.backButton.UseVisualStyleBackColor = true;
 			this.backButton.Click += new System.EventHandler(this.backButton_Click);
 			// 
+			// bodyPanel
+			// 
+			this.bodyPanel.Controls.Add(this.contentArea);
+			this.bodyPanel.Controls.Add(this.header);
+			this.bodyPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.bodyPanel.Location = new System.Drawing.Point(0, 32);
+			this.bodyPanel.Name = "bodyPanel";
+			this.bodyPanel.Size = new System.Drawing.Size(609, 336);
+			this.bodyPanel.TabIndex = 3;
+			// 
 			// WizardControl
 			// 
+			this.Controls.Add(this.bodyPanel);
 			this.Controls.Add(this.commandAreaBorder);
-			this.Controls.Add(this.contentArea);
 			this.Controls.Add(this.commandArea);
-			this.Controls.Add(this.header);
 			this.Controls.Add(this.titleBar);
 			this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Name = "WizardControl";
@@ -241,6 +252,8 @@
 			this.header.PerformLayout();
 			this.titleBar.ResumeLayout(false);
 			this.titleBar.PerformLayout();
+			this.bodyPanel.ResumeLayout(false);
+			this.bodyPanel.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -260,6 +273,7 @@
 		private AeroWizard.ThemedTableLayoutPanel contentArea;
 		private System.Windows.Forms.Panel commandAreaBorder;
 		private System.Windows.Forms.ImageList titleImageList;
+		private System.Windows.Forms.Panel bodyPanel;
 
 	}
 }

@@ -63,5 +63,10 @@ namespace TestWizard
 		{
 			wizardControl1.FinishButtonText = "Sorry, but you are hosed.";
 		}
+
+		private void introPage_HelpClicked(object sender, System.EventArgs e)
+		{
+			MessageBox.Show("Clicked help");
+		}
 	}
 }

@@ -52,6 +52,7 @@
 			// 
 			// wizardControl1
 			// 
+			this.wizardControl1.ClassicStyle = AeroWizard.WizardClassicStyle.BasicStyle;
 			this.wizardControl1.Location = new System.Drawing.Point(0, 0);
 			this.wizardControl1.Name = "wizardControl1";
 			this.wizardControl1.Pages.Add(this.introPage);
@@ -68,10 +69,12 @@
 			this.introPage.AllowNext = false;
 			this.introPage.Controls.Add(this.button2);
 			this.introPage.Controls.Add(this.button1);
+			this.introPage.HelpText = "Do you hate this?";
 			this.introPage.Name = "introPage";
-			this.introPage.Size = new System.Drawing.Size(527, 261);
+			this.introPage.Size = new System.Drawing.Size(527, 260);
 			this.introPage.TabIndex = 0;
 			this.introPage.Text = "Choose an activity";
+			this.introPage.HelpClicked += new System.EventHandler(this.introPage_HelpClicked);
 			// 
 			// button2
 			// 
@@ -97,7 +100,7 @@
 			// 
 			this.suppressedPage.Controls.Add(this.label2);
 			this.suppressedPage.Name = "suppressedPage";
-			this.suppressedPage.Size = new System.Drawing.Size(527, 263);
+			this.suppressedPage.Size = new System.Drawing.Size(527, 260);
 			this.suppressedPage.Suppress = true;
 			this.suppressedPage.TabIndex = 3;
 			this.suppressedPage.Text = "Suppressed";
@@ -116,7 +119,7 @@
 			this.questionPage.AllowNext = false;
 			this.questionPage.Controls.Add(this.checkBox2);
 			this.questionPage.Name = "questionPage";
-			this.questionPage.Size = new System.Drawing.Size(527, 261);
+			this.questionPage.Size = new System.Drawing.Size(527, 260);
 			this.questionPage.TabIndex = 4;
 			this.questionPage.Text = "Are you sure?";
 			// 
@@ -139,7 +142,7 @@
 			this.middlePage.Name = "middlePage";
 			this.middlePage.ShowCancel = false;
 			this.middlePage.ShowNext = false;
-			this.middlePage.Size = new System.Drawing.Size(527, 261);
+			this.middlePage.Size = new System.Drawing.Size(527, 260);
 			this.middlePage.TabIndex = 1;
 			this.middlePage.Text = "Launch System Cleanup";
 			this.middlePage.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.middlePage_Initialize);
@@ -170,7 +173,7 @@
 			this.endPage.Controls.Add(this.label1);
 			this.endPage.Controls.Add(this.progressBar1);
 			this.endPage.Name = "endPage";
-			this.endPage.Size = new System.Drawing.Size(527, 261);
+			this.endPage.Size = new System.Drawing.Size(527, 260);
 			this.endPage.TabIndex = 2;
 			this.endPage.Text = "Bad Choice";
 			this.endPage.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.endPage_Initialize);
@@ -204,6 +207,7 @@
 			this.Name = "MyWizard";
 			((System.ComponentModel.ISupportInitialize)(this.wizardControl1)).EndInit();
 			this.introPage.ResumeLayout(false);
+			this.introPage.PerformLayout();
 			this.suppressedPage.ResumeLayout(false);
 			this.suppressedPage.PerformLayout();
 			this.questionPage.ResumeLayout(false);

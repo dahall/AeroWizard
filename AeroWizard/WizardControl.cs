@@ -23,6 +23,17 @@ namespace AeroWizard
 	}
 
 	/// <summary>
+	/// Styles that can be applied to the body of a <see cref="WizardControl"/> when on XP or earlier or when a Basic theme is applied.
+	/// </summary>
+	public enum WizardClassicStyle
+	{
+		/// <summary>Windows Vista style theme with large fonts and white background.</summary>
+		AeroStyle,
+		/// <summary>Windows XP style theme with control color background.</summary>
+		BasicStyle
+	}
+
+	/// <summary>
 	/// Control providing an "Aero Wizard" style interface.
 	/// </summary>
 	[Designer(typeof(Design.WizardControlDesigner))]
@@ -37,6 +48,7 @@ namespace AeroWizard
 	{
 		private static bool isMin6;
 
+		private WizardClassicStyle classicStyle = WizardClassicStyle.AeroStyle;
 		private string finishBtnText;
 		private Point formMoveLastMousePos;
 		private bool formMoveTracking;
@@ -156,6 +168,17 @@ namespace AeroWizard
 		{
 			get { return cancelButton.Text; }
 			set { cancelButton.Text = value; base.Invalidate(); }
+		}
+
+		/// <summary>
+		/// Gets or sets the style applied to the body of a <see cref="WizardControl"/> when on XP or earlier or when a Basic theme is applied.
+		/// </summary>
+		/// <value>A <see cref="WizardClassicStyle"/> value which determines the style.</value>
+		[Category("Wizard"), DefaultValue(typeof(WizardClassicStyle), "AeroStyle"), Description("The style used in Windows Classic mode or on Windows XP")]
+		public WizardClassicStyle ClassicStyle
+		{
+			get { return classicStyle; }
+			set { classicStyle = value; ConfigureStyles(HasGlass() || classicStyle == WizardClassicStyle.AeroStyle); base.Invalidate(); }
 		}
 
 		/// <summary>
@@ -295,8 +318,11 @@ namespace AeroWizard
 						selectedPage.Hide();
 					selectedPage = value;
 					int idx = SelectedPageIndex;
-					while (idx < Pages.Count - 1 && selectedPage.Suppress)
-						selectedPage = Pages[++idx];
+					if (!this.IsDesignMode())
+					{
+						while (idx < Pages.Count - 1 && selectedPage.Suppress)
+							selectedPage = Pages[++idx];
+					}
 					if (selectedPage != null)
 					{
 						this.HeaderText = selectedPage.Text;
@@ -651,12 +677,33 @@ namespace AeroWizard
 				form.DialogResult = dlgResult;
 		}
 
+		private void ConfigureStyles(bool aero = true)
+		{
+			if (aero)
+			{
+				bodyPanel.BorderStyle = System.Windows.Forms.BorderStyle.None;
+				header.BackColor = contentArea.BackColor = SystemColors.Window;
+				headerLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+				headerLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(112)))), ((int)(((byte)(171)))));
+				title.Font = this.Font;
+			}
+			else
+			{
+				bodyPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+				header.BackColor = contentArea.BackColor = SystemColors.Control;
+				headerLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+				headerLabel.ForeColor = SystemColors.ControlText;
+				title.Font = new Font(this.Font, FontStyle.Bold);
+			}
+		}
+
 		private void ConfigureWindowFrame()
 		{
 			System.Diagnostics.Debug.WriteLine(string.Format("ConfigureWindowFrame: hasGlass={0},parentForm={1}", HasGlass(), parentForm == null ? "null" : parentForm.Name));
 			if (HasGlass())
 			{
 				titleBar.BackColor = Color.Black;
+				ConfigureStyles();
 				try
 				{
 					if (parentForm != null)
@@ -665,7 +712,10 @@ namespace AeroWizard
 				catch { titleBar.BackColor = commandArea.BackColor; }
 			}
 			else
+			{
 				titleBar.BackColor = commandArea.BackColor;
+				ConfigureStyles(classicStyle == WizardClassicStyle.AeroStyle);
+			}
 
 			if (parentForm != null)
 			{
@@ -904,6 +954,7 @@ namespace AeroWizard
 			else
 			{
 				backButton.Size = new Size(Properties.Resources.BackBtnStrip.Width, Properties.Resources.BackBtnStrip.Height / 4);
+				this.BackColor = classicStyle == WizardClassicStyle.AeroStyle ? SystemColors.Window : SystemColors.Control;
 			}
 		}
 

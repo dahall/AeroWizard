@@ -16,6 +16,9 @@ namespace AeroWizard
 		private bool allowCancel = true, allowNext = true, allowBack = true;
 		private bool showCancel = true, showNext = true;
 		private bool isFinishPage = false;
+		private string helpText = null;
+
+		private LinkLabel helpLink;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="WizardPage"/> class.
@@ -35,6 +38,12 @@ namespace AeroWizard
 		/// </summary>
 		[Category("Wizard"), Description("Occurs when the user has clicked the Next/Finish button but before the page is changed")]
 		public event EventHandler<WizardPageConfirmEventArgs> Commit;
+
+		/// <summary>
+		/// Occurs when <see cref="HelpText"/> is set and the user has clicked the link at bottom of the content area.
+		/// </summary>
+		[Category("Wizard"), Description("Occurs when the user has clicked the help link")]
+		public event EventHandler HelpClicked;
 
 		/// <summary>
 		/// Occurs when this page is entered.
@@ -101,6 +110,37 @@ namespace AeroWizard
 					allowNext = value;
 					if (Owner != null && this == Owner.SelectedPage)
 						Owner.UpdateButtons();
+				}
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the help text. When value is not <c>null</c>, a help link will be displayed at the bottom left of the content area. When clicked, the <see cref="OnHelpClicked"/> method will call the <see cref="HelpClicked"/> event.
+		/// </summary>
+		/// <value>
+		/// The help text to display.
+		/// </value>
+		[DefaultValue((string)null), Category("Appearance"), Description("Help text to display on hyperlink at bottom left of content area.")]
+		public string HelpText
+		{
+			get { return helpText; }
+			set
+			{
+				if (helpLink == null)
+				{
+					helpLink = new LinkLabel() { AutoSize = true, Dock = DockStyle.Bottom, Text = "Help", Visible = false };
+					helpLink.LinkClicked += new LinkLabelLinkClickedEventHandler(helpLink_LinkClicked);
+					this.Controls.Add(helpLink);
+				}
+				helpText = value;
+				if (helpText == null)
+				{
+					helpLink.Visible = false;
+				}
+				else
+				{
+					helpLink.Text = helpText;
+					helpLink.Visible = true;
 				}
 			}
 		}
@@ -248,6 +288,16 @@ namespace AeroWizard
 		}
 
 		/// <summary>
+		/// Raises the <see cref="HelpClicked"/> event.
+		/// </summary>
+		protected virtual void OnHelpClicked()
+		{
+			EventHandler handler = HelpClicked;
+			if (handler != null)
+				handler(this, EventArgs.Empty);
+		}
+
+		/// <summary>
 		/// Raises the <see cref="Initialize"/> event.
 		/// </summary>
 		/// <param name="prevPage">The page that was previously selected.</param>
@@ -280,6 +330,11 @@ namespace AeroWizard
 		{
 			if (!initializing && Owner != null && Owner.SelectedPage == this)
 				Owner.HeaderText = base.Text;
+		}
+
+		private void helpLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			OnHelpClicked();
 		}
 	}
 

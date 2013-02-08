@@ -378,7 +378,7 @@ namespace AeroWizard
 				titleImageList.Images.Clear();
 				if (titleImageIcon != null)
 				{
-					titleImageList.Images.Add(value);
+					titleImageList.Images.Add(new Icon(value, 16, 16));
 					titleImage.ImageIndex = 0;
 				}
 				titleImageIconSet = true;
@@ -428,7 +428,9 @@ namespace AeroWizard
 		/// Advances to the specified page.
 		/// </summary>
 		/// <param name="nextPage">The wizard page to go to next.</param>
-		public virtual void NextPage(WizardPage nextPage)
+		/// <param name="skipCommit">if set to <c>true</c> skip <see cref="WizardPage.CommitPage"/> event.</param>
+		/// <exception cref="ArgumentException">When specifying a value for nextPage, it must already be in the Pages collection.</exception>
+		public virtual void NextPage(WizardPage nextPage, bool skipCommit = false)
 		{
 			if (this.IsDesignMode())
 			{
@@ -438,7 +440,7 @@ namespace AeroWizard
 				return;
 			}
 
-			if (SelectedPage.CommitPage())
+			if (skipCommit || SelectedPage.CommitPage())
 			{
 				pageHistory.Push(SelectedPage);
 

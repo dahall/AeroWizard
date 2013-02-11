@@ -5,9 +5,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AeroWizard", "AeroWizard.cs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWizard", "TestWizard\TestWizard.csproj", "{EAA3C12F-D499-476C-9500-524EAEE3373A}"
 EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "AeroWizardHelp", "AeroWizardHelp\AeroWizardHelp.shfbproj", "{D62D015E-12BE-42D0-A62C-997AAE54D654}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
+		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs06
 		SccLocalPath0 = .
@@ -16,6 +18,9 @@ Global
 		SccProjectUniqueName2 = TestWizard\\TestWizard.csproj
 		SccProjectName2 = TestWizard
 		SccLocalPath2 = TestWizard
+		SccProjectUniqueName3 = AeroWizardHelp\\AeroWizardHelp.shfbproj
+		SccProjectName3 = AeroWizardHelp
+		SccLocalPath3 = AeroWizardHelp
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +35,9 @@ Global
 		{EAA3C12F-D499-476C-9500-524EAEE3373A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAA3C12F-D499-476C-9500-524EAEE3373A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAA3C12F-D499-476C-9500-524EAEE3373A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D62D015E-12BE-42D0-A62C-997AAE54D654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D62D015E-12BE-42D0-A62C-997AAE54D654}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D62D015E-12BE-42D0-A62C-997AAE54D654}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

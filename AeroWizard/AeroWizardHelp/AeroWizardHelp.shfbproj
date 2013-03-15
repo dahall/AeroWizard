@@ -115,8 +115,13 @@
       <DocumentationSource sourceFile="..\bin\Release\AeroWizard.xml" />
     </DocumentationSources>
     <HelpAttributes />
-    <NamespaceSummaries />
-    <PlugInConfigurations />
+    <NamespaceSummaries>
+      <NamespaceSummaryItem name="Microsoft.Win32.DesktopWindowManager" isDocumented="True">The Microsoft.Win32.DesktopWindowManager namespace includes the DesktopWindowManager class and an extender control which allows the manipulation of the Desktop Window Manager and encapsulates API calls to that end. The DWM controls the glass effect on windows and painting on those affected surfaces.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="AeroWizard" isDocumented="True">The AeroWizard namespace provides the classes and components necessary for the creation of wizards.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="System.Collections.Generic" isDocumented="False" />
+<NamespaceSummaryItem name="AeroWizard.VisualStyles" isDocumented="True">Extensions to the VisualStyles classes native to .NET that accomodate the AEROWIZARD tag.</NamespaceSummaryItem></NamespaceSummaries>
+    <PlugInConfigurations>
+    </PlugInConfigurations>
     <BuildLogFile />
     <HtmlHelp1xCompilerPath />
     <HtmlHelp2xCompilerPath />
@@ -132,13 +137,13 @@
     <CleanIntermediates>True</CleanIntermediates>
     <SyntaxFilters>Standard</SyntaxFilters>
     <SdkLinkTarget>Blank</SdkLinkTarget>
-    <RootNamespaceTitle>Aero Wizard .NET Library 1.2.4</RootNamespaceTitle>
-    <RootNamespaceContainer>False</RootNamespaceContainer>
+    <RootNamespaceTitle>AeroWizard .NET Library Help</RootNamespaceTitle>
+    <RootNamespaceContainer>True</RootNamespaceContainer>
     <PresentationStyle>VS2010</PresentationStyle>
     <Preliminary>False</Preliminary>
     <NamingMethod>Guid</NamingMethod>
-    <HelpTitle>Aero Wizard .NET Library 1.2.4</HelpTitle>
-    <CopyrightText>Copyright Codeplex Community 2012</CopyrightText>
+    <HelpTitle>AeroWizard .NET Library</HelpTitle>
+    <CopyrightText>&amp;#169%3b 2013 Codeplex Community. All rights reserved.</CopyrightText>
     <CopyrightHref>http://aerowizard.codeplex.com/license</CopyrightHref>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <CatalogName>VisualStudio11</CatalogName>
@@ -146,7 +151,8 @@
     <TocParentVersion>100</TocParentVersion>
     <TopicVersion>100</TopicVersion>
     <TocOrder>-1</TocOrder>
-    <ProductTitle>Aero Wizard .NET Library 1.2.4</ProductTitle>
+    <ProductTitle>
+    </ProductTitle>
     <MSHelpViewerSdkLinkType>Msdn</MSHelpViewerSdkLinkType>
     <CatalogVersion>100</CatalogVersion>
     <CatalogProductId>VS</CatalogProductId>
@@ -154,6 +160,10 @@
     <SccProvider>SAK</SccProvider>
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
+    <ProjectSummary>The AeroWizard project provides components allowing for the simple creation of Aero Wizards %28new wizard format in Vista and later%29 which strictly follow Microsoft guidelines and use Visual Styles to pull specific settings from the system.</ProjectSummary>
+    <VisibleItems>Attributes, InheritedMembers, InheritedFrameworkMembers, Protected, SealedProtected</VisibleItems>
+    <FooterText>
+    </FooterText>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in
        order for Visual Studio to perform the build.  The others are optional

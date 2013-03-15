@@ -262,11 +262,11 @@ namespace AeroWizard
 			return OnRollback();
 		}
 
-		/// <summary>
-		/// Raises the <see cref="Commit"/> event.
-		/// </summary>
-		/// <returns></returns>
-		protected virtual bool OnCommit()
+        /// <summary>
+        /// Raises the <see cref="Commit" /> event.
+        /// </summary>
+        /// <returns><c>true</c> if handler does not set the <see cref="WizardPageConfirmEventArgs.Cancel"/> to <c>true</c>; otherwise, <c>false</c>.</returns>
+        protected virtual bool OnCommit()
 		{
 			EventHandler<WizardPageConfirmEventArgs> handler = Commit;
 			WizardPageConfirmEventArgs e =  new WizardPageConfirmEventArgs(this);
@@ -312,8 +312,8 @@ namespace AeroWizard
 		/// <summary>
 		/// Raises the <see cref="Rollback"/> event.
 		/// </summary>
-		/// <returns></returns>
-		protected virtual bool OnRollback()
+        /// <returns><c>true</c> if handler does not set the <see cref="WizardPageConfirmEventArgs.Cancel"/> to <c>true</c>; otherwise, <c>false</c>.</returns>
+        protected virtual bool OnRollback()
 		{
 			EventHandler<WizardPageConfirmEventArgs> handler = Rollback;
 			WizardPageConfirmEventArgs e = new WizardPageConfirmEventArgs(this);

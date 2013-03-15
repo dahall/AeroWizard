@@ -1,11 +1,14 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AeroWizard", "AeroWizard.csproj", "{199C12C4-3EEF-4D08-BAC3-F2A62BCF969C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWizard", "TestWizard\TestWizard.csproj", "{EAA3C12F-D499-476C-9500-524EAEE3373A}"
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "AeroWizardHelp", "AeroWizardHelp\AeroWizardHelp.shfbproj", "{D62D015E-12BE-42D0-A62C-997AAE54D654}"
+	ProjectSection(ProjectDependencies) = postProject
+		{199C12C4-3EEF-4D08-BAC3-F2A62BCF969C} = {199C12C4-3EEF-4D08-BAC3-F2A62BCF969C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution

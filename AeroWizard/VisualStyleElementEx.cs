@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms.VisualStyles;
 
-namespace AeroWizard
+namespace AeroWizard.VisualStyles
 {
 	/// <summary>
 	/// Identifies a control or user interface (UI) element that is drawn with visual styles.

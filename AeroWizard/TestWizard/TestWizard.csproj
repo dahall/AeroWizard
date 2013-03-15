@@ -69,6 +69,12 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="MyStepWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MyStepWizard.Designer.cs">
+      <DependentUpon>MyStepWizard.cs</DependentUpon>
+    </Compile>
     <Compile Include="MyWizard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +85,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyStepWizard.resx">
+      <DependentUpon>MyStepWizard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MyWizard.resx">
       <DependentUpon>MyWizard.cs</DependentUpon>
@@ -105,12 +114,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AeroWizard.csproj">
-      <Project>{199C12C4-3EEF-4D08-BAC3-F2A62BCF969C}</Project>
-      <Name>AeroWizard</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
@@ -126,6 +129,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AeroWizard.csproj">
+      <Project>{199c12c4-3eef-4d08-bac3-f2a62bcf969c}</Project>
+      <Name>AeroWizard</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

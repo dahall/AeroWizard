@@ -78,6 +78,12 @@
     <Compile Include="GlassExtenderProvider.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="StepList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="StepWizardControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="VisualStyleElementEx.cs" />
     <Compile Include="ControlExtension.cs" />
     <Compile Include="ImageButton.cs">
@@ -127,6 +133,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="StepWizardControl.resx">
+      <DependentUpon>StepWizardControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WizardControl.bmp" />
     <EmbeddedResource Include="WizardControl.resx">
       <DependentUpon>WizardControl.cs</DependentUpon>

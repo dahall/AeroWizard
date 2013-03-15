@@ -12,7 +12,7 @@ namespace TestWizard
 
 		private void Main_Load(object sender, EventArgs e)
 		{
-			new MyWizard().ShowDialog(this);
+			new MyStepWizard().ShowDialog(this);
 			Close();
 		}
 	}

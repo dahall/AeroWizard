@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
+using AeroWizard.VisualStyles;
 using Microsoft.Win32.DesktopWindowManager;
 
 namespace AeroWizard
@@ -40,11 +41,13 @@ namespace AeroWizard
 	[ToolboxItem(true), ToolboxBitmap(typeof(WizardControl), "WizardControl.bmp")]
 	[Description("Creates an Aero Wizard interface.")]
 	[DefaultProperty("Pages"), DefaultEvent("SelectedPageChanged")]
+	public partial class WizardControl :
 #if DEBUG
-	public partial class WizardControl : UserControl, ISupportInitialize
+		UserControl
 #else
-	public partial class WizardControl : Control, ISupportInitialize
+		Control
 #endif
+		, ISupportInitialize
 	{
 		private static bool isMin6;
 
@@ -61,6 +64,8 @@ namespace AeroWizard
 		private WizardPage selectedPage;
 		private Icon titleImageIcon;
 		private bool titleImageIconSet = false;
+
+		internal int contentCol = 1;
 
 		static WizardControl()
 		{
@@ -428,7 +433,7 @@ namespace AeroWizard
 		/// Advances to the specified page.
 		/// </summary>
 		/// <param name="nextPage">The wizard page to go to next.</param>
-		/// <param name="skipCommit">if set to <c>true</c> skip <see cref="WizardPage.CommitPage"/> event.</param>
+		/// <param name="skipCommit">if set to <c>true</c> skip <see cref="WizardPage.Commit"/> event.</param>
 		/// <exception cref="ArgumentException">When specifying a value for nextPage, it must already be in the Pages collection.</exception>
 		public virtual void NextPage(WizardPage nextPage, bool skipCommit = false)
 		{
@@ -502,11 +507,11 @@ namespace AeroWizard
 		/// </summary>
 		/// <param name="parentRelative">if set to <c>true</c> rectangle is relative to parent.</param>
 		/// <returns>Coordinates of content area.</returns>
-		internal Rectangle GetContentAreaRectangle(bool parentRelative)
+		private Rectangle GetContentAreaRectangle(bool parentRelative)
 		{
 			int[] cw = contentArea.GetColumnWidths();
 			int[] ch = contentArea.GetRowHeights();
-			Rectangle r = new Rectangle(cw[0], 0, cw[1], ch[0]);
+			Rectangle r = new Rectangle(cw[contentCol - 1], 0, cw[contentCol], ch[0]);
 			if (parentRelative)
 				r.Offset(contentArea.Location);
 			return r;
@@ -826,15 +831,15 @@ namespace AeroWizard
 				item == null ? "null" : item.Text, selectAfterAdd));
 			item.Owner = this;
 			item.Visible = false;
-			if (!contentArea.Contains(item))
-				contentArea.Controls.Add(item, 1, 0);
+			if (!pageContainer.Contains(item))
+                pageContainer.Controls.Add(item);
 			if (selectAfterAdd)
 				SelectedPage = item;
 		}
 
 		private void Pages_RemoveItem(object sender, EventedList<WizardPage>.ListChangedEventArgs<WizardPage> e)
 		{
-			contentArea.Controls.Remove(e.Item);
+            pageContainer.Controls.Remove(e.Item);
 			if (e.Item == selectedPage && Pages.Count > 0)
 				SelectedPage = Pages[e.ItemIndex == Pages.Count ? e.ItemIndex - 1 : e.ItemIndex];
 			else
@@ -845,7 +850,7 @@ namespace AeroWizard
 		{
 			WizardPage curPage = selectedPage;
 			SelectedPage = null;
-			contentArea.Controls.Clear();
+            pageContainer.Controls.Clear();
 			foreach (var item in Pages)
 				Pages_AddItemHandler(item, false);
 			if (Pages.Count > 0)
@@ -950,7 +955,7 @@ namespace AeroWizard
 					cp = theme.GetMargins2(g, MarginProperty.ContentMargins);
 					commandArea.RowStyles[0].Height = cp.Top;
 					commandArea.RowStyles[2].Height = cp.Bottom;
-					commandArea.ColumnStyles[2].Width = contentArea.ColumnStyles[2].Width = cp.Right;
+					commandArea.ColumnStyles[2].Width = contentArea.ColumnStyles[contentCol + 1].Width = cp.Right;
 				}
 			}
 			else

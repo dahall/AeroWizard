@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using Microsoft.Win32.DesktopWindowManager;
+//using Microsoft.Win32.DesktopWindowManager;
 
-namespace AeroWizard
+namespace Microsoft.Win32.DesktopWindowManager
 {
 	/// <summary>
 	/// GlassExtenderProvider extends a <see cref="System.Windows.Forms.Form"/> and provides glass margins.
@@ -13,7 +13,7 @@ namespace AeroWizard
 	[ProvideProperty("GlassEnabled", typeof(Form))]
 	[ProvideProperty("GlassMarginMovesForm", typeof(Form))]
 	[ProvideProperty("GlassMargins", typeof(Form))]
-	[ToolboxItem(true), ToolboxBitmap(typeof(WizardControl), "GlassExtenderProvider.bmp")]
+	[ToolboxItem(true), ToolboxBitmap(typeof(AeroWizard.WizardControl), "GlassExtenderProvider.bmp")]
 	[Description("Extender for a Form that adds Aero glass properties.")]
 	public class GlassExtenderProvider : Component, IExtenderProvider
 	{

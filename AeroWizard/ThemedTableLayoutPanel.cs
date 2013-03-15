@@ -5,7 +5,7 @@ using Microsoft.Win32.DesktopWindowManager;
 
 namespace AeroWizard
 {
-	class ThemedTableLayoutPanel : TableLayoutPanel
+	internal class ThemedTableLayoutPanel : TableLayoutPanel
 	{
 		private VisualStyleRenderer rnd;
 

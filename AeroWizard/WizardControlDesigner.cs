@@ -131,19 +131,6 @@ namespace AeroWizard.Design
 				AddControlToActivePage(tool.TypeName);
 		}
 
-		internal static T GetParentOfComponent<T>(object component)
-			where T : Control, new()
-		{
-			Control parent = component as Control;
-			if (parent == null)
-				return null;
-
-			while (parent != null && !(parent is T))
-				parent = parent.Parent;
-
-			return parent as T;
-		}
-
 		internal void InsertPageIntoWizard(bool add)
 		{
 			IDesignerHost h = this.DesignerHost;
@@ -341,11 +328,6 @@ namespace AeroWizard.Design
 			}
 		}
 
-		protected override void OnPaintAdornments(PaintEventArgs pe)
-		{
-			base.OnPaintAdornments(pe);
-		}
-
 		protected override void PreFilterProperties(System.Collections.IDictionary properties)
 		{
 			base.PreFilterProperties(properties);
@@ -418,8 +400,8 @@ namespace AeroWizard.Design
 			if (!(SelectionService.PrimarySelection is WizardControl))
 			{
 				WizardPage p = SelectionService.PrimarySelection as WizardPage;
-				if (p == null)
-					p = GetParentOfComponent<WizardPage>(SelectionService.PrimarySelection);
+				if (p == null && SelectionService.PrimarySelection is Control)
+					p = ((Control)SelectionService.PrimarySelection).GetParent<WizardPage>();
 				if (p != null && this.WizardControl.SelectedPage != p)
 				{
 					this.WizardControl.SelectedPage = p;

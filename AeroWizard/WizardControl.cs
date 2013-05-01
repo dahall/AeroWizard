@@ -85,7 +85,8 @@ namespace AeroWizard
 			Pages.Reset += Pages_Reset;
 
 			InitializeComponent();
-			backButton.CompatibleImageStrip = Properties.Resources.BackBtnStrip;
+
+            OnRightToLeftChanged(EventArgs.Empty);
 
 			if (!Application.RenderWithVisualStyles)
 				titleBar.BackColor = System.Drawing.SystemColors.Control;
@@ -624,6 +625,19 @@ namespace AeroWizard
 			if (parentForm != null)
 				parentForm.Load += parentForm_Load;
 		}
+
+        protected override void OnRightToLeftChanged(EventArgs e)
+        {
+            base.OnRightToLeftChanged(e);
+            Bitmap btnStrip = Properties.Resources.BackBtnStrip;
+            bool r2l = (this.GetRightToLeftProperty() == System.Windows.Forms.RightToLeft.Yes);
+            if (r2l)
+                btnStrip.RotateFlip(RotateFlipType.RotateNoneFlipX);
+            backButton.SetImageListImageStrip(btnStrip, Orientation.Vertical);
+            backButton.StylePart = r2l ? 2 : 1;
+            if (r2l)
+                pageContainer.ApplyRTL();
+        }
 
 		/// <summary>
 		/// Raises the <see cref="WizardControl.SelectedPageChanged"/> event.

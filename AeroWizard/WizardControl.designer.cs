@@ -31,23 +31,23 @@
             this.components = new System.ComponentModel.Container();
             this.titleImageList = new System.Windows.Forms.ImageList(this.components);
             this.commandAreaBorder = new System.Windows.Forms.Panel();
+            this.bodyPanel = new System.Windows.Forms.Panel();
             this.contentArea = new AeroWizard.ThemedTableLayoutPanel();
             this.pageContainer = new System.Windows.Forms.Panel();
+            this.header = new AeroWizard.ThemedTableLayoutPanel();
+            this.headerLabel = new System.Windows.Forms.Label();
             this.commandArea = new AeroWizard.ThemedTableLayoutPanel();
             this.cancelButton = new System.Windows.Forms.Button();
             this.nextButton = new System.Windows.Forms.Button();
-            this.header = new AeroWizard.ThemedTableLayoutPanel();
-            this.headerLabel = new System.Windows.Forms.Label();
             this.titleBar = new AeroWizard.ThemedTableLayoutPanel();
             this.title = new AeroWizard.ThemedLabel();
             this.titleImage = new AeroWizard.ThemedLabel();
             this.backButton = new AeroWizard.ThemeImageButton();
-            this.bodyPanel = new System.Windows.Forms.Panel();
-            this.contentArea.SuspendLayout();
-            this.commandArea.SuspendLayout();
-            this.header.SuspendLayout();
-            this.titleBar.SuspendLayout();
             this.bodyPanel.SuspendLayout();
+            this.contentArea.SuspendLayout();
+            this.header.SuspendLayout();
+            this.commandArea.SuspendLayout();
+            this.titleBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // titleImageList
@@ -65,6 +65,16 @@
             this.commandAreaBorder.Name = "commandAreaBorder";
             this.commandAreaBorder.Size = new System.Drawing.Size(609, 1);
             this.commandAreaBorder.TabIndex = 2;
+            // 
+            // bodyPanel
+            // 
+            this.bodyPanel.Controls.Add(this.contentArea);
+            this.bodyPanel.Controls.Add(this.header);
+            this.bodyPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bodyPanel.Location = new System.Drawing.Point(0, 32);
+            this.bodyPanel.Name = "bodyPanel";
+            this.bodyPanel.Size = new System.Drawing.Size(609, 336);
+            this.bodyPanel.TabIndex = 3;
             // 
             // contentArea
             // 
@@ -93,6 +103,36 @@
             this.pageContainer.Name = "pageContainer";
             this.pageContainer.Size = new System.Drawing.Size(552, 258);
             this.pageContainer.TabIndex = 0;
+            // 
+            // header
+            // 
+            this.header.AutoSize = true;
+            this.header.BackColor = System.Drawing.SystemColors.Window;
+            this.header.ColumnCount = 1;
+            this.header.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.header.Controls.Add(this.headerLabel, 0, 0);
+            this.header.Dock = System.Windows.Forms.DockStyle.Top;
+            this.header.Location = new System.Drawing.Point(0, 0);
+            this.header.Name = "header";
+            this.header.RowCount = 1;
+            this.header.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.header.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
+            this.header.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
+            this.header.Size = new System.Drawing.Size(609, 59);
+            this.header.TabIndex = 0;
+            // 
+            // headerLabel
+            // 
+            this.headerLabel.AutoSize = true;
+            this.headerLabel.BackColor = System.Drawing.Color.Transparent;
+            this.headerLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.headerLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(112)))), ((int)(((byte)(171)))));
+            this.headerLabel.Location = new System.Drawing.Point(38, 19);
+            this.headerLabel.Margin = new System.Windows.Forms.Padding(38, 19, 0, 19);
+            this.headerLabel.Name = "headerLabel";
+            this.headerLabel.Size = new System.Drawing.Size(77, 21);
+            this.headerLabel.TabIndex = 0;
+            this.headerLabel.Text = "Page Title";
             // 
             // commandArea
             // 
@@ -143,36 +183,6 @@
             this.nextButton.Text = "&Next >";
             this.nextButton.UseVisualStyleBackColor = true;
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
-            // 
-            // header
-            // 
-            this.header.AutoSize = true;
-            this.header.BackColor = System.Drawing.SystemColors.Window;
-            this.header.ColumnCount = 1;
-            this.header.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.header.Controls.Add(this.headerLabel, 0, 0);
-            this.header.Dock = System.Windows.Forms.DockStyle.Top;
-            this.header.Location = new System.Drawing.Point(0, 0);
-            this.header.Name = "header";
-            this.header.RowCount = 1;
-            this.header.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.header.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
-            this.header.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
-            this.header.Size = new System.Drawing.Size(609, 59);
-            this.header.TabIndex = 0;
-            // 
-            // headerLabel
-            // 
-            this.headerLabel.AutoSize = true;
-            this.headerLabel.BackColor = System.Drawing.Color.Transparent;
-            this.headerLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.headerLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(112)))), ((int)(((byte)(171)))));
-            this.headerLabel.Location = new System.Drawing.Point(38, 19);
-            this.headerLabel.Margin = new System.Windows.Forms.Padding(38, 19, 0, 19);
-            this.headerLabel.Name = "headerLabel";
-            this.headerLabel.Size = new System.Drawing.Size(77, 21);
-            this.headerLabel.TabIndex = 0;
-            this.headerLabel.Text = "Page Title";
             // 
             // titleBar
             // 
@@ -239,16 +249,6 @@
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
-            // bodyPanel
-            // 
-            this.bodyPanel.Controls.Add(this.contentArea);
-            this.bodyPanel.Controls.Add(this.header);
-            this.bodyPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bodyPanel.Location = new System.Drawing.Point(0, 32);
-            this.bodyPanel.Name = "bodyPanel";
-            this.bodyPanel.Size = new System.Drawing.Size(609, 336);
-            this.bodyPanel.TabIndex = 3;
-            // 
             // WizardControl
             // 
             this.Controls.Add(this.bodyPanel);
@@ -258,15 +258,15 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "WizardControl";
             this.Size = new System.Drawing.Size(609, 414);
-            this.contentArea.ResumeLayout(false);
-            this.commandArea.ResumeLayout(false);
-            this.commandArea.PerformLayout();
-            this.header.ResumeLayout(false);
-            this.header.PerformLayout();
-            this.titleBar.ResumeLayout(false);
-            this.titleBar.PerformLayout();
             this.bodyPanel.ResumeLayout(false);
             this.bodyPanel.PerformLayout();
+            this.contentArea.ResumeLayout(false);
+            this.header.ResumeLayout(false);
+            this.header.PerformLayout();
+            this.commandArea.ResumeLayout(false);
+            this.commandArea.PerformLayout();
+            this.titleBar.ResumeLayout(false);
+            this.titleBar.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

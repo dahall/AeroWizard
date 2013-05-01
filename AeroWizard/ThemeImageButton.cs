@@ -7,78 +7,61 @@ using Microsoft.Win32.DesktopWindowManager;
 
 namespace AeroWizard
 {
-	/// <summary>
-	/// ImageButton
-	/// </summary>
+    /// <summary>
+    /// Image button that can be displayed on glass.
+    /// </summary>
 	[ToolboxBitmap(typeof(Button))]
 	internal class ThemeImageButton : ImageButton
 	{
 		private const string defaultText = "";
 
-		private Image imageStrip;
-
-		/// <summary>
-		/// ImageButton
-		/// </summary>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ThemeImageButton"/> class.
+        /// </summary>
 		public ThemeImageButton()
 		{
 			StyleClass = "BUTTON";
 			StylePart = 1;
-
 			Text = defaultText;
 		}
 
-		/// <summary>
-		/// Gets or sets the compatible image strip used when visual style rendering is not available.
-		/// </summary>
-		/// <value>The compatible image strip.</value>
-		[DefaultValue(null), Category("Appearance")]
-		public Image CompatibleImageStrip
-		{
-			get
-			{
-				return imageStrip;
-			}
-			set
-			{
-				imageStrip = value;
-				/*if (imageStrip == null)
-					base.ImageList = null;
-				else
-				{
-					if (base.ImageList == null)
-						base.ImageList = new ImageList() { ImageSize = new Size(29, 27) };
-					else
-						base.ImageList.Images.Clear();
-					base.ImageList.Images.AddStrip(value);
-				}*/
-			}
-		}
+        /// <summary>
+        /// Gets or sets the <see cref="T:System.Windows.Forms.ImageList" /> that contains the <see cref="T:System.Drawing.Image" /> displayed on a button control.
+        /// </summary>
+        /// <returns>An <see cref="T:System.Windows.Forms.ImageList" />. The default value is null.</returns>
+        ///   <PermissionSet>
+        ///   <IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true" />
+        ///   </PermissionSet>
+		[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+		public new ImageList ImageList
+        {
+            get { return base.ImageList; }
+            set { base.ImageList = value; }
+        }
 
-		[DefaultValue("BUTTON"), Category("Appearance")]
-		public string StyleClass
-		{
-			get; set;
-		}
+        /// <summary>
+        /// Gets or sets the style class.
+        /// </summary>
+        /// <value>
+        /// The style class.
+        /// </value>
+        [DefaultValue("BUTTON"), Category("Appearance")]
+        public string StyleClass { get; set; }
 
-		[DefaultValue(1), Category("Appearance")]
-		public int StylePart
-		{
-			get; set;
-		}
+        [DefaultValue(1), Category("Appearance")]
+        public int StylePart { get; set; }
 
-		[Browsable(false),
-		DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),
-		EditorBrowsable(EditorBrowsableState.Never)]
-		public new ImageList ImageList { get { return base.ImageList; } set { base.ImageList = value; } }
-
-		[DefaultValue(defaultText),
-		Browsable(false),
-		DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),
-		EditorBrowsable(EditorBrowsableState.Never)]
+        /// <summary>
+        /// Gets or sets the text associated with this control.
+        /// </summary>
+        /// <returns>
+        /// The text associated with this control.
+        ///   </returns>
+		[DefaultValue(defaultText), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
 		public override string Text
 		{
-			get { return base.Text; } set { base.Text = value; }
+			get { return base.Text; }
+            set { base.Text = value; }
 		}
 
 		/// <summary>
@@ -89,6 +72,11 @@ namespace AeroWizard
 		{
 		}
 
+        /// <summary>
+        /// Primary function for painting the button. This method should be overridden instead of OnPaint.
+        /// </summary>
+        /// <param name="graphics">The graphics.</param>
+        /// <param name="bounds">The bounds.</param>
 		protected override void PaintButton(Graphics graphics, Rectangle bounds)
 		{
 			if (Application.RenderWithVisualStyles || DesktopWindowManager.IsCompositionEnabled())
@@ -103,7 +91,18 @@ namespace AeroWizard
 					}
 					else
 					{
-						rnd.DrawGlassBackground(graphics, this.Bounds, bounds);
+                        if (this.GetRightToLeftProperty() == System.Windows.Forms.RightToLeft.Yes)
+                        {
+                            int idx = (int)ButtonState - 1;
+                            if (this.ImageList.Images.Count == 2)
+                                idx = ButtonState == PushButtonState.Disabled ? 1 : 0;
+                            if (this.ImageList.Images.Count == 3)
+                                idx = ButtonState == PushButtonState.Normal ? 0 : idx - 1;
+                            //rnd.DrawGlassIcon(graphics, this.ClientRectangle, this.ImageList, idx);
+                            this.ImageList.Draw(graphics, this.ClientRectangle.Location, idx);
+                        }
+                        else
+                            rnd.DrawGlassBackground(graphics, this.ClientRectangle, bounds, this.GetRightToLeftProperty() == System.Windows.Forms.RightToLeft.Yes);
 					}
 					return;
 				}
@@ -111,14 +110,16 @@ namespace AeroWizard
 			}
 
 			//base.PaintButton(graphics, bounds);
-			Rectangle sr = this.ClientRectangle;
-			sr.Offset(0, sr.Height * ((int)ButtonState - 1));
-			graphics.Clear(this.Parent.BackColor);
-			if (imageStrip != null)
-				graphics.DrawImage(imageStrip, this.Bounds, sr, GraphicsUnit.Pixel);
-			else
-				using (Brush br = new SolidBrush(this.BackColor))
-					graphics.FillRectangle(br, sr);
+            /*Rectangle sr = this.ClientRectangle;
+            sr.Offset(0, sr.Height * ((int)ButtonState - 1));
+            if (this.GetRightToLeftProperty() == System.Windows.Forms.RightToLeft.Yes)
+                sr.X = sr.Width;
+            graphics.Clear(this.Parent.BackColor);
+            if (imageStrip != null)
+                graphics.DrawImage(imageStrip, this.Bounds, sr, GraphicsUnit.Pixel);
+            else
+                using (Brush br = new SolidBrush(this.BackColor))
+                    graphics.FillRectangle(br, sr);*/ 
 		}
 	}
 }

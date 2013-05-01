@@ -62,7 +62,7 @@ namespace System.Windows.Forms.VisualStyles
 
 		private delegate void DrawWrapperMethod(IntPtr hdc);
 
-		public static void DrawGlassBackground(this VisualStyleRenderer rnd, IDeviceContext dc, Rectangle bounds, Rectangle clipRectangle)
+		public static void DrawGlassBackground(this VisualStyleRenderer rnd, IDeviceContext dc, Rectangle bounds, Rectangle clipRectangle, bool rightToLeft = false)
 		{
 			DrawWrapper(rnd, dc, bounds,
 				delegate(IntPtr memoryHdc)
@@ -70,7 +70,9 @@ namespace System.Windows.Forms.VisualStyles
 					RECT rBounds = new RECT(bounds);
 					RECT rClip = new RECT(clipRectangle);
 					// Draw background
+                    if (rightToLeft) GDI.SetLayout(memoryHdc, 1);
 					DrawThemeBackground(rnd.Handle, memoryHdc, rnd.Part, rnd.State, ref rBounds, ref rClip);
+                    GDI.SetLayout(memoryHdc, 0);
 				}
 			);
 		}

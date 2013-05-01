@@ -4,6 +4,22 @@ namespace System.Windows.Forms
 {
 	static class ControlExtension
 	{
+        /// <summary>
+        /// Applies RightToLeft positioning for all subcontrols of a <see cref="Panel"/> or <see cref="GroupBox"/>.
+        /// </summary>
+        /// <param name="ctrl">This control.</param>
+        public static void ApplyRTL(this Control ctrl)
+        {
+            if ((ctrl is Panel) || (ctrl is AeroWizard.WizardPage) || (ctrl is GroupBox) || (ctrl is TabPage) || (ctrl is SplitContainer))
+            {
+    	        foreach (Control c in ctrl.Controls)
+                    c.Left = ctrl.Width - (c.Left + c.Width); 
+            }
+
+            foreach (Control c in ctrl.Controls)
+    	        c.ApplyRTL();
+        }
+
 		/// <summary>
 		/// Performs an action on a control after its handle has been created. If the control's handle has already been created, the action is executed immediately.
 		/// </summary>
@@ -63,9 +79,7 @@ namespace System.Windows.Forms
 		/// <returns><c>true</c> if in design mode; otherwise, <c>false</c>.</returns>
 		public static bool IsDesignMode(this Control ctrl)
 		{
-			if (ctrl.Parent == null)
-				return true;
-			Control p = ctrl.Parent;
+			Control p = ctrl;
 			while (p != null)
 			{
 				var site = p.Site;

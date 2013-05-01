@@ -96,6 +96,28 @@ namespace AeroWizard
 			base.OnClick(EventArgs.Empty);
 		}
 
+        /// <summary>
+        /// Sets the image list images using an image strip.
+        /// </summary>
+        /// <param name="imageStrip">The image strip.</param>
+        /// <param name="orientation">The orientation of the strip.</param>
+        public void SetImageListImageStrip(Image imageStrip, Orientation orientation)
+        {
+            if (imageStrip == null)
+                base.ImageList = null;
+            else
+            {
+                Size imageSize = orientation == Orientation.Vertical ? new Size(imageStrip.Width, imageStrip.Height / 4) : new Size(imageStrip.Width / 4, imageStrip.Height);
+                if (base.ImageList == null)
+                    base.ImageList = new ImageList() { ImageSize = imageSize };
+                else
+                    base.ImageList.Images.Clear();
+                Bitmap bmp = new Bitmap(imageStrip);
+                for (Rectangle r = new Rectangle(Point.Empty, imageSize); r.Y < imageStrip.Height; r.Y += imageSize.Height)
+                    base.ImageList.Images.Add(bmp.Clone(r, bmp.PixelFormat));
+            }
+        }
+
 		/// <summary>
 		/// Process Enabled property changed 
 		/// </summary>

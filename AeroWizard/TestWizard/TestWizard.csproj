@@ -89,6 +89,10 @@
     <EmbeddedResource Include="MyStepWizard.resx">
       <DependentUpon>MyStepWizard.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MyWizard.he.resx">
+      <DependentUpon>MyWizard.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="MyWizard.resx">
       <DependentUpon>MyWizard.cs</DependentUpon>
     </EmbeddedResource>

@@ -139,14 +139,18 @@ namespace AeroWizard
 				// Draw text
 				if (this.Text.Length > 0)
 				{
-					TextFormatFlags tff = CreateTextFormatFlags(this.TextAlign, this.AutoEllipsis, this.UseMnemonic);
-					if (this.IsDesignMode() || vs == null || !DesktopWindowManager.IsCompositionEnabled())
-					{
-						Brush br = DesktopWindowManager.IsCompositionEnabled() ? SystemBrushes.ActiveCaptionText : SystemBrushes.ControlText;
-						e.Graphics.DrawString(Text, Font, br, base.ClientRectangle);
-					}
-					else
-						vs.DrawGlowingText(e.Graphics, base.ClientRectangle, Text, Font, ForeColor, tff);
+                    if (this.IsDesignMode() || vs == null || !DesktopWindowManager.IsCompositionEnabled())
+                    {
+                        Brush br = DesktopWindowManager.IsCompositionEnabled() ? SystemBrushes.ActiveCaptionText : SystemBrushes.ControlText;
+                        StringFormat sf = new StringFormat(StringFormat.GenericDefault);
+                        if (this.GetRightToLeftProperty() == System.Windows.Forms.RightToLeft.Yes) sf.FormatFlags |= StringFormatFlags.DirectionRightToLeft;
+                        e.Graphics.DrawString(Text, Font, br, base.ClientRectangle, sf);
+                    }
+                    else
+                    {
+                        TextFormatFlags tff = CreateTextFormatFlags(base.RtlTranslateAlignment(this.TextAlign), this.AutoEllipsis, this.UseMnemonic);
+                        vs.DrawGlowingText(e.Graphics, base.ClientRectangle, Text, Font, ForeColor, tff);
+                    }
 				}
 			}
 		}
@@ -177,7 +181,7 @@ namespace AeroWizard
 				flags |= TextFormatFlags.HorizontalCenter;
 			if (showEllipsis)
 				flags |= TextFormatFlags.EndEllipsis;
-			if (this.RightToLeft == RightToLeft.Yes)
+			if (this.GetRightToLeftProperty() == RightToLeft.Yes)
 				flags |= TextFormatFlags.RightToLeft;
 			if (!useMnemonic)
 				return (flags | TextFormatFlags.NoPrefix);

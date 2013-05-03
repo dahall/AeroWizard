@@ -384,7 +384,8 @@ namespace AeroWizard
 				titleImageList.Images.Clear();
 				if (titleImageIcon != null)
 				{
-					titleImageList.Images.Add(new Icon(value, 16, 16));
+					titleImage.Size = titleImageList.ImageSize = SystemInformation.SmallIconSize;
+					titleImageList.Images.Add(new Icon(value, SystemInformation.SmallIconSize));
 					titleImage.ImageIndex = 0;
 				}
 				titleImageIconSet = true;
@@ -626,17 +627,19 @@ namespace AeroWizard
 				parentForm.Load += parentForm_Load;
 		}
 
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Forms.Control.RightToLeftChanged"/> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
         protected override void OnRightToLeftChanged(EventArgs e)
         {
             base.OnRightToLeftChanged(e);
             Bitmap btnStrip = Properties.Resources.BackBtnStrip;
             bool r2l = (this.GetRightToLeftProperty() == System.Windows.Forms.RightToLeft.Yes);
-            if (r2l)
-                btnStrip.RotateFlip(RotateFlipType.RotateNoneFlipX);
+            if (r2l) btnStrip.RotateFlip(RotateFlipType.RotateNoneFlipX);
             backButton.SetImageListImageStrip(btnStrip, Orientation.Vertical);
             backButton.StylePart = r2l ? 2 : 1;
-            if (r2l)
-                pageContainer.ApplyRTL();
+            //if (r2l) pageContainer.ApplyRTL();
         }
 
 		/// <summary>

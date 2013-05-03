@@ -4,13 +4,13 @@ using System.Windows.Forms;
 
 namespace AeroWizard
 {
-	/// <summary>
-	/// Represents a single page in a <see cref="WizardControl"/>.
-	/// </summary>
+    /// <summary>
+    /// Represents a single page in a <see cref="WizardControl" />.
+    /// </summary>
 	[Designer(typeof(Design.WizardPageDesigner)), DesignTimeVisible(true)]
 	[DefaultProperty("Text"), DefaultEvent("Commit")]
 	[ToolboxItem(false)]
-	public partial class WizardPage : Control
+	public partial class WizardPage : Control, IDoNotAutoRTL
 	{
 		private bool initializing = false;
 		private bool allowCancel = true, allowNext = true, allowBack = true;
@@ -308,6 +308,27 @@ namespace AeroWizard
 			if (handler != null)
 				handler(this, e);
 		}
+
+		/// <summary>
+		/// Raises the <see cref="E:System.Windows.Forms.Control.Layout" /> event.
+		/// </summary>
+		/// <param name="levent">A <see cref="T:System.Windows.Forms.LayoutEventArgs" /> that contains the event data.</param>
+		/*protected override void OnLayout(LayoutEventArgs levent)
+		{
+			base.OnLayout(levent);
+			if (levent.AffectedProperty == "RightToLeft")
+				this.ApplyRTL();
+		}*/
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Forms.Control.RightToLeftChanged" /> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
+        protected override void OnRightToLeftChanged(EventArgs e)
+        {
+            base.OnRightToLeftChanged(e);
+            this.ApplyRTL();
+        }
 
 		/// <summary>
 		/// Raises the <see cref="Rollback"/> event.

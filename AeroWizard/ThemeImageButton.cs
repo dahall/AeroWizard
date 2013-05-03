@@ -86,12 +86,12 @@ namespace AeroWizard
 					VisualStyleRenderer rnd = new VisualStyleRenderer(StyleClass, StylePart, (int)ButtonState);
 					if (this.IsDesignMode() || !DesktopWindowManager.IsCompositionEnabled())
 					{
-						rnd.DrawParentBackground(graphics, this.Bounds, this);
-						rnd.DrawBackground(graphics, this.Bounds, bounds);
+						rnd.DrawParentBackground(graphics, bounds, this);
+						rnd.DrawBackground(graphics, bounds);
 					}
 					else
 					{
-                        if (this.GetRightToLeftProperty() == System.Windows.Forms.RightToLeft.Yes)
+                        /*if (this.GetRightToLeftProperty() == System.Windows.Forms.RightToLeft.Yes)
                         {
                             int idx = (int)ButtonState - 1;
                             if (this.ImageList.Images.Count == 2)
@@ -103,6 +103,8 @@ namespace AeroWizard
                         }
                         else
                             rnd.DrawGlassBackground(graphics, this.ClientRectangle, bounds, this.GetRightToLeftProperty() == System.Windows.Forms.RightToLeft.Yes);
+                        */
+                        rnd.DrawGlassBackground(graphics, bounds, bounds);
 					}
 					return;
 				}

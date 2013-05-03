@@ -42,12 +42,14 @@ namespace AeroWizard
         /// <summary>
         /// Gets or sets the style class.
         /// </summary>
-        /// <value>
-        /// The style class.
-        /// </value>
+        /// <value>The style class.</value>
         [DefaultValue("BUTTON"), Category("Appearance")]
         public string StyleClass { get; set; }
 
+		/// <summary>
+		/// Gets or sets the style part.
+		/// </summary>
+		/// <value>The style part.</value>
         [DefaultValue(1), Category("Appearance")]
         public int StylePart { get; set; }
 
@@ -91,19 +93,6 @@ namespace AeroWizard
 					}
 					else
 					{
-                        /*if (this.GetRightToLeftProperty() == System.Windows.Forms.RightToLeft.Yes)
-                        {
-                            int idx = (int)ButtonState - 1;
-                            if (this.ImageList.Images.Count == 2)
-                                idx = ButtonState == PushButtonState.Disabled ? 1 : 0;
-                            if (this.ImageList.Images.Count == 3)
-                                idx = ButtonState == PushButtonState.Normal ? 0 : idx - 1;
-                            //rnd.DrawGlassIcon(graphics, this.ClientRectangle, this.ImageList, idx);
-                            this.ImageList.Draw(graphics, this.ClientRectangle.Location, idx);
-                        }
-                        else
-                            rnd.DrawGlassBackground(graphics, this.ClientRectangle, bounds, this.GetRightToLeftProperty() == System.Windows.Forms.RightToLeft.Yes);
-                        */
                         rnd.DrawGlassBackground(graphics, bounds, bounds);
 					}
 					return;
@@ -111,17 +100,13 @@ namespace AeroWizard
 				catch { }
 			}
 
-			//base.PaintButton(graphics, bounds);
-            /*Rectangle sr = this.ClientRectangle;
+            Rectangle sr = this.ClientRectangle;
             sr.Offset(0, sr.Height * ((int)ButtonState - 1));
             if (this.GetRightToLeftProperty() == System.Windows.Forms.RightToLeft.Yes)
                 sr.X = sr.Width;
             graphics.Clear(this.Parent.BackColor);
-            if (imageStrip != null)
-                graphics.DrawImage(imageStrip, this.Bounds, sr, GraphicsUnit.Pixel);
-            else
-                using (Brush br = new SolidBrush(this.BackColor))
-                    graphics.FillRectangle(br, sr);*/ 
+            using (Brush br = new SolidBrush(this.BackColor))
+                graphics.FillRectangle(br, sr);
 		}
 	}
 }

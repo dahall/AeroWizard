@@ -2,28 +2,8 @@
 
 namespace System.Windows.Forms
 {
-    /// <summary>Indicates that a <see cref="Control"/> based class does not automatically implement RightToLeft handling.</summary>
-    interface IDoNotAutoRTL { }
-
     static class ControlExtension
 	{
-        /// <summary>
-        /// Applies RightToLeft positioning for all subcontrols of a control that does not support automatic repositioning.
-        /// </summary>
-        /// <param name="ctrl">This control.</param>
-        public static void ApplyRTL(this Control ctrl)
-        {
-            if ((ctrl is Panel) || (ctrl is IDoNotAutoRTL) || (ctrl is GroupBox) || (ctrl is TabPage) || (ctrl is SplitContainer))
-            {
-                bool isRTL = ctrl.GetRightToLeftProperty() == RightToLeft.Yes;
-    	        foreach (Control c in ctrl.Controls)
-                    c.Left = isRTL ? ctrl.Width - (c.Left + c.Width) : ctrl.Left + (ctrl.Right - c.Right);
-            }
-
-            foreach (Control c in ctrl.Controls)
-    	        c.ApplyRTL();
-        }
-
 		/// <summary>
 		/// Performs an action on a control after its handle has been created. If the control's handle has already been created, the action is executed immediately.
 		/// </summary>

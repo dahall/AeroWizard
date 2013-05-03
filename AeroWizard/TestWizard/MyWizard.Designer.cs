@@ -78,7 +78,7 @@
 			// 
 			// button2
 			// 
-			this.button2.Location = new System.Drawing.Point(297, 32);
+			this.button2.Location = new System.Drawing.Point(3, 32);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(227, 23);
 			this.button2.TabIndex = 2;
@@ -88,7 +88,7 @@
 			// 
 			// button1
 			// 
-			this.button1.Location = new System.Drawing.Point(297, 3);
+			this.button1.Location = new System.Drawing.Point(3, 3);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(227, 23);
 			this.button1.TabIndex = 2;
@@ -107,8 +107,10 @@
 			// 
 			// label2
 			// 
+			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(200, 119);
+			this.label2.Location = new System.Drawing.Point(188, 113);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(139, 15);
 			this.label2.TabIndex = 0;
@@ -126,7 +128,7 @@
 			// checkBox2
 			// 
 			this.checkBox2.AutoSize = true;
-			this.checkBox2.Location = new System.Drawing.Point(480, 0);
+			this.checkBox2.Location = new System.Drawing.Point(3, 0);
 			this.checkBox2.Name = "checkBox2";
 			this.checkBox2.Size = new System.Drawing.Size(44, 19);
 			this.checkBox2.TabIndex = 0;
@@ -150,7 +152,7 @@
 			// checkBox1
 			// 
 			this.checkBox1.AutoSize = true;
-			this.checkBox1.Location = new System.Drawing.Point(291, 36);
+			this.checkBox1.Location = new System.Drawing.Point(3, 31);
 			this.checkBox1.Name = "checkBox1";
 			this.checkBox1.Size = new System.Drawing.Size(233, 19);
 			this.checkBox1.TabIndex = 1;
@@ -161,7 +163,7 @@
 			// linkLabel1
 			// 
 			this.linkLabel1.AutoSize = true;
-			this.linkLabel1.Location = new System.Drawing.Point(411, 0);
+			this.linkLabel1.Location = new System.Drawing.Point(0, 0);
 			this.linkLabel1.Name = "linkLabel1";
 			this.linkLabel1.Size = new System.Drawing.Size(116, 15);
 			this.linkLabel1.TabIndex = 0;
@@ -181,7 +183,7 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(342, 0);
+			this.label1.Location = new System.Drawing.Point(0, 0);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(185, 15);
 			this.label1.TabIndex = 1;
@@ -191,7 +193,7 @@
 			// 
 			this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.progressBar1.Location = new System.Drawing.Point(124, 29);
+			this.progressBar1.Location = new System.Drawing.Point(3, 28);
 			this.progressBar1.Name = "progressBar1";
 			this.progressBar1.Size = new System.Drawing.Size(400, 23);
 			this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
@@ -205,7 +207,6 @@
 			this.Controls.Add(this.wizardControl1);
 			this.MaximizeBox = false;
 			this.Name = "MyWizard";
-			this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.RightToLeftLayout = true;
 			((System.ComponentModel.ISupportInitialize)(this.wizardControl1)).EndInit();
 			this.introPage.ResumeLayout(false);

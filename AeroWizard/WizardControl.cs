@@ -300,8 +300,7 @@ namespace AeroWizard
 		/// Gets the currently selected wizard page.
 		/// </summary>
 		/// <value>The selected wizard page. <c>null</c> if no page is active.</value>
-		[Browsable(false),
-		DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+		[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public virtual WizardPage SelectedPage
 		{
 			get
@@ -639,7 +638,6 @@ namespace AeroWizard
             if (r2l) btnStrip.RotateFlip(RotateFlipType.RotateNoneFlipX);
             backButton.SetImageListImageStrip(btnStrip, Orientation.Vertical);
             backButton.StylePart = r2l ? 2 : 1;
-            //if (r2l) pageContainer.ApplyRTL();
         }
 
 		/// <summary>

@@ -10,7 +10,7 @@ namespace AeroWizard
 	[Designer(typeof(Design.WizardPageDesigner)), DesignTimeVisible(true)]
 	[DefaultProperty("Text"), DefaultEvent("Commit")]
 	[ToolboxItem(false)]
-	public partial class WizardPage : Control, IDoNotAutoRTL
+	public partial class WizardPage : Control
 	{
 		private bool initializing = false;
 		private bool allowCancel = true, allowNext = true, allowBack = true;
@@ -237,6 +237,26 @@ namespace AeroWizard
 		public bool Suppress { get; set; }
 
 		/// <summary>
+		/// Gets the required creation parameters when the control handle is created.
+		/// </summary>
+		/// <returns>A <see cref="T:System.Windows.Forms.CreateParams" /> that contains the required creation parameters when the handle to the control is created.</returns>
+		protected override CreateParams CreateParams
+		{
+			get
+			{
+				CreateParams createParams = base.CreateParams;
+				Form parent = this.FindForm();
+				bool parentRightToLeftLayout = parent != null ? parent.RightToLeftLayout : false;
+				if ((this.RightToLeft == RightToLeft.Yes) && parentRightToLeftLayout)
+				{
+					createParams.ExStyle |= 0x500000; // WS_EX_LAYOUTRTL | WS_EX_NOINHERITLAYOUT
+					createParams.ExStyle &= ~0x7000; // WS_EX_RIGHT | WS_EX_RTLREADING | WS_EX_LEFTSCROLLBAR
+				}
+				return createParams;
+			}
+		}
+
+		/// <summary>
 		/// Returns a <see cref="System.String"/> that represents this wizard page.
 		/// </summary>
 		/// <returns>
@@ -308,27 +328,6 @@ namespace AeroWizard
 			if (handler != null)
 				handler(this, e);
 		}
-
-		/// <summary>
-		/// Raises the <see cref="E:System.Windows.Forms.Control.Layout" /> event.
-		/// </summary>
-		/// <param name="levent">A <see cref="T:System.Windows.Forms.LayoutEventArgs" /> that contains the event data.</param>
-		/*protected override void OnLayout(LayoutEventArgs levent)
-		{
-			base.OnLayout(levent);
-			if (levent.AffectedProperty == "RightToLeft")
-				this.ApplyRTL();
-		}*/
-
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.Forms.Control.RightToLeftChanged" /> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
-        protected override void OnRightToLeftChanged(EventArgs e)
-        {
-            base.OnRightToLeftChanged(e);
-            this.ApplyRTL();
-        }
 
 		/// <summary>
 		/// Raises the <see cref="Rollback"/> event.

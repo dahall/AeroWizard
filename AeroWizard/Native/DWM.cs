@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -9,6 +10,7 @@ namespace Microsoft.Win32.DesktopWindowManager
 	[System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
 	public static class DesktopWindowManager
 	{
+		const string DWMAPI = "dwmapi.dll";
 		static object ColorizationColorChangedKey = new object();
 		static object CompositionChangedKey = new object();
 		static EventHandlerList eventHandlerList;
@@ -50,6 +52,75 @@ namespace Microsoft.Win32.DesktopWindowManager
 		{
 			add { AddEventHandler(NonClientRenderingChangedKey, value); }
 			remove { RemoveEventHandler(NonClientRenderingChangedKey, value); }
+		}
+
+		/// <summary>
+		/// Gets or sets the current color used for Desktop Window Manager (DWM) glass composition. This value is based on the current color scheme and can be modified by the user.
+		/// </summary>
+		/// <value>The color of the glass composition.</value>
+		public static Color CompositionColor
+		{
+			get
+			{
+				if (!CompositionSupported)
+					return Color.Transparent;
+				int value = (int)Microsoft.Win32.Registry.CurrentUser.GetValue(@"Software\Microsoft\Windows\DWM\ColorizationColor", 0);
+				return Color.FromArgb(value);
+			}
+			set
+			{
+				if (!CompositionSupported)
+					return;
+				ColorizationParams p = new ColorizationParams();
+				DwmGetColorizationParameters(ref p);
+				p.Color1 = (uint)value.ToArgb();
+				DwmSetColorizationParameters(ref p, 1);
+				Microsoft.Win32.Registry.CurrentUser.SetValue(@"Software\Microsoft\Windows\DWM\ColorizationColor", value.ToArgb(), Microsoft.Win32.RegistryValueKind.DWord);
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether composition (Windows Aero) is enabled.
+		/// </summary>
+		/// <value><c>true</c> if composition is enabled; otherwise, <c>false</c>.</value>
+		public static bool CompositionEnabled
+		{
+			get { return IsCompositionEnabled(); }
+			set { if (CompositionSupported) EnableComposition(value); }
+		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether composition (Windows Aero) is supported.
+		/// </summary>
+		/// <value><c>true</c> if composition is supported; otherwise, <c>false</c>.</value>
+		public static bool CompositionSupported
+		{
+			get { return System.Environment.OSVersion.Version.Major >= 6; }
+		}
+
+		/// <summary>
+		/// Gets or sets a value that indicates whether the <see cref="CompositionColor"/> is transparent.
+		/// </summary>
+		/// <value><c>true</c> if transparent; otherwise, <c>false</c>.</value>
+		public static bool TransparencyEnabled
+		{
+			get
+			{
+				if (!CompositionSupported)
+					return false;
+				int value = (int)Microsoft.Win32.Registry.CurrentUser.GetValue(@"Software\Microsoft\Windows\DWM\ColorizationOpaqueBlend", 1);
+				return value == 0;
+			}
+			set
+			{
+				if (!CompositionSupported)
+					return;
+				ColorizationParams p = new ColorizationParams();
+				DwmGetColorizationParameters(ref p);
+				p.Opaque = value ? 0u : 1u;
+				DwmSetColorizationParameters(ref p, 1);
+				Microsoft.Win32.Registry.CurrentUser.SetValue(@"Software\Microsoft\Windows\DWM\ColorizationOpaqueBlend", p.Opaque, Microsoft.Win32.RegistryValueKind.DWord);
+			}
 		}
 
 		/*/// <summary>
@@ -142,7 +213,7 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// <returns><c>true</c> if is composition enabled; otherwise, <c>false</c>.</returns>
 		public static bool IsCompositionEnabled()
 		{
-			if (!System.IO.File.Exists(System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.System), "dwmapi.dll")))
+			if (!System.IO.File.Exists(System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.System), DWMAPI)))
 				return false;
 			int res = 0;
 			DwmIsCompositionEnabled(ref res);
@@ -161,16 +232,31 @@ namespace Microsoft.Win32.DesktopWindowManager
 			}
 		}
 
-		[DllImport("dwmapi", ExactSpelling = true, PreserveSig = false)]
+		[StructLayout(LayoutKind.Sequential)]
+		struct ColorizationParams
+		{
+			public uint Color1, Color2, Intensity, Unk1, Unk2, Unk3, Opaque;
+		}
+
+		[DllImport(DWMAPI, EntryPoint = "#127", PreserveSig = false)]
+		static extern void DwmGetColorizationParameters(ref ColorizationParams parameters);
+
+		[DllImport(DWMAPI, EntryPoint = "#131", PreserveSig = false)]
+		static extern void DwmSetColorizationParameters(ref ColorizationParams parameters, uint unk);
+
+		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
 		static extern void DwmEnableBlurBehindWindow(IntPtr hWnd, ref BlurBehind pBlurBehind);
 
-		[DllImport("dwmapi", ExactSpelling = true, PreserveSig = false)]
+		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
 		static extern void DwmEnableComposition(int compositionAction);
 
-		[DllImport("dwmapi", ExactSpelling = true, PreserveSig = false)]
+		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
 		static extern void DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins pMarInset);
 
-		[DllImport("dwmapi", ExactSpelling = true, PreserveSig = false)]
+		//[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
+		//static extern void DwmGetColorizationColor(out uint ColorizationColor, [MarshalAs(UnmanagedType.Bool)]out bool ColorizationOpaqueBlend);
+
+		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
 		static extern void DwmIsCompositionEnabled(ref int pfEnabled);
 
 		private static void RemoveEventHandler(object id, EventHandler value)

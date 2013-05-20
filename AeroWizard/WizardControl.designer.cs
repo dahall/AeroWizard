@@ -42,7 +42,7 @@
 			this.titleBar = new AeroWizard.ThemedTableLayoutPanel();
 			this.title = new AeroWizard.ThemedLabel();
 			this.titleImage = new AeroWizard.ThemedLabel();
-			this.backButton = new AeroWizard.ThemeImageButton();
+			this.backButton = new AeroWizard.ThemedImageButton();
 			this.bodyPanel.SuspendLayout();
 			this.contentArea.SuspendLayout();
 			this.header.SuspendLayout();
@@ -282,7 +282,7 @@
 		internal System.Windows.Forms.Button nextButton;
 		private AeroWizard.ThemedLabel title;
 		private AeroWizard.ThemedLabel titleImage;
-		internal AeroWizard.ThemeImageButton backButton;
+		internal AeroWizard.ThemedImageButton backButton;
 		private System.Windows.Forms.Panel commandAreaBorder;
 		private System.Windows.Forms.ImageList titleImageList;
         private System.Windows.Forms.Panel bodyPanel;

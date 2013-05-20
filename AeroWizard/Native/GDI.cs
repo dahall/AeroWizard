@@ -19,9 +19,9 @@ namespace System.Windows.Forms.VisualStyles.Internal
 		public static extern bool BitBlt(IntPtr hdc, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, uint dwRop);
 		[DllImport("gdi32", ExactSpelling = true, SetLastError = true)]
 		public static extern IntPtr CreateDIBSection(IntPtr hdc, ref BITMAPINFO pbmi, uint iUsage, int ppvBits, IntPtr hSection, uint dwOffset);
-        [DllImport("gdi32", ExactSpelling = true, SetLastError = true)]
-        public static extern uint SetLayout(IntPtr hdc, uint dwLayout);
-    }
+		[DllImport("gdi32", ExactSpelling = true, SetLastError = true)]
+		public static extern uint SetLayout(IntPtr hdc, uint dwLayout);
+	}
 
 	internal class SafeDCObjectHandle : SafeHandle
 	{

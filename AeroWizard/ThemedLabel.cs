@@ -122,14 +122,14 @@ namespace AeroWizard
 					Rectangle ir = CalcImageRenderBounds(this.Image, r, base.RtlTranslateAlignment(this.ImageAlign));
 					if (this.ImageList != null && this.ImageIndex == 0)
 					{
-						if (vs != null & !this.IsDesignMode() & DesktopWindowManager.IsCompositionEnabled())
+						if (vs != null && !this.IsDesignMode() && DesktopWindowManager.IsCompositionEnabled())
 							vs.DrawGlassIcon(e.Graphics, r, this.ImageList, this.ImageIndex);
 						else
 							this.ImageList.Draw(e.Graphics, r.X, r.Y, r.Width, r.Height, this.ImageIndex);
 					}
 					else
 					{
-						if (vs != null & !this.IsDesignMode() & DesktopWindowManager.IsCompositionEnabled())
+						if (vs != null && !this.IsDesignMode() && DesktopWindowManager.IsCompositionEnabled())
 							vs.DrawGlassImage(e.Graphics, r, this.Image);
 						else
 							e.Graphics.DrawImage(this.Image, r);
@@ -139,18 +139,18 @@ namespace AeroWizard
 				// Draw text
 				if (this.Text.Length > 0)
 				{
-                    if (this.IsDesignMode() || vs == null || !DesktopWindowManager.IsCompositionEnabled())
-                    {
-                        Brush br = DesktopWindowManager.IsCompositionEnabled() ? SystemBrushes.ActiveCaptionText : SystemBrushes.ControlText;
-                        StringFormat sf = new StringFormat(StringFormat.GenericDefault);
-                        if (this.GetRightToLeftProperty() == System.Windows.Forms.RightToLeft.Yes) sf.FormatFlags |= StringFormatFlags.DirectionRightToLeft;
-                        e.Graphics.DrawString(Text, Font, br, base.ClientRectangle, sf);
-                    }
-                    else
-                    {
-                        TextFormatFlags tff = CreateTextFormatFlags(base.RtlTranslateAlignment(this.TextAlign), this.AutoEllipsis, this.UseMnemonic);
-                        vs.DrawGlowingText(e.Graphics, base.ClientRectangle, Text, Font, ForeColor, tff);
-                    }
+					if (this.IsDesignMode() || vs == null || !DesktopWindowManager.IsCompositionEnabled())
+					{
+						Brush br = DesktopWindowManager.IsCompositionEnabled() ? SystemBrushes.ActiveCaptionText : SystemBrushes.ControlText;
+						StringFormat sf = new StringFormat(StringFormat.GenericDefault);
+						if (this.GetRightToLeftProperty() == System.Windows.Forms.RightToLeft.Yes) sf.FormatFlags |= StringFormatFlags.DirectionRightToLeft;
+						e.Graphics.DrawString(Text, Font, br, base.ClientRectangle, sf);
+					}
+					else
+					{
+						TextFormatFlags tff = CreateTextFormatFlags(base.RtlTranslateAlignment(this.TextAlign), this.AutoEllipsis, this.UseMnemonic);
+						vs.DrawGlowingText(e.Graphics, base.ClientRectangle, Text, Font, ForeColor, tff);
+					}
 				}
 			}
 		}

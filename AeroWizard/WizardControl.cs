@@ -31,7 +31,9 @@ namespace AeroWizard
 		/// <summary>Windows Vista style theme with large fonts and white background.</summary>
 		AeroStyle,
 		/// <summary>Windows XP style theme with control color background.</summary>
-		BasicStyle
+		BasicStyle,
+		/// <summary>Use <see cref="BasicStyle"/> on Windows XP and <see cref="AeroStyle"/> for later versions.</summary>
+		Automatic
 	}
 
 	/// <summary>
@@ -86,7 +88,7 @@ namespace AeroWizard
 
 			InitializeComponent();
 
-            OnRightToLeftChanged(EventArgs.Empty);
+			OnRightToLeftChanged(EventArgs.Empty);
 
 			if (!Application.RenderWithVisualStyles)
 				titleBar.BackColor = System.Drawing.SystemColors.Control;
@@ -184,7 +186,7 @@ namespace AeroWizard
 		public WizardClassicStyle ClassicStyle
 		{
 			get { return classicStyle; }
-			set { classicStyle = value; ConfigureStyles(HasGlass() || classicStyle == WizardClassicStyle.AeroStyle); base.Invalidate(); }
+			set { classicStyle = value; ConfigureStyles(HasGlass() || UseAeroStyle); base.Invalidate(); }
 		}
 
 		/// <summary>
@@ -383,8 +385,10 @@ namespace AeroWizard
 				titleImageList.Images.Clear();
 				if (titleImageIcon != null)
 				{
+					// Resolve for different DPI settings and ensure that if icon is not a standard size, such as 20x20, 
+					// that the larger one (24x24) is downsized and not the smaller upsized. (thanks demidov)
 					titleImage.Size = titleImageList.ImageSize = SystemInformation.SmallIconSize;
-					titleImageList.Images.Add(new Icon(value, SystemInformation.SmallIconSize));
+					titleImageList.Images.Add(new Icon(value, SystemInformation.SmallIconSize + new Size(1, 1)));
 					titleImage.ImageIndex = 0;
 				}
 				titleImageIconSet = true;
@@ -404,6 +408,11 @@ namespace AeroWizard
 					return -1;
 				return Pages.IndexOf(selectedPage);
 			}
+		}
+
+		private bool UseAeroStyle
+		{
+			get { return classicStyle == WizardClassicStyle.AeroStyle || (classicStyle == WizardClassicStyle.Automatic && DesktopWindowManager.CompositionSupported && Application.RenderWithVisualStyles); }
 		}
 
 		/// <summary>
@@ -626,19 +635,19 @@ namespace AeroWizard
 				parentForm.Load += parentForm_Load;
 		}
 
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.Forms.Control.RightToLeftChanged"/> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
-        protected override void OnRightToLeftChanged(EventArgs e)
-        {
-            base.OnRightToLeftChanged(e);
-            Bitmap btnStrip = Properties.Resources.BackBtnStrip;
-            bool r2l = (this.GetRightToLeftProperty() == System.Windows.Forms.RightToLeft.Yes);
-            if (r2l) btnStrip.RotateFlip(RotateFlipType.RotateNoneFlipX);
-            backButton.SetImageListImageStrip(btnStrip, Orientation.Vertical);
-            backButton.StylePart = r2l ? 2 : 1;
-        }
+		/// <summary>
+		/// Raises the <see cref="E:System.Windows.Forms.Control.RightToLeftChanged"/> event.
+		/// </summary>
+		/// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
+		protected override void OnRightToLeftChanged(EventArgs e)
+		{
+			base.OnRightToLeftChanged(e);
+			bool r2l = (this.GetRightToLeftProperty() == System.Windows.Forms.RightToLeft.Yes);
+			Bitmap btnStrip = Properties.Resources.BackBtnStrip;
+			if (r2l) btnStrip.RotateFlip(RotateFlipType.RotateNoneFlipX);
+			backButton.SetImageListImageStrip(btnStrip, Orientation.Vertical);
+			backButton.StylePart = r2l ? 2 : 1;
+		}
 
 		/// <summary>
 		/// Raises the <see cref="WizardControl.SelectedPageChanged"/> event.
@@ -736,7 +745,7 @@ namespace AeroWizard
 			else
 			{
 				titleBar.BackColor = commandArea.BackColor;
-				ConfigureStyles(classicStyle == WizardClassicStyle.AeroStyle);
+				ConfigureStyles(UseAeroStyle);
 			}
 
 			if (parentForm != null)
@@ -847,14 +856,14 @@ namespace AeroWizard
 			item.Owner = this;
 			item.Visible = false;
 			if (!pageContainer.Contains(item))
-                pageContainer.Controls.Add(item);
+				pageContainer.Controls.Add(item);
 			if (selectAfterAdd)
 				SelectedPage = item;
 		}
 
 		private void Pages_RemoveItem(object sender, EventedList<WizardPage>.ListChangedEventArgs<WizardPage> e)
 		{
-            pageContainer.Controls.Remove(e.Item);
+			pageContainer.Controls.Remove(e.Item);
 			if (e.Item == selectedPage && Pages.Count > 0)
 				SelectedPage = Pages[e.ItemIndex == Pages.Count ? e.ItemIndex - 1 : e.ItemIndex];
 			else
@@ -865,7 +874,7 @@ namespace AeroWizard
 		{
 			WizardPage curPage = selectedPage;
 			SelectedPage = null;
-            pageContainer.Controls.Clear();
+			pageContainer.Controls.Clear();
 			foreach (var item in Pages)
 				Pages_AddItemHandler(item, false);
 			if (Pages.Count > 0)
@@ -976,7 +985,7 @@ namespace AeroWizard
 			else
 			{
 				backButton.Size = new Size(Properties.Resources.BackBtnStrip.Width, Properties.Resources.BackBtnStrip.Height / 4);
-				this.BackColor = classicStyle == WizardClassicStyle.AeroStyle ? SystemColors.Window : SystemColors.Control;
+				this.BackColor = UseAeroStyle ? SystemColors.Window : SystemColors.Control;
 			}
 		}
 

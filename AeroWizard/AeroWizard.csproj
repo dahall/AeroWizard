@@ -82,11 +82,11 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="StepWizardControl.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="VisualStyleElementEx.cs" />
     <Compile Include="ControlExtension.cs" />
-    <Compile Include="ImageButton.cs">
+    <Compile Include="ThemedImageButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="EventedList.cs" />
@@ -95,9 +95,6 @@
     </Compile>
     <Compile Include="WizardPageDesigner.cs" />
     <Compile Include="Native\DWM.cs" />
-    <Compile Include="ThemeImageButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Native\Margins.cs" />
     <Compile Include="Native\GDI.cs" />
     <Compile Include="Native\VisualStylesRendererExtender.cs" />
@@ -116,7 +113,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WizardControl.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="WizardControl.designer.cs">
       <DependentUpon>WizardControl.cs</DependentUpon>
@@ -129,7 +126,7 @@
       <DependentUpon>WizardPage.cs</DependentUpon>
     </Compile>
     <Compile Include="WizardPageCollection.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>

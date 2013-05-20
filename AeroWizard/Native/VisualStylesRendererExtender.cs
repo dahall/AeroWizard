@@ -70,9 +70,9 @@ namespace System.Windows.Forms.VisualStyles
 					RECT rBounds = new RECT(bounds);
 					RECT rClip = new RECT(clipRectangle);
 					// Draw background
-                    if (rightToLeft) GDI.SetLayout(memoryHdc, 1);
+					if (rightToLeft) GDI.SetLayout(memoryHdc, 1);
 					DrawThemeBackground(rnd.Handle, memoryHdc, rnd.Part, rnd.State, ref rBounds, ref rClip);
-                    GDI.SetLayout(memoryHdc, 0);
+					GDI.SetLayout(memoryHdc, 0);
 				}
 			);
 		}
@@ -88,13 +88,18 @@ namespace System.Windows.Forms.VisualStyles
 			);
 		}
 
-		public static void DrawGlassImage(this VisualStyleRenderer rnd, Graphics g, Rectangle bounds, Image img)
+		public static void DrawGlassImage(this VisualStyleRenderer rnd, Graphics g, Rectangle bounds, Image img, bool disabled = false)
 		{
 			DrawWrapper(rnd, g, bounds,
 				delegate(IntPtr memoryHdc)
 				{
 					using (Graphics mg = Graphics.FromHdc(memoryHdc))
-						mg.DrawImage(img, bounds);
+					{
+						if (disabled)
+							ControlPaint.DrawImageDisabled(mg, img, bounds.X, bounds.Y, Color.Transparent);
+						else
+							mg.DrawImage(img, bounds);
+					}
 				}
 			);
 		}

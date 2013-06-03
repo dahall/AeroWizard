@@ -1,5 +1,5 @@
-﻿using System.Windows.Forms;
-using Microsoft.Win32.DesktopWindowManager;
+﻿using Microsoft.Win32.DesktopWindowManager;
+using System.Windows.Forms;
 
 namespace TestWizard
 {

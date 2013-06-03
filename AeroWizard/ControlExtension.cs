@@ -1,8 +1,7 @@
-﻿using System;
-
+﻿
 namespace System.Windows.Forms
 {
-    static class ControlExtension
+	static class ControlExtension
 	{
 		/// <summary>
 		/// Performs an action on a control after its handle has been created. If the control's handle has already been created, the action is executed immediately.

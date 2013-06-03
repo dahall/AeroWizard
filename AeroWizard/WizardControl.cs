@@ -1,12 +1,11 @@
-﻿using System;
+﻿using AeroWizard.VisualStyles;
+using Microsoft.Win32.DesktopWindowManager;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
-
-using AeroWizard.VisualStyles;
-using Microsoft.Win32.DesktopWindowManager;
 
 namespace AeroWizard
 {

@@ -1,7 +1,78 @@
 ﻿using System.Drawing;
 using System.Runtime.InteropServices;
-using System;
-using System.Windows.Forms.VisualStyles;
+
+namespace System.Drawing
+{
+	internal static class GraphicsExtension
+	{
+		/// <summary>
+		/// Draws image with specified paramters. 
+		/// </summary>
+		/// <param name="graphics">Graphics on which to draw image</param>
+		/// <param name="image">Image to be drawn</param>
+		/// <param name="destination">Bounding rectangle for the image </param>
+		/// <param name="source">Source rectangle of the image</param>
+		/// <param name="alignment">Alignment specifying how image will be aligned against the bounding rectangle </param>
+		/// <param name="transparency">Transparency for the image </param>
+		/// <param name="grayscale">Value indicating if the image should be gray scaled</param>
+		public static void DrawImage(this Graphics graphics, Image image, Rectangle destination, Rectangle source, ContentAlignment alignment = ContentAlignment.TopLeft, float transparency = 1.0f, bool grayscale = false)
+		{
+			if (graphics == null)
+				throw new ArgumentNullException("graphics");
+			if (image == null)
+				throw new ArgumentNullException("image");
+			if (destination.IsEmpty)
+				throw new ArgumentNullException("destination");
+			if (source.IsEmpty)
+				throw new ArgumentNullException("source");
+			if (transparency < 0 || transparency > 1.0f)
+				throw new ArgumentNullException("transparency");
+
+			Rectangle imageRectangle = GetRectangleFromAlignment(alignment, destination, source.Size);
+
+			if (image != null && !imageRectangle.IsEmpty)
+			{
+				System.Drawing.Imaging.ColorMatrix colorMatrix = new System.Drawing.Imaging.ColorMatrix();
+				if (grayscale)
+				{
+					colorMatrix.Matrix00 = 1 / 3f;
+					colorMatrix.Matrix01 = 1 / 3f;
+					colorMatrix.Matrix02 = 1 / 3f;
+					colorMatrix.Matrix10 = 1 / 3f;
+					colorMatrix.Matrix11 = 1 / 3f;
+					colorMatrix.Matrix12 = 1 / 3f;
+					colorMatrix.Matrix20 = 1 / 3f;
+					colorMatrix.Matrix21 = 1 / 3f;
+					colorMatrix.Matrix22 = 1 / 3f;
+				}
+				colorMatrix.Matrix33 = transparency; //Alpha factor 
+
+				System.Drawing.Imaging.ImageAttributes imageAttributes = new System.Drawing.Imaging.ImageAttributes();
+				imageAttributes.SetColorMatrix(colorMatrix);
+				graphics.DrawImage(image, imageRectangle, source.X, source.Y, source.Width, source.Height, GraphicsUnit.Pixel, imageAttributes);
+			}
+		}
+
+		internal static Rectangle GetRectangleFromAlignment(ContentAlignment alignment, Rectangle destination, Size size)
+		{
+			if ((alignment & (ContentAlignment.BottomLeft | ContentAlignment.MiddleLeft | ContentAlignment.TopLeft)) != 0)
+				destination.Width = Math.Min(size.Width, destination.Width);
+			else if ((alignment & (ContentAlignment.BottomRight | ContentAlignment.MiddleRight | ContentAlignment.TopRight)) != 0)
+				destination.X = destination.Width - Math.Min(size.Width, destination.Width);
+			else
+				destination.X = (destination.Width - Math.Min(size.Width, destination.Width)) / 2;
+
+			if ((alignment & (ContentAlignment.TopCenter | ContentAlignment.TopLeft | ContentAlignment.TopRight)) != 0)
+				destination.Height = Math.Min(size.Height, destination.Height);
+			else if ((alignment & (ContentAlignment.BottomCenter | ContentAlignment.BottomLeft | ContentAlignment.BottomRight)) != 0)
+				destination.Y = destination.Height - Math.Min(size.Height, destination.Height);
+			else
+				destination.Y = (destination.Height - Math.Min(size.Height, destination.Height)) / 2;
+
+			return destination;
+		}
+	}
+}
 
 namespace System.Windows.Forms.VisualStyles.Internal
 {

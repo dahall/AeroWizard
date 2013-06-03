@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Microsoft.Win32.DesktopWindowManager;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
-
-using Microsoft.Win32.DesktopWindowManager;
 
 namespace AeroWizard
 {
@@ -22,7 +21,7 @@ namespace AeroWizard
 		private VisualStyleRenderer rnd = null;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ImageButton"/> class.
+		/// Initializes a new instance of the <see cref="ThemedImageButton"/> class.
 		/// </summary>
 		public ThemedImageButton()
 		{

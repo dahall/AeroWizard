@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Microsoft.Win32.DesktopWindowManager
@@ -10,7 +9,6 @@ namespace Microsoft.Win32.DesktopWindowManager
 	[System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
 	public static class DesktopWindowManager
 	{
-		const string DWMAPI = "dwmapi.dll";
 		static object ColorizationColorChangedKey = new object();
 		static object CompositionChangedKey = new object();
 		static EventHandlerList eventHandlerList;
@@ -19,13 +17,6 @@ namespace Microsoft.Win32.DesktopWindowManager
 		static object[] keys = new object[] { CompositionChangedKey, NonClientRenderingChangedKey, ColorizationColorChangedKey/*, WindowMaximizedChangedKey*/ };
 		static object _lock = new object();
 		static MessageWindow _window;
-
-		enum BlurBehindFlags : int
-		{
-			Enable = 0x00000001,
-			BlurRegion = 0x00000002,
-			TransitionOnMaximized = 0x00000004
-		}
 
 		/// <summary>
 		/// Occurs when the colorization color has changed.
@@ -71,10 +62,10 @@ namespace Microsoft.Win32.DesktopWindowManager
 			{
 				if (!CompositionSupported)
 					return;
-				ColorizationParams p = new ColorizationParams();
-				DwmGetColorizationParameters(ref p);
+				NativeMethods.ColorizationParams p = new NativeMethods.ColorizationParams();
+				NativeMethods.DwmGetColorizationParameters(ref p);
 				p.Color1 = (uint)value.ToArgb();
-				DwmSetColorizationParameters(ref p, 1);
+				NativeMethods.DwmSetColorizationParameters(ref p, 1);
 				Microsoft.Win32.Registry.CurrentUser.SetValue(@"Software\Microsoft\Windows\DWM\ColorizationColor", value.ToArgb(), Microsoft.Win32.RegistryValueKind.DWord);
 			}
 		}
@@ -115,10 +106,10 @@ namespace Microsoft.Win32.DesktopWindowManager
 			{
 				if (!CompositionSupported)
 					return;
-				ColorizationParams p = new ColorizationParams();
-				DwmGetColorizationParameters(ref p);
+				NativeMethods.ColorizationParams p = new NativeMethods.ColorizationParams();
+				NativeMethods.DwmGetColorizationParameters(ref p);
 				p.Opaque = value ? 0u : 1u;
-				DwmSetColorizationParameters(ref p, 1);
+				NativeMethods.DwmSetColorizationParameters(ref p, 1);
 				Microsoft.Win32.Registry.CurrentUser.SetValue(@"Software\Microsoft\Windows\DWM\ColorizationOpaqueBlend", p.Opaque, Microsoft.Win32.RegistryValueKind.DWord);
 			}
 		}
@@ -152,12 +143,12 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// <param name="transitionOnMaximized"><c>true</c> if the window's colorization should transition to match the maximized windows; otherwise, <c>false</c>.</param>
 		public static void EnableBlurBehind(this IWin32Window window, System.Drawing.Graphics graphics, System.Drawing.Region region, bool enabled, bool transitionOnMaximized)
 		{
-			BlurBehind bb = new BlurBehind(enabled);
+			NativeMethods.BlurBehind bb = new NativeMethods.BlurBehind(enabled);
 			if (graphics != null && region != null)
 				bb.SetRegion(graphics, region);
 			if (transitionOnMaximized)
 				bb.TransitionOnMaximized = true;
-			DwmEnableBlurBehindWindow(window.Handle, ref bb);
+			NativeMethods.DwmEnableBlurBehindWindow(window.Handle, ref bb);
 		}
 
 		/// <summary>
@@ -166,7 +157,7 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// <param name="value"><c>true</c> to enable DWM composition; <c>false</c> to disable composition.</param>
 		public static void EnableComposition(bool value)
 		{
-			DwmEnableComposition(value ? 1 : 0);
+			NativeMethods.DwmEnableComposition(value ? 1 : 0);
 		}
 
 		/// <summary>
@@ -188,11 +179,11 @@ namespace Microsoft.Win32.DesktopWindowManager
 				System.Drawing.Rectangle clientScreen = parent.RectangleToScreen(parent.ClientRectangle);
 				System.Drawing.Rectangle controlScreen = control.RectangleToScreen(control.ClientRectangle);
 
-				Margins margins = new Margins(controlScreen.Left - clientScreen.Left, controlScreen.Top - clientScreen.Top,
+				NativeMethods.Margins margins = new NativeMethods.Margins(controlScreen.Left - clientScreen.Left, controlScreen.Top - clientScreen.Top,
 					clientScreen.Right - controlScreen.Right, clientScreen.Bottom - controlScreen.Bottom);
 
 				// Extend the Frame into client area
-				DwmExtendFrameIntoClientArea(parent.Handle, ref margins);
+				NativeMethods.DwmExtendFrameIntoClientArea(parent.Handle, ref margins);
 			}
 		}
 
@@ -203,8 +194,8 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// <param name="padding">The padding to use as the area into which the frame is extended.</param>
 		public static void ExtendFrameIntoClientArea(this IWin32Window window, Padding padding)
 		{
-			Margins m = new Margins(padding);
-			DwmExtendFrameIntoClientArea(window.Handle, ref m);
+			NativeMethods.Margins m = new NativeMethods.Margins(padding);
+			NativeMethods.DwmExtendFrameIntoClientArea(window.Handle, ref m);
 		}
 
 		/// <summary>
@@ -213,10 +204,10 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// <returns><c>true</c> if is composition enabled; otherwise, <c>false</c>.</returns>
 		public static bool IsCompositionEnabled()
 		{
-			if (!System.IO.File.Exists(System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.System), DWMAPI)))
+			if (!System.IO.File.Exists(System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.System), NativeMethods.DWMAPI)))
 				return false;
 			int res = 0;
-			DwmIsCompositionEnabled(ref res);
+			NativeMethods.DwmIsCompositionEnabled(ref res);
 			return res != 0;
 		}
 
@@ -232,33 +223,6 @@ namespace Microsoft.Win32.DesktopWindowManager
 			}
 		}
 
-		[StructLayout(LayoutKind.Sequential)]
-		struct ColorizationParams
-		{
-			public uint Color1, Color2, Intensity, Unk1, Unk2, Unk3, Opaque;
-		}
-
-		[DllImport(DWMAPI, EntryPoint = "#127", PreserveSig = false)]
-		static extern void DwmGetColorizationParameters(ref ColorizationParams parameters);
-
-		[DllImport(DWMAPI, EntryPoint = "#131", PreserveSig = false)]
-		static extern void DwmSetColorizationParameters(ref ColorizationParams parameters, uint unk);
-
-		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
-		static extern void DwmEnableBlurBehindWindow(IntPtr hWnd, ref BlurBehind pBlurBehind);
-
-		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
-		static extern void DwmEnableComposition(int compositionAction);
-
-		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
-		static extern void DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins pMarInset);
-
-		//[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
-		//static extern void DwmGetColorizationColor(out uint ColorizationColor, [MarshalAs(UnmanagedType.Bool)]out bool ColorizationOpaqueBlend);
-
-		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
-		static extern void DwmIsCompositionEnabled(ref int pfEnabled);
-
 		private static void RemoveEventHandler(object id, EventHandler value)
 		{
 			lock (_lock)
@@ -267,44 +231,6 @@ namespace Microsoft.Win32.DesktopWindowManager
 				{
 					eventHandlerList.RemoveHandler(id, value);
 				}
-			}
-		}
-
-		[StructLayout(LayoutKind.Sequential)]
-		struct BlurBehind
-		{
-			BlurBehindFlags dwFlags;
-			int fEnable;
-			IntPtr hRgnBlur;
-			int fTransitionOnMaximized;
-
-			public BlurBehind(bool enabled)
-			{
-				fEnable = enabled ? 1 : 0;
-				hRgnBlur = IntPtr.Zero;
-				fTransitionOnMaximized = 0;
-				dwFlags = BlurBehindFlags.Enable;
-			}
-
-			public System.Drawing.Region Region
-			{
-				get { return System.Drawing.Region.FromHrgn(hRgnBlur); }
-			}
-
-			public bool TransitionOnMaximized
-			{
-				get { return fTransitionOnMaximized > 0; }
-				set
-				{
-					fTransitionOnMaximized = value ? 1 : 0;
-					dwFlags |= BlurBehindFlags.TransitionOnMaximized;
-				}
-			}
-
-			public void SetRegion(System.Drawing.Graphics graphics, System.Drawing.Region region)
-			{
-				hRgnBlur = region.GetHrgn(graphics);
-				dwFlags |= BlurBehindFlags.BlurRegion;
 			}
 		}
 

@@ -285,7 +285,7 @@ namespace AeroWizard
 					bool forceDisabled = !Enabled && base.ImageList.Images.Count == 1;
 					if (OnGlass)
 					{
-						VisualStyleRendererExtender.DrawGlassImage(null, graphics, bounds, base.ImageList.Images[idx], forceDisabled);
+						VisualStyleRendererExtension.DrawGlassImage(null, graphics, bounds, base.ImageList.Images[idx], forceDisabled);
 					}
 					else
 					{

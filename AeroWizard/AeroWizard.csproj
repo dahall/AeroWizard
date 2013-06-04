@@ -78,6 +78,15 @@
     <Compile Include="GlassExtenderProvider.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Native\BITMAPINFO.cs" />
+    <Compile Include="Native\DesktopWindowManager.cs" />
+    <Compile Include="Native\DWMAPI.cs" />
+    <Compile Include="Native\GDI32.cs" />
+    <Compile Include="Native\RECT.cs" />
+    <Compile Include="Native\SafeHandles.cs" />
+    <Compile Include="Native\USER32.cs" />
+    <Compile Include="Native\UXTHEME.cs" />
+    <Compile Include="Native\VisualStylesRendererExtension.cs" />
     <Compile Include="StepList.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -94,10 +103,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WizardPageDesigner.cs" />
-    <Compile Include="Native\DWM.cs" />
-    <Compile Include="Native\Margins.cs" />
-    <Compile Include="Native\GDI.cs" />
-    <Compile Include="Native\VisualStylesRendererExtender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -166,6 +171,7 @@
   <ItemGroup>
     <EmbeddedResource Include="GlassExtenderProvider.bmp" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>"$(SolutionDir)..\NuGet.exe" pack "$(ProjectDir)$(ProjectName).nuspec" /o "$(ProjectDir)bin\$(ConfigurationName)"</PostBuildEvent>

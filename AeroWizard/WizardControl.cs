@@ -219,9 +219,6 @@ namespace AeroWizard
 			set { headerLabel.Text = value; base.Invalidate(); }
 		}
 
-		[System.Runtime.InteropServices.DllImport("user32")]
-		private static extern UInt32 SendMessage(IntPtr hWnd, UInt32 msg, UInt32 wParam, UInt32 lParam);
-
 		/// <summary>
 		/// Gets or sets the shield icon on the next button.
 		/// </summary>
@@ -235,20 +232,20 @@ namespace AeroWizard
 			{
 				if (System.Environment.OSVersion.Version.Major >= 6)
 				{
-					const int BCM_FIRST = 0x1600;                      //Normal button
-					const int BCM_SETSHIELD = (BCM_FIRST + 0x000C);    //Elevated butto
+					const uint BCM_FIRST = 0x1600;                      //Normal button
+					const uint BCM_SETSHIELD = (BCM_FIRST + 0x000C);    //Elevated butto
 
 					nextButtonShieldEnabled = value;
 
 					if (value)
 					{
 						nextButton.FlatStyle = FlatStyle.System;
-						SendMessage(nextButton.Handle, BCM_SETSHIELD, 0, 0xFFFFFFFF);
+						Microsoft.Win32.NativeMethods.SendMessage(nextButton.Handle, BCM_SETSHIELD, (IntPtr)0, (IntPtr)0xFFFFFFFF);
 					}
 					else
 					{
 						nextButton.FlatStyle = FlatStyle.Standard;
-						SendMessage(nextButton.Handle, BCM_FIRST, 0, 0xFFFFFFFF);
+						Microsoft.Win32.NativeMethods.SendMessage(nextButton.Handle, BCM_FIRST, (IntPtr)0, (IntPtr)0xFFFFFFFF);
 					}
 
 					nextButton.Invalidate();
@@ -756,7 +753,7 @@ namespace AeroWizard
 					parentForm.Icon = this.TitleIcon;
 					parentForm.ShowIcon = true;
 				}
-				parentForm.SetWindowThemeAttribute(VisualStyleRendererExtender.WindowThemeNonClientAttributes.NoDrawCaption | VisualStyleRendererExtender.WindowThemeNonClientAttributes.NoDrawIcon | VisualStyleRendererExtender.WindowThemeNonClientAttributes.NoSysMenu);
+				parentForm.SetWindowThemeAttribute(Microsoft.Win32.NativeMethods.WindowThemeNonClientAttributes.NoDrawCaption | Microsoft.Win32.NativeMethods.WindowThemeNonClientAttributes.NoDrawIcon | Microsoft.Win32.NativeMethods.WindowThemeNonClientAttributes.NoSysMenu);
 				parentForm.Invalidate();
 			}
 		}

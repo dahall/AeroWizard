@@ -74,7 +74,7 @@
 			this.bodyPanel.Location = new System.Drawing.Point(0, 32);
 			this.bodyPanel.Name = "bodyPanel";
 			this.bodyPanel.Size = new System.Drawing.Size(609, 336);
-			this.bodyPanel.TabIndex = 3;
+			this.bodyPanel.TabIndex = 1;
 			// 
 			// contentArea
 			// 
@@ -152,7 +152,7 @@
 			this.commandArea.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.commandArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
 			this.commandArea.Size = new System.Drawing.Size(609, 45);
-			this.commandArea.TabIndex = 2;
+			this.commandArea.TabIndex = 3;
 			// 
 			// cancelButton
 			// 
@@ -285,9 +285,9 @@
 		internal AeroWizard.ThemedImageButton backButton;
 		private System.Windows.Forms.Panel commandAreaBorder;
 		private System.Windows.Forms.ImageList titleImageList;
-        private System.Windows.Forms.Panel bodyPanel;
-        private ThemedTableLayoutPanel contentArea;
-        internal System.Windows.Forms.Panel pageContainer;
+		private System.Windows.Forms.Panel bodyPanel;
+		private ThemedTableLayoutPanel contentArea;
+		internal System.Windows.Forms.Panel pageContainer;
 
 	}
 }

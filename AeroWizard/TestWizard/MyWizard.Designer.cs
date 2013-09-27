@@ -80,7 +80,7 @@
 			this.button2.Location = new System.Drawing.Point(3, 32);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(227, 23);
-			this.button2.TabIndex = 2;
+			this.button2.TabIndex = 1;
 			this.button2.Text = "Trash everything";
 			this.button2.UseVisualStyleBackColor = true;
 			this.button2.Click += new System.EventHandler(this.commandLink2_Click);
@@ -90,7 +90,7 @@
 			this.button1.Location = new System.Drawing.Point(3, 3);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(227, 23);
-			this.button1.TabIndex = 2;
+			this.button1.TabIndex = 0;
 			this.button1.Text = "Cleanup system";
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.commandLink1_Click);

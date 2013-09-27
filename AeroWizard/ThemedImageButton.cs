@@ -179,6 +179,26 @@ namespace AeroWizard
 		}
 
 		/// <summary>
+		/// Raises the <see cref="E:GotFocus" /> event.
+		/// </summary>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		protected override void OnGotFocus(EventArgs e)
+		{
+			Invalidate();
+			base.OnGotFocus(e);
+		}
+
+		/// <summary>
+		/// Raises the <see cref="E:LostFocus" /> event.
+		/// </summary>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		protected override void OnLostFocus(EventArgs e)
+		{
+			Invalidate();
+			base.OnLostFocus(e);
+		}
+
+		/// <summary>
 		/// Raises the <see cref="E:System.Windows.Forms.Control.MouseDown"/> event.
 		/// </summary>
 		/// <param name="e">A <see cref="T:System.Windows.Forms.MouseEventArgs"/> that contains the event data.</param>
@@ -257,7 +277,7 @@ namespace AeroWizard
 		/// <param name="bounds">The bounds.</param>
 		protected virtual void PaintButton(Graphics graphics, Rectangle bounds)
 		{
-			System.Diagnostics.Debug.WriteLine(string.Format("PaintButton: desMode:{0};vsEnabled:{4};vsOnOS:{5};btnState:{1};enabled:{2};imgCt:{3}", this.IsDesignMode(), this.ButtonState, Enabled, base.ImageList.Images.Count, Application.RenderWithVisualStyles, VisualStyleInformation.IsSupportedByOS));
+			System.Diagnostics.Debug.WriteLine(string.Format("PaintButton: desMode:{0};vsEnabled:{4};vsOnOS:{5};btnState:{1};enabled:{2};imgCt:{3}", this.IsDesignMode(), this.ButtonState, Enabled, base.ImageList != null ? base.ImageList.Images.Count : 0, Application.RenderWithVisualStyles, VisualStyleInformation.IsSupportedByOS));
 
 			if (InitializeRenderer())
 			{
@@ -331,6 +351,9 @@ namespace AeroWizard
 					ButtonRenderer.DrawButton(graphics, bounds, this.ButtonState);
 				}
 			}
+
+			if (this.Focused)
+				ControlPaint.DrawFocusRectangle(graphics, bounds);
 		}
 
 		private void InitializeImageList(Size imageSize)

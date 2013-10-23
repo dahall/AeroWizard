@@ -58,8 +58,13 @@ namespace AeroWizard
 			get { return base.Image; }
 			set
 			{
-				InitializeImageList(value.Size);
-				base.ImageList.Images.Add(value);
+				if (value != null)
+				{
+					InitializeImageList(value.Size);
+					base.ImageList.Images.Add(value);
+				}
+				else
+					base.ImageList = null;
 				base.Image = value;
 			}
 		}

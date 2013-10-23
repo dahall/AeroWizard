@@ -28,7 +28,7 @@ namespace AeroWizard
 		{
 			if (myParent != null)
 			{
-				AeroWizard.WizardControl.WizardPageCollection pages = myParent.Pages;
+				WizardPageCollection pages = myParent.Pages;
 				pages.ItemAdded -= pages_Changed;
 				pages.ItemChanged -= pages_Changed;
 				pages.ItemDeleted -= pages_Changed;
@@ -36,7 +36,7 @@ namespace AeroWizard
 			myParent = p;
 			if (myParent != null)
 			{
-				AeroWizard.WizardControl.WizardPageCollection pages = myParent.Pages;
+				WizardPageCollection pages = myParent.Pages;
 				pages.ItemAdded += pages_Changed;
 				pages.ItemChanged += pages_Changed;
 				pages.ItemDeleted += pages_Changed;
@@ -81,7 +81,7 @@ namespace AeroWizard
 				const int rPad = 4;
 				Rectangle rect = new Rectangle(lPad, 0, this.Width - lPad - rPad, itemHeight);
 				Rectangle prect = new Rectangle(0, 0, lPad, itemHeight);
-				AeroWizard.WizardControl.WizardPageCollection pages = myParent.Pages;
+				WizardPageCollection pages = myParent.Pages;
 				bool hit = false;
 				for (int i = 0; i < pages.Count && rect.Y < (this.Height - itemHeight); i++)
 				{

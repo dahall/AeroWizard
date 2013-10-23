@@ -12,7 +12,6 @@ namespace AeroWizard
 	[ToolboxItem(false)]
 	public partial class WizardPage : Control
 	{
-		private bool initializing = false;
 		private bool allowCancel = true, allowNext = true, allowBack = true;
 		private bool showCancel = true, showNext = true;
 		private bool isFinishPage = false;
@@ -25,12 +24,10 @@ namespace AeroWizard
 		/// </summary>
 		public WizardPage()
 		{
-			initializing = true;
 			InitializeComponent();
 			Margin = Padding.Empty;
 			Suppress = false;
 			base.Text = Properties.Resources.WizardHeader;
-			initializing = false;
 		}
 
 		/// <summary>
@@ -70,8 +67,7 @@ namespace AeroWizard
 				if (allowBack != value)
 				{
 					allowBack = value;
-					if (Owner != null && this == Owner.SelectedPage)
-						Owner.UpdateButtons();
+					UpdateOwner();
 				}
 			}
 		}
@@ -89,8 +85,7 @@ namespace AeroWizard
 				if (allowCancel != value)
 				{
 					allowCancel = value;
-					if (Owner != null && this == Owner.SelectedPage)
-						Owner.UpdateButtons();
+					UpdateOwner();
 				}
 			}
 		}
@@ -108,8 +103,7 @@ namespace AeroWizard
 				if (allowNext != value)
 				{
 					allowNext = value;
-					if (Owner != null && this == Owner.SelectedPage)
-						Owner.UpdateButtons();
+					UpdateOwner();
 				}
 			}
 		}
@@ -158,8 +152,7 @@ namespace AeroWizard
 				if (isFinishPage != value)
 				{
 					isFinishPage = value;
-					if (Owner != null && this == Owner.SelectedPage)
-						Owner.UpdateButtons();
+					UpdateOwner();
 				}
 			}
 		}
@@ -177,7 +170,7 @@ namespace AeroWizard
 		/// </summary>
 		/// <value>The <see cref="WizardControl"/> for this page.</value>
 		[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		public virtual WizardControl Owner { get; internal set; }
+		public virtual WizardPageContainer Owner { get; internal set; }
 
 		/// <summary>
 		/// Gets or sets a value indicating whether to show the Cancel button. If both <see cref="ShowCancel"/> and <see cref="ShowNext"/> are <c>false</c>, then the bottom command area will not be shown.
@@ -192,8 +185,7 @@ namespace AeroWizard
 				if (showCancel != value)
 				{
 					showCancel = value;
-					if (Owner != null && this == Owner.SelectedPage)
-						Owner.UpdateButtons();
+					UpdateOwner();
 				}
 			}
 		}
@@ -211,8 +203,7 @@ namespace AeroWizard
 				if (showNext != value)
 				{
 					showNext = value;
-					if (Owner != null && this == Owner.SelectedPage)
-						Owner.UpdateButtons();
+					UpdateOwner();
 				}
 			}
 		}
@@ -342,19 +333,15 @@ namespace AeroWizard
 			return !e.Cancel;
 		}
 
-		/// <summary>
-		/// Raises the <see cref="E:System.Windows.Forms.Control.TextChanged"/> event.
-		/// </summary>
-		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
-		protected override void OnTextChanged(EventArgs e)
-		{
-			if (!initializing && Owner != null && Owner.SelectedPage == this)
-				Owner.HeaderText = base.Text;
-		}
-
 		private void helpLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			OnHelpClicked();
+		}
+
+		private void UpdateOwner()
+		{
+			if (Owner != null && this == Owner.SelectedPage)
+				Owner.UpdateButtons();
 		}
 	}
 

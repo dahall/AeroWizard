@@ -39,7 +39,7 @@ namespace AeroWizard.Design
 
 		public override bool CanBeParentedTo(IDesigner parentDesigner)
 		{
-			return ((parentDesigner != null) && (parentDesigner.Component is TabControl));
+			return ((parentDesigner != null) && (parentDesigner.Component is WizardPageContainer));
 		}
 
 		public override void Initialize(System.ComponentModel.IComponent component)

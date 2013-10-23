@@ -28,93 +28,161 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.checkBox1 = new System.Windows.Forms.CheckBox();
-			this.checkBox2 = new System.Windows.Forms.CheckBox();
-			this.checkBox3 = new System.Windows.Forms.CheckBox();
-			this.checkBox4 = new System.Windows.Forms.CheckBox();
-			this.button1 = new System.Windows.Forms.Button();
+			this.components = new System.ComponentModel.Container();
+			this.appRenderVS = new System.Windows.Forms.CheckBox();
+			this.compEnabledCheck = new System.Windows.Forms.CheckBox();
+			this.vsEnabledByUser = new System.Windows.Forms.CheckBox();
+			this.vsOnOS = new System.Windows.Forms.CheckBox();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.wizBtn = new System.Windows.Forms.Button();
+			this.stepBtn = new System.Windows.Forms.Button();
+			this.customBtn = new System.Windows.Forms.Button();
+			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+			this.groupBox1.SuspendLayout();
+			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// checkBox1
+			// appRenderVS
 			// 
-			this.checkBox1.AutoSize = true;
-			this.checkBox1.Enabled = false;
-			this.checkBox1.Location = new System.Drawing.Point(12, 35);
-			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(94, 17);
-			this.checkBox1.TabIndex = 0;
-			this.checkBox1.Text = "AppRenderVS";
-			this.checkBox1.UseVisualStyleBackColor = true;
+			this.appRenderVS.AutoCheck = false;
+			this.appRenderVS.AutoSize = true;
+			this.appRenderVS.Location = new System.Drawing.Point(6, 42);
+			this.appRenderVS.Name = "appRenderVS";
+			this.appRenderVS.Size = new System.Drawing.Size(94, 17);
+			this.appRenderVS.TabIndex = 0;
+			this.appRenderVS.Text = "AppRenderVS";
+			this.toolTip1.SetToolTip(this.appRenderVS, "Indicates if Visual Styles are enabled for this application.");
+			this.appRenderVS.UseVisualStyleBackColor = true;
 			// 
-			// checkBox2
+			// compEnabledCheck
 			// 
-			this.checkBox2.AutoSize = true;
-			this.checkBox2.Enabled = false;
-			this.checkBox2.Location = new System.Drawing.Point(12, 12);
-			this.checkBox2.Name = "checkBox2";
-			this.checkBox2.Size = new System.Drawing.Size(125, 17);
-			this.checkBox2.TabIndex = 0;
-			this.checkBox2.Text = "Composition Enabled";
-			this.checkBox2.UseVisualStyleBackColor = true;
+			this.compEnabledCheck.AutoSize = true;
+			this.compEnabledCheck.Location = new System.Drawing.Point(6, 19);
+			this.compEnabledCheck.Name = "compEnabledCheck";
+			this.compEnabledCheck.Size = new System.Drawing.Size(125, 17);
+			this.compEnabledCheck.TabIndex = 0;
+			this.compEnabledCheck.Text = "Composition Enabled";
+			this.toolTip1.SetToolTip(this.compEnabledCheck, "Indicates if Desktop Window Composition (Aero) is enabled. For Windows Vista and " +
+        "Windows 7, this setting is user configurable.");
+			this.compEnabledCheck.UseVisualStyleBackColor = true;
+			this.compEnabledCheck.CheckedChanged += new System.EventHandler(this.compEnabledCheck_CheckedChanged);
 			// 
-			// checkBox3
+			// vsEnabledByUser
 			// 
-			this.checkBox3.AutoSize = true;
-			this.checkBox3.Enabled = false;
-			this.checkBox3.Location = new System.Drawing.Point(155, 12);
-			this.checkBox3.Name = "checkBox3";
-			this.checkBox3.Size = new System.Drawing.Size(113, 17);
-			this.checkBox3.TabIndex = 0;
-			this.checkBox3.Text = "VSEnabledByUser";
-			this.checkBox3.UseVisualStyleBackColor = true;
+			this.vsEnabledByUser.AutoCheck = false;
+			this.vsEnabledByUser.AutoSize = true;
+			this.vsEnabledByUser.Location = new System.Drawing.Point(149, 19);
+			this.vsEnabledByUser.Name = "vsEnabledByUser";
+			this.vsEnabledByUser.Size = new System.Drawing.Size(113, 17);
+			this.vsEnabledByUser.TabIndex = 0;
+			this.vsEnabledByUser.Text = "VSEnabledByUser";
+			this.toolTip1.SetToolTip(this.vsEnabledByUser, "Indicates if Visual Styles are enabled by the user.");
+			this.vsEnabledByUser.UseVisualStyleBackColor = true;
 			// 
-			// checkBox4
+			// vsOnOS
 			// 
-			this.checkBox4.AutoSize = true;
-			this.checkBox4.Enabled = false;
-			this.checkBox4.Location = new System.Drawing.Point(155, 35);
-			this.checkBox4.Name = "checkBox4";
-			this.checkBox4.Size = new System.Drawing.Size(67, 17);
-			this.checkBox4.TabIndex = 0;
-			this.checkBox4.Text = "VSonOS";
-			this.checkBox4.UseVisualStyleBackColor = true;
+			this.vsOnOS.AutoCheck = false;
+			this.vsOnOS.AutoSize = true;
+			this.vsOnOS.Location = new System.Drawing.Point(149, 42);
+			this.vsOnOS.Name = "vsOnOS";
+			this.vsOnOS.Size = new System.Drawing.Size(67, 17);
+			this.vsOnOS.TabIndex = 0;
+			this.vsOnOS.Text = "VSonOS";
+			this.toolTip1.SetToolTip(this.vsOnOS, "Indicates if Visual Styles are enabled by the Operating System.");
+			this.vsOnOS.UseVisualStyleBackColor = true;
 			// 
-			// button1
+			// groupBox1
 			// 
-			this.button1.Location = new System.Drawing.Point(205, 61);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(75, 23);
-			this.button1.TabIndex = 1;
-			this.button1.Text = "Refresh";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.DesktopWindowManager_CompositionChanged);
+			this.groupBox1.Controls.Add(this.compEnabledCheck);
+			this.groupBox1.Controls.Add(this.appRenderVS);
+			this.groupBox1.Controls.Add(this.vsOnOS);
+			this.groupBox1.Controls.Add(this.vsEnabledByUser);
+			this.groupBox1.Location = new System.Drawing.Point(12, 12);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(268, 67);
+			this.groupBox1.TabIndex = 2;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Environment";
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.customBtn);
+			this.groupBox2.Controls.Add(this.stepBtn);
+			this.groupBox2.Controls.Add(this.wizBtn);
+			this.groupBox2.Location = new System.Drawing.Point(12, 86);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(268, 82);
+			this.groupBox2.TabIndex = 3;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Wizard";
+			// 
+			// wizBtn
+			// 
+			this.wizBtn.Location = new System.Drawing.Point(7, 20);
+			this.wizBtn.Name = "wizBtn";
+			this.wizBtn.Size = new System.Drawing.Size(107, 23);
+			this.wizBtn.TabIndex = 0;
+			this.wizBtn.Text = "Aero Wizard";
+			this.toolTip1.SetToolTip(this.wizBtn, "Launches a wizard using the Aero Wizard styling defined for Operating Systems aft" +
+        "er Windows Vista.");
+			this.wizBtn.UseVisualStyleBackColor = true;
+			this.wizBtn.Click += new System.EventHandler(this.wizBtn_Click);
+			// 
+			// stepBtn
+			// 
+			this.stepBtn.Location = new System.Drawing.Point(149, 20);
+			this.stepBtn.Name = "stepBtn";
+			this.stepBtn.Size = new System.Drawing.Size(107, 23);
+			this.stepBtn.TabIndex = 0;
+			this.stepBtn.Text = "Step Wizard";
+			this.toolTip1.SetToolTip(this.stepBtn, "Lauches a modification of the Aero Wizard that includes a checked step list on th" +
+        "e left.");
+			this.stepBtn.UseVisualStyleBackColor = true;
+			this.stepBtn.Click += new System.EventHandler(this.stepBtn_Click);
+			// 
+			// customBtn
+			// 
+			this.customBtn.Location = new System.Drawing.Point(7, 49);
+			this.customBtn.Name = "customBtn";
+			this.customBtn.Size = new System.Drawing.Size(107, 23);
+			this.customBtn.TabIndex = 0;
+			this.customBtn.Text = "Custom Wizard";
+			this.toolTip1.SetToolTip(this.customBtn, "Launches a custom wizard.");
+			this.customBtn.UseVisualStyleBackColor = true;
+			this.customBtn.Click += new System.EventHandler(this.customBtn_Click);
 			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(292, 96);
-			this.Controls.Add(this.button1);
-			this.Controls.Add(this.checkBox4);
-			this.Controls.Add(this.checkBox3);
-			this.Controls.Add(this.checkBox2);
-			this.Controls.Add(this.checkBox1);
+			this.ClientSize = new System.Drawing.Size(292, 180);
+			this.Controls.Add(this.groupBox2);
+			this.Controls.Add(this.groupBox1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Name = "Main";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "Wizard Test";
 			this.Load += new System.EventHandler(this.Main_Load);
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
 		#endregion
 
-		private System.Windows.Forms.CheckBox checkBox1;
-		private System.Windows.Forms.CheckBox checkBox2;
-		private System.Windows.Forms.CheckBox checkBox3;
-		private System.Windows.Forms.CheckBox checkBox4;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.CheckBox appRenderVS;
+		private System.Windows.Forms.CheckBox compEnabledCheck;
+		private System.Windows.Forms.CheckBox vsEnabledByUser;
+		private System.Windows.Forms.CheckBox vsOnOS;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.Button customBtn;
+		private System.Windows.Forms.Button stepBtn;
+		private System.Windows.Forms.Button wizBtn;
+		private System.Windows.Forms.ToolTip toolTip1;
 
     }
 }

@@ -33,18 +33,19 @@
 			this.commandAreaBorder = new System.Windows.Forms.Panel();
 			this.bodyPanel = new System.Windows.Forms.Panel();
 			this.contentArea = new AeroWizard.ThemedTableLayoutPanel();
-			this.pageContainer = new System.Windows.Forms.Panel();
+			this.pageContainer = new AeroWizard.WizardPageContainer();
+			this.backButton = new AeroWizard.ThemedImageButton();
+			this.cancelButton = new System.Windows.Forms.Button();
+			this.nextButton = new System.Windows.Forms.Button();
 			this.header = new AeroWizard.ThemedTableLayoutPanel();
 			this.headerLabel = new System.Windows.Forms.Label();
 			this.commandArea = new AeroWizard.ThemedTableLayoutPanel();
-			this.cancelButton = new System.Windows.Forms.Button();
-			this.nextButton = new System.Windows.Forms.Button();
 			this.titleBar = new AeroWizard.ThemedTableLayoutPanel();
 			this.title = new AeroWizard.ThemedLabel();
 			this.titleImage = new AeroWizard.ThemedLabel();
-			this.backButton = new AeroWizard.ThemedImageButton();
 			this.bodyPanel.SuspendLayout();
 			this.contentArea.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pageContainer)).BeginInit();
 			this.header.SuspendLayout();
 			this.commandArea.SuspendLayout();
 			this.titleBar.SuspendLayout();
@@ -97,12 +98,60 @@
 			// 
 			// pageContainer
 			// 
+			this.pageContainer.BackButton = this.backButton;
+			this.pageContainer.BackButtonText = "";
+			this.pageContainer.CancelButton = this.cancelButton;
 			this.pageContainer.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.pageContainer.Location = new System.Drawing.Point(38, 0);
 			this.pageContainer.Margin = new System.Windows.Forms.Padding(0);
 			this.pageContainer.Name = "pageContainer";
+			this.pageContainer.NextButton = this.nextButton;
 			this.pageContainer.Size = new System.Drawing.Size(552, 258);
 			this.pageContainer.TabIndex = 0;
+			this.pageContainer.Cancelling += new System.ComponentModel.CancelEventHandler(this.pageContainer_Cancelling);
+			this.pageContainer.Finished += new System.EventHandler(this.pageContainer_Finished);
+			this.pageContainer.SelectedPageChanged += new System.EventHandler(this.pageContainer_SelectedPageChanged);
+			// 
+			// backButton
+			// 
+			this.backButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
+			this.backButton.Enabled = false;
+			this.backButton.Image = null;
+			this.backButton.Location = new System.Drawing.Point(0, 0);
+			this.backButton.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
+			this.backButton.Name = "backButton";
+			this.backButton.Size = new System.Drawing.Size(30, 30);
+			this.backButton.StyleClass = "NAVIGATION";
+			this.backButton.TabIndex = 0;
+			this.backButton.UseVisualStyleBackColor = true;
+			// 
+			// cancelButton
+			// 
+			this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cancelButton.AutoSize = true;
+			this.cancelButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.cancelButton.Location = new System.Drawing.Point(520, 10);
+			this.cancelButton.Margin = new System.Windows.Forms.Padding(7, 0, 0, 0);
+			this.cancelButton.MinimumSize = new System.Drawing.Size(70, 0);
+			this.cancelButton.Name = "cancelButton";
+			this.cancelButton.Size = new System.Drawing.Size(70, 25);
+			this.cancelButton.TabIndex = 1;
+			this.cancelButton.Text = "&Cancel";
+			this.cancelButton.UseVisualStyleBackColor = true;
+			// 
+			// nextButton
+			// 
+			this.nextButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.nextButton.AutoSize = true;
+			this.nextButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.nextButton.Location = new System.Drawing.Point(443, 10);
+			this.nextButton.Margin = new System.Windows.Forms.Padding(0);
+			this.nextButton.MinimumSize = new System.Drawing.Size(70, 0);
+			this.nextButton.Name = "nextButton";
+			this.nextButton.Size = new System.Drawing.Size(70, 23);
+			this.nextButton.TabIndex = 0;
+			this.nextButton.Text = "&Next >";
+			this.nextButton.UseVisualStyleBackColor = true;
 			// 
 			// header
 			// 
@@ -153,36 +202,6 @@
 			this.commandArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
 			this.commandArea.Size = new System.Drawing.Size(609, 45);
 			this.commandArea.TabIndex = 3;
-			// 
-			// cancelButton
-			// 
-			this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.cancelButton.AutoSize = true;
-			this.cancelButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.cancelButton.Location = new System.Drawing.Point(520, 10);
-			this.cancelButton.Margin = new System.Windows.Forms.Padding(7, 0, 0, 0);
-			this.cancelButton.MinimumSize = new System.Drawing.Size(70, 0);
-			this.cancelButton.Name = "cancelButton";
-			this.cancelButton.Size = new System.Drawing.Size(70, 25);
-			this.cancelButton.TabIndex = 1;
-			this.cancelButton.Text = "Cancel";
-			this.cancelButton.UseVisualStyleBackColor = true;
-			this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
-			// 
-			// nextButton
-			// 
-			this.nextButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.nextButton.AutoSize = true;
-			this.nextButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.nextButton.Location = new System.Drawing.Point(443, 10);
-			this.nextButton.Margin = new System.Windows.Forms.Padding(0);
-			this.nextButton.MinimumSize = new System.Drawing.Size(70, 0);
-			this.nextButton.Name = "nextButton";
-			this.nextButton.Size = new System.Drawing.Size(70, 25);
-			this.nextButton.TabIndex = 0;
-			this.nextButton.Text = "&Next >";
-			this.nextButton.UseVisualStyleBackColor = true;
-			this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
 			// 
 			// titleBar
 			// 
@@ -236,19 +255,6 @@
 			this.titleImage.Size = new System.Drawing.Size(16, 16);
 			this.titleImage.TabIndex = 1;
 			// 
-			// backButton
-			// 
-			this.backButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.backButton.Enabled = false;
-			this.backButton.Location = new System.Drawing.Point(0, 0);
-			this.backButton.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
-			this.backButton.Name = "backButton";
-			this.backButton.Size = new System.Drawing.Size(30, 30);
-			this.backButton.StyleClass = "NAVIGATION";
-			this.backButton.TabIndex = 0;
-			this.backButton.UseVisualStyleBackColor = true;
-			this.backButton.Click += new System.EventHandler(this.backButton_Click);
-			// 
 			// WizardControl
 			// 
 			this.Controls.Add(this.bodyPanel);
@@ -261,6 +267,7 @@
 			this.bodyPanel.ResumeLayout(false);
 			this.bodyPanel.PerformLayout();
 			this.contentArea.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.pageContainer)).EndInit();
 			this.header.ResumeLayout(false);
 			this.header.PerformLayout();
 			this.commandArea.ResumeLayout(false);
@@ -287,7 +294,7 @@
 		private System.Windows.Forms.ImageList titleImageList;
 		private System.Windows.Forms.Panel bodyPanel;
 		private ThemedTableLayoutPanel contentArea;
-		internal System.Windows.Forms.Panel pageContainer;
+		internal AeroWizard.WizardPageContainer pageContainer;
 
 	}
 }

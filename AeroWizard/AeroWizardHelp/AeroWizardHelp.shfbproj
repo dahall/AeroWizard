@@ -26,15 +26,6 @@
 			{@TokenFiles}
 			<replace elements="/*//token" item="string(.)" /></component>
       </ComponentConfig>
-      <ComponentConfig id="Cached Framework Comments Index Data" enabled="True">
-        <component id="Cached Framework Comments Index Data" type="SandcastleBuilder.Components.CachedCopyFromIndexComponent" assembly="{@SHFBFolder}SandcastleBuilder.Components.dll">
-          <index name="comments" value="/doc/members/member" key="@name" cache="100">
-				{@CachedFrameworkCommentList}
-				{@CommentFileList}
-			</index>
-          <copy name="comments" source="*" target="/document/comments" />
-        </component>
-      </ComponentConfig>
       <ComponentConfig id="Code Block Component" enabled="True">
         <component id="Code Block Component" type="SandcastleBuilder.Components.CodeBlockComponent" assembly="{@SHFBFolder}SandcastleBuilder.Components.dll">
           <!-- Base path for relative filenames in source attributes (optional) -->
@@ -66,41 +57,8 @@
           <colorizer syntaxFile="{@SHFBFolder}Colorizer\highlight.xml" styleFile="{@SHFBFolder}Colorizer\highlight.xsl" stylesheet="{@SHFBFolder}Colorizer\highlight.css" scriptFile="{@SHFBFolder}Colorizer\highlight.js" disabled="{@DisableCodeBlockComponent}" language="cs" numberLines="false" outlining="false" keepSeeTags="false" tabSize="0" defaultTitle="true" />
         </component>
       </ComponentConfig>
-      <ComponentConfig id="Cached Reflection Index Data" enabled="True">
-        <component id="Cached Reflection Index Data" type="SandcastleBuilder.Components.CachedCopyFromIndexComponent" assembly="{@SHFBFolder}SandcastleBuilder.Components.dll">
-          <index name="reflection" value="/reflection/apis/api" key="@id" cache="10">
-            <cache base="{@SandcastlePath}Data\Reflection" recurse="true" files="*.xml" cacheFile="{@LocalDataFolder}Cache\Reflection.cache" />
-            <data files="reflection.xml" />
-          </index>
-          <copy name="reflection" source="*" target="/document/reference" />
-        </component>
-      </ComponentConfig>
-      <ComponentConfig id="Cached MSDN URL References" enabled="True">
-        <component id="Cached MSDN URL References" type="SandcastleBuilder.Components.CachedResolveReferenceLinksComponent" assembly="{@SHFBFolder}SandcastleBuilder.Components.dll" locale="{@Locale}" linkTarget="{@SdkLinkTarget}">
-          <helpOutput format="HtmlHelp1">
-            <cache filename="{@LocalDataFolder}Cache\MsdnUrl.cache" />
-            <targets base="{@SandcastlePath}Data\Reflection" recurse="true" files="*.xml" type="{@HtmlSdkLinkType}" />
-            <targets files="reflection.xml" type="Local" />
-          </helpOutput>
-          <helpOutput format="MSHelp2">
-            <cache filename="{@LocalDataFolder}Cache\MsdnUrl.cache" />
-            <targets base="{@SandcastlePath}Data\Reflection" recurse="true" files="*.xml" type="{@MSHelp2SdkLinkType}" />
-            <targets files="reflection.xml" type="Index" />
-          </helpOutput>
-          <helpOutput format="MSHelpViewer">
-            <cache filename="{@LocalDataFolder}Cache\MsdnUrl.cache" />
-            <targets base="{@SandcastlePath}Data\Reflection" recurse="true" files="*.xml" type="{@MSHelpViewerSdkLinkType}" />
-            <targets files="reflection.xml" type="Id" />
-          </helpOutput>
-          <helpOutput format="Website">
-            <cache filename="{@LocalDataFolder}Cache\MsdnUrl.cache" />
-            <targets base="{@SandcastlePath}Data\Reflection" recurse="true" files="*.xml" type="{@WebsiteSdkLinkType}" />
-            <targets files="reflection.xml" type="Local" />
-          </helpOutput>
-        </component>
-      </ComponentConfig>
       <ComponentConfig id="IntelliSense Component" enabled="True">
-        <component id="IntelliSense Component" type="SandcastleBuilder.Components.IntelliSenseComponent" assembly="{@SHFBFolder}SandcastleBuilder.Components.dll">
+        <component id="IntelliSense Component" type="Microsoft.Ddue.Tools.IntelliSenseComponent" assembly="{@SandcastlePath}ProductionTools\BuildComponents.dll">
           <!-- Output options (optional)
 					 Attributes:
 							Include Namespaces (false by default)
@@ -117,9 +75,10 @@
     <HelpAttributes />
     <NamespaceSummaries>
       <NamespaceSummaryItem name="Microsoft.Win32.DesktopWindowManager" isDocumented="True">The Microsoft.Win32.DesktopWindowManager namespace includes the DesktopWindowManager class and an extender control which allows the manipulation of the Desktop Window Manager and encapsulates API calls to that end. The DWM controls the glass effect on windows and painting on those affected surfaces.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="AeroWizard" isDocumented="True">The AeroWizard namespace provides the classes and components necessary for the creation of wizards.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="System.Collections.Generic" isDocumented="False" />
-<NamespaceSummaryItem name="AeroWizard.VisualStyles" isDocumented="True">Extensions to the VisualStyles classes native to .NET that accomodate the AEROWIZARD tag.</NamespaceSummaryItem></NamespaceSummaries>
+      <NamespaceSummaryItem name="AeroWizard" isDocumented="True">The AeroWizard namespace provides the classes and components necessary for the creation of wizards.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="System.Collections.Generic" isDocumented="False" />
+      <NamespaceSummaryItem name="AeroWizard.VisualStyles" isDocumented="True">Extensions to the VisualStyles classes native to .NET that accomodate the AEROWIZARD tag.</NamespaceSummaryItem>
+    </NamespaceSummaries>
     <PlugInConfigurations>
     </PlugInConfigurations>
     <BuildLogFile />

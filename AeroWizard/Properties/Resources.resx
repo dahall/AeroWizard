@@ -124,8 +124,11 @@
   <data name="WizardBackButtonToolTip" xml:space="preserve">
     <value>Returns to a previous page</value>
   </data>
+  <data name="WizardBackText" xml:space="preserve">
+    <value>&amp;Back</value>
+  </data>
   <data name="WizardCancelText" xml:space="preserve">
-    <value>Cancel</value>
+    <value>&amp;Cancel</value>
   </data>
   <data name="WizardControlIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\WizardHat.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

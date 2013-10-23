@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("CodePlex Community")]
 [assembly: AssemblyProduct("TestWizard")]
-[assembly: AssemblyCopyright("Copyright © David Hall 2010")]
+[assembly: AssemblyCopyright("Copyright © David Hall 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

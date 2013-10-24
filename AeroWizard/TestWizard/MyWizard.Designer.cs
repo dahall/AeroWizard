@@ -99,7 +99,7 @@
 			// 
 			this.suppressedPage.Controls.Add(this.label2);
 			this.suppressedPage.Name = "suppressedPage";
-			this.suppressedPage.Size = new System.Drawing.Size(527, 260);
+			this.suppressedPage.Size = new System.Drawing.Size(552, 258);
 			this.suppressedPage.Suppress = true;
 			this.suppressedPage.TabIndex = 3;
 			this.suppressedPage.Text = "Suppressed";
@@ -120,7 +120,7 @@
 			this.questionPage.AllowNext = false;
 			this.questionPage.Controls.Add(this.checkBox2);
 			this.questionPage.Name = "questionPage";
-			this.questionPage.Size = new System.Drawing.Size(527, 260);
+			this.questionPage.Size = new System.Drawing.Size(552, 258);
 			this.questionPage.TabIndex = 4;
 			this.questionPage.Text = "Are you sure?";
 			// 
@@ -143,7 +143,7 @@
 			this.middlePage.Name = "middlePage";
 			this.middlePage.ShowCancel = false;
 			this.middlePage.ShowNext = false;
-			this.middlePage.Size = new System.Drawing.Size(527, 260);
+			this.middlePage.Size = new System.Drawing.Size(552, 258);
 			this.middlePage.TabIndex = 1;
 			this.middlePage.Text = "Launch System Cleanup";
 			this.middlePage.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.middlePage_Initialize);
@@ -174,7 +174,7 @@
 			this.endPage.Controls.Add(this.label1);
 			this.endPage.Controls.Add(this.progressBar1);
 			this.endPage.Name = "endPage";
-			this.endPage.Size = new System.Drawing.Size(527, 260);
+			this.endPage.Size = new System.Drawing.Size(527, 259);
 			this.endPage.TabIndex = 2;
 			this.endPage.Text = "Bad Choice";
 			this.endPage.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.endPage_Initialize);
@@ -194,7 +194,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.progressBar1.Location = new System.Drawing.Point(3, 28);
 			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(400, 23);
+			this.progressBar1.Size = new System.Drawing.Size(390, 23);
 			this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
 			this.progressBar1.TabIndex = 0;
 			// 
@@ -204,6 +204,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(574, 415);
 			this.Controls.Add(this.wizardControl1);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
 			this.Name = "MyWizard";
 			this.RightToLeftLayout = true;

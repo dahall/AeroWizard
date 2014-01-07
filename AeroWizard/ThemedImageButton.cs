@@ -166,9 +166,11 @@ namespace AeroWizard
 			{
 				Size imageSize = orientation == Orientation.Vertical ? new Size(imageStrip.Width, imageStrip.Height / 4) : new Size(imageStrip.Width / 4, imageStrip.Height);
 				InitializeImageList(imageSize);
-				Bitmap bmp = new Bitmap(imageStrip);
-				for (Rectangle r = new Rectangle(Point.Empty, imageSize); r.Y < imageStrip.Height; r.Y += imageSize.Height)
-					base.ImageList.Images.Add(bmp.Clone(r, bmp.PixelFormat));
+				using (Bitmap bmp = new Bitmap(imageStrip))
+				{
+					for (Rectangle r = new Rectangle(Point.Empty, imageSize); r.Y < imageStrip.Height; r.Y += imageSize.Height)
+						base.ImageList.Images.Add(bmp.Clone(r, bmp.PixelFormat));
+				}
 			}
 		}
 

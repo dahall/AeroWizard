@@ -14,12 +14,15 @@ namespace Microsoft.Win32
 		public static extern IntPtr SelectObject(IntPtr hDC, IntPtr hObject);
 
 		[DllImport(GDI32, ExactSpelling = true, SetLastError = true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern bool DeleteObject(IntPtr hObject);
 
 		[DllImport(GDI32, ExactSpelling = true, SetLastError = true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern bool DeleteDC(IntPtr hdc);
 
 		[DllImport(GDI32, ExactSpelling = true, SetLastError = true)]
+		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern bool BitBlt(IntPtr hdc, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, uint dwRop);
 
 		[DllImport(GDI32, ExactSpelling = true, SetLastError = true)]

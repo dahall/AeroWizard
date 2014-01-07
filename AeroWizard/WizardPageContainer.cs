@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -34,7 +35,10 @@ namespace AeroWizard
 		private bool nextButtonShieldEnabled = false;
 		private string nextBtnText;
 		private Stack<WizardPage> pageHistory;
+		private Timer progressTimer;
 		private WizardPage selectedPage;
+		private bool showProgressInTaskbarIcon = false;
+		private ITaskbarList4 taskbar;
 		private ButtonBase backButton, cancelButton, nextButton;
 
 		/// <summary>
@@ -103,46 +107,6 @@ namespace AeroWizard
 		}
 
 		/// <summary>
-		/// Gets or sets the button assigned to control moving forward through the pages.
-		/// </summary>
-		/// <value>The next button control.</value>
-		[Category("Wizard"), Description("Button used to command forward wizard flow.")]
-		public ButtonBase NextButton
-		{
-			get { return nextButton; }
-			set
-			{
-				if (nextButton != null)
-					nextButton.Click -= nextButton_Click;
-				if (value != null)
-				{
-					nextButton = value;
-					nextButton.Click += nextButton_Click;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Gets or sets the button assigned to cancelling the page flow.
-		/// </summary>
-		/// <value>The cancel button control.</value>
-		[Category("Wizard"), Description("Button used to cancel wizard flow.")]
-		public ButtonBase CancelButton
-		{
-			get { return cancelButton; }
-			set
-			{
-				if (cancelButton != null)
-					cancelButton.Click -= cancelButton_Click;
-				if (value != null)
-				{
-					cancelButton = value;
-					cancelButton.Click += cancelButton_Click;
-				}
-			}
-		}
-
-		/// <summary>
 		/// Gets or sets the state of the back button.
 		/// </summary>
 		/// <value>The state of the back button.</value>
@@ -163,6 +127,26 @@ namespace AeroWizard
 		{
 			get { return GetCmdButtonText(BackButton); }
 			set { SetCmdButtonText(BackButton, value); }
+		}
+
+		/// <summary>
+		/// Gets or sets the button assigned to cancelling the page flow.
+		/// </summary>
+		/// <value>The cancel button control.</value>
+		[Category("Wizard"), Description("Button used to cancel wizard flow.")]
+		public ButtonBase CancelButton
+		{
+			get { return cancelButton; }
+			set
+			{
+				if (cancelButton != null)
+					cancelButton.Click -= cancelButton_Click;
+				if (value != null)
+				{
+					cancelButton = value;
+					cancelButton.Click += cancelButton_Click;
+				}
+			}
 		}
 
 		/// <summary>
@@ -202,6 +186,26 @@ namespace AeroWizard
 				if (selectedPage != null && selectedPage.IsFinishPage && !this.IsDesignMode())
 				{
 					SetCmdButtonText(NextButton, value);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the button assigned to control moving forward through the pages.
+		/// </summary>
+		/// <value>The next button control.</value>
+		[Category("Wizard"), Description("Button used to command forward wizard flow.")]
+		public ButtonBase NextButton
+		{
+			get { return nextButton; }
+			set
+			{
+				if (nextButton != null)
+					nextButton.Click -= nextButton_Click;
+				if (value != null)
+				{
+					nextButton = value;
+					nextButton.Click += nextButton_Click;
 				}
 			}
 		}
@@ -281,6 +285,24 @@ namespace AeroWizard
 		public WizardPageCollection Pages { get; private set; }
 
 		/// <summary>
+		/// Gets how far the wizard has progressed, as a percentage.
+		/// </summary>
+		/// <value>A value between 0 and 100.</value>
+		[Browsable(false), Description("The percentage of the current page against all pages at run-time.")]
+		public virtual ushort PercentComplete
+		{
+			get
+			{
+				var pg = this.SelectedPage;
+				if (pg == null)
+					return 0;
+				if (IsLastPage(pg))
+					return 100;
+				return Convert.ToUInt16(Math.Ceiling(((double)Pages.IndexOf(this.SelectedPage) + 1) * 100f / Pages.Count));
+			}
+		}	
+
+		/// <summary>
 		/// Gets the currently selected wizard page.
 		/// </summary>
 		/// <value>The selected wizard page. <c>null</c> if no page is active.</value>
@@ -322,9 +344,62 @@ namespace AeroWizard
 						selectedPage.BringToFront();
 						selectedPage.Focus();
 					}
-					UpdateButtons();
+					UpdateUIDependencies();
 					OnSelectedPageChanged();
 				}
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether to show progress in form's taskbar icon.
+		/// </summary>
+		/// <remarks>
+		/// This will only work on Windows 7 or later and the parent form must be showing its icon in the taskbar. No exception is thrown on failure.
+		/// </remarks>
+		/// <value>
+		/// <c>true</c> to show progress in taskbar icon; otherwise, <c>false</c>.
+		/// </value>
+		[Category("Wizard"), DefaultValue(false), Description("Indicates whether to show progress in form's taskbar icon")]
+		public bool ShowProgressInTaskbarIcon
+		{
+			get { return showProgressInTaskbarIcon; }
+			set
+			{
+				if (RunningOnWin7)
+				{
+					showProgressInTaskbarIcon = value;
+					UpdateTaskbarProgress();
+				}
+			}
+		}
+
+		/// <summary>
+		/// Gets a value indicating whether running on win7.
+		/// </summary>
+		/// <value><c>true</c> if [running on win7]; otherwise, <c>false</c>.</value>
+		private static bool RunningOnWin7
+		{
+			get
+			{
+				return ((Environment.OSVersion.Platform == PlatformID.Win32NT) && (Environment.OSVersion.Version.CompareTo(new Version(6, 1)) >= 0));
+			}
+		}
+
+		/// <summary>
+		/// Gets the task bar interface for the current form.
+		/// </summary>
+		/// <value>The task bar.</value>
+		private ITaskbarList4 TaskBar
+		{
+			get
+			{
+				if (taskbar == null)
+				{
+					taskbar = (ITaskbarList4)new CTaskbarList();
+					taskbar.HrInit();
+					taskbar.SetProgressState(ParentForm.Handle, TaskbarProgressBarStatus.Normal);
+				}
+				return taskbar;
 			}
 		}
 
@@ -492,9 +567,9 @@ namespace AeroWizard
 		}
 
 		/// <summary>
-		/// Updates the buttons according to current sequence and history.
+		/// Updates the buttons and taskbar according to current sequence and history.
 		/// </summary>
-		protected internal void UpdateButtons()
+		protected internal void UpdateUIDependencies()
 		{
 			System.Diagnostics.Debug.WriteLine(string.Format("UpdBtn: hstCnt={0},pgIdx={1}:{2},isFin={3}", pageHistory.Count, SelectedPageIndex, Pages.Count, selectedPage == null ? false : selectedPage.IsFinishPage));
 			if (selectedPage == null)
@@ -519,6 +594,8 @@ namespace AeroWizard
 					else
 						SetCmdButtonText(NextButton, NextButtonText);
 					BackButtonState = (pageHistory.Count == 0 || !selectedPage.AllowBack) ? WizardCommandButtonState.Disabled : WizardCommandButtonState.Enabled;
+
+					UpdateTaskbarProgress();
 				}
 			}
 		}
@@ -577,7 +654,12 @@ namespace AeroWizard
 				if (Pages.Count > 0)
 					SelectedPage = Pages[0];
 				else
-					UpdateButtons();
+					UpdateUIDependencies();
+				if (showProgressInTaskbarIcon)
+				{
+					progressTimer = new Timer() { Interval = 500, Enabled = true };
+					progressTimer.Tick += progressTimer_Tick;
+				}
 				initialized = true;
 			}
 		}
@@ -615,7 +697,7 @@ namespace AeroWizard
 			if (e.Item == selectedPage && Pages.Count > 0)
 				SelectedPage = Pages[e.ItemIndex == Pages.Count ? e.ItemIndex - 1 : e.ItemIndex];
 			else
-				UpdateButtons();
+				UpdateUIDependencies();
 		}
 
 		private void Pages_Reset(object sender, EventedList<WizardPage>.ListChangedEventArgs<WizardPage> e)
@@ -627,6 +709,22 @@ namespace AeroWizard
 				Pages_AddItemHandler(item, false);
 			if (Pages.Count > 0)
 				SelectedPage = Pages.Contains(curPage) ? curPage : Pages[0];
+		}
+
+		private void progressTimer_Tick(object sender, EventArgs e)
+		{
+			if (this.ParentForm != null && this.ParentForm.Visible)
+			{
+				progressTimer.Enabled = false;
+				progressTimer = null;
+				UpdateTaskbarProgress();
+			}
+		}
+
+		private void UpdateTaskbarProgress()
+		{
+			if (showProgressInTaskbarIcon && this.selectedPage != null && this.Pages.Count > 0 && !this.IsDesignMode() && ParentForm != null && ParentForm.ShowInTaskbar)
+				TaskBar.SetProgressValue(ParentForm.Handle, Convert.ToUInt64(this.PercentComplete), 100ul);
 		}
 
 		internal void ResetBackButtonText()

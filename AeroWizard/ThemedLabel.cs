@@ -14,13 +14,6 @@ namespace AeroWizard
 	[DefaultProperty("Text")]
 	internal class ThemedLabel : Label
 	{
-		private static bool isMin6;
-
-		static ThemedLabel()
-		{
-			isMin6 = System.Environment.OSVersion.Version.Major >= 6;
-		}
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ThemedLabel"/> class.
 		/// </summary>
@@ -118,7 +111,7 @@ namespace AeroWizard
 				Rectangle r = DeflateRect(base.ClientRectangle, base.Padding);
 				if (this.Image != null)
 				{
-					Rectangle ir = CalcImageRenderBounds(this.Image, r, base.RtlTranslateAlignment(this.ImageAlign));
+					//Rectangle ir = CalcImageRenderBounds(this.Image, r, base.RtlTranslateAlignment(this.ImageAlign));
 					if (this.ImageList != null && this.ImageIndex == 0)
 					{
 						if (vs != null && !this.IsDesignMode() && DesktopWindowManager.IsCompositionEnabled())

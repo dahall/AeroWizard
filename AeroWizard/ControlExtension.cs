@@ -44,6 +44,27 @@ namespace System.Windows.Forms
 		}
 
 		/// <summary>
+		/// Gets the top-most control in the list of parents of type <c>T</c>.
+		/// </summary>
+		/// <typeparam name="T">The <see cref="Control"/> based <see cref="Type"/> of the parent control to retrieve.</typeparam>
+		/// <param name="ctrl">This control.</param>
+		/// <returns>The top-most parent control matching T or null if not found.</returns>
+		public static T GetTopMostParent<T>(this Control ctrl) where T : Control, new()
+		{
+			var stack = new System.Collections.Generic.Stack<Control>();
+			Control p = ctrl.Parent;
+			while (p != null)
+			{
+				stack.Push(p);
+				p = p.Parent;
+			}
+			while (stack.Count > 0)
+				if ((p = stack.Pop()) is T)
+					return p as T;
+			return null;
+		}
+
+		/// <summary>
 		/// Gets the right to left property.
 		/// </summary>
 		/// <param name="ctrl">This control.</param>

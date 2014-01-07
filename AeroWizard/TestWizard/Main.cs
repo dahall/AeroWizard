@@ -51,5 +51,10 @@ namespace TestWizard
 		{
 			Microsoft.Win32.DesktopWindowManager.DesktopWindowManager.CompositionEnabled = compEnabledCheck.Checked;
 		}
+
+		private void oldButton_Click(object sender, EventArgs e)
+		{
+			new OldStyleWizard().ShowDialog(this);
+		}
 	}
 }

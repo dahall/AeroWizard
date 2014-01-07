@@ -315,9 +315,8 @@ namespace AeroWizard
 		protected virtual void OnInitialize(WizardPage prevPage)
 		{
 			EventHandler<WizardPageInitEventArgs> handler = Initialize;
-			WizardPageInitEventArgs e = new WizardPageInitEventArgs(this, prevPage);
 			if (handler != null)
-				handler(this, e);
+				handler(this, new WizardPageInitEventArgs(this, prevPage));
 		}
 
 		/// <summary>
@@ -341,7 +340,7 @@ namespace AeroWizard
 		private void UpdateOwner()
 		{
 			if (Owner != null && this == Owner.SelectedPage)
-				Owner.UpdateButtons();
+				Owner.UpdateUIDependencies();
 		}
 	}
 

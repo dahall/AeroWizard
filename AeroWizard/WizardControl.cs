@@ -36,7 +36,7 @@ namespace AeroWizard
 #endif
 		, ISupportInitialize
 	{
-		private static bool isMin6;
+		private static bool isMin6 = System.Environment.OSVersion.Version.Major >= 6;
 
 		private WizardClassicStyle classicStyle = WizardClassicStyle.AeroStyle;
 		private Point formMoveLastMousePos;
@@ -46,11 +46,6 @@ namespace AeroWizard
 		private bool titleImageIconSet = false;
 
 		internal int contentCol = 1;
-
-		static WizardControl()
-		{
-			isMin6 = System.Environment.OSVersion.Version.Major >= 6;
-		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="WizardControl"/> class.
@@ -77,14 +72,6 @@ namespace AeroWizard
 			this.Pages.ItemAdded += Pages_ItemAdded;
 			this.Pages.ItemDeleted += Pages_ItemDeleted;
 		}
-
-		/// <summary>
-		/// Occurs when the Cancel button has been clicked and the form is closing.
-		/// </summary>
-		/// <remarks>The <see cref="WizardControl.Cancelled"/> event is obsolete in version 1.2; use the <see cref="WizardControl.Cancelling"/> event instead.</remarks>
-		[Obsolete("The Cancelled event is obsolete in version 1.2; use the Cancelling event instead.")]
-		[Category("Behavior"), Description("Occurs when the Cancel button has been clicked and the form is closing.")]
-		public event EventHandler Cancelled;
 
 		/// <summary>
 		/// Occurs when the user clicks the Cancel button and allows for programmatic cancellation.
@@ -228,6 +215,16 @@ namespace AeroWizard
 		}
 
 		/// <summary>
+		/// Gets how far the wizard has progressed, as a percentage.
+		/// </summary>
+		/// <value>A value between 0 and 100.</value>
+		[Browsable(false), Description("The percentage of the current page against all pages at run-time.")]
+		public ushort PercentComplete
+		{
+			get { return this.pageContainer.PercentComplete; }
+		}
+
+		/// <summary>
 		/// Gets the currently selected wizard page.
 		/// </summary>
 		/// <value>The selected wizard page. <c>null</c> if no page is active.</value>
@@ -236,6 +233,22 @@ namespace AeroWizard
 		{
 			get { return this.pageContainer.SelectedPage; }
 			internal set { this.pageContainer.SelectedPage = value; if (value != null) this.HeaderText = value.Text; }
+		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether to show progress in form's taskbar icon.
+		/// </summary>
+		/// <remarks>
+		/// This will only work on Windows 7 or later and the parent form must be showing its icon in the taskbar. No exception is thrown on failure.
+		/// </remarks>
+		/// <value>
+		/// <c>true</c> to show progress in taskbar icon; otherwise, <c>false</c>.
+		/// </value>
+		[Category("Wizard"), DefaultValue(false), Description("Indicates whether to show progress in form's taskbar icon")]
+		public bool ShowProgressInTaskbarIcon
+		{
+			get { return this.pageContainer.ShowProgressInTaskbarIcon; }
+			set { this.pageContainer.ShowProgressInTaskbarIcon = value; }
 		}
 
 		/// <summary>
@@ -303,6 +316,7 @@ namespace AeroWizard
 		/// </summary>
 		public void BeginInit()
 		{
+			pageContainer.BeginInit();
 		}
 
 		/// <summary>
@@ -310,6 +324,7 @@ namespace AeroWizard
 		/// </summary>
 		public void EndInit()
 		{
+			pageContainer.EndInit();
 		}
 
 		/// <summary>
@@ -348,21 +363,6 @@ namespace AeroWizard
 		}
 
 		/// <summary>
-		/// Raises the <see cref="WizardControl.Cancelled"/> event.
-		/// </summary>
-		/// <remarks>The <see cref="WizardControl.OnCancelled"/> method is obsolete in version 1.2; use the <see cref="WizardControl.OnCancelling"/> method instead.</remarks>
-		[Obsolete("The OnCancelled method is obsolete in version 1.2; use the OnCancelling method instead.")]
-		protected virtual void OnCancelled()
-		{
-			EventHandler h = Cancelled;
-			if (h != null)
-				h(this, EventArgs.Empty);
-
-			if (!this.IsDesignMode())
-				CloseForm(DialogResult.Cancel);
-		}
-
-		/// <summary>
 		/// Raises the <see cref="WizardControl.Cancelling"/> event.
 		/// </summary>
 		protected virtual void OnCancelling()
@@ -373,9 +373,10 @@ namespace AeroWizard
 				h(this, arg);
 
 			if (arg.Cancel)
-#pragma warning disable 618
-				OnCancelled();
-#pragma warning restore 618
+			{
+				if (!this.IsDesignMode())
+					CloseForm(DialogResult.Cancel);
+			}
 		}
 
 		/// <summary>
@@ -576,7 +577,7 @@ namespace AeroWizard
 			return r;
 		}
 
-		private bool HasGlass()
+		private static bool HasGlass()
 		{
 			return isMin6 && DesktopWindowManager.IsCompositionEnabled();
 		}

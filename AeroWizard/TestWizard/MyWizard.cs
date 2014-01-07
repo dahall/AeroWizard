@@ -68,5 +68,10 @@ namespace TestWizard
 		{
 			MessageBox.Show("Clicked help");
 		}
+
+		private void introPage_Initialize(object sender, AeroWizard.WizardPageInitEventArgs e)
+		{
+			//MessageBox.Show("Page initialized");
+		}
 	}
 }

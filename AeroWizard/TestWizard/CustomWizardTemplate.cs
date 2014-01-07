@@ -10,6 +10,11 @@ namespace TestWizard
 			InitializeComponent();
 		}
 
+		private void wizardPageContainer1_Cancelling(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			this.Close();
+		}
+
 		private void wizardPageContainer1_Finished(object sender, EventArgs e)
 		{
 			this.Close();

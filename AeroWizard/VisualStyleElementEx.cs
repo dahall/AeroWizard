@@ -12,14 +12,14 @@ namespace AeroWizard.VisualStyles
 		/// </summary>
 		public static class Navigation
 		{
-			private static readonly string className = "NAVIGATION";
+			private const string className = "NAVIGATION";
 
 			/// <summary>
 			/// Provides <see cref="VisualStyleElement"/> objects for the different states of the Back Button control. This class cannot be inherited. 
 			/// </summary>
 			public static class BackButton
 			{
-				private static readonly int part = 1;
+				private const int part = 1;
 
 				/// <summary>Gets a visual style element that represents a back button in the normal state.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents a back button in the normal state.</value>
@@ -32,7 +32,7 @@ namespace AeroWizard.VisualStyles
 				public static VisualStyleElement Pressed { get { return VisualStyleElement.CreateElement(className, part, 3); } }
 				/// <summary>Gets a visual style element that represents a back button in the disabled state.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents a back button in the disabled state.</value>
-				public static VisualStyleElement Diabled { get { return VisualStyleElement.CreateElement(className, part, 4); } }
+				public static VisualStyleElement Disabled { get { return VisualStyleElement.CreateElement(className, part, 4); } }
 			}
 
 			/// <summary>
@@ -40,7 +40,7 @@ namespace AeroWizard.VisualStyles
 			/// </summary>
 			public static class ForwardButton
 			{
-				private static readonly int part = 2;
+				private const int part = 2;
 
 				/// <summary>Gets a visual style element that represents a forward button in the normal state.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents a forward button in the normal state.</value>
@@ -53,7 +53,7 @@ namespace AeroWizard.VisualStyles
 				public static VisualStyleElement Pressed { get { return VisualStyleElement.CreateElement(className, part, 3); } }
 				/// <summary>Gets a visual style element that represents a forward button in the disabled state.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents a forward button in the disabled state.</value>
-				public static VisualStyleElement Diabled { get { return VisualStyleElement.CreateElement(className, part, 4); } }
+				public static VisualStyleElement Disabled { get { return VisualStyleElement.CreateElement(className, part, 4); } }
 			}
 
 			/// <summary>
@@ -61,7 +61,7 @@ namespace AeroWizard.VisualStyles
 			/// </summary>
 			public static class MenuButton
 			{
-				private static readonly int part = 3;
+				private const int part = 3;
 
 				/// <summary>Gets a visual style element that represents a menu button in the normal state.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents a menu button in the normal state.</value>
@@ -74,7 +74,7 @@ namespace AeroWizard.VisualStyles
 				public static VisualStyleElement Pressed { get { return VisualStyleElement.CreateElement(className, part, 3); } }
 				/// <summary>Gets a visual style element that represents a menu button in the disabled state.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents a menu button in the disabled state.</value>
-				public static VisualStyleElement Diabled { get { return VisualStyleElement.CreateElement(className, part, 4); } }
+				public static VisualStyleElement Disabled { get { return VisualStyleElement.CreateElement(className, part, 4); } }
 			}
 		}
 
@@ -83,7 +83,7 @@ namespace AeroWizard.VisualStyles
 		/// </summary>
 		public static class AeroWizard
 		{
-			private static readonly string className = "AEROWIZARD";
+			private const string className = "AEROWIZARD";
 
 			/// <summary>
 			/// Provides a <see cref="VisualStyleElement"/> for the button of a wizard. This class cannot be inherited.

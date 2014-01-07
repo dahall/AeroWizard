@@ -79,6 +79,7 @@
 			this.wizardPageContainer1.Pages.Add(this.wizardPage1);
 			this.wizardPageContainer1.Size = new System.Drawing.Size(318, 173);
 			this.wizardPageContainer1.TabIndex = 2;
+			this.wizardPageContainer1.Cancelling += new System.ComponentModel.CancelEventHandler(this.wizardPageContainer1_Cancelling);
 			this.wizardPageContainer1.Finished += new System.EventHandler(this.wizardPageContainer1_Finished);
 			this.wizardPageContainer1.SelectedPageChanged += new System.EventHandler(this.wizardPageContainer1_SelectedPageChanged);
 			// 

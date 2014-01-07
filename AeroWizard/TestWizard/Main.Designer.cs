@@ -35,10 +35,11 @@
 			this.vsOnOS = new System.Windows.Forms.CheckBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.wizBtn = new System.Windows.Forms.Button();
-			this.stepBtn = new System.Windows.Forms.Button();
 			this.customBtn = new System.Windows.Forms.Button();
+			this.stepBtn = new System.Windows.Forms.Button();
+			this.wizBtn = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+			this.oldButton = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
@@ -107,6 +108,7 @@
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.oldButton);
 			this.groupBox2.Controls.Add(this.customBtn);
 			this.groupBox2.Controls.Add(this.stepBtn);
 			this.groupBox2.Controls.Add(this.wizBtn);
@@ -117,17 +119,16 @@
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Wizard";
 			// 
-			// wizBtn
+			// customBtn
 			// 
-			this.wizBtn.Location = new System.Drawing.Point(7, 20);
-			this.wizBtn.Name = "wizBtn";
-			this.wizBtn.Size = new System.Drawing.Size(107, 23);
-			this.wizBtn.TabIndex = 0;
-			this.wizBtn.Text = "Aero Wizard";
-			this.toolTip1.SetToolTip(this.wizBtn, "Launches a wizard using the Aero Wizard styling defined for Operating Systems aft" +
-        "er Windows Vista.");
-			this.wizBtn.UseVisualStyleBackColor = true;
-			this.wizBtn.Click += new System.EventHandler(this.wizBtn_Click);
+			this.customBtn.Location = new System.Drawing.Point(7, 49);
+			this.customBtn.Name = "customBtn";
+			this.customBtn.Size = new System.Drawing.Size(107, 23);
+			this.customBtn.TabIndex = 0;
+			this.customBtn.Text = "Custom Wizard";
+			this.toolTip1.SetToolTip(this.customBtn, "Launches a custom wizard.");
+			this.customBtn.UseVisualStyleBackColor = true;
+			this.customBtn.Click += new System.EventHandler(this.customBtn_Click);
 			// 
 			// stepBtn
 			// 
@@ -141,16 +142,27 @@
 			this.stepBtn.UseVisualStyleBackColor = true;
 			this.stepBtn.Click += new System.EventHandler(this.stepBtn_Click);
 			// 
-			// customBtn
+			// wizBtn
 			// 
-			this.customBtn.Location = new System.Drawing.Point(7, 49);
-			this.customBtn.Name = "customBtn";
-			this.customBtn.Size = new System.Drawing.Size(107, 23);
-			this.customBtn.TabIndex = 0;
-			this.customBtn.Text = "Custom Wizard";
-			this.toolTip1.SetToolTip(this.customBtn, "Launches a custom wizard.");
-			this.customBtn.UseVisualStyleBackColor = true;
-			this.customBtn.Click += new System.EventHandler(this.customBtn_Click);
+			this.wizBtn.Location = new System.Drawing.Point(7, 20);
+			this.wizBtn.Name = "wizBtn";
+			this.wizBtn.Size = new System.Drawing.Size(107, 23);
+			this.wizBtn.TabIndex = 0;
+			this.wizBtn.Text = "Aero Wizard";
+			this.toolTip1.SetToolTip(this.wizBtn, "Launches a wizard using the Aero Wizard styling defined for Operating Systems aft" +
+        "er Windows Vista.");
+			this.wizBtn.UseVisualStyleBackColor = true;
+			this.wizBtn.Click += new System.EventHandler(this.wizBtn_Click);
+			// 
+			// oldButton
+			// 
+			this.oldButton.Location = new System.Drawing.Point(149, 49);
+			this.oldButton.Name = "oldButton";
+			this.oldButton.Size = new System.Drawing.Size(107, 23);
+			this.oldButton.TabIndex = 0;
+			this.oldButton.Text = "Old Wizard";
+			this.oldButton.UseVisualStyleBackColor = true;
+			this.oldButton.Click += new System.EventHandler(this.oldButton_Click);
 			// 
 			// Main
 			// 
@@ -183,6 +195,7 @@
 		private System.Windows.Forms.Button stepBtn;
 		private System.Windows.Forms.Button wizBtn;
 		private System.Windows.Forms.ToolTip toolTip1;
+		private System.Windows.Forms.Button oldButton;
 
     }
 }

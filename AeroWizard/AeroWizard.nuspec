@@ -1,19 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<package>
-  <metadata>
-    <id>AeroWizard</id>
-    <version>1.3.0</version>
-    <title>Windows Forms Aero-Wizard Control</title>
-    <authors>David Hall</authors>
-    <description>Library for simple creation of Aero Wizards (new wizard format in Vista and later). Strictly follows Microsoft guidelines and uses Visual Styles to pull specific settings from the system. Includes nice design-time experience and demonstrates how to render controls on glass.</description>
-    <language>en-US</language>
-    <licenseUrl>http://aerowizard.codeplex.com/license</licenseUrl>
-    <projectUrl>http://aerowizard.codeplex.com/</projectUrl>
-    <iconUrl>http://download.codeplex.com/Project/Download/FileDownload.aspx?ProjectName=aerowizard&amp;DownloadId=102968&amp;Build=17672</iconUrl>
-    <tags>aero wizard control</tags>
-  </metadata>
-  <files>
-    <file src="bin\Release\AeroWizard.dll" target="lib\3.5" />
-    <file src="bin\Release\AeroWizard.xml" target="lib\3.5" />
-  </files>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>AeroWizard</id>
+        <version>2.0.0</version>
+        <title>Windows Forms Aero-Wizard Control</title>
+        <authors>David Hall</authors>
+        <licenseUrl>http://aerowizard.codeplex.com/license</licenseUrl>
+        <projectUrl>http://aerowizard.codeplex.com/</projectUrl>
+        <iconUrl>http://download.codeplex.com/Project/Download/FileDownload.aspx?ProjectName=aerowizard&amp;DownloadId=102968&amp;Build=17672</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Library for easy creation of custom and Aero Wizards. Aero Wizard strictly follows Microsoft guidelines and uses Visual Styles to get visual theming.</description>
+        <summary>Wizard controls for Windows Forms.</summary>
+        <releaseNotes>https://aerowizard.codeplex.com/SourceControl/list/changesets</releaseNotes>
+        <language>en-US</language>
+        <tags>aero wizard control</tags>
+    </metadata>
+    <files>
+        <file src="bin\Release\AeroWizard.dll" target="lib\3.5\AeroWizard.dll" />
+        <file src="bin\Release\AeroWizard.XML" target="lib\3.5\AeroWizard.XML" />
+    </files>
 </package>

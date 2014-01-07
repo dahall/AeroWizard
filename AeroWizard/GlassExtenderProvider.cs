@@ -131,6 +131,9 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// <param name="value">The margins where the glass will be extended.</param>
 		public void SetGlassMargins(Form form, Padding value)
 		{
+			if (form == null)
+				throw new ArgumentNullException("form");
+
 			GlassFormProperties prop = GetFormProperties(form);
 			if (value == null || value == Padding.Empty)
 			{
@@ -187,16 +190,17 @@ namespace Microsoft.Win32.DesktopWindowManager
 
 		private void form_MouseMove(object sender, MouseEventArgs e)
 		{
-			GlassFormProperties prop = GetFormProperties(sender as Form);
-			if (prop.FormMoveTracking && !GetNonGlassArea(sender as Form, prop).Contains(e.Location))
+			Form form = sender as Form;
+			GlassFormProperties prop = GetFormProperties(form);
+			if (prop.FormMoveTracking && !GetNonGlassArea(form, prop).Contains(e.Location))
 			{
-				Point screen = ((Control)sender).PointToScreen(e.Location);
+				Point screen = form.PointToScreen(e.Location);
 
 				Point diff = new Point(screen.X - prop.FormMoveLastMousePos.X, screen.Y - prop.FormMoveLastMousePos.Y);
 
-				Point loc = ((Control)sender).Location;
+				Point loc = form.Location;
 				loc.Offset(diff);
-				((Control)sender).Location = loc;
+				form.Location = loc;
 
 				prop.FormMoveLastMousePos = screen;
 			}
@@ -236,7 +240,7 @@ namespace Microsoft.Win32.DesktopWindowManager
 			return prop;
 		}
 
-		private Rectangle GetNonGlassArea(Form form, GlassFormProperties prop)
+		private static Rectangle GetNonGlassArea(Form form, GlassFormProperties prop)
 		{
 			if (prop == null)
 				return form.ClientRectangle;
@@ -260,9 +264,11 @@ namespace Microsoft.Win32.DesktopWindowManager
 				g.FillRectangle(Brushes.Black, form.ClientRectangle);
 			else
 			{
-				Region r = new Region(form.ClientRectangle);
-				r.Exclude(GetNonGlassArea(form, prop));
-				g.FillRegion(Brushes.Black, r);
+				using (Region r = new Region(form.ClientRectangle))
+				{
+					r.Exclude(GetNonGlassArea(form, prop));
+					g.FillRegion(Brushes.Black, r);
+				}
 			}
 
 			if (!form.IsDesignMode())

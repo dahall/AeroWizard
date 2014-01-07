@@ -13,21 +13,13 @@ namespace System.Collections.Generic
 		// Fields
 		private const int _defaultCapacity = 4;
 
-		private static T[] _emptyArray;
+		private static T[] _emptyArray = new T[0];
 
 		private T[] _items;
 		private int _size;
 		[NonSerialized]
 		private object _syncRoot;
 		private int _version;
-
-		/// <summary>
-		/// Initializes the <see cref="EventedList&lt;T&gt;"/> class.
-		/// </summary>
-		static EventedList()
-		{
-			EventedList<T>._emptyArray = new T[0];
-		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EventedList&lt;T&gt;"/> class.
@@ -639,7 +631,7 @@ namespace System.Collections.Generic
 		{
 			if (action == null)
 			{
-				throw new ArgumentNullException("match");
+				throw new ArgumentNullException("action");
 			}
 			for (int i = 0; i < this._size; i++)
 			{

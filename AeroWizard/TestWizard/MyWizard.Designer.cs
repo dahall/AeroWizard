@@ -59,6 +59,7 @@
 			this.wizardControl1.Pages.Add(this.questionPage);
 			this.wizardControl1.Pages.Add(this.middlePage);
 			this.wizardControl1.Pages.Add(this.endPage);
+			this.wizardControl1.ShowProgressInTaskbarIcon = true;
 			this.wizardControl1.Size = new System.Drawing.Size(574, 415);
 			this.wizardControl1.TabIndex = 0;
 			this.wizardControl1.Title = "Modify System";
@@ -74,6 +75,7 @@
 			this.introPage.TabIndex = 0;
 			this.introPage.Text = "Choose an activity";
 			this.introPage.HelpClicked += new System.EventHandler(this.introPage_HelpClicked);
+			this.introPage.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.introPage_Initialize);
 			// 
 			// button2
 			// 
@@ -194,7 +196,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.progressBar1.Location = new System.Drawing.Point(3, 28);
 			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(390, 23);
+			this.progressBar1.Size = new System.Drawing.Size(370, 23);
 			this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
 			this.progressBar1.TabIndex = 0;
 			// 

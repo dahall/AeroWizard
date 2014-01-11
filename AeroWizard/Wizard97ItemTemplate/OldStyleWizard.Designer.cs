@@ -65,7 +65,7 @@
 			// 
 			// headerImage
 			// 
-			this.headerImage.Image = global::$rootnamespace$.Properties.Resources.WizardHat_48;
+			this.headerImage.Image = null;
 			this.headerImage.Location = new System.Drawing.Point(426, 4);
 			this.headerImage.Name = "headerImage";
 			this.headerImage.Size = new System.Drawing.Size(49, 49);

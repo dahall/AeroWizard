@@ -4,8 +4,9 @@
 		<Name>AeroWizard</Name>
 		<Description>Windows Form hosting a WizardControl to create an Aero style wizard</Description>
 		<ProjectType>CSharp</ProjectType>
-		<RequiredFrameworkVersion>4.0</RequiredFrameworkVersion>
-		<SortOrder>10</SortOrder>
+		<ProjectSubType>Windows Forms</ProjectSubType>
+		<RequiredFrameworkVersion>3.5</RequiredFrameworkVersion>
+		<SortOrder>100</SortOrder>
 		<Icon>WizardControlTemplate.ico</Icon>
 		<PreviewImage>__PreviewImage.PNG</PreviewImage>
 	</TemplateData>
@@ -13,6 +14,9 @@
 		<References>
 			<Reference>
 				<Assembly>System.Windows.Forms</Assembly>
+			</Reference>
+			<Reference>
+				<Assembly>System.Drawing</Assembly>
 			</Reference>
 		</References>
 		<ProjectItem SubType="Form" TargetFileName="$fileinputname$.cs" ReplaceParameters="true">AeroWizardItemTemplate.cs</ProjectItem>

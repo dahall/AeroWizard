@@ -9,7 +9,6 @@
 		<GettingStartedGuide>http://aerowizard.codeplex.com/documentation</GettingStartedGuide>
 		<ReleaseNotes>https://aerowizard.codeplex.com/SourceControl/list/changesets</ReleaseNotes>
 		<Icon>WizardControlTemplate.ico</Icon>
-		<PreviewImage>AeroWizVista.PNG</PreviewImage>
 		<Tags>winforms wizard aero</Tags>
 	</Metadata>
 	<Installation AllUsers="true">

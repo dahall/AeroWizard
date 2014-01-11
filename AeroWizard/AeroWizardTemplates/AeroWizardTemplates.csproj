@@ -80,10 +80,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AeroWizVista.PNG">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <Content Include="License.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>

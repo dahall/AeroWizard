@@ -91,6 +91,7 @@
     <Compile Include="GlassExtenderProvider.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Native\ButtonExtension.cs" />
     <Compile Include="Native\TaskbarList.cs" />
     <Compile Include="Native\BITMAPINFO.cs" />
     <Compile Include="Native\DesktopWindowManager.cs" />
@@ -105,7 +106,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="StepWizardControl.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="VisualStyleElementEx.cs" />
     <Compile Include="ControlExtension.cs" />
@@ -137,7 +138,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WizardControl.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="WizardControl.designer.cs">
       <DependentUpon>WizardControl.cs</DependentUpon>

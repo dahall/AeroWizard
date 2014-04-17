@@ -221,28 +221,11 @@ namespace AeroWizard
 			get { return nextButtonShieldEnabled; }
 			set
 			{
-				if (System.Environment.OSVersion.Version.Major >= 6)
+				if (nextButtonShieldEnabled != value)
 				{
-					const uint BCM_FIRST = 0x1600;                      //Normal button
-					const uint BCM_SETSHIELD = (BCM_FIRST + 0x000C);    //Elevated butto
-
 					nextButtonShieldEnabled = value;
-
-					if (value)
-					{
-						NextButton.FlatStyle = FlatStyle.System;
-						Microsoft.Win32.NativeMethods.SendMessage(NextButton.Handle, BCM_SETSHIELD, (IntPtr)0, (IntPtr)0xFFFFFFFF);
-					}
-					else
-					{
-						NextButton.FlatStyle = FlatStyle.Standard;
-						Microsoft.Win32.NativeMethods.SendMessage(NextButton.Handle, BCM_FIRST, (IntPtr)0, (IntPtr)0xFFFFFFFF);
-					}
-
-					NextButton.Invalidate();
+					NextButton.SetElevationRequiredState(value);
 				}
-				else
-					throw new PlatformNotSupportedException();
 			}
 		}
 

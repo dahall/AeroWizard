@@ -69,8 +69,8 @@
       </ComponentConfig>
     </ComponentConfigurations>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\bin\Release\AeroWizard.dll" />
-      <DocumentationSource sourceFile="..\bin\Release\AeroWizard.xml" />
+      <DocumentationSource sourceFile="..\bin\Release\v4.0\AeroWizard.dll" />
+      <DocumentationSource sourceFile="..\bin\Release\v4.0\AeroWizard.xml" />
     </DocumentationSources>
     <HelpAttributes />
     <NamespaceSummaries>
@@ -89,20 +89,20 @@
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
     <HelpFileFormat>MSHelpViewer</HelpFileFormat>
     <IndentHtml>False</IndentHtml>
-    <FrameworkVersion>.NET Framework 3.5</FrameworkVersion>
+    <FrameworkVersion>.NET Framework 2.0</FrameworkVersion>
     <KeepLogFile>True</KeepLogFile>
     <DisableCodeBlockComponent>False</DisableCodeBlockComponent>
     <CppCommentsFixup>False</CppCommentsFixup>
     <CleanIntermediates>True</CleanIntermediates>
     <SyntaxFilters>Standard</SyntaxFilters>
     <SdkLinkTarget>Blank</SdkLinkTarget>
-    <RootNamespaceTitle>AeroWizard .NET Library Help</RootNamespaceTitle>
+    <RootNamespaceTitle>Wizard .NET Library Help</RootNamespaceTitle>
     <RootNamespaceContainer>True</RootNamespaceContainer>
     <PresentationStyle>VS2010</PresentationStyle>
     <Preliminary>False</Preliminary>
     <NamingMethod>Guid</NamingMethod>
-    <HelpTitle>AeroWizard .NET Library</HelpTitle>
-    <CopyrightText>&amp;#169%3b 2013 Codeplex Community. All rights reserved.</CopyrightText>
+    <HelpTitle>Wizard .NET Library</HelpTitle>
+    <CopyrightText>&amp;#169%3b 2014 Codeplex Community. All rights reserved.</CopyrightText>
     <CopyrightHref>http://aerowizard.codeplex.com/license</CopyrightHref>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <CatalogName>VisualStudio11</CatalogName>
@@ -119,7 +119,7 @@
     <SccProvider>SAK</SccProvider>
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
-    <ProjectSummary>The AeroWizard project provides components allowing for the simple creation of Aero Wizards %28new wizard format in Vista and later%29 which strictly follow Microsoft guidelines and use Visual Styles to pull specific settings from the system.</ProjectSummary>
+    <ProjectSummary>The Wizard project provides components allowing for the simple creation of Aero Wizards %28new wizard format in Vista and later%29 and other wizards which strictly follow Microsoft guidelines and use Visual Styles to pull specific settings from the system.</ProjectSummary>
     <VisibleItems>Attributes, InheritedMembers, InheritedFrameworkMembers, Protected, SealedProtected</VisibleItems>
     <FooterText>
     </FooterText>

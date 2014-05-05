@@ -490,11 +490,8 @@ namespace AeroWizard
 		/// </summary>
 		public void RestartPages()
 		{
-			if (selectedPage != null)
-				selectedPage.Hide();
-			selectedPage = null;
-			pageHistory.Clear();
 			initialized = false;
+			InitialSetup();
 		}
 
 		/// <summary>
@@ -634,6 +631,7 @@ namespace AeroWizard
 		{
 			if (!initialized)
 			{
+				pageHistory.Clear();
 				if (Pages.Count > 0)
 					SelectedPage = Pages[0];
 				else

@@ -5,7 +5,7 @@
 		<Description>Windows Form hosting controls that allow it to behave as a Wizard97 look alike.</Description>
 		<ProjectType>CSharp</ProjectType>
 		<ProjectSubType>Windows Forms</ProjectSubType>
-		<RequiredFrameworkVersion>3.5</RequiredFrameworkVersion>
+		<RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
 		<SortOrder>100</SortOrder>
 		<Icon>__TemplateIcon.ico</Icon>
 		<PreviewImage>__PreviewImage.PNG</PreviewImage>
@@ -29,7 +29,7 @@
 	</WizardExtension>
 	<WizardData>
 		<packages repository="extension" repositoryId="AeroWizardTemplates..134dde00-8c48-450a-926c-63377b215799">
-			<package id="AeroWizard" version="2.0.1" />
+			<package id="AeroWizard" version="2.0.3" />
 		</packages>
 	</WizardData>
 </VSTemplate>

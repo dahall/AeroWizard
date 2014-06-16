@@ -5,15 +5,25 @@ using System.Windows.Forms.VisualStyles;
 
 namespace AeroWizard
 {
-	internal class ThemedTableLayoutPanel : TableLayoutPanel
+	/// <summary>
+	/// A table layout panel that supports a glass overlay.
+	/// </summary>
+	public class ThemedTableLayoutPanel : TableLayoutPanel
 	{
 		private VisualStyleRenderer rnd;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ThemedTableLayoutPanel"/> class.
+		/// </summary>
 		public ThemedTableLayoutPanel()
 		{
 			SetTheme(VisualStyleElement.Window.Dialog.Normal);
 		}
 
+		/// <summary>
+		/// Sets the theme using a defined <see cref="VisualStyleElement"/>.
+		/// </summary>
+		/// <param name="element">The visual element.</param>
 		public void SetTheme(VisualStyleElement element)
 		{
 			if (VisualStyleRenderer.IsSupported && VisualStyleRenderer.IsElementDefined(element))
@@ -22,6 +32,12 @@ namespace AeroWizard
 				rnd = null;
 		}
 
+		/// <summary>
+		/// Sets the theme using theme class information.
+		/// </summary>
+		/// <param name="className">Name of the theme class.</param>
+		/// <param name="part">The theme part.</param>
+		/// <param name="state">The theme state.</param>
 		public void SetTheme(string className, int part, int state)
 		{
 			if (VisualStyleRenderer.IsSupported)
@@ -36,18 +52,38 @@ namespace AeroWizard
 			rnd = null;
 		}
 
+		/// <summary>
+		/// Gets or sets a value indicating whether to watch getting and losing focus.
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if watching focus events; otherwise, <c>false</c>.
+		/// </value>
 		[DefaultValue(false), Category("Behavior")]
 		public bool WatchFocus { get; set; }
 
+		/// <summary>
+		/// Gets or sets a value indicating whether this table supports glass (can be enclosed in the glass margin).
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if ssupports glass; otherwise, <c>false</c>.
+		/// </value>
 		[DefaultValue(false), Category("Appearance")]
 		public bool SupportGlass { get; set; }
 
+		/// <summary>
+		/// Raises the <see cref="E:System.Windows.Forms.Control.HandleCreated" /> event.
+		/// </summary>
+		/// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
 		protected override void OnHandleCreated(System.EventArgs e)
 		{
 			base.OnHandleCreated(e);
 			AttachToFormEvents();
 		}
 
+		/// <summary>
+		/// Raises the <see cref="E:System.Windows.Forms.Control.Paint" /> event.
+		/// </summary>
+		/// <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs" /> that contains the event data.</param>
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			if (!this.IsDesignMode() && SupportGlass && DesktopWindowManager.IsCompositionEnabled())

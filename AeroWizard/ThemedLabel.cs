@@ -12,7 +12,7 @@ namespace AeroWizard
 	/// </summary>
 	//[Designer("AeroWizard.Design.ThemedLabelDesigner")]
 	[DefaultProperty("Text")]
-	internal class ThemedLabel : Label
+	public class ThemedLabel : Label
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ThemedLabel"/> class.

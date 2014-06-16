@@ -12,7 +12,7 @@ namespace AeroWizard
 	/// A button that displays an image and no text.
 	/// </summary>
 	[ToolboxBitmap(typeof(Button)), DefaultProperty("Image")]
-	internal class ThemedImageButton : ButtonBase
+	public class ThemedImageButton : ButtonBase
 	{
 		private const string defaultText = "";
 		private const string defaultToolTip = "Returns to a previous page";

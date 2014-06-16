@@ -442,12 +442,11 @@ namespace AeroWizard
 
 			if (skipCommit || SelectedPage.CommitPage())
 			{
-				pageHistory.Push(SelectedPage);
-
 				if (nextPage != null)
 				{
 					if (!Pages.Contains(nextPage))
 						throw new ArgumentException("When specifying a value for nextPage, it must already be in the Pages collection.", "nextPage");
+					pageHistory.Push(SelectedPage);
 					SelectedPage = nextPage;
 				}
 				else
@@ -462,9 +461,9 @@ namespace AeroWizard
 					}
 
 					// Set new SelectedPage value
+					pageHistory.Push(SelectedPage);
 					SelectedPage = selNext;
 				}
-
 			}
 		}
 

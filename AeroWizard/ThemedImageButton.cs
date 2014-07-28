@@ -175,9 +175,9 @@ namespace AeroWizard
 		}
 
 		/// <summary>
-		/// Process Enabled property changed 
+		/// Process Enabled property changed
 		/// </summary>
-		/// <param name="e"></param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		protected override void OnEnabledChanged(EventArgs e)
 		{
 			ButtonState = Enabled ? PushButtonState.Normal : PushButtonState.Disabled;
@@ -186,7 +186,7 @@ namespace AeroWizard
 		}
 
 		/// <summary>
-		/// Raises the <see cref="E:GotFocus" /> event.
+		/// Raises the <see cref="E:System.Windows.Forms.Control.GotFocus" /> event.
 		/// </summary>
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		protected override void OnGotFocus(EventArgs e)
@@ -196,7 +196,7 @@ namespace AeroWizard
 		}
 
 		/// <summary>
-		/// Raises the <see cref="E:LostFocus" /> event.
+		/// Raises the <see cref="E:System.Windows.Forms.Control.LostFocus" /> event.
 		/// </summary>
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		protected override void OnLostFocus(EventArgs e)

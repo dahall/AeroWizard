@@ -18,31 +18,47 @@
     <OutputPath>.\Help\</OutputPath>
     <HtmlHelpName>AeroWizard</HtmlHelpName>
     <Language>en-US</Language>
-    <ApiFilter />
+    <ApiFilter>
+      <Filter entryType="Namespace" fullName="System.Collections.Generic" isExposed="False">
+  <Filter entryType="Structure" fullName="System.Collections.Generic.EventedList`1.Enumerator" filterName="EventedList`1.Enumerator" isExposed="True" />
+  <Filter entryType="Class" fullName="System.Collections.Generic.EventedList`1" filterName="EventedList`1" isExposed="True" />
+  <Filter entryType="Class" fullName="System.Collections.Generic.EventedList`1.ListChangedEventArgs`1" filterName="EventedList`1.ListChangedEventArgs`1" isExposed="True" />
+</Filter>
+    </ApiFilter>
     <ComponentConfigurations>
       <ComponentConfig id="API Token Resolution" enabled="True">
         <component id="API Token Resolution">{@TokenFiles}
 <replace elements="/*//token" item="string(.)" /></component>
       </ComponentConfig>
-<ComponentConfig id="Code Block Component" enabled="True"><component id="Code Block Component">
-  <basePath value="{@HtmlEncProjectFolder}" />
-  <outputPaths>{@HelpFormatOutputPaths}</outputPaths>
-  <allowMissingSource value="false" />
-  <removeRegionMarkers value="false" />
-  <colorizer syntaxFile="{@SHFBFolder}Colorizer\highlight.xml" styleFile="{@SHFBFolder}Colorizer\highlight.xsl" stylesheet="{@SHFBFolder}Colorizer\highlight.css" scriptFile="{@SHFBFolder}Colorizer\highlight.js" disabled="{@DisableCodeBlockComponent}" language="cs" tabSize="0" numberLines="false" outlining="false" keepSeeTags="false" defaultTitle="true" />
-</component></ComponentConfig>
-<ComponentConfig id="IntelliSense Component" enabled="True"><component id="IntelliSense Component"><!-- Output options (optional)
+      <ComponentConfig id="Code Block Component" enabled="True">
+        <component id="Code Block Component">
+          <basePath value="{@HtmlEncProjectFolder}" />
+          <outputPaths>{@HelpFormatOutputPaths}</outputPaths>
+          <allowMissingSource value="false" />
+          <removeRegionMarkers value="false" />
+          <colorizer syntaxFile="{@SHFBFolder}Colorizer\highlight.xml" styleFile="{@SHFBFolder}Colorizer\highlight.xsl" stylesheet="{@SHFBFolder}Colorizer\highlight.css" scriptFile="{@SHFBFolder}Colorizer\highlight.js" disabled="{@DisableCodeBlockComponent}" language="cs" tabSize="0" numberLines="false" outlining="false" keepSeeTags="false" defaultTitle="true" />
+        </component>
+      </ComponentConfig>
+      <ComponentConfig id="IntelliSense Component" enabled="True">
+        <component id="IntelliSense Component">
+          <!-- Output options (optional)
   Attributes:
     Include namespaces (false by default)
     Namespaces comments filename ("Namespaces" if not specified or empty)
-    Output folder (current folder if not specified or empty) --><output includeNamespaces="false" namespacesFile="Namespaces" folder="{@OutputFolder}" /></component></ComponentConfig>
-<ComponentConfig id="Syntax Component" enabled="True"><component id="Syntax Component">
-  <syntax input="/document/reference" output="/document/syntax" renderReferenceLinks="true" />
-  <generators>
+    Output folder (current folder if not specified or empty) -->
+          <output includeNamespaces="false" namespacesFile="Namespaces" folder="{@OutputFolder}" />
+        </component>
+      </ComponentConfig>
+      <ComponentConfig id="Syntax Component" enabled="True">
+        <component id="Syntax Component">
+          <syntax input="/document/reference" output="/document/syntax" renderReferenceLinks="true" />
+          <generators>
     {@SyntaxFilters}
 </generators>
-  <configurations />
-</component></ComponentConfig></ComponentConfigurations>
+          <configurations />
+        </component>
+      </ComponentConfig>
+    </ComponentConfigurations>
     <DocumentationSources>
       <DocumentationSource sourceFile="..\bin\Release\v4.0\AeroWizard.dll" />
       <DocumentationSource sourceFile="..\bin\Release\v4.0\AeroWizard.xml" />

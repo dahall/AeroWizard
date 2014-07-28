@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AeroWizard", "AeroWizard.csproj", "{199C12C4-3EEF-4D08-BAC3-F2A62BCF969C}"
 EndProject
@@ -18,10 +18,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AeroWizardTemplates", "Aero
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AeroWizardItemTemplate", "AeroWizardItemTemplate\AeroWizardItemTemplate.csproj", "{BE2F5D91-AB68-432F-A94D-E68F05071324}"
+	ProjectSection(ProjectDependencies) = postProject
+		{199C12C4-3EEF-4D08-BAC3-F2A62BCF969C} = {199C12C4-3EEF-4D08-BAC3-F2A62BCF969C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomWizardItemTemplate", "CustomWizardItemTemplate\CustomWizardItemTemplate.csproj", "{D8029003-7A3F-4840-B441-E15D6E2BAFC2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{199C12C4-3EEF-4D08-BAC3-F2A62BCF969C} = {199C12C4-3EEF-4D08-BAC3-F2A62BCF969C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wizard97ItemTemplate", "Wizard97ItemTemplate\Wizard97ItemTemplate.csproj", "{D127643F-69AA-4C4C-A624-7754289E798C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{199C12C4-3EEF-4D08-BAC3-F2A62BCF969C} = {199C12C4-3EEF-4D08-BAC3-F2A62BCF969C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution

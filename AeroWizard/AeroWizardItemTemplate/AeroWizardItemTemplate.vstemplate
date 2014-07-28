@@ -13,10 +13,16 @@
 	<TemplateContent>
 		<References>
 			<Reference>
-				<Assembly>System.Windows.Forms</Assembly>
+				<Assembly>System</Assembly>
+			</Reference>
+			<Reference>
+				<Assembly>System.Design</Assembly>
 			</Reference>
 			<Reference>
 				<Assembly>System.Drawing</Assembly>
+			</Reference>
+			<Reference>
+				<Assembly>System.Windows.Forms</Assembly>
 			</Reference>
 		</References>
 		<ProjectItem SubType="Form" TargetFileName="$fileinputname$.cs" ReplaceParameters="true">AeroWizardItemTemplate.cs</ProjectItem>

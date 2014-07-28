@@ -20,7 +20,7 @@
 	</Installation>
 	<Dependencies>
 		<Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[2.0,)" />
-		<!--<Dependency d:Source="Installed" Id="NuGet.67e54e40-0ae3-42c5-a949-fddf5739e6a5" DisplayName="NuGet Package Manager for Visual Studio 2013" Version="[2.7.41101.371,3.0)" d:InstallSource="Download" Location="http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c" />-->
+		<Dependency d:Source="Installed" Id="NuGet.67e54e40-0ae3-42c5-a949-fddf5739e6a5" DisplayName="NuGet Package Manager" Version="[2.0.30625.9003,3.0)" d:InstallSource="Download" Location="http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c" />
 	</Dependencies>
 	<Assets>
 		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="AeroWizardItemTemplate" d:TargetPath="|AeroWizardItemTemplate;TemplateProjectOutputGroup|" Path="ItemTemplates" d:VsixSubPath="ItemTemplates" />

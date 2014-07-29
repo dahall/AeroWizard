@@ -74,6 +74,10 @@
     <Content Include="Packages\AeroWizard.2.0.3.nupkg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="__PreviewImage.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="..\FixVSIX.ps1">
       <Link>FixVSIX.ps1</Link>
     </None>

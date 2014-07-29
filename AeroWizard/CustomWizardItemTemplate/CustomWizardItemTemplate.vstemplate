@@ -1,10 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
 	<TemplateData>
 		<DefaultName>CustomWizard.cs</DefaultName>
-		<Name>CustomWizard</Name>
+		<Name>Custom Wizard Control</Name>
 		<Description>Windows Form hosting controls that allow it to behave as a custom wizard.</Description>
 		<ProjectType>CSharp</ProjectType>
-		<ProjectSubType>Windows Forms</ProjectSubType>
+		<NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
 		<RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
 		<SortOrder>100</SortOrder>
 		<Icon>WizardControlTemplate.ico</Icon>

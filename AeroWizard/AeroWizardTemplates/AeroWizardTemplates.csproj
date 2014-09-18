@@ -71,16 +71,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Packages\AeroWizard.2.0.3.nupkg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="__PreviewImage.PNG">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <None Include="..\FixVSIX.ps1">
-      <Link>FixVSIX.ps1</Link>
-    </None>
+    <None Include="Packages\AeroWizard.2.0.3.nupkg" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
@@ -116,21 +111,21 @@
     <ProjectReference Include="..\AeroWizardItemTemplate\AeroWizardItemTemplate.csproj">
       <Project>{BE2F5D91-AB68-432F-A94D-E68F05071324}</Project>
       <Name>AeroWizardItemTemplate</Name>
-      <VSIXSubPath>ItemTemplates</VSIXSubPath>
+      <VSIXSubPath>ItemTemplatesA</VSIXSubPath>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
     </ProjectReference>
     <ProjectReference Include="..\CustomWizardItemTemplate\CustomWizardItemTemplate.csproj">
       <Project>{D8029003-7A3F-4840-B441-E15D6E2BAFC2}</Project>
       <Name>CustomWizardItemTemplate</Name>
-      <VSIXSubPath>ItemTemplates</VSIXSubPath>
+      <VSIXSubPath>ItemTemplatesB</VSIXSubPath>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
     </ProjectReference>
     <ProjectReference Include="..\Wizard97ItemTemplate\Wizard97ItemTemplate.csproj">
       <Project>{d127643f-69aa-4c4c-a624-7754289e798c}</Project>
       <Name>Wizard97ItemTemplate</Name>
-      <VSIXSubPath>ItemTemplates</VSIXSubPath>
+      <VSIXSubPath>ItemTemplatesC</VSIXSubPath>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
     </ProjectReference>
@@ -139,7 +134,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)BuildNuGetPackage.cmd"</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

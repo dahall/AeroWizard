@@ -129,10 +129,9 @@
 			// 
 			this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.cancelButton.AutoSize = true;
-			this.cancelButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.cancelButton.Location = new System.Drawing.Point(520, 10);
 			this.cancelButton.Margin = new System.Windows.Forms.Padding(7, 0, 0, 0);
-			this.cancelButton.MinimumSize = new System.Drawing.Size(70, 0);
+			this.cancelButton.MinimumSize = new System.Drawing.Size(70, 15);
 			this.cancelButton.Name = "cancelButton";
 			this.cancelButton.Size = new System.Drawing.Size(70, 23);
 			this.cancelButton.TabIndex = 1;
@@ -143,10 +142,9 @@
 			// 
 			this.nextButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.nextButton.AutoSize = true;
-			this.nextButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.nextButton.Location = new System.Drawing.Point(443, 10);
 			this.nextButton.Margin = new System.Windows.Forms.Padding(0);
-			this.nextButton.MinimumSize = new System.Drawing.Size(70, 0);
+			this.nextButton.MinimumSize = new System.Drawing.Size(70, 15);
 			this.nextButton.Name = "nextButton";
 			this.nextButton.Size = new System.Drawing.Size(70, 23);
 			this.nextButton.TabIndex = 0;

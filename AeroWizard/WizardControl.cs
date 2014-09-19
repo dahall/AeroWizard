@@ -697,7 +697,7 @@ namespace AeroWizard
 					commandArea.RowStyles[2].Height = cp.Bottom;
 					commandArea.ColumnStyles[2].Width = contentArea.ColumnStyles[contentCol + 1].Width = cp.Right;
 					theme.SetParameters(VisualStyleElementEx.AeroWizard.Button.Normal);
-					commandArea.RowStyles[2].Height = theme.GetInteger(IntegerProperty.Height);
+					commandArea.RowStyles[1].Height = theme.GetInteger(IntegerProperty.Height);
 				}
 			}
 			else

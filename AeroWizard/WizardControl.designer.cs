@@ -61,7 +61,7 @@
 			// 
 			this.commandAreaBorder.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.commandAreaBorder.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.commandAreaBorder.Location = new System.Drawing.Point(0, 368);
+			this.commandAreaBorder.Location = new System.Drawing.Point(0, 370);
 			this.commandAreaBorder.Margin = new System.Windows.Forms.Padding(0);
 			this.commandAreaBorder.Name = "commandAreaBorder";
 			this.commandAreaBorder.Size = new System.Drawing.Size(609, 1);
@@ -74,7 +74,7 @@
 			this.bodyPanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.bodyPanel.Location = new System.Drawing.Point(0, 32);
 			this.bodyPanel.Name = "bodyPanel";
-			this.bodyPanel.Size = new System.Drawing.Size(609, 336);
+			this.bodyPanel.Size = new System.Drawing.Size(609, 338);
 			this.bodyPanel.TabIndex = 1;
 			// 
 			// contentArea
@@ -92,7 +92,7 @@
 			this.contentArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.contentArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
 			this.contentArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.contentArea.Size = new System.Drawing.Size(609, 277);
+			this.contentArea.Size = new System.Drawing.Size(609, 279);
 			this.contentArea.TabIndex = 1;
 			this.contentArea.Paint += new System.Windows.Forms.PaintEventHandler(this.contentArea_Paint);
 			// 
@@ -106,7 +106,7 @@
 			this.pageContainer.Margin = new System.Windows.Forms.Padding(0);
 			this.pageContainer.Name = "pageContainer";
 			this.pageContainer.NextButton = this.nextButton;
-			this.pageContainer.Size = new System.Drawing.Size(552, 258);
+			this.pageContainer.Size = new System.Drawing.Size(552, 260);
 			this.pageContainer.TabIndex = 0;
 			this.pageContainer.Cancelling += new System.ComponentModel.CancelEventHandler(this.pageContainer_Cancelling);
 			this.pageContainer.Finished += new System.EventHandler(this.pageContainer_Finished);
@@ -134,7 +134,7 @@
 			this.cancelButton.Margin = new System.Windows.Forms.Padding(7, 0, 0, 0);
 			this.cancelButton.MinimumSize = new System.Drawing.Size(70, 0);
 			this.cancelButton.Name = "cancelButton";
-			this.cancelButton.Size = new System.Drawing.Size(70, 25);
+			this.cancelButton.Size = new System.Drawing.Size(70, 23);
 			this.cancelButton.TabIndex = 1;
 			this.cancelButton.Text = "&Cancel";
 			this.cancelButton.UseVisualStyleBackColor = true;
@@ -194,13 +194,13 @@
 			this.commandArea.Controls.Add(this.cancelButton, 1, 1);
 			this.commandArea.Controls.Add(this.nextButton, 0, 1);
 			this.commandArea.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.commandArea.Location = new System.Drawing.Point(0, 369);
+			this.commandArea.Location = new System.Drawing.Point(0, 371);
 			this.commandArea.Name = "commandArea";
 			this.commandArea.RowCount = 3;
 			this.commandArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-			this.commandArea.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.commandArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
 			this.commandArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-			this.commandArea.Size = new System.Drawing.Size(609, 45);
+			this.commandArea.Size = new System.Drawing.Size(609, 43);
 			this.commandArea.TabIndex = 3;
 			// 
 			// titleBar

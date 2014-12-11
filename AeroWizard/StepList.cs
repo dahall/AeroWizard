@@ -10,12 +10,12 @@ namespace AeroWizard
 	/// Shows a list of all the pages in the WizardControl
 	/// </summary>
 	[ProvideProperty("StepText", typeof(WizardPage))]
-    [ProvideProperty("StepTextIndentLevel", typeof(WizardPage))]
-    internal class StepList : ScrollableControl, IExtenderProvider
+	[ProvideProperty("StepTextIndentLevel", typeof(WizardPage))]
+	internal class StepList : ScrollableControl, IExtenderProvider
 	{
 		private WizardControl myParent;
 		private Dictionary<WizardPage, string> stepTexts = new Dictionary<WizardPage, string>();
-        private Dictionary<WizardPage, int> indentLevels = new Dictionary<WizardPage, int>();
+		private Dictionary<WizardPage, int> indentLevels = new Dictionary<WizardPage, int>();
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="StepList"/> class.
@@ -73,14 +73,17 @@ namespace AeroWizard
 		{
 			base.OnPaint(e);
 			if (myParent == null) return;
-
+			bool isRTL = this.RightToLeft == System.Windows.Forms.RightToLeft.Yes;
 			using (Font ptrFont = new Font("Marlett", this.Font.Size), boldFont = new Font(this.Font, FontStyle.Bold))
 			{
 				int itemHeight = (int)Math.Ceiling(TextRenderer.MeasureText(e.Graphics, "Wg", this.Font).Height * 1.2);
-                int lPad = TextRenderer.MeasureText(e.Graphics, "4", ptrFont, new Size(0, itemHeight), TextFormatFlags.SingleLine | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPadding).Width;
+				var tffrtl = isRTL ? TextFormatFlags.Right : 0;
+				var tff = TextFormatFlags.SingleLine | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPadding | tffrtl;
+				int lPad = TextRenderer.MeasureText(e.Graphics, "4", ptrFont, new Size(0, itemHeight), tff).Width;
 				const int rPad = 4;
-				Rectangle rect = new Rectangle(lPad, 0, this.Width - lPad - rPad, itemHeight);
+				Rectangle rect = new Rectangle(0, 0, this.Width - lPad - rPad, itemHeight);
 				Rectangle prect = new Rectangle(0, 0, lPad, itemHeight);
+				System.Diagnostics.Debug.WriteLine(string.Format("r1:{0}; r2:{1}", prect, rect));
 				WizardPageCollection pages = myParent.Pages;
 				bool hit = false;
 				for (int i = 0; i < pages.Count && rect.Y < (this.Height - itemHeight); i++)
@@ -88,10 +91,13 @@ namespace AeroWizard
 					if (!pages[i].Suppress)
 					{
 						Color fc = this.ForeColor, bc = this.BackColor;
-                        bool isSelected = myParent.SelectedPage == pages[i];
-                        int level = GetStepTextIndentLevel(pages[i]);
-                        prect.X = lPad * level;
-                        rect.X = lPad * (level + 1);
+						bool isSelected = myParent.SelectedPage == pages[i];
+						int level = GetStepTextIndentLevel(pages[i]);
+						prect.X = isRTL ? this.Width - (lPad * (level + 1)) : lPad * level;
+						if (isRTL)
+							rect.Width = this.Width - (lPad * (level + 1));
+						else
+							rect.X = lPad * (level + 1);
 						if (isSelected)
 						{
 							hit = true;
@@ -104,8 +110,8 @@ namespace AeroWizard
 						}
 						using (Brush br = new SolidBrush(bc))
 							e.Graphics.FillRectangle(br, Rectangle.Union(rect, prect));
-						TextRenderer.DrawText(e.Graphics, hit ? "4" : "a", ptrFont, prect, fc, TextFormatFlags.SingleLine | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPadding);
-						TextRenderer.DrawText(e.Graphics, GetStepText(pages[i]), isSelected ? boldFont : this.Font, rect, fc, TextFormatFlags.EndEllipsis | TextFormatFlags.SingleLine | TextFormatFlags.VerticalCenter);
+						TextRenderer.DrawText(e.Graphics, hit ? (isRTL ? "3" : "4") : "a", ptrFont, prect, fc, tff);
+						TextRenderer.DrawText(e.Graphics, GetStepText(pages[i]), isSelected ? boldFont : this.Font, rect, fc, TextFormatFlags.EndEllipsis | TextFormatFlags.SingleLine | TextFormatFlags.VerticalCenter | tffrtl);
 						prect.Y = rect.Y += itemHeight;
 					}
 				}
@@ -155,33 +161,33 @@ namespace AeroWizard
 			SetStepText(page, null);
 		}
 
-        /// <summary>
-        /// Gets the step text indent level.
-        /// </summary>
-        /// <param name="page">The page.</param>
-        /// <returns>Step text indent level for the specified wizard page.</returns>
-        [DefaultValue(0), Category("Appearance"), Description("Indentation level for text provided to the StepList.")]
-        public int GetStepTextIndentLevel(WizardPage page)
-        {
-            int value;
-            if (indentLevels.TryGetValue(page, out value))
-                return value;
-            return 0;
-        }
+		/// <summary>
+		/// Gets the step text indent level.
+		/// </summary>
+		/// <param name="page">The page.</param>
+		/// <returns>Step text indent level for the specified wizard page.</returns>
+		[DefaultValue(0), Category("Appearance"), Description("Indentation level for text provided to the StepList.")]
+		public int GetStepTextIndentLevel(WizardPage page)
+		{
+			int value;
+			if (indentLevels.TryGetValue(page, out value))
+				return value;
+			return 0;
+		}
 
-        /// <summary>
-        /// Sets the step text indent level.
-        /// </summary>
-        /// <param name="page">The page.</param>
-        /// <param name="value">The indent level.</param>
-        public void SetStepTextIndentLevel(WizardPage page, int value)
-        {
-            if (value < 0) value = 0;
-            if (value == 0)
-                indentLevels.Remove(page);
-            else
-                indentLevels[page] = value;
-            Refresh();
-        }
-    }
+		/// <summary>
+		/// Sets the step text indent level.
+		/// </summary>
+		/// <param name="page">The page.</param>
+		/// <param name="value">The indent level.</param>
+		public void SetStepTextIndentLevel(WizardPage page, int value)
+		{
+			if (value < 0) value = 0;
+			if (value == 0)
+				indentLevels.Remove(page);
+			else
+				indentLevels[page] = value;
+			Refresh();
+		}
+	}
 }

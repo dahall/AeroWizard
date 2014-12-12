@@ -312,6 +312,17 @@ namespace AeroWizard
 		}
 
 		/// <summary>
+		/// Adds a new control to the command bar.
+		/// </summary>
+		/// <remarks>This will cause your wizard to deviate from the Windows UI guidelines. All controls will display right to left in the order added and will cause
+		/// the command bar to remain visible as long as the control is visible. The developer must fully manage the state of this added control.</remarks>
+		/// <param name="ctrl">The control to add.</param>
+		public void AddCommandControl(Control ctrl)
+		{
+			commandAreaButtonFlowLayout.Controls.Add(ctrl);
+		}
+
+		/// <summary>
 		/// Signals the object that initialization is starting.
 		/// </summary>
 		public void BeginInit()
@@ -584,7 +595,13 @@ namespace AeroWizard
 
 		private void pageContainer_ButtonStateChanged(object sender, EventArgs e)
 		{
-			commandArea.Visible = (cancelButton.Enabled || nextButton.Enabled || cancelButton.Visible || nextButton.Visible);
+			bool vis = false;
+			foreach (Control c in commandAreaButtonFlowLayout.Controls)
+			{
+				if (c.Visible || (c is ButtonBase && pageContainer.GetCmdButtonState(c as ButtonBase) != WizardCommandButtonState.Hidden))
+					vis = true;
+			}
+			commandArea.Visible = vis;
 		}
 
 		private void pageContainer_Cancelling(object sender, CancelEventArgs e)
@@ -695,9 +712,15 @@ namespace AeroWizard
 					cp = theme.GetMargins2(g, MarginProperty.ContentMargins);
 					commandArea.RowStyles[0].Height = cp.Top;
 					commandArea.RowStyles[2].Height = cp.Bottom;
-					commandArea.ColumnStyles[2].Width = contentArea.ColumnStyles[contentCol + 1].Width = cp.Right;
+					commandArea.ColumnStyles[1].Width = contentArea.ColumnStyles[contentCol + 1].Width = cp.Right;
 					theme.SetParameters(VisualStyleElementEx.AeroWizard.Button.Normal);
-					commandArea.RowStyles[1].Height = nextButton.Height = cancelButton.Height = theme.GetInteger(IntegerProperty.Height);
+					int btnHeight = theme.GetInteger(IntegerProperty.Height);
+					commandAreaButtonFlowLayout.MinimumSize = new Size(0, btnHeight);
+					foreach (Control ctrl in commandAreaButtonFlowLayout.Controls)
+					{
+						ctrl.Height = btnHeight;
+						ctrl.MaximumSize = new Size(0, btnHeight);
+					}
 				}
 			}
 			else

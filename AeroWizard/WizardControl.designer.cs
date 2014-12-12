@@ -40,6 +40,7 @@
 			this.header = new AeroWizard.ThemedTableLayoutPanel();
 			this.headerLabel = new System.Windows.Forms.Label();
 			this.commandArea = new AeroWizard.ThemedTableLayoutPanel();
+			this.commandAreaButtonFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
 			this.titleBar = new AeroWizard.ThemedTableLayoutPanel();
 			this.title = new AeroWizard.ThemedLabel();
 			this.titleImage = new AeroWizard.ThemedLabel();
@@ -48,6 +49,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.pageContainer)).BeginInit();
 			this.header.SuspendLayout();
 			this.commandArea.SuspendLayout();
+			this.commandAreaButtonFlowLayout.SuspendLayout();
 			this.titleBar.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -61,7 +63,7 @@
 			// 
 			this.commandAreaBorder.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.commandAreaBorder.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.commandAreaBorder.Location = new System.Drawing.Point(0, 370);
+			this.commandAreaBorder.Location = new System.Drawing.Point(0, 368);
 			this.commandAreaBorder.Margin = new System.Windows.Forms.Padding(0);
 			this.commandAreaBorder.Name = "commandAreaBorder";
 			this.commandAreaBorder.Size = new System.Drawing.Size(609, 1);
@@ -74,7 +76,7 @@
 			this.bodyPanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.bodyPanel.Location = new System.Drawing.Point(0, 32);
 			this.bodyPanel.Name = "bodyPanel";
-			this.bodyPanel.Size = new System.Drawing.Size(609, 338);
+			this.bodyPanel.Size = new System.Drawing.Size(609, 336);
 			this.bodyPanel.TabIndex = 1;
 			// 
 			// contentArea
@@ -92,7 +94,7 @@
 			this.contentArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.contentArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
 			this.contentArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.contentArea.Size = new System.Drawing.Size(609, 279);
+			this.contentArea.Size = new System.Drawing.Size(609, 277);
 			this.contentArea.TabIndex = 1;
 			this.contentArea.Paint += new System.Windows.Forms.PaintEventHandler(this.contentArea_Paint);
 			// 
@@ -106,8 +108,9 @@
 			this.pageContainer.Margin = new System.Windows.Forms.Padding(0);
 			this.pageContainer.Name = "pageContainer";
 			this.pageContainer.NextButton = this.nextButton;
-			this.pageContainer.Size = new System.Drawing.Size(552, 260);
+			this.pageContainer.Size = new System.Drawing.Size(552, 258);
 			this.pageContainer.TabIndex = 0;
+			this.pageContainer.ButtonStateChanged += new System.EventHandler(this.pageContainer_ButtonStateChanged);
 			this.pageContainer.Cancelling += new System.ComponentModel.CancelEventHandler(this.pageContainer_Cancelling);
 			this.pageContainer.Finished += new System.EventHandler(this.pageContainer_Finished);
 			this.pageContainer.SelectedPageChanged += new System.EventHandler(this.pageContainer_SelectedPageChanged);
@@ -129,11 +132,12 @@
 			// 
 			this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.cancelButton.AutoSize = true;
-			this.cancelButton.Location = new System.Drawing.Point(520, 10);
+			this.cancelButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.cancelButton.Location = new System.Drawing.Point(520, 0);
 			this.cancelButton.Margin = new System.Windows.Forms.Padding(7, 0, 0, 0);
 			this.cancelButton.MinimumSize = new System.Drawing.Size(70, 15);
 			this.cancelButton.Name = "cancelButton";
-			this.cancelButton.Size = new System.Drawing.Size(70, 23);
+			this.cancelButton.Size = new System.Drawing.Size(70, 25);
 			this.cancelButton.TabIndex = 1;
 			this.cancelButton.Text = "&Cancel";
 			this.cancelButton.UseVisualStyleBackColor = true;
@@ -142,8 +146,9 @@
 			// 
 			this.nextButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.nextButton.AutoSize = true;
-			this.nextButton.Location = new System.Drawing.Point(443, 10);
-			this.nextButton.Margin = new System.Windows.Forms.Padding(0);
+			this.nextButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.nextButton.Location = new System.Drawing.Point(443, 0);
+			this.nextButton.Margin = new System.Windows.Forms.Padding(7, 0, 0, 0);
 			this.nextButton.MinimumSize = new System.Drawing.Size(70, 15);
 			this.nextButton.Name = "nextButton";
 			this.nextButton.Size = new System.Drawing.Size(70, 23);
@@ -185,21 +190,35 @@
 			// 
 			this.commandArea.AutoSize = true;
 			this.commandArea.BackColor = System.Drawing.SystemColors.Control;
-			this.commandArea.ColumnCount = 3;
+			this.commandArea.ColumnCount = 2;
 			this.commandArea.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.commandArea.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
 			this.commandArea.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 19F));
-			this.commandArea.Controls.Add(this.cancelButton, 1, 1);
-			this.commandArea.Controls.Add(this.nextButton, 0, 1);
+			this.commandArea.Controls.Add(this.commandAreaButtonFlowLayout, 0, 1);
 			this.commandArea.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.commandArea.Location = new System.Drawing.Point(0, 371);
+			this.commandArea.Location = new System.Drawing.Point(0, 369);
 			this.commandArea.Name = "commandArea";
 			this.commandArea.RowCount = 3;
 			this.commandArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-			this.commandArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
+			this.commandArea.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.commandArea.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-			this.commandArea.Size = new System.Drawing.Size(609, 43);
+			this.commandArea.Size = new System.Drawing.Size(609, 45);
 			this.commandArea.TabIndex = 3;
+			// 
+			// commandAreaButtonFlowLayout
+			// 
+			this.commandAreaButtonFlowLayout.AutoSize = true;
+			this.commandAreaButtonFlowLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.commandAreaButtonFlowLayout.Controls.Add(this.cancelButton);
+			this.commandAreaButtonFlowLayout.Controls.Add(this.nextButton);
+			this.commandAreaButtonFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.commandAreaButtonFlowLayout.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+			this.commandAreaButtonFlowLayout.Location = new System.Drawing.Point(0, 10);
+			this.commandAreaButtonFlowLayout.Margin = new System.Windows.Forms.Padding(0);
+			this.commandAreaButtonFlowLayout.MinimumSize = new System.Drawing.Size(0, 23);
+			this.commandAreaButtonFlowLayout.Name = "commandAreaButtonFlowLayout";
+			this.commandAreaButtonFlowLayout.Size = new System.Drawing.Size(590, 25);
+			this.commandAreaButtonFlowLayout.TabIndex = 2;
+			this.commandAreaButtonFlowLayout.WrapContents = false;
 			// 
 			// titleBar
 			// 
@@ -270,6 +289,8 @@
 			this.header.PerformLayout();
 			this.commandArea.ResumeLayout(false);
 			this.commandArea.PerformLayout();
+			this.commandAreaButtonFlowLayout.ResumeLayout(false);
+			this.commandAreaButtonFlowLayout.PerformLayout();
 			this.titleBar.ResumeLayout(false);
 			this.titleBar.PerformLayout();
 			this.ResumeLayout(false);
@@ -293,6 +314,7 @@
 		private System.Windows.Forms.Panel bodyPanel;
 		private ThemedTableLayoutPanel contentArea;
 		internal AeroWizard.WizardPageContainer pageContainer;
+		private System.Windows.Forms.FlowLayoutPanel commandAreaButtonFlowLayout;
 
 	}
 }

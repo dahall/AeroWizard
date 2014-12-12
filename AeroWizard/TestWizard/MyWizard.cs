@@ -12,6 +12,7 @@ namespace TestWizard
 			foreach (var i in this.wizardControl1.Pages)
 				i.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(i_Commit);
 			this.wizardControl1.Finished += new System.EventHandler(wizardControl1_Finished);
+			this.wizardControl1.AddCommandControl(new Button { Text = "?", AutoSize = true, AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink, Anchor = AnchorStyles.Top | AnchorStyles.Right, Margin = Padding.Empty });
 		}
 
 		void wizardControl1_Finished(object sender, System.EventArgs e)

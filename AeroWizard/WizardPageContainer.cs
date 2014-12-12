@@ -589,14 +589,18 @@ namespace AeroWizard
 			OnCancelling();
 		}
 
-		private WizardCommandButtonState GetCmdButtonState(ButtonBase btn)
+		internal WizardCommandButtonState GetCmdButtonState(ButtonBase btn)
 		{
-			if (btn == null || !btn.Visible)
+			if (btn == null || btn.Tag == null)
 				return WizardCommandButtonState.Hidden;
+			else if (btn.Tag is WizardCommandButtonState)
+				return (WizardCommandButtonState)btn.Tag;
 			else
 			{
 				if (btn.Enabled)
 					return WizardCommandButtonState.Enabled;
+				else if (!btn.Visible)
+					return WizardCommandButtonState.Hidden;
 				else
 					return WizardCommandButtonState.Disabled;
 			}
@@ -732,6 +736,7 @@ namespace AeroWizard
 			if (btn == null)
 				return;
 
+			WizardCommandButtonState prevVal = GetCmdButtonState(btn);
 			switch (value)
 			{
 				case WizardCommandButtonState.Disabled:
@@ -745,13 +750,18 @@ namespace AeroWizard
 					break;
 				case WizardCommandButtonState.Enabled:
 				default:
-					btn.Enabled = btn.Visible = true;
+					btn.Enabled = true;
+					btn.Visible = true;
 					break;
 			}
 
-			EventHandler h = this.ButtonStateChanged;
-			if (h != null)
-				h(this, EventArgs.Empty);
+			if (prevVal != value)
+			{
+				btn.Tag = value;
+				EventHandler h = this.ButtonStateChanged;
+				if (h != null)
+					h(btn, EventArgs.Empty);
+			}
 
 			base.Invalidate();
 		}

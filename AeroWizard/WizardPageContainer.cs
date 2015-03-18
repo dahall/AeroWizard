@@ -577,6 +577,8 @@ namespace AeroWizard
 					UpdateTaskbarProgress();
 				}
 			}
+			if (this.Controls.ContainsKey("stepList"))
+				this.Controls["stepList"].Refresh();
 		}
 
 		private void backButton_Click(object sender, EventArgs e)

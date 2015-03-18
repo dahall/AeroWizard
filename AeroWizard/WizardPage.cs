@@ -13,7 +13,7 @@ namespace AeroWizard
 	public partial class WizardPage : Control
 	{
 		private bool allowCancel = true, allowNext = true, allowBack = true;
-		private bool showCancel = true, showNext = true;
+		private bool showCancel = true, showNext = true, suppress = false;
 		private bool isFinishPage = false;
 		private string helpText = null;
 
@@ -26,7 +26,6 @@ namespace AeroWizard
 		{
 			InitializeComponent();
 			Margin = Padding.Empty;
-			Suppress = false;
 			base.Text = Properties.Resources.WizardHeader;
 		}
 
@@ -225,7 +224,18 @@ namespace AeroWizard
 		///   <c>true</c> if suppressed; otherwise, <c>false</c>.
 		/// </value>
 		[DefaultValue(false), Category("Behavior"), Description("Suppresses this page from viewing if selected as next.")]
-		public bool Suppress { get; set; }
+		public virtual bool Suppress
+		{
+			get { return suppress; }
+			set
+			{
+				if (suppress != value)
+				{
+					suppress = value;
+					UpdateOwner();
+				}
+			}
+		}
 
 		/// <summary>
 		/// Gets the required creation parameters when the control handle is created.

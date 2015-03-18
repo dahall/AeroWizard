@@ -6,112 +6,6 @@ using System.Windows.Forms;
 namespace AeroWizard
 {
 	/// <summary>
-	/// Provides data for the <see cref="E:StepList.DrawItem"/> event.
-	/// </summary>
-	public class DrawStepListItemEventArgs : EventArgs
-	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="DrawStepListItemEventArgs"/> class.
-		/// </summary>
-		/// <param name="graphics">The graphics surface on which to draw.</param>
-		/// <param name="itemRect">The rectangle within which to draw.</param>
-		/// <param name="page">The page to which this step refers.</param>
-		/// <param name="isSelected">if set to <c>true</c> item is selected.</param>
-		/// <param name="isCompleted">if set to <c>true</c> item has been completed.</param>
-		public DrawStepListItemEventArgs(Graphics graphics, Rectangle itemRect, WizardPage page, bool isSelected, bool isCompleted)
-		{
-			this.Graphics = graphics;
-			this.Bounds = itemRect;
-			this.Item = page;
-			this.Selected = isSelected;
-			this.Completed = isCompleted;
-		}
-
-		/// <summary>
-		/// Gets the size and location of the item to draw.
-		/// </summary>
-		/// <value>
-		/// A rectangle that represents the bounds of the item to draw.
-		/// </value>
-		public Rectangle Bounds { get; private set; }
-
-		/// <summary>
-		/// Gets a value indicating whether this step has already been completed.
-		/// </summary>
-		/// <value>
-		///   <c>true</c> if completed; otherwise, <c>false</c>.
-		/// </value>
-		public bool Completed { get; private set; }
-
-		/// <summary>
-		/// Gets the <see cref="Graphics"/> used to draw the item.
-		/// </summary>
-		/// <value>
-		/// The <see cref="Graphics"/> used to draw the item.
-		/// </value>
-		public Graphics Graphics { get; private set; }
-
-		/// <summary>
-		/// Gets the <see cref="WizardPage"/> to which this item refers.
-		/// </summary>
-		/// <value>
-		/// The <see cref="WizardPage"/> to which this item refers.
-		/// </value>
-		public WizardPage Item { get; private set; }
-
-		/// <summary>
-		/// Gets a value indicating whether this item is the one currently selected.
-		/// </summary>
-		/// <value>
-		///   <c>true</c> if selected; otherwise, <c>false</c>.
-		/// </value>
-		public bool Selected { get; private set; }
-	}
-
-	/// <summary>
-	/// Provides data for the <see cref="E:StepList.MeasureItem"/> event.
-	/// </summary>
-	public class MeasureStepListItemEventArgs : EventArgs
-	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="MeasureStepListItemEventArgs"/> class.
-		/// </summary>
-		/// <param name="graphics">The graphics surface on which to draw.</param>
-		/// <param name="page">The page to which this step refers.</param>
-		/// <param name="itemSize">The size of the item.</param>
-		public MeasureStepListItemEventArgs(Graphics graphics, WizardPage page, Size itemSize)
-		{
-			this.Graphics = graphics;
-			this.Item = page;
-			this.ItemSize = itemSize;
-		}
-
-		/// <summary>
-		/// Gets the <see cref="Graphics"/> used to draw the item.
-		/// </summary>
-		/// <value>
-		/// The <see cref="Graphics"/> used to draw the item.
-		/// </value>
-		public Graphics Graphics { get; private set; }
-
-		/// <summary>
-		/// Gets the <see cref="WizardPage"/> to which this item refers.
-		/// </summary>
-		/// <value>
-		/// The <see cref="WizardPage"/> to which this item refers.
-		/// </value>
-		public WizardPage Item { get; private set; }
-
-		/// <summary>
-		/// Gets or sets the size of the item.
-		/// </summary>
-		/// <value>
-		/// The size of the item.
-		/// </value>
-		public Size ItemSize { get; set; }
-	}
-
-	/// <summary>
 	/// Wizard control that shows a step summary on the left of the wizard page area.
 	/// </summary>
 	[ProvideProperty("StepText", typeof(WizardPage))]
@@ -157,6 +51,19 @@ namespace AeroWizard
 		{
 			get { return list.OwnerDraw; }
 			set { list.OwnerDraw = value; }
+		}
+
+		/// <summary>
+		/// Gets or sets the StepList font.
+		/// </summary>
+		/// <value>
+		/// The StepList font.
+		/// </value>
+		[Category("Appearance"), Description("Font for drawing StepList.")]
+		public Font StepListFont
+		{
+			get { return list.Font; }
+			set { list.Font = value; }
 		}
 
 		/// <summary>
@@ -227,7 +134,7 @@ namespace AeroWizard
 		}
 
 		/// <summary>
-		/// Raises the <see cref="E:DrawStepListItem" /> event.
+		/// Raises the <see cref="E:AeroWizard.StepWizardControl.DrawStepListItem" /> event.
 		/// </summary>
 		/// <param name="e">The <see cref="DrawStepListItemEventArgs"/> instance containing the event data.</param>
 		protected virtual void OnDrawStepListItem(DrawStepListItemEventArgs e)
@@ -238,7 +145,7 @@ namespace AeroWizard
 		}
 
 		/// <summary>
-		/// Raises the <see cref="E:MeasureStepListItem" /> event.
+		/// Raises the <see cref="E:AeroWizard.StepWizardControl.MeasureStepListItem" /> event.
 		/// </summary>
 		/// <param name="e">The <see cref="MeasureStepListItemEventArgs"/> instance containing the event data.</param>
 		protected virtual void OnMeasureStepListItem(MeasureStepListItemEventArgs e)
@@ -279,14 +186,134 @@ namespace AeroWizard
 			this.pageContainer.Controls.Add(list);
 		}
 
+		private void ResetStepListFont()
+		{
+			list.Font = this.Font;
+		}
+
 		private void ResetStepText(WizardPage page)
 		{
 			SetStepText(page, null);
+		}
+
+		private bool ShouldSerializeStepListFont()
+		{
+			return this.Font != list.Font;
 		}
 
 		private bool ShouldSerializeStepText(WizardPage page)
 		{
 			return (GetStepText(page) != page.Text);
 		}
+	}
+
+	/// <summary>
+	/// Provides data for the <see cref="E:AeroWizard.StepWizardControl.DrawStepListItem"/> event.
+	/// </summary>
+	public class DrawStepListItemEventArgs : EventArgs
+	{
+		internal DrawStepListItemEventArgs(Graphics graphics, Font font, Rectangle itemRect, WizardPage page, bool isSelected, bool isCompleted)
+		{
+			this.Graphics = graphics;
+			this.Font = font;
+			this.Bounds = itemRect;
+			this.Item = page;
+			this.Selected = isSelected;
+			this.Completed = isCompleted;
+		}
+
+		/// <summary>
+		/// Gets the size and location of the item to draw.
+		/// </summary>
+		/// <value>
+		/// A rectangle that represents the bounds of the item to draw.
+		/// </value>
+		public Rectangle Bounds { get; private set; }
+
+		/// <summary>
+		/// Gets a value indicating whether this step has already been completed.
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if completed; otherwise, <c>false</c>.
+		/// </value>
+		public bool Completed { get; private set; }
+
+		/// <summary>
+		/// Gets the <see cref="Font"/> used to draw the item.
+		/// </summary>
+		/// <value>
+		/// The <see cref="Font"/> used to draw the item.
+		/// </value>
+		public Font Font { get; private set; }
+
+		/// <summary>
+		/// Gets the <see cref="Graphics"/> used to draw the item.
+		/// </summary>
+		/// <value>
+		/// The <see cref="Graphics"/> used to draw the item.
+		/// </value>
+		public Graphics Graphics { get; private set; }
+
+		/// <summary>
+		/// Gets the <see cref="WizardPage"/> to which this item refers.
+		/// </summary>
+		/// <value>
+		/// The <see cref="WizardPage"/> to which this item refers.
+		/// </value>
+		public WizardPage Item { get; private set; }
+
+		/// <summary>
+		/// Gets a value indicating whether this item is the one currently selected.
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if selected; otherwise, <c>false</c>.
+		/// </value>
+		public bool Selected { get; private set; }
+	}
+
+	/// <summary>
+	/// Provides data for the <see cref="E:AeroWizard.StepWizardControl.MeasureStepListItem"/> event.
+	/// </summary>
+	public class MeasureStepListItemEventArgs : EventArgs
+	{
+		internal MeasureStepListItemEventArgs(Graphics graphics, Font font, WizardPage page, Size itemSize)
+		{
+			this.Graphics = graphics;
+			this.Font = font;
+			this.Item = page;
+			this.ItemSize = itemSize;
+		}
+
+		/// <summary>
+		/// Gets the <see cref="Font"/> used to draw the item.
+		/// </summary>
+		/// <value>
+		/// The <see cref="Font"/> used to draw the item.
+		/// </value>
+		public Font Font { get; private set; }
+
+		/// <summary>
+		/// Gets the <see cref="Graphics"/> used to draw the item.
+		/// </summary>
+		/// <value>
+		/// The <see cref="Graphics"/> used to draw the item.
+		/// </value>
+		public Graphics Graphics { get; private set; }
+
+		/// <summary>
+		/// Gets the <see cref="WizardPage"/> to which this item refers.
+		/// </summary>
+		/// <value>
+		/// The <see cref="WizardPage"/> to which this item refers.
+		/// </value>
+		public WizardPage Item { get; private set; }
+
+		/// <summary>
+		/// Gets or sets the size of the item.
+		/// </summary>
+		/// <value>
+		/// The size of the item.
+		/// </value>
+		public Size ItemSize { get; set; }
 	}
 }

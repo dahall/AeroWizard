@@ -71,6 +71,7 @@ namespace AeroWizard
 		}
 
 		/// <summary>
+		/// Retrieves the size of a rectangular area into which a control can be fitted.
 		/// </summary>
 		/// <param name="proposedSize">The custom-sized area for a control.</param>
 		/// <returns>
@@ -94,8 +95,9 @@ namespace AeroWizard
 		}
 
 		/// <summary>
+		/// Raises the Paint event.
 		/// </summary>
-		/// <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs"/> that contains the event data.</param>
+		/// <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs" /> that contains the event data.</param>
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			if (Visible)
@@ -148,6 +150,7 @@ namespace AeroWizard
 		}
 
 		/// <summary>
+		/// Processes Windows messages.
 		/// </summary>
 		/// <param name="m">The Windows <see cref="T:System.Windows.Forms.Message"/> to process.</param>
 		protected override void WndProc(ref Message m)

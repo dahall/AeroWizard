@@ -71,6 +71,9 @@ namespace Microsoft.Win32
 		[DllImport(UXTHEME, CharSet = CharSet.Unicode)]
 		public static extern int DrawThemeTextEx(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, string text, int iCharCount, int dwFlags, ref NativeMethods.RECT pRect, ref DrawThemeTextOptions pOptions);
 
+		[DllImport(UXTHEME, ExactSpelling = true, CharSet = CharSet.Unicode)]
+		public static extern Int32 GetThemeFont(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, int iPropId, out LOGFONT pFont);
+
 		[DllImport(UXTHEME, ExactSpelling = true)]
 		public static extern int GetThemeMargins(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, int iPropId, IntPtr prc, out NativeMethods.RECT pMargins);
 

@@ -39,6 +39,7 @@ namespace AeroWizard
 		private static bool isMin6 = System.Environment.OSVersion.Version.Major >= 6;
 
 		private WizardClassicStyle classicStyle = WizardClassicStyle.AeroStyle;
+		private bool themePropsSet = false;
 		private Point formMoveLastMousePos;
 		private bool formMoveTracking;
 		private Form parentForm;
@@ -358,6 +359,23 @@ namespace AeroWizard
 		}
 
 		/// <summary>
+		/// Overrides the theme fonts provided by the system.
+		/// </summary>
+		/// <remarks>This is NOT recommended as it will cause the wizard to not match those provided by the system. This should be called only after the handle has been created or it will be overridden with the system theme values.</remarks>
+		/// <param name="titleFont">The title font.</param>
+		/// <param name="headerFont">The header font.</param>
+		/// <param name="buttonFont">The command buttons font.</param>
+		public virtual void OverrideThemeFonts(Font titleFont, Font headerFont, Font buttonFont)
+		{
+			title.Font = titleFont;
+			headerLabel.Font = headerFont;
+			foreach (Control ctrl in commandAreaButtonFlowLayout.Controls)
+			{
+				ctrl.Font = buttonFont;
+			}
+		}
+
+		/// <summary>
 		/// Returns to the previous page.
 		/// </summary>
 		public virtual void PreviousPage()
@@ -503,9 +521,12 @@ namespace AeroWizard
 			{
 				bodyPanel.BorderStyle = System.Windows.Forms.BorderStyle.None;
 				header.BackColor = contentArea.BackColor = SystemColors.Window;
-				headerLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-				headerLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(112)))), ((int)(((byte)(171)))));
-				title.Font = this.Font;
+				if (!themePropsSet)
+				{
+					headerLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+					headerLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(112)))), ((int)(((byte)(171)))));
+					title.Font = this.Font;
+				}
 			}
 			else
 			{
@@ -690,6 +711,7 @@ namespace AeroWizard
 
 					// Title
 					theme.SetParameters(VisualStyleElementEx.AeroWizard.TitleBar.Active);
+					title.Font = theme.GetFont2(g);
 					titleBar.Height = Math.Max(theme.GetMargins2(g, MarginProperty.ContentMargins).Top, bbSize.Height + 2);
 					titleBar.ColumnStyles[0].Width = bbSize.Width + 4F;
 					titleBar.ColumnStyles[1].Width = titleImageIcon != null ? titleImageList.ImageSize.Width + 4F : 0;
@@ -697,12 +719,14 @@ namespace AeroWizard
 
 					// Header
 					theme.SetParameters(VisualStyleElementEx.AeroWizard.HeaderArea.Normal);
+					headerLabel.Font = theme.GetFont2(g);
 					headerLabel.Margin = theme.GetMargins2(g, MarginProperty.ContentMargins);
 					headerLabel.ForeColor = theme.GetColor(ColorProperty.TextColor);
 
 					// Content
 					theme.SetParameters(VisualStyleElementEx.AeroWizard.ContentArea.Normal);
 					this.BackColor = theme.GetColor(ColorProperty.FillColor);
+					contentArea.Font = theme.GetFont2(g);
 					Padding cp = theme.GetMargins2(g, MarginProperty.ContentMargins);
 					contentArea.ColumnStyles[0].Width = cp.Left;
 					contentArea.RowStyles[1].Height = cp.Bottom;
@@ -716,11 +740,15 @@ namespace AeroWizard
 					theme.SetParameters(VisualStyleElementEx.AeroWizard.Button.Normal);
 					int btnHeight = theme.GetInteger(IntegerProperty.Height);
 					commandAreaButtonFlowLayout.MinimumSize = new Size(0, btnHeight);
+					Font btnFont = theme.GetFont2(g);
 					foreach (Control ctrl in commandAreaButtonFlowLayout.Controls)
 					{
+						ctrl.Font = btnFont;
 						ctrl.Height = btnHeight;
 						ctrl.MaximumSize = new Size(0, btnHeight);
 					}
+
+					themePropsSet = true;
 				}
 			}
 			else

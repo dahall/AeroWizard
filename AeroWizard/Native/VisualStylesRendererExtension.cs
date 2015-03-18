@@ -108,6 +108,18 @@ namespace System.Windows.Forms.VisualStyles
 			bounds = rc;
 		}
 
+		public static System.Drawing.Font GetFont2(this VisualStyleRenderer rnd, IDeviceContext dc = null)
+		{
+			using (SafeGDIHandle hdc = new SafeGDIHandle(dc))
+			{
+				Microsoft.Win32.NativeMethods.LOGFONT f;
+				int hres = NativeMethods.GetThemeFont(rnd.Handle, hdc, rnd.Part, rnd.State, 210, out f);
+				if (hres != 0)
+					throw new System.ComponentModel.Win32Exception(hres);
+				return f.ToFont();
+			}
+		}
+
 		public static System.Windows.Forms.Padding GetMargins2(this VisualStyleRenderer rnd, IDeviceContext dc, MarginProperty prop)
 		{
 			NativeMethods.RECT rc;

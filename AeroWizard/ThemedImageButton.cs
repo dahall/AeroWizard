@@ -123,6 +123,7 @@ namespace AeroWizard
 		}
 
 		/// <summary>
+		/// Retrieves the default size for the control.
 		/// </summary>
 		/// <value></value>
 		/// <returns>

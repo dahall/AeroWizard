@@ -92,6 +92,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Native\ButtonExtension.cs" />
+    <Compile Include="Native\LOGFONT.cs" />
     <Compile Include="Native\TaskbarList.cs" />
     <Compile Include="Native\BITMAPINFO.cs" />
     <Compile Include="Native\DesktopWindowManager.cs" />

@@ -177,7 +177,7 @@ namespace AeroWizard
 					Size itemSize = new Size(this.Width - this.Padding.Horizontal, this.defItemHeight);
 					if (OwnerDraw)
 					{
-						var meArg = new MeasureStepListItemEventArgs(e.Graphics, curPage, new Size(this.Width, defItemHeight));
+						var meArg = new MeasureStepListItemEventArgs(e.Graphics, this.Font, curPage, new Size(this.Width, defItemHeight));
 						OnMeasureItem(meArg);
 						itemSize = meArg.ItemSize;
 					}
@@ -185,7 +185,7 @@ namespace AeroWizard
 						break;
 					bool isSelected = myParent.SelectedPage == curPage;
 					if (isSelected) hit = true;
-					var eArg = new DrawStepListItemEventArgs(e.Graphics, new Rectangle(new Point(this.Padding.Left, y), itemSize), curPage, isSelected, hit);
+					var eArg = new DrawStepListItemEventArgs(e.Graphics, this.Font, new Rectangle(new Point(this.Padding.Left, y), itemSize), curPage, isSelected, hit);
 					if (OwnerDraw)
 						OnDrawItem(eArg);
 					else

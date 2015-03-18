@@ -33,7 +33,7 @@ namespace AeroWizard.Design
 
 		public override System.Collections.ICollection AssociatedComponents
 		{
-			get { return this.WizardControl.Pages; }
+			get { return (this.Control is WizardControl) ? this.WizardControl.Pages : base.AssociatedComponents; }
 		}
 
 		public override SelectionRules SelectionRules

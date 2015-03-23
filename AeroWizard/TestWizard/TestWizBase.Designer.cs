@@ -63,6 +63,7 @@
 			this.backBtn.Name = "backBtn";
 			this.backBtn.Size = new System.Drawing.Size(75, 23);
 			this.backBtn.TabIndex = 1;
+			this.backBtn.Tag = AeroWizard.WizardCommandButtonState.Disabled;
 			this.backBtn.Text = "&Back";
 			this.backBtn.UseVisualStyleBackColor = false;
 			// 
@@ -78,8 +79,10 @@
 			this.cancelBtn.Name = "cancelBtn";
 			this.cancelBtn.Size = new System.Drawing.Size(75, 23);
 			this.cancelBtn.TabIndex = 1;
+			this.cancelBtn.Tag = AeroWizard.WizardCommandButtonState.Disabled;
 			this.cancelBtn.Text = "&Cancel";
 			this.cancelBtn.UseVisualStyleBackColor = false;
+			this.cancelBtn.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// nextBtn
 			// 
@@ -93,6 +96,7 @@
 			this.nextBtn.Name = "nextBtn";
 			this.nextBtn.Size = new System.Drawing.Size(75, 23);
 			this.nextBtn.TabIndex = 1;
+			this.nextBtn.Tag = AeroWizard.WizardCommandButtonState.Enabled;
 			this.nextBtn.Text = "&Next";
 			this.nextBtn.UseVisualStyleBackColor = false;
 			// 

@@ -16,9 +16,11 @@
 		<tags>aero wizard control</tags>
 	</metadata>
 	<files>
-		<file src="bin\Release\v2.0\AeroWizard.dll" target="lib\2\AeroWizard.dll" />
-		<file src="bin\Release\v2.0\AeroWizard.XML" target="lib\2\AeroWizard.XML" />
-		<file src="bin\Release\v4.0\AeroWizard.dll" target="lib\4\AeroWizard.dll" />
-		<file src="bin\Release\v4.0\AeroWizard.XML" target="lib\4\AeroWizard.XML" />
+		<file src="bin\Release\v2.0\AeroWizard.dll" target="lib\net20\AeroWizard.dll" />
+		<file src="bin\Release\v2.0\AeroWizard.XML" target="lib\net20\AeroWizard.XML" />
+		<file src="bin\Release\v3.5\AeroWizard.dll" target="lib\net35\AeroWizard.dll" />
+		<file src="bin\Release\v3.5\AeroWizard.XML" target="lib\net35\AeroWizard.XML" />
+		<file src="bin\Release\v4.0\AeroWizard.dll" target="lib\net40\AeroWizard.dll" />
+		<file src="bin\Release\v4.0\AeroWizard.XML" target="lib\net40\AeroWizard.XML" />
 	</files>
 </package>

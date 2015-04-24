@@ -366,7 +366,7 @@ namespace AeroWizard
 		}
 
 		/// <summary>
-		/// Gets or sets a value indicating whether this action is to be cancelled or allowed.
+		/// Gets or sets a value indicating whether this action is to be canceled or allowed.
 		/// </summary>
 		/// <value><c>true</c> if cancel; otherwise, <c>false</c> to allow. Default is <c>false</c>.</value>
 		[DefaultValue(false)]

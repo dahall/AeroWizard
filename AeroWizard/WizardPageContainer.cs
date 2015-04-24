@@ -21,7 +21,7 @@ namespace AeroWizard
 	}
 
 	/// <summary>
-	/// Control providing a collection of wizard style navigatable pages.
+	/// Control providing a collection of wizard style navigable pages.
 	/// </summary>
 	[Designer(typeof(Design.WizardBaseDesigner))]
 	[ToolboxItem(true), ToolboxBitmap(typeof(WizardControl), "WizardControl.bmp")]
@@ -130,7 +130,7 @@ namespace AeroWizard
 		}
 
 		/// <summary>
-		/// Gets or sets the button assigned to cancelling the page flow.
+		/// Gets or sets the button assigned to canceling the page flow.
 		/// </summary>
 		/// <value>The cancel button control.</value>
 		[Category("Wizard"), Description("Button used to cancel wizard flow.")]

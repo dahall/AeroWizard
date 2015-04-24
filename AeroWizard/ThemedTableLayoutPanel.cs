@@ -65,7 +65,7 @@ namespace AeroWizard
 		/// Gets or sets a value indicating whether this table supports glass (can be enclosed in the glass margin).
 		/// </summary>
 		/// <value>
-		///   <c>true</c> if ssupports glass; otherwise, <c>false</c>.
+		///   <c>true</c> if supports glass; otherwise, <c>false</c>.
 		/// </value>
 		[DefaultValue(false), Category("Appearance")]
 		public bool SupportGlass { get; set; }

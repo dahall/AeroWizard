@@ -260,7 +260,7 @@ namespace AeroWizard
 		public bool SuppressParentFormIconSync { get; set; }
 
 		/// <summary>
-		/// Gets or sets a value indicating whether to spupress changing the parent form's caption to match the wizard's <see cref="Title"/>.
+		/// Gets or sets a value indicating whether to suppress changing the parent form's caption to match the wizard's <see cref="Title"/>.
 		/// </summary>
 		/// <value><c>true</c> to not change the parent form's caption (Text) to match this wizard's title; otherwise, <c>false</c>.</value>
 		[Category("Wizard"), DefaultValue(false), Description("Indicates whether to suppress changing the parent form's caption to match the wizard's")]

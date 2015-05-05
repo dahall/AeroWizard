@@ -20,10 +20,11 @@
 		<InstallationTarget Version="[11.0,)" Id="Microsoft.VisualStudio.VSWinDesktopExpress" />-->
 	</Installation>
 	<Dependencies>
-		<Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[2.0,)" />
-		<!--<Dependency d:Source="Installed" Id="NuGet.67e54e40-0ae3-42c5-a949-fddf5739e6a5" DisplayName="NuGet Package Manager" Version="[2.0.30625.9003,3.0)" d:InstallSource="Download" Location="http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c" />-->
+		<!--<Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[2.0,)" />
+		<Dependency d:Source="Installed" Id="NuGet.67e54e40-0ae3-42c5-a949-fddf5739e6a5" DisplayName="NuGet Package Manager" Version="[2.0.30625.9003,3.0)" d:InstallSource="Download" Location="http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c" />-->
 	</Dependencies>
 	<Assets>
+		<Asset Type="AeroWizard.2.0.9.nupkg" d:Source="File" Path="Packages\AeroWizard.2.0.9.nupkg" d:VsixSubPath="Packages" />
 		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="AeroWizardItemTemplate" d:TargetPath="|AeroWizardItemTemplate;TemplateProjectOutputGroup|" Path="ItemTemplatesA" d:VsixSubPath="ItemTemplates" />
 		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="CustomWizardItemTemplate" d:TargetPath="|CustomWizardItemTemplate;TemplateProjectOutputGroup|" Path="ItemTemplatesB" d:VsixSubPath="ItemTemplates" />
 		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="Wizard97ItemTemplate" d:TargetPath="|Wizard97ItemTemplate;TemplateProjectOutputGroup|" Path="ItemTemplatesC" d:VsixSubPath="ItemTemplates" />

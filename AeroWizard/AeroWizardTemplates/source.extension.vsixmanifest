@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
 	<Metadata>
-		<Identity Id="AeroWizardTemplates..134dde00-8c48-450a-926c-63377b215799" Version="2.0.9" Language="en-US" Publisher="CodePlex Community" />
+		<Identity Id="AeroWizardTemplates..134dde00-8c48-450a-926c-63377b215799" Version="2.0.10" Language="en-US" Publisher="CodePlex Community" />
 		<DisplayName>Windows Forms Wizard Templates</DisplayName>
 		<Description xml:space="preserve">Library for creating wizards for Windows Forms</Description>
 		<MoreInfo>https://aerowizard.codeplex.com/</MoreInfo>
@@ -24,7 +24,7 @@
 		<Dependency d:Source="Installed" Id="NuGet.67e54e40-0ae3-42c5-a949-fddf5739e6a5" DisplayName="NuGet Package Manager" Version="[2.0.30625.9003,3.0)" d:InstallSource="Download" Location="http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c" />-->
 	</Dependencies>
 	<Assets>
-		<Asset Type="AeroWizard.2.0.9.nupkg" d:Source="File" Path="Packages\AeroWizard.2.0.9.nupkg" d:VsixSubPath="Packages" />
+		<Asset Type="AeroWizard.2.0.10.nupkg" d:Source="File" Path="Packages\AeroWizard.2.0.10.nupkg" d:VsixSubPath="Packages" />
 		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="AeroWizardItemTemplate" d:TargetPath="|AeroWizardItemTemplate;TemplateProjectOutputGroup|" Path="ItemTemplatesA" d:VsixSubPath="ItemTemplates" />
 		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="CustomWizardItemTemplate" d:TargetPath="|CustomWizardItemTemplate;TemplateProjectOutputGroup|" Path="ItemTemplatesB" d:VsixSubPath="ItemTemplates" />
 		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="Wizard97ItemTemplate" d:TargetPath="|Wizard97ItemTemplate;TemplateProjectOutputGroup|" Path="ItemTemplatesC" d:VsixSubPath="ItemTemplates" />

@@ -637,6 +637,7 @@ namespace AeroWizard
 			if (!initialized)
 			{
 				pageHistory.Clear();
+				selectedPage = null;
 				if (Pages.Count > 0)
 					SelectedPage = Pages[0];
 				else

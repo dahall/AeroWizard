@@ -7,7 +7,7 @@
 		<authors>David Hall</authors>
 		<licenseUrl>http://aerowizard.codeplex.com/license</licenseUrl>
 		<projectUrl>http://aerowizard.codeplex.com/</projectUrl>
-		<iconUrl>http://download.codeplex.com/Project/Download/FileDownload.aspx?ProjectName=aerowizard&amp;DownloadId=102968&amp;Build=17672</iconUrl>
+		<iconUrl>http://download-codeplex.sec.s-msft.com/Download?ProjectName=aerowizard&amp;DownloadId=1440232</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Library for easy creation of custom and Aero Wizards. Aero Wizard strictly follows Microsoft guidelines and uses Visual Styles to get visual theming.</description>
 		<summary>Wizard controls for Windows Forms.</summary>

@@ -93,7 +93,7 @@ namespace AeroWizard
 				if (this.IsDesignMode() || rnd == null)
 					try { e.Graphics.Clear(this.BackColor); } catch { }
 				else
-					rnd.DrawBackground(e.Graphics, this.ClientRectangle, e.ClipRectangle);
+					rnd.DrawBackground(e.Graphics, this.ClientRectangle.OffsetNew(0, -1)); // , e.ClipRectangle);
 			}
 			base.OnPaint(e);
 		}
@@ -122,6 +122,14 @@ namespace AeroWizard
 			if (rnd != null)
 				rnd.SetParameters(rnd.Class, rnd.Part, 2);
 			Refresh();
+		}
+	}
+
+	internal static class RectExt
+	{
+		public static System.Drawing.Rectangle OffsetNew(this System.Drawing.Rectangle r, int x, int y)
+		{
+			return new System.Drawing.Rectangle(r.Left + x, r.Top + y, r.Width, r.Height);
 		}
 	}
 }

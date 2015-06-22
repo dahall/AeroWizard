@@ -39,15 +39,17 @@
 			this.nextButton = new System.Windows.Forms.Button();
 			this.cancelButton = new System.Windows.Forms.Button();
 			this.wizardPageContainer1 = new AeroWizard.WizardPageContainer();
-			this.wizardPage3 = new AeroWizard.WizardPage();
 			this.wizardPage2 = new AeroWizard.WizardPage();
+			this.wizardPage3 = new AeroWizard.WizardPage();
 			this.wizardPage1 = new AeroWizard.WizardPage();
 			this.startEndPicture = new System.Windows.Forms.PictureBox();
+			this.label1 = new System.Windows.Forms.Label();
 			this.headerPanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.headerImage)).BeginInit();
 			this.commandPanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.wizardPageContainer1)).BeginInit();
 			this.wizardPageContainer1.SuspendLayout();
+			this.wizardPage1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.startEndPicture)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -128,6 +130,7 @@
 			this.backButton.Name = "backButton";
 			this.backButton.Size = new System.Drawing.Size(97, 23);
 			this.backButton.TabIndex = 2;
+			this.backButton.Tag = AeroWizard.WizardCommandButtonState.Disabled;
 			this.backButton.Text = "< Back";
 			this.backButton.UseVisualStyleBackColor = true;
 			// 
@@ -138,6 +141,7 @@
 			this.nextButton.Name = "nextButton";
 			this.nextButton.Size = new System.Drawing.Size(97, 23);
 			this.nextButton.TabIndex = 3;
+			this.nextButton.Tag = AeroWizard.WizardCommandButtonState.Enabled;
 			this.nextButton.Text = "Next >";
 			this.nextButton.UseVisualStyleBackColor = true;
 			// 
@@ -149,6 +153,7 @@
 			this.cancelButton.Name = "cancelButton";
 			this.cancelButton.Size = new System.Drawing.Size(97, 23);
 			this.cancelButton.TabIndex = 4;
+			this.cancelButton.Tag = AeroWizard.WizardCommandButtonState.Disabled;
 			this.cancelButton.Text = "Cancel";
 			this.cancelButton.UseVisualStyleBackColor = true;
 			// 
@@ -158,9 +163,9 @@
 			this.wizardPageContainer1.BackButtonText = "< Back";
 			this.wizardPageContainer1.CancelButton = this.cancelButton;
 			this.wizardPageContainer1.CancelButtonText = "Cancel";
+			this.wizardPageContainer1.Controls.Add(this.wizardPage1);
 			this.wizardPageContainer1.Controls.Add(this.wizardPage2);
 			this.wizardPageContainer1.Controls.Add(this.wizardPage3);
-			this.wizardPageContainer1.Controls.Add(this.wizardPage1);
 			this.wizardPageContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.wizardPageContainer1.Location = new System.Drawing.Point(164, 59);
 			this.wizardPageContainer1.Name = "wizardPageContainer1";
@@ -173,14 +178,6 @@
 			this.wizardPageContainer1.Finished += new System.EventHandler(this.wizardPageContainer1_Finished);
 			this.wizardPageContainer1.SelectedPageChanged += new System.EventHandler(this.wizardPageContainer1_SelectedPageChanged);
 			// 
-			// wizardPage3
-			// 
-			this.wizardPage3.Name = "wizardPage3";
-			this.wizardPage3.Size = new System.Drawing.Size(316, 254);
-			this.wizardPage3.TabIndex = 2;
-			this.wizardPage3.Tag = "";
-			this.wizardPage3.Text = "Task Completed|You\'re all done!";
-			// 
 			// wizardPage2
 			// 
 			this.wizardPage2.Name = "wizardPage2";
@@ -190,8 +187,17 @@
 			this.wizardPage2.Text = "Page 2 - Middle|This is the middle page";
 			this.wizardPage2.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.wizardPage2_Initialize);
 			// 
+			// wizardPage3
+			// 
+			this.wizardPage3.Name = "wizardPage3";
+			this.wizardPage3.Size = new System.Drawing.Size(316, 254);
+			this.wizardPage3.TabIndex = 2;
+			this.wizardPage3.Tag = "";
+			this.wizardPage3.Text = "Task Completed|You\'re all done!";
+			// 
 			// wizardPage1
 			// 
+			this.wizardPage1.Controls.Add(this.label1);
 			this.wizardPage1.Name = "wizardPage1";
 			this.wizardPage1.Size = new System.Drawing.Size(316, 254);
 			this.wizardPage1.TabIndex = 0;
@@ -201,12 +207,23 @@
 			// startEndPicture
 			// 
 			this.startEndPicture.BackColor = System.Drawing.Color.Navy;
+			this.startEndPicture.BackgroundImage = global::TestWizard.Properties.Resources.WizardHat_48;
+			this.startEndPicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
 			this.startEndPicture.Dock = System.Windows.Forms.DockStyle.Left;
 			this.startEndPicture.Location = new System.Drawing.Point(0, 59);
 			this.startEndPicture.Name = "startEndPicture";
 			this.startEndPicture.Size = new System.Drawing.Size(164, 254);
 			this.startEndPicture.TabIndex = 6;
 			this.startEndPicture.TabStop = false;
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(20, 17);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(95, 13);
+			this.label1.TabIndex = 0;
+			this.label1.Text = "<Introductory text>";
 			// 
 			// OldStyleWizard
 			// 
@@ -231,6 +248,8 @@
 			this.commandPanel.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.wizardPageContainer1)).EndInit();
 			this.wizardPageContainer1.ResumeLayout(false);
+			this.wizardPage1.ResumeLayout(false);
+			this.wizardPage1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.startEndPicture)).EndInit();
 			this.ResumeLayout(false);
 
@@ -253,5 +272,6 @@
 		private System.Windows.Forms.Label headerLabel;
 		private System.Windows.Forms.PictureBox startEndPicture;
 		private System.Windows.Forms.PictureBox headerImage;
+		private System.Windows.Forms.Label label1;
 	}
 }

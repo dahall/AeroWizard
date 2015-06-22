@@ -11,7 +11,7 @@ namespace AeroWizard
 	/// <summary>
 	/// A button that displays an image and no text.
 	/// </summary>
-	[ToolboxBitmap(typeof(Button)), DefaultProperty("Image")]
+	[ToolboxItem(true), ToolboxBitmap(typeof(WizardControl), "ThemedImageButton.bmp")]
 	public class ThemedImageButton : ButtonBase
 	{
 		private const string defaultText = "";

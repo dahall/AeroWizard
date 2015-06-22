@@ -139,6 +139,7 @@
 			this.cancelButton.Name = "cancelButton";
 			this.cancelButton.Size = new System.Drawing.Size(70, 25);
 			this.cancelButton.TabIndex = 1;
+			this.cancelButton.Tag = AeroWizard.WizardCommandButtonState.Disabled;
 			this.cancelButton.Text = "&Cancel";
 			this.cancelButton.UseVisualStyleBackColor = true;
 			// 
@@ -208,6 +209,7 @@
 			// 
 			this.commandAreaButtonFlowLayout.AutoSize = true;
 			this.commandAreaButtonFlowLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.commandAreaButtonFlowLayout.BackColor = System.Drawing.Color.Transparent;
 			this.commandAreaButtonFlowLayout.Controls.Add(this.cancelButton);
 			this.commandAreaButtonFlowLayout.Controls.Add(this.nextButton);
 			this.commandAreaButtonFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;

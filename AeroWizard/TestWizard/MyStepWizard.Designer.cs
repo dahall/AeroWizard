@@ -38,6 +38,7 @@
 			// 
 			// wizardControl1
 			// 
+			this.wizardControl1.ClassicStyle = AeroWizard.WizardClassicStyle.Automatic;
 			this.wizardControl1.Location = new System.Drawing.Point(0, 0);
 			this.wizardControl1.Name = "wizardControl1";
 			this.wizardControl1.Pages.Add(this.wizardPage1);
@@ -45,13 +46,13 @@
 			this.wizardControl1.Pages.Add(this.wizardPage4);
 			this.wizardControl1.Pages.Add(this.wizardPage5);
 			this.wizardControl1.Size = new System.Drawing.Size(768, 482);
+			this.wizardControl1.StepListFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
 			this.wizardControl1.TabIndex = 0;
 			// 
 			// wizardPage1
 			// 
 			this.wizardPage1.Name = "wizardPage1";
-			this.wizardPage1.Size = new System.Drawing.Size(570, 329);
-			this.wizardControl1.SetStepText(this.wizardPage1, "Page 1");
+			this.wizardPage1.Size = new System.Drawing.Size(570, 330);
 			this.wizardPage1.TabIndex = 0;
 			this.wizardPage1.Text = "Page 1";
 			// 
@@ -59,7 +60,6 @@
 			// 
 			this.wizardPage3.Name = "wizardPage3";
 			this.wizardPage3.Size = new System.Drawing.Size(570, 329);
-			this.wizardControl1.SetStepText(this.wizardPage3, "Page 3");
 			this.wizardPage3.TabIndex = 2;
 			this.wizardPage3.Text = "Page 3";
 			// 
@@ -67,8 +67,6 @@
 			// 
 			this.wizardPage4.Name = "wizardPage4";
 			this.wizardPage4.Size = new System.Drawing.Size(570, 329);
-			this.wizardControl1.SetStepText(this.wizardPage4, "Kinda page 4");
-			this.wizardControl1.SetStepTextIndentLevel(this.wizardPage4, 1);
 			this.wizardPage4.TabIndex = 3;
 			this.wizardPage4.Text = "Page 4";
 			// 
@@ -76,7 +74,6 @@
 			// 
 			this.wizardPage5.Name = "wizardPage5";
 			this.wizardPage5.Size = new System.Drawing.Size(571, 327);
-			this.wizardControl1.SetStepText(this.wizardPage5, "Page 5");
 			this.wizardPage5.TabIndex = 4;
 			this.wizardPage5.Text = "Page 5";
 			// 

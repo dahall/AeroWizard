@@ -199,12 +199,141 @@ namespace Microsoft.Win32.DesktopWindowManager
 		}
 
 		/// <summary>
+		/// Flags used by the SetWindowAttr method to specify the non-client area rendering policy.
+		/// </summary>
+		public enum NonClientRenderingPolicy
+		{
+			/// <summary>The non-client rendering area is rendered based on the window style.</summary>
+			UseWindowStyle,
+			/// <summary>The non-client area rendering is disabled; the window style is ignored.</summary>
+			Disabled,
+			/// <summary>The non-client area rendering is enabled; the window style is ignored.</summary>
+			Enabled
+		}
+
+		/// <summary>
+		/// Flags used by the SetWindowAttr method to specify the Flip3D window policy.
+		/// </summary>
+		public enum Flip3DWindowPolicy
+		{
+			/// <summary>Use the window's style and visibility settings to determine whether to hide or include the window in Flip3D rendering.</summary>
+			Default,
+			/// <summary>Exclude the window from Flip3D and display it below the Flip3D rendering.</summary>
+			ExcludeBelow,
+			/// <summary>Exclude the window from Flip3D and display it above the Flip3D rendering.</summary>
+			ExcludeAbove
+		}
+
+		/// <summary>
+		/// Use with GetWindowAttr and WindowAttribute.Cloaked. If the window is cloaked, provides one of the following values explaining why.
+		/// </summary>
+		[Flags]
+		public enum CloakingSource
+		{
+			/// <summary>The window was cloaked by its owner application.</summary>
+			App = 0x01,
+			/// <summary>The window was cloaked by the Shell.</summary>
+			Shell = 0x02,
+			/// <summary>The cloak value was inherited from its owner window.</summary>
+			Inherited = 0x04
+		}
+
+		/// <summary>
+		/// Window attribute to get through the <see cref="GetWindowAttr"/> methods.
+		/// </summary>
+		public enum GetWindowAttr : uint
+		{
+			/// <summary>Gets whether non-client rendering is enabled. The retrieved value is of type bool. True if non-client rendering is enabled; otherwise, False.</summary>
+			NonClientRenderingEnabled = 1,
+			/// <summary>Gets the bounds of the caption button area in the window-relative space. The retrieved value is of type RECT.</summary>
+			CaptionButtonBounds = 5,
+			/// <summary>Gets the extended frame bounds rectangle in screen space. The retrieved value is of type RECT.</summary>
+			ExtendedFrameBounds = 9,
+			/// <summary>Win8+. Get CloakingSource flags explaining why a window is cloaked.</summary>
+			Cloaked = 14
+		}
+
+		/// <summary>
+		/// Window attribute to set through the <see cref="SetWindowAttr"/> methods.
+		/// </summary>
+		public enum SetWindowAttr : uint
+		{
+			/// <summary>Sets the non-client rendering policy. The retrieved value is from the NonClientRenderingPolicy enumeration.</summary>
+			NonClientRenderingPolicy = 2,
+			/// <summary>Enables or forcibly disables DWM transitions. The retrieved value is of type bool. True to disable transitions or False to enable transitions.</summary>
+			TransitionsForceDisabled = 3,
+			/// <summary>Enables content rendered in the non-client area to be visible on the frame drawn by DWM. The retrieved value is of type bool. True to enable content rendered in the non-client area to be visible on the frame; otherwise, False.</summary>
+			AllowNonClientPaint = 4,
+			/// <summary>Sets whether non-client content is right-to-left (RTL) mirrored. The retrieved value is of type bool. True if the non-client content is right-to-left (RTL) mirrored; otherwise False.</summary>
+			NonClientRtlLayout = 6,
+			/// <summary>Forces the window to display an iconic thumbnail or peek representation (a static bitmap), even if a live or snapshot representation of the window is available. This value normally is set during a window's creation and not changed throughout the window's lifetime. Some scenarios, however, might require the value to change over time. The retrieved value is of type bool. True to require a iconic thumbnail or peek representation; otherwise, False.</summary>
+			ForceIconicRepresentation = 7,
+			/// <summary>Sets how Flip3D treats the window. The pvAttribute parameter points to a value from the Flip3DWindowPolicy enumeration.</summary>
+			Flip3DPolicy = 8,
+			/// <summary>Win7+. Sets if the window will provide a bitmap for use by DWM as an iconic thumbnail or peek representation (a static bitmap) for the window. HasIconicBitmap can be specified with ForceIconicRepresentation. HasIconicBitmap normally is set during a window's creation and not changed throughout the window's lifetime. Some scenarios, however, might require the value to change over time. The retrieved value is of type bool. True to inform DWM that the window will provide an iconic thumbnail or peek representation; otherwise, False.</summary>
+			HasIconicBitmap = 10,
+			/// <summary>Win7+. Set true to not show peek preview for the window. The peek view shows a full-sized preview of the window when the mouse hovers over the window's thumbnail in the taskbar. If this attribute is set, hovering the mouse pointer over the window's thumbnail dismisses peek (in case another window in the group has a peek preview showing). The retrieved value is of type bool. True to prevent peek functionality or False to allow it.</summary>
+			DisallowPeek = 11,
+			/// <summary>Win7+. Sets value preventing a window from fading to a glass sheet when peek is invoked. The retrieved value is of type bool. True to prevent the window from fading during another window's peek or False for normal behavior.</summary>
+			ExcludedFromPeek = 12,
+			/// <summary>Win8+. Cloaks the window such that it is not visible to the user. The window is still composed by DWM. True to cloak or False to not cloak.</summary>
+			Cloak = 13,
+			/// <summary>Win8+. Freeze the window's thumbnail image with its current visuals. Do no further live updates on the thumbnail image to match the window's contents.</summary>
+			FreezeRepresentation = 15
+		}
+
+		/// <summary>
+		/// Gets the specified window attribute from the Desktop Window Manager (DWM).
+		/// </summary>
+		/// <typeparam name="T">Return type. Must match the attribute.</typeparam>
+		/// <param name="window">The window.</param>
+		/// <param name="attr">The attribute.</param>
+		/// <returns>Value of the windows attribute.</returns>
+		public static T GetWindowAttribute<T>(this IWin32Window window, GetWindowAttr attr) where T : struct
+		{
+			T retVal = default(T);
+			int cbAttr = System.Runtime.InteropServices.Marshal.SizeOf(typeof(T));
+			IntPtr ptr = System.Runtime.InteropServices.Marshal.AllocHGlobal(cbAttr);
+			try
+			{
+				NativeMethods.DwmGetWindowAttribute(window.Handle, (NativeMethods.DWMWINDOWATTRIBUTE)attr, ptr, cbAttr);
+				retVal = (T)System.Runtime.InteropServices.Marshal.PtrToStructure(ptr, typeof(T));
+			}
+			finally
+			{
+				System.Runtime.InteropServices.Marshal.FreeHGlobal(ptr);
+			}
+			return retVal;
+		}
+
+		/// <summary>
+		/// Sets the specified window attribute through the Desktop Window Manager (DWM).
+		/// </summary>
+		/// <param name="window">The window.</param>
+		/// <param name="attr">The attribute.</param>
+		/// <param name="val">The value.</param>
+		public static void SetWindowAttribute(this IWin32Window window, SetWindowAttr attr, object val)
+		{
+			int cbAttr = System.Runtime.InteropServices.Marshal.SizeOf(val);
+			IntPtr ptr = System.Runtime.InteropServices.Marshal.AllocHGlobal(cbAttr);
+			try
+			{
+				System.Runtime.InteropServices.Marshal.StructureToPtr(val, ptr, false);
+				NativeMethods.DwmSetWindowAttribute(window.Handle, (NativeMethods.DWMWINDOWATTRIBUTE)attr, ptr, cbAttr);
+			}
+			finally
+			{
+				System.Runtime.InteropServices.Marshal.FreeHGlobal(ptr);
+			}
+		}
+
+		/// <summary>
 		/// Indicates whether Desktop Window Manager (DWM) composition is enabled.
 		/// </summary>
 		/// <returns><c>true</c> if is composition enabled; otherwise, <c>false</c>.</returns>
 		public static bool IsCompositionEnabled()
 		{
-			if (!System.IO.File.Exists(System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.System), NativeMethods.DWMAPI)))
+			if (!CompositionSupported || !System.IO.File.Exists(System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.System), NativeMethods.DWMAPI)))
 				return false;
 			int res = 0;
 			NativeMethods.DwmIsCompositionEnabled(ref res);

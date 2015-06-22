@@ -57,10 +57,21 @@ namespace Microsoft.Win32
 			Composited = 8192
 		}
 
+		[Flags]
+		public enum OpenThemeDataExFlags : int
+		{
+			None = 0,
+			ForceImageStretch = 1,
+			AllowNonClientDrawing = 2
+		}
+
 		public enum WindowThemeAttributeType
 		{
 			WTA_NONCLIENT = 1,
 		}
+
+		[DllImport(UXTHEME, ExactSpelling = true, PreserveSig = false)]
+		public static extern void CloseThemeData(IntPtr hTheme);
 
 		[DllImport(UXTHEME)]
 		public static extern int DrawThemeBackground(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, ref NativeMethods.RECT pRect, ref NativeMethods.RECT pClipRect);
@@ -71,6 +82,9 @@ namespace Microsoft.Win32
 		[DllImport(UXTHEME, CharSet = CharSet.Unicode)]
 		public static extern int DrawThemeTextEx(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, string text, int iCharCount, int dwFlags, ref NativeMethods.RECT pRect, ref DrawThemeTextOptions pOptions);
 
+		[DllImport(UXTHEME, ExactSpelling = true, PreserveSig = false)]
+		public static extern void GetThemeBitmap(IntPtr hTheme, int iPartId, int iStateId, int iPropId, uint dwFlags, ref IntPtr phBitmap);
+		
 		[DllImport(UXTHEME, ExactSpelling = true, CharSet = CharSet.Unicode)]
 		public static extern Int32 GetThemeFont(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, int iPropId, out LOGFONT pFont);
 
@@ -78,8 +92,16 @@ namespace Microsoft.Win32
 		public static extern int GetThemeMargins(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, int iPropId, IntPtr prc, out NativeMethods.RECT pMargins);
 
 		[DllImport(UXTHEME, ExactSpelling = true, PreserveSig = false)]
-		public static extern void SetWindowThemeAttribute(IntPtr hWnd, WindowThemeAttributeType wtype, ref WTA_OPTIONS attributes, int size);
+		public static extern void GetThemePartSize(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, IntPtr prc, int eSize, out NativeMethods.SIZE psz);
 
+		[DllImport(UXTHEME, ExactSpelling = true, CharSet = CharSet.Unicode, SetLastError = true)]
+		public static extern IntPtr OpenThemeDataEx(IntPtr hWnd, string pszClassIdList, OpenThemeDataExFlags dwFlags);
+
+		[DllImport(UXTHEME, ExactSpelling = true, PreserveSig = false, CharSet = CharSet.Unicode)]
+		public static extern void SetWindowTheme(IntPtr hWnd, string pszSubAppName, string pszSubIdList);
+
+		[DllImport(UXTHEME, ExactSpelling = true, PreserveSig = false)]
+		public static extern void SetWindowThemeAttribute(IntPtr hWnd, WindowThemeAttributeType wtype, ref WTA_OPTIONS attributes, int size);
 
 		[StructLayout(LayoutKind.Sequential)]
 		public struct DrawThemeTextOptions

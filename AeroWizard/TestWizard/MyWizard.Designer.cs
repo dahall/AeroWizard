@@ -52,6 +52,7 @@
 			// 
 			// wizardControl1
 			// 
+			this.wizardControl1.ClassicStyle = AeroWizard.WizardClassicStyle.Automatic;
 			this.wizardControl1.Location = new System.Drawing.Point(0, 0);
 			this.wizardControl1.Name = "wizardControl1";
 			this.wizardControl1.Pages.Add(this.introPage);
@@ -71,7 +72,7 @@
 			this.introPage.Controls.Add(this.button1);
 			this.introPage.HelpText = "Do you hate this?";
 			this.introPage.Name = "introPage";
-			this.introPage.Size = new System.Drawing.Size(527, 260);
+			this.introPage.Size = new System.Drawing.Size(527, 263);
 			this.introPage.TabIndex = 0;
 			this.introPage.Text = "Choose an activity";
 			this.introPage.HelpClicked += new System.EventHandler(this.introPage_HelpClicked);
@@ -101,7 +102,7 @@
 			// 
 			this.suppressedPage.Controls.Add(this.label2);
 			this.suppressedPage.Name = "suppressedPage";
-			this.suppressedPage.Size = new System.Drawing.Size(552, 258);
+			this.suppressedPage.Size = new System.Drawing.Size(527, 263);
 			this.suppressedPage.Suppress = true;
 			this.suppressedPage.TabIndex = 3;
 			this.suppressedPage.Text = "Suppressed";

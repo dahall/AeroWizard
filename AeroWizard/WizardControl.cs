@@ -57,13 +57,6 @@ namespace AeroWizard
 
 			OnRightToLeftChanged(EventArgs.Empty);
 
-			if (!Application.RenderWithVisualStyles)
-				titleBar.BackColor = System.Drawing.SystemColors.Control;
-			titleBar.SetTheme(VisualStyleElementEx.AeroWizard.TitleBar.Active);
-			header.SetTheme(VisualStyleElementEx.AeroWizard.HeaderArea.Normal);
-			contentArea.SetTheme(VisualStyleElementEx.AeroWizard.ContentArea.Normal);
-			commandArea.SetTheme(VisualStyleElementEx.AeroWizard.CommandArea.Normal);
-
 			// Get localized defaults for button text
 			ResetBackButtonToolTipText();
 			ResetTitle();
@@ -144,7 +137,7 @@ namespace AeroWizard
 		public WizardClassicStyle ClassicStyle
 		{
 			get { return classicStyle; }
-			set { classicStyle = value; ConfigureStyles(HasGlass() || UseAeroStyle); base.Invalidate(); }
+			set { classicStyle = value; ConfigureStyles(); base.Invalidate(); }
 		}
 
 		/// <summary>
@@ -292,7 +285,7 @@ namespace AeroWizard
 				if (titleImageIcon != null)
 				{
 					// Resolve for different DPI settings and ensure that if icon is not a standard size, such as 20x20, 
-					// that the larger one (24x24) is downsized and not the smaller upsized. (thanks demidov)
+					// that the larger one (24x24) is downsized and not the smaller up-sized. (thanks demidov)
 					titleImage.Size = titleImageList.ImageSize = SystemInformation.SmallIconSize;
 					titleImageList.Images.Add(new Icon(value, SystemInformation.SmallIconSize + new Size(1, 1)));
 					titleImage.ImageIndex = 0;
@@ -392,6 +385,18 @@ namespace AeroWizard
 		}
 
 		/// <summary>
+		/// Gets the unthemed back button image.
+		/// </summary>
+		/// <returns><see cref="Bitmap"/> with the four state images stacked on top of each other.</returns>
+		protected virtual Bitmap GetUnthemedBackButtonImage()
+		{
+			if (System.Environment.OSVersion.Version >= new Version(6, 2))
+				return Properties.Resources.BackBtnStrip2;
+			else
+				return Properties.Resources.BackBtnStrip;
+		}
+
+		/// <summary>
 		/// Raises the <see cref="WizardControl.Cancelling"/> event.
 		/// </summary>
 		protected virtual void OnCancelling()
@@ -454,8 +459,7 @@ namespace AeroWizard
 			System.Diagnostics.Debug.WriteLine("OnHandleCreated");
 			base.OnHandleCreated(e);
 			this.SetLayout();
-			if (isMin6 && !this.IsDesignMode())
-				DesktopWindowManager.CompositionChanged += DesktopWindowManager_CompositionChanged;
+			this.AddSystemEvents();
 		}
 
 		/// <summary>
@@ -464,9 +468,36 @@ namespace AeroWizard
 		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
 		protected override void OnHandleDestroyed(EventArgs e)
 		{
-			if (isMin6 && !this.IsDesignMode())
-				DesktopWindowManager.CompositionChanged -= DesktopWindowManager_CompositionChanged;
+			this.RemoveSystemEvents();
 			base.OnHandleDestroyed(e);
+		}
+
+		private void AddSystemEvents()
+		{
+			if (!this.IsDesignMode())
+			{
+				if (DesktopWindowManager.CompositionSupported)
+				{
+					DesktopWindowManager.ColorizationColorChanged += DisplyColorOrCompositionChanged;
+					DesktopWindowManager.CompositionChanged += DisplyColorOrCompositionChanged;
+				}
+				Microsoft.Win32.SystemEvents.DisplaySettingsChanged += DisplyColorOrCompositionChanged;
+				this.SystemColorsChanged += DisplyColorOrCompositionChanged;
+			}
+		}
+
+		private void RemoveSystemEvents()
+		{
+			if (!this.IsDesignMode())
+			{
+				if (DesktopWindowManager.CompositionSupported)
+				{
+					DesktopWindowManager.CompositionChanged -= DisplyColorOrCompositionChanged;
+					DesktopWindowManager.ColorizationColorChanged -= DisplyColorOrCompositionChanged;
+				}
+				Microsoft.Win32.SystemEvents.DisplaySettingsChanged -= DisplyColorOrCompositionChanged;
+				this.SystemColorsChanged -= DisplyColorOrCompositionChanged;
+			}
 		}
 
 		/// <summary>
@@ -492,7 +523,7 @@ namespace AeroWizard
 		{
 			base.OnRightToLeftChanged(e);
 			bool r2l = (this.GetRightToLeftProperty() == System.Windows.Forms.RightToLeft.Yes);
-			Bitmap btnStrip = Properties.Resources.BackBtnStrip;
+			Bitmap btnStrip = GetUnthemedBackButtonImage();
 			if (r2l) btnStrip.RotateFlip(RotateFlipType.RotateNoneFlipX);
 			backButton.SetImageListImageStrip(btnStrip, Orientation.Vertical);
 			backButton.StylePart = r2l ? 2 : 1;
@@ -515,9 +546,25 @@ namespace AeroWizard
 				form.DialogResult = dlgResult;
 		}
 
-		private void ConfigureStyles(bool aero = true)
+		private void ConfigureStyles()
 		{
-			if (aero)
+			if (Application.RenderWithVisualStyles)
+			{
+				titleBar.SetTheme(VisualStyleElementEx.AeroWizard.TitleBar.Active);
+				header.SetTheme(VisualStyleElementEx.AeroWizard.HeaderArea.Normal);
+				contentArea.SetTheme(VisualStyleElementEx.AeroWizard.ContentArea.Normal);
+				commandArea.SetTheme(VisualStyleElementEx.AeroWizard.CommandArea.Normal);
+			}
+			else
+			{
+				titleBar.ClearTheme();
+				header.ClearTheme();
+				contentArea.ClearTheme();
+				commandArea.ClearTheme();
+				titleBar.BackColor = System.Drawing.SystemColors.Control;
+			}
+
+			if (UseAeroStyle)
 			{
 				bodyPanel.BorderStyle = System.Windows.Forms.BorderStyle.None;
 				header.BackColor = contentArea.BackColor = SystemColors.Window;
@@ -540,22 +587,28 @@ namespace AeroWizard
 
 		private void ConfigureWindowFrame()
 		{
-			System.Diagnostics.Debug.WriteLine(string.Format("ConfigureWindowFrame: hasGlass={0},parentForm={1}", HasGlass(), parentForm == null ? "null" : parentForm.Name));
-			if (HasGlass())
+			System.Diagnostics.Debug.WriteLine(string.Format("ConfigureWindowFrame: compEnab={0},parentForm={1}", DesktopWindowManager.IsCompositionEnabled(), parentForm == null ? "null" : parentForm.Name));
+			ConfigureStyles();
+			if (DesktopWindowManager.IsCompositionEnabled())
 			{
 				titleBar.BackColor = Color.Black;
-				ConfigureStyles();
 				try
 				{
 					if (parentForm != null)
+					{
+						//if (!parentForm.GetWindowAttribute<bool>(DesktopWindowManager.GetWindowAttr.NonClientRenderingEnabled))
+						//	parentForm.SetWindowAttribute(DesktopWindowManager.SetWindowAttr.NonClientRenderingPolicy, DesktopWindowManager.NonClientRenderingPolicy.Enabled);
+						//parentForm.ExtendFrameIntoClientArea(new Padding(0));
+						// TODO: Need to figure out how to reset for Win7
 						parentForm.ExtendFrameIntoClientArea(new Padding(0) { Top = titleBar.Height });
+						//Microsoft.Win32.NativeMethods.SetWindowPos(this.Handle, IntPtr.Zero, this.Location.X, this.Location.Y, this.Width, this.Height, Microsoft.Win32.NativeMethods.SetWindowPosFlags.FrameChanged);
+					}
 				}
 				catch { titleBar.BackColor = commandArea.BackColor; }
 			}
 			else
 			{
 				titleBar.BackColor = commandArea.BackColor;
-				ConfigureStyles(UseAeroStyle);
 			}
 
 			if (parentForm != null)
@@ -567,6 +620,9 @@ namespace AeroWizard
 					parentForm.Icon = this.TitleIcon;
 					parentForm.ShowIcon = true;
 				}
+				parentForm.CancelButton = this.cancelButton;
+				parentForm.AcceptButton = this.nextButton;
+				parentForm.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 				parentForm.SetWindowThemeAttribute(Microsoft.Win32.NativeMethods.WindowThemeNonClientAttributes.NoDrawCaption | Microsoft.Win32.NativeMethods.WindowThemeNonClientAttributes.NoDrawIcon | Microsoft.Win32.NativeMethods.WindowThemeNonClientAttributes.NoSysMenu);
 				parentForm.Invalidate();
 			}
@@ -589,9 +645,12 @@ namespace AeroWizard
 			}
 		}
 
-		private void DesktopWindowManager_CompositionChanged(object sender, EventArgs e)
+		private void DisplyColorOrCompositionChanged(object sender, EventArgs e)
 		{
+			SetLayout();
 			ConfigureWindowFrame();
+			if (parentForm != null)
+				parentForm.Refresh();
 		}
 
 		/// <summary>
@@ -607,11 +666,6 @@ namespace AeroWizard
 			if (parentRelative)
 				r.Offset(contentArea.Location);
 			return r;
-		}
-
-		private static bool HasGlass()
-		{
-			return isMin6 && DesktopWindowManager.IsCompositionEnabled();
 		}
 
 		private void pageContainer_ButtonStateChanged(object sender, EventArgs e)
@@ -737,6 +791,7 @@ namespace AeroWizard
 					commandArea.RowStyles[0].Height = cp.Top;
 					commandArea.RowStyles[2].Height = cp.Bottom;
 					commandArea.ColumnStyles[1].Width = contentArea.ColumnStyles[contentCol + 1].Width = cp.Right;
+					commandAreaBorder.Height = 0;
 					theme.SetParameters(VisualStyleElementEx.AeroWizard.Button.Normal);
 					int btnHeight = theme.GetInteger(IntegerProperty.Height);
 					commandAreaButtonFlowLayout.MinimumSize = new Size(0, btnHeight);
@@ -753,7 +808,8 @@ namespace AeroWizard
 			}
 			else
 			{
-				backButton.Size = new Size(Properties.Resources.BackBtnStrip.Width, Properties.Resources.BackBtnStrip.Height / 4);
+				commandAreaBorder.Height = 1;
+				backButton.Size = new Size(GetUnthemedBackButtonImage().Width, GetUnthemedBackButtonImage().Height / 4);
 				this.BackColor = UseAeroStyle ? SystemColors.Window : SystemColors.Control;
 			}
 		}

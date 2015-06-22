@@ -8,6 +8,7 @@ namespace AeroWizard
 	/// <summary>
 	/// A table layout panel that supports a glass overlay.
 	/// </summary>
+	[ToolboxItem(true), System.Drawing.ToolboxBitmap(typeof(WizardControl), "ThemedTableLayoutPanel.bmp")]
 	public class ThemedTableLayoutPanel : TableLayoutPanel
 	{
 		private VisualStyleRenderer rnd;
@@ -18,6 +19,14 @@ namespace AeroWizard
 		public ThemedTableLayoutPanel()
 		{
 			SetTheme(VisualStyleElement.Window.Dialog.Normal);
+		}
+
+		/// <summary>
+		/// Clears the theme and defaults to TableLayoutPanel painting.
+		/// </summary>
+		public void ClearTheme()
+		{
+			rnd = null;
 		}
 
 		/// <summary>
@@ -90,10 +99,10 @@ namespace AeroWizard
 				try { e.Graphics.Clear(System.Drawing.Color.Black); } catch { }
 			else
 			{
-				if (this.IsDesignMode() || rnd == null)
+				if (this.IsDesignMode() || rnd == null || !Application.RenderWithVisualStyles)
 					try { e.Graphics.Clear(this.BackColor); } catch { }
 				else
-					rnd.DrawBackground(e.Graphics, this.ClientRectangle.OffsetNew(0, -1)); // , e.ClipRectangle);
+					rnd.DrawBackground(e.Graphics, this.ClientRectangle, e.ClipRectangle);
 			}
 			base.OnPaint(e);
 		}
@@ -111,7 +120,7 @@ namespace AeroWizard
 		private void Form_GotFocus(object sender, System.EventArgs e)
 		{
 			OnGotFocus(e);
-			if (rnd != null)
+			if (rnd != null && Application.RenderWithVisualStyles)
 				rnd.SetParameters(rnd.Class, rnd.Part, 1);
 			Refresh();
 		}
@@ -119,17 +128,9 @@ namespace AeroWizard
 		private void Form_LostFocus(object sender, System.EventArgs e)
 		{
 			OnLostFocus(e);
-			if (rnd != null)
+			if (rnd != null && Application.RenderWithVisualStyles)
 				rnd.SetParameters(rnd.Class, rnd.Part, 2);
 			Refresh();
-		}
-	}
-
-	internal static class RectExt
-	{
-		public static System.Drawing.Rectangle OffsetNew(this System.Drawing.Rectangle r, int x, int y)
-		{
-			return new System.Drawing.Rectangle(r.Left + x, r.Top + y, r.Width, r.Height);
 		}
 	}
 }

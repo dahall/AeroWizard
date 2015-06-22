@@ -7,6 +7,25 @@ namespace Microsoft.Win32
 	{
 		internal const string DWMAPI = "dwmapi.dll";
 
+		public enum DWMWINDOWATTRIBUTE : uint
+		{
+			NCRenderingEnabled = 1,
+			NCRenderingPolicy,
+			TransitionsForceDisabled,
+			AllowNCPaint,
+			CaptionButtonBounds,
+			NonClientRtlLayout,
+			ForceIconicRepresentation,
+			Flip3DPolicy,
+			ExtendedFrameBounds,
+			HasIconicBitmap,
+			DisallowPeek,
+			ExceludedFromPeek,
+			Cloak,
+			Cloaked,
+			FreezeRepresentation
+		}
+
 		public enum BlurBehindFlags : int
 		{
 			Enable = 0x00000001,
@@ -144,6 +163,12 @@ namespace Microsoft.Win32
 		//public static extern void DwmGetColorizationColor(out uint ColorizationColor, [MarshalAs(UnmanagedType.Bool)]out bool ColorizationOpaqueBlend);
 
 		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
+		public static extern void DwmGetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE dwAttribute, IntPtr pvAttribute, int cbAttribute);
+
+		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
 		public static extern void DwmIsCompositionEnabled(ref int pfEnabled);
+
+		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
+		public static extern void DwmSetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE dwAttribute, [In] IntPtr pvAttribute, int cbAttribute);
 	}
 }

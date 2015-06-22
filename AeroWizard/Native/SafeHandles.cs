@@ -6,10 +6,9 @@ namespace Microsoft.Win32
 {
 	internal static partial class NativeMethods
 	{
-		public class SafeDCObjectHandle : SafeHandle
+		public class SafeDCObjectHandle : GenericSafeHandle
 		{
-			public SafeDCObjectHandle(IntPtr hdc, IntPtr hObj)
-				: base(IntPtr.Zero, true)
+			public SafeDCObjectHandle(IntPtr hdc, IntPtr hObj): base(IntPtr.Zero, NativeMethods.DeleteObject, true)
 			{
 				if (hdc != null)
 				{
@@ -17,52 +16,49 @@ namespace Microsoft.Win32
 					base.SetHandle(hObj);
 				}
 			}
-
-			public override bool IsInvalid
-			{
-				get { return base.handle == IntPtr.Zero; }
-			}
-
-			public static implicit operator IntPtr(SafeDCObjectHandle h)
-			{
-				return h.DangerousGetHandle();
-			}
-
-			protected override bool ReleaseHandle()
-			{
-				if (!IsInvalid)
-					NativeMethods.DeleteObject(base.handle);
-				return true;
-			}
 		}
 
-		public class SafeCompatibleDCHandle : SafeHandle
+		public class SafeCompatibleDCHandle : GenericSafeHandle
 		{
-			public SafeCompatibleDCHandle(IntPtr hdc)
-				: base(IntPtr.Zero, true)
+			public SafeCompatibleDCHandle(IntPtr hdc) : base(IntPtr.Zero, NativeMethods.DeleteDC, true)
 			{
 				if (hdc != null)
 				{
 					base.SetHandle(NativeMethods.CreateCompatibleDC(hdc));
 				}
 			}
+		}
+	}
 
-			public override bool IsInvalid
-			{
-				get { return base.handle == IntPtr.Zero; }
-			}
+	internal class GenericSafeHandle : SafeHandle
+	{
+		private HandleCloser closeMethod;
 
-			public static implicit operator IntPtr(SafeCompatibleDCHandle h)
-			{
-				return h.DangerousGetHandle();
-			}
+		public delegate bool HandleCloser(IntPtr ptr);
 
-			protected override bool ReleaseHandle()
-			{
-				if (!IsInvalid)
-					NativeMethods.DeleteDC(base.handle);
-				return true;
-			}
+		public GenericSafeHandle(IntPtr ptr, HandleCloser closeMethod, bool ownsHandle = true)
+			: base(ptr, ownsHandle)
+		{
+			if (closeMethod == null)
+				throw new ArgumentNullException("closeMethod");
+			this.closeMethod = closeMethod;
+		}
+
+		public override bool IsInvalid
+		{
+			get { return base.handle == IntPtr.Zero; }
+		}
+
+		public static implicit operator IntPtr(GenericSafeHandle h)
+		{
+			return h.DangerousGetHandle();
+		}
+
+		protected override bool ReleaseHandle()
+		{
+			if (!IsInvalid)
+				return closeMethod(base.handle);
+			return true;
 		}
 	}
 

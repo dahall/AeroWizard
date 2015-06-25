@@ -800,7 +800,7 @@ namespace AeroWizard
 					{
 						ctrl.Font = btnFont;
 						ctrl.Height = btnHeight;
-						ctrl.MaximumSize = new Size(0, btnHeight);
+						//ctrl.MaximumSize = new Size(0, btnHeight);
 					}
 
 					themePropsSet = true;

@@ -10,6 +10,7 @@ namespace AeroWizard
 	/// </summary>
 	[ProvideProperty("StepText", typeof(WizardPage))]
 	[ProvideProperty("StepTextIndentLevel", typeof(WizardPage))]
+	[ToolboxItem(true), ToolboxBitmap(typeof(StepWizardControl), "StepWizardControl.bmp")]
 	public class StepWizardControl : WizardControl, IExtenderProvider
 	{
 		private StepList list;

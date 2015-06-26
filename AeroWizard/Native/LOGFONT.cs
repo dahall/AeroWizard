@@ -56,7 +56,7 @@ namespace Microsoft.Win32
 			}
 		}
 
-		[DllImport(GDI32, ExactSpelling = true, SetLastError = true)]
+		[DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
 		public static extern int GetObject(System.IntPtr hFont, int nSize, [In, Out] LOGFONT logfont);
 	}
 }

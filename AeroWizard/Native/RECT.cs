@@ -17,7 +17,10 @@ namespace Microsoft.Win32
 				Bottom = bottom;
 			}
 
-			public RECT(System.Drawing.Rectangle r) : this(r.Left, r.Top, r.Right, r.Bottom) { }
+			public RECT(System.Drawing.Rectangle r)
+				: this(r.Left, r.Top, r.Right, r.Bottom)
+			{
+			}
 
 			public int X
 			{

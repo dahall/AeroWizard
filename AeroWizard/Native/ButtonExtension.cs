@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
+﻿
 namespace System.Windows.Forms
 {
 	internal static class ButtonExtension
@@ -10,14 +9,23 @@ namespace System.Windows.Forms
 			{
 				const uint BCM_SETSHIELD = 0x160C;    //Elevated button
 				btn.FlatStyle = required ? FlatStyle.System : FlatStyle.Standard;
-				SendMessage(btn.Handle, BCM_SETSHIELD, IntPtr.Zero, required ? new IntPtr(0xFFFFFFFF) : IntPtr.Zero);
+				Microsoft.Win32.NativeMethods.SendMessage(btn.Handle, BCM_SETSHIELD, IntPtr.Zero, required ? new IntPtr(0xFFFFFFFF) : IntPtr.Zero);
 				btn.Invalidate();
 			}
 			else
 				throw new PlatformNotSupportedException();
 		}
 
-		[DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = false)]
-		private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+		public static void SetCueBanner(this ButtonBase btn, string cueBannerText, bool retainOnFocus = false)
+		{
+			if (System.Environment.OSVersion.Version.Major >= 6)
+			{
+				const uint EM_SETCUEBANNER = 0x1501;
+				Microsoft.Win32.NativeMethods.SendMessage(btn.Handle, EM_SETCUEBANNER, new IntPtr(retainOnFocus ? 1 :0), cueBannerText);
+				btn.Invalidate();
+			}
+			else
+				throw new PlatformNotSupportedException();
+		}
 	}
 }

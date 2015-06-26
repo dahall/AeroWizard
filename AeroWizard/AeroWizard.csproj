@@ -92,7 +92,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Native\ButtonExtension.cs" />
+    <Compile Include="Native\GenericSafeHandle.cs" />
     <Compile Include="Native\LOGFONT.cs" />
+    <Compile Include="Native\SafeDCHandles.cs" />
     <Compile Include="Native\SIZE.cs" />
     <Compile Include="Native\TaskbarList.cs" />
     <Compile Include="Native\BITMAPINFO.cs" />
@@ -100,10 +102,12 @@
     <Compile Include="Native\DWMAPI.cs" />
     <Compile Include="Native\GDI32.cs" />
     <Compile Include="Native\RECT.cs" />
-    <Compile Include="Native\SafeHandles.cs" />
+    <Compile Include="Native\SafeGDIHandle.cs" />
     <Compile Include="Native\USER32.cs" />
     <Compile Include="Native\UXTHEME.cs" />
+    <Compile Include="Native\UXTHEME_GDI.cs" />
     <Compile Include="Native\VisualStylesRendererExtension.cs" />
+    <Compile Include="Native\VisualStylesRendererExtensionGDI.cs" />
     <Compile Include="StepList.cs">
       <SubType>Component</SubType>
     </Compile>

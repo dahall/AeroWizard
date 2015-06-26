@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace Microsoft.Win32
 {
@@ -32,5 +33,8 @@ namespace Microsoft.Win32
 				biBitCount = 32;
 			}
 		}
+
+		[DllImport(GDI32, ExactSpelling = true, SetLastError = true)]
+		public static extern IntPtr CreateDIBSection(IntPtr hdc, ref NativeMethods.BITMAPINFO pbmi, uint iUsage, IntPtr ppvBits, IntPtr hSection, uint dwOffset);
 	}
 }

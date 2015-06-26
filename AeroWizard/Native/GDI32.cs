@@ -26,9 +26,6 @@ namespace Microsoft.Win32
 		public static extern bool BitBlt(IntPtr hdc, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, uint dwRop);
 
 		[DllImport(GDI32, ExactSpelling = true, SetLastError = true)]
-		public static extern IntPtr CreateDIBSection(IntPtr hdc, ref NativeMethods.BITMAPINFO pbmi, uint iUsage, IntPtr ppvBits, IntPtr hSection, uint dwOffset);
-
-		[DllImport(GDI32, ExactSpelling = true, SetLastError = true)]
 		public static extern uint SetLayout(IntPtr hdc, uint dwLayout);
 	}
 }

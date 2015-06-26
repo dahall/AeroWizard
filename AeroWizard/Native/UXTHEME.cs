@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Requires Gdi\RECT.cs
+using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
@@ -6,37 +7,7 @@ namespace Microsoft.Win32
 {
 	internal static partial class NativeMethods
 	{
-		const string UXTHEME = "uxtheme.dll";
-
-		public enum DrawThemeTextSystemFonts
-		{
-			Caption = 801,
-			SmallCaption = 802,
-			Menu = 803,
-			Status = 804,
-			MessageBox = 805,
-			IconTitle = 806
-		}
-
-		public enum TextShadowType : int
-		{
-			None = 0,
-			Single = 1,
-			Continuous = 2
-		}
-
-		[Flags]
-		public enum WindowThemeNonClientAttributes : uint
-		{
-			/// <summary>Do Not Draw The Caption (Text)</summary>
-			NoDrawCaption = 0x00000001,
-			/// <summary>Do Not Draw the Icon</summary>
-			NoDrawIcon = 0x00000002,
-			/// <summary>Do Not Show the System Menu</summary>
-			NoSysMenu = 0x00000004,
-			/// <summary>Do Not Mirror the Question mark Symbol</summary>
-			NoMirrorHelp = 0x00000008
-		}
+		private const string UXTHEME = "uxtheme.dll";
 
 		[Flags]
 		public enum DrawThemeTextOptionsFlags : int
@@ -57,12 +28,26 @@ namespace Microsoft.Win32
 			Composited = 8192
 		}
 
-		[Flags]
-		public enum OpenThemeDataExFlags : int
+		public enum DrawThemeTextSystemFonts
+		{
+			Caption = 801,
+			SmallCaption = 802,
+			Menu = 803,
+			Status = 804,
+			MessageBox = 805,
+			IconTitle = 806
+		}
+
+		public enum IntegerListProperty
+		{
+			TransitionDuration = 6000
+		}
+
+		public enum TextShadowType : int
 		{
 			None = 0,
-			ForceImageStretch = 1,
-			AllowNonClientDrawing = 2
+			Single = 1,
+			Continuous = 2
 		}
 
 		public enum WindowThemeAttributeType
@@ -70,8 +55,18 @@ namespace Microsoft.Win32
 			WTA_NONCLIENT = 1,
 		}
 
-		[DllImport(UXTHEME, ExactSpelling = true, PreserveSig = false)]
-		public static extern void CloseThemeData(IntPtr hTheme);
+		[Flags]
+		public enum WindowThemeNonClientAttributes : uint
+		{
+			/// <summary>Do Not Draw The Caption (Text)</summary>
+			NoDrawCaption = 0x00000001,
+			/// <summary>Do Not Draw the Icon</summary>
+			NoDrawIcon = 0x00000002,
+			/// <summary>Do Not Show the System Menu</summary>
+			NoSysMenu = 0x00000004,
+			/// <summary>Do Not Mirror the Question mark Symbol</summary>
+			NoMirrorHelp = 0x00000008
+		}
 
 		[DllImport(UXTHEME)]
 		public static extern int DrawThemeBackground(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, ref NativeMethods.RECT pRect, ref NativeMethods.RECT pClipRect);
@@ -82,20 +77,11 @@ namespace Microsoft.Win32
 		[DllImport(UXTHEME, CharSet = CharSet.Unicode)]
 		public static extern int DrawThemeTextEx(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, string text, int iCharCount, int dwFlags, ref NativeMethods.RECT pRect, ref DrawThemeTextOptions pOptions);
 
-		[DllImport(UXTHEME, ExactSpelling = true, PreserveSig = false)]
-		public static extern void GetThemeBitmap(IntPtr hTheme, int iPartId, int iStateId, int iPropId, uint dwFlags, ref IntPtr phBitmap);
-		
-		[DllImport(UXTHEME, ExactSpelling = true, CharSet = CharSet.Unicode)]
-		public static extern Int32 GetThemeFont(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, int iPropId, out LOGFONT pFont);
-
 		[DllImport(UXTHEME, ExactSpelling = true)]
 		public static extern int GetThemeMargins(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, int iPropId, IntPtr prc, out NativeMethods.RECT pMargins);
 
 		[DllImport(UXTHEME, ExactSpelling = true, PreserveSig = false)]
-		public static extern void GetThemePartSize(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, IntPtr prc, int eSize, out NativeMethods.SIZE psz);
-
-		[DllImport(UXTHEME, ExactSpelling = true, CharSet = CharSet.Unicode, SetLastError = true)]
-		public static extern IntPtr OpenThemeDataEx(IntPtr hWnd, string pszClassIdList, OpenThemeDataExFlags dwFlags);
+		public static extern void GetThemeTransitionDuration(IntPtr hTheme, int iPartId, int iStateIdFrom, int iStateIdTo, int iPropId, ref UInt32 pdwDuration);
 
 		[DllImport(UXTHEME, ExactSpelling = true, PreserveSig = false, CharSet = CharSet.Unicode)]
 		public static extern void SetWindowTheme(IntPtr hWnd, string pszSubAppName, string pszSubIdList);
@@ -106,23 +92,24 @@ namespace Microsoft.Win32
 		[StructLayout(LayoutKind.Sequential)]
 		public struct DrawThemeTextOptions
 		{
-			int dwSize;
-			DrawThemeTextOptionsFlags dwFlags;
-			int crText;
-			int crBorder;
-			int crShadow;
-			TextShadowType iTextShadowType;
-			System.Drawing.Point ptShadowOffset;
-			int iBorderSize;
-			int iFontPropId;
-			int iColorPropId;
-			int iStateId;
-			bool fApplyOverlay;
-			int iGlowSize;
-			int pfnDrawTextCallback;
-			IntPtr lParam;
+			private int dwSize;
+			private DrawThemeTextOptionsFlags dwFlags;
+			private int crText;
+			private int crBorder;
+			private int crShadow;
+			private TextShadowType iTextShadowType;
+			private System.Drawing.Point ptShadowOffset;
+			private int iBorderSize;
+			private int iFontPropId;
+			private int iColorPropId;
+			private int iStateId;
+			private bool fApplyOverlay;
+			private int iGlowSize;
+			private int pfnDrawTextCallback;
+			private IntPtr lParam;
 
-			public DrawThemeTextOptions(bool init) : this()
+			public DrawThemeTextOptions(bool init)
+				: this()
 			{
 				dwSize = Marshal.SizeOf(typeof(DrawThemeTextOptions));
 			}

@@ -20,7 +20,7 @@ namespace AeroWizard
 		/// </summary>
 		public ThemedLabel()
 		{
-			this.SetStyle(ControlStyles.SupportsTransparentBackColor |
+			SetStyle(ControlStyles.SupportsTransparentBackColor |
 				ControlStyles.OptimizedDoubleBuffer |
 				ControlStyles.AllPaintingInWmPaint |
 				ControlStyles.ResizeRedraw |
@@ -67,7 +67,7 @@ namespace AeroWizard
 			{
 				base.Image = value;
 				base.ImageIndex = -1;
-				base.ImageList = null;
+				ImageList = null;
 			}
 		}
 
@@ -112,27 +112,27 @@ namespace AeroWizard
 
 				// Draw image
 				Rectangle r = DeflateRect(base.ClientRectangle, base.Padding);
-				if (this.Image != null)
+				if (Image != null)
 				{
 					//Rectangle ir = CalcImageRenderBounds(this.Image, r, base.RtlTranslateAlignment(this.ImageAlign));
-					if (this.ImageList != null && this.ImageIndex == 0)
+					if (ImageList != null && ImageIndex == 0)
 					{
 						if (vs != null && !this.IsDesignMode() && DesktopWindowManager.IsCompositionEnabled())
-							vs.DrawGlassIcon(e.Graphics, r, this.ImageList, this.ImageIndex);
+							vs.DrawGlassIcon(e.Graphics, r, ImageList, ImageIndex);
 						else
-							this.ImageList.Draw(e.Graphics, r.X, r.Y, r.Width, r.Height, this.ImageIndex);
+							ImageList.Draw(e.Graphics, r.X, r.Y, r.Width, r.Height, ImageIndex);
 					}
 					else
 					{
 						if (vs != null && !this.IsDesignMode() && DesktopWindowManager.IsCompositionEnabled())
-							vs.DrawGlassImage(e.Graphics, r, this.Image);
+							vs.DrawGlassImage(e.Graphics, r, Image);
 						else
-							e.Graphics.DrawImage(this.Image, r);
+							e.Graphics.DrawImage(Image, r);
 					}
 				}
 
 				// Draw text
-				if (this.Text.Length > 0)
+				if (Text.Length > 0)
 				{
 					if (this.IsDesignMode() || vs == null || !DesktopWindowManager.IsCompositionEnabled())
 					{
@@ -143,7 +143,7 @@ namespace AeroWizard
 					}
 					else
 					{
-						TextFormatFlags tff = CreateTextFormatFlags(base.RtlTranslateAlignment(this.TextAlign), this.AutoEllipsis, this.UseMnemonic);
+						TextFormatFlags tff = CreateTextFormatFlags(base.RtlTranslateAlignment(TextAlign), AutoEllipsis, UseMnemonic);
 						vs.DrawGlowingText(e.Graphics, base.ClientRectangle, Text, Font, ForeColor, tff);
 					}
 				}
@@ -181,7 +181,7 @@ namespace AeroWizard
 				flags |= TextFormatFlags.RightToLeft;
 			if (!useMnemonic)
 				return (flags | TextFormatFlags.NoPrefix);
-			if (!this.ShowKeyboardCues)
+			if (!ShowKeyboardCues)
 				flags |= TextFormatFlags.HidePrefix;
 			return flags;
 		}

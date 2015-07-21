@@ -123,7 +123,7 @@ namespace AeroWizard
 				{
 					helpLink = new LinkLabel() { AutoSize = true, Dock = DockStyle.Bottom, Text = "Help", Visible = false };
 					helpLink.LinkClicked += new LinkLabelLinkClickedEventHandler(helpLink_LinkClicked);
-					this.Controls.Add(helpLink);
+					Controls.Add(helpLink);
 				}
 				helpText = value;
 				if (helpText == null)
@@ -246,9 +246,9 @@ namespace AeroWizard
 			get
 			{
 				CreateParams createParams = base.CreateParams;
-				Form parent = this.FindForm();
+				Form parent = FindForm();
 				bool parentRightToLeftLayout = parent != null ? parent.RightToLeftLayout : false;
-				if ((this.RightToLeft == RightToLeft.Yes) && parentRightToLeftLayout)
+				if ((RightToLeft == RightToLeft.Yes) && parentRightToLeftLayout)
 				{
 					createParams.ExStyle |= 0x500000; // WS_EX_LAYOUTRTL | WS_EX_NOINHERITLAYOUT
 					createParams.ExStyle &= ~0x7000; // WS_EX_RIGHT | WS_EX_RTLREADING | WS_EX_LEFTSCROLLBAR
@@ -263,25 +263,16 @@ namespace AeroWizard
 		/// <returns>
 		/// A <see cref="System.String"/> that represents this wizard page.
 		/// </returns>
-		public override string ToString()
-		{
-			return string.Format("{0} (\"{1}\")", this.Name, this.Text);
-		}
+		public override string ToString() => $"{Name} (\"{Text}\")";
 
-		internal bool CommitPage()
-		{
-			return OnCommit();
-		}
+		internal bool CommitPage() => OnCommit();
 
 		internal void InitializePage(WizardPage prevPage)
 		{
 			OnInitialize(prevPage);
 		}
 
-		internal bool RollbackPage()
-		{
-			return OnRollback();
-		}
+		internal bool RollbackPage() => OnRollback();
 
 		/// <summary>
 		/// Raises the <see cref="Commit" /> event.
@@ -303,7 +294,7 @@ namespace AeroWizard
 		protected override void OnGotFocus(EventArgs e)
 		{
 			base.OnGotFocus(e);
-			Control firstChild = this.GetNextControl(this, true);
+			Control firstChild = GetNextControl(this, true);
 			if (firstChild != null)
 				firstChild.Focus();
 		}
@@ -376,7 +367,7 @@ namespace AeroWizard
 		/// Gets the <see cref="WizardPage"/> that has raised the event.
 		/// </summary>
 		/// <value>The wizard page.</value>
-		public WizardPage Page { get; private set; }
+		public WizardPage Page { get; }
 	}
 
 	/// <summary>
@@ -394,6 +385,6 @@ namespace AeroWizard
 		/// Gets the <see cref="WizardPage"/> that was previously selected when the event was raised.
 		/// </summary>
 		/// <value>The previous wizard page.</value>
-		public WizardPage PreviousPage { get; private set; }
+		public WizardPage PreviousPage { get; }
 	}
 }

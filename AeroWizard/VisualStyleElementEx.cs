@@ -23,16 +23,16 @@ namespace AeroWizard.VisualStyles
 
 				/// <summary>Gets a visual style element that represents a back button in the normal state.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents a back button in the normal state.</value>
-				public static VisualStyleElement Normal { get { return VisualStyleElement.CreateElement(className, part, 1); } }
+				public static VisualStyleElement Normal => VisualStyleElement.CreateElement(className, part, 1);
 				/// <summary>Gets a visual style element that represents a back button in the hot state.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents a back button in the hot state.</value>
-				public static VisualStyleElement Hot { get { return VisualStyleElement.CreateElement(className, part, 2); } }
+				public static VisualStyleElement Hot => VisualStyleElement.CreateElement(className, part, 2);
 				/// <summary>Gets a visual style element that represents a back button in the pressed state.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents a back button in the pressed state.</value>
-				public static VisualStyleElement Pressed { get { return VisualStyleElement.CreateElement(className, part, 3); } }
+				public static VisualStyleElement Pressed => VisualStyleElement.CreateElement(className, part, 3);
 				/// <summary>Gets a visual style element that represents a back button in the disabled state.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents a back button in the disabled state.</value>
-				public static VisualStyleElement Disabled { get { return VisualStyleElement.CreateElement(className, part, 4); } }
+				public static VisualStyleElement Disabled => VisualStyleElement.CreateElement(className, part, 4);
 			}
 
 			/// <summary>
@@ -44,16 +44,16 @@ namespace AeroWizard.VisualStyles
 
 				/// <summary>Gets a visual style element that represents a forward button in the normal state.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents a forward button in the normal state.</value>
-				public static VisualStyleElement Normal { get { return VisualStyleElement.CreateElement(className, part, 1); } }
+				public static VisualStyleElement Normal => VisualStyleElement.CreateElement(className, part, 1);
 				/// <summary>Gets a visual style element that represents a forward button in the hot state.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents a forward button in the hot state.</value>
-				public static VisualStyleElement Hot { get { return VisualStyleElement.CreateElement(className, part, 2); } }
+				public static VisualStyleElement Hot => VisualStyleElement.CreateElement(className, part, 2);
 				/// <summary>Gets a visual style element that represents a forward button in the pressed state.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents a forward button in the pressed state.</value>
-				public static VisualStyleElement Pressed { get { return VisualStyleElement.CreateElement(className, part, 3); } }
+				public static VisualStyleElement Pressed => VisualStyleElement.CreateElement(className, part, 3);
 				/// <summary>Gets a visual style element that represents a forward button in the disabled state.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents a forward button in the disabled state.</value>
-				public static VisualStyleElement Disabled { get { return VisualStyleElement.CreateElement(className, part, 4); } }
+				public static VisualStyleElement Disabled => VisualStyleElement.CreateElement(className, part, 4);
 			}
 
 			/// <summary>
@@ -65,16 +65,16 @@ namespace AeroWizard.VisualStyles
 
 				/// <summary>Gets a visual style element that represents a menu button in the normal state.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents a menu button in the normal state.</value>
-				public static VisualStyleElement Normal { get { return VisualStyleElement.CreateElement(className, part, 1); } }
+				public static VisualStyleElement Normal => VisualStyleElement.CreateElement(className, part, 1);
 				/// <summary>Gets a visual style element that represents a menu button in the hot state.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents a menu button in the hot state.</value>
-				public static VisualStyleElement Hot { get { return VisualStyleElement.CreateElement(className, part, 2); } }
+				public static VisualStyleElement Hot => VisualStyleElement.CreateElement(className, part, 2);
 				/// <summary>Gets a visual style element that represents a menu button in the pressed state.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents a menu button in the pressed state.</value>
-				public static VisualStyleElement Pressed { get { return VisualStyleElement.CreateElement(className, part, 3); } }
+				public static VisualStyleElement Pressed => VisualStyleElement.CreateElement(className, part, 3);
 				/// <summary>Gets a visual style element that represents a menu button in the disabled state.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents a menu button in the disabled state.</value>
-				public static VisualStyleElement Disabled { get { return VisualStyleElement.CreateElement(className, part, 4); } }
+				public static VisualStyleElement Disabled => VisualStyleElement.CreateElement(className, part, 4);
 			}
 		}
 
@@ -92,7 +92,7 @@ namespace AeroWizard.VisualStyles
 			{
 				/// <summary>Gets a visual style element that represents a button in a wizard.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents a button in a wizard.</value>
-				public static VisualStyleElement Normal { get { return VisualStyleElement.CreateElement(className, 5, 0); } }
+				public static VisualStyleElement Normal => VisualStyleElement.CreateElement(className, 5, 0);
 			}
 
 			/// <summary>
@@ -102,7 +102,7 @@ namespace AeroWizard.VisualStyles
 			{
 				/// <summary>Gets a visual style element that represents the command area of a wizard.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents the command area of a wizard.</value>
-				public static VisualStyleElement Normal { get { return VisualStyleElement.CreateElement(className, 4, 0); } }
+				public static VisualStyleElement Normal => VisualStyleElement.CreateElement(className, 4, 0);
 			}
 
 			/// <summary>
@@ -112,10 +112,10 @@ namespace AeroWizard.VisualStyles
 			{
 				/// <summary>Gets a visual style element that represents the content area of a wizard.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents the content area of a wizard.</value>
-				public static VisualStyleElement Normal { get { return VisualStyleElement.CreateElement(className, 3, 0); } }
+				public static VisualStyleElement Normal => VisualStyleElement.CreateElement(className, 3, 0);
 				/// <summary>Gets a visual style element that represents the content area of a wizard without a margin.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents the content area of a wizard without a margin.</value>
-				public static VisualStyleElement NoMargin { get { return VisualStyleElement.CreateElement(className, 3, 1); } }
+				public static VisualStyleElement NoMargin => VisualStyleElement.CreateElement(className, 3, 1);
 			}
 
 			/// <summary>
@@ -125,10 +125,10 @@ namespace AeroWizard.VisualStyles
 			{
 				/// <summary>Gets a visual style element that represents the header area of a wizard.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents the header area of a wizard.</value>
-				public static VisualStyleElement Normal { get { return VisualStyleElement.CreateElement(className, 2, 0); } }
+				public static VisualStyleElement Normal => VisualStyleElement.CreateElement(className, 2, 0);
 				/// <summary>Gets a visual style element that represents the header area of a wizard without a margin.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents the header area of a wizard without a margin.</value>
-				public static VisualStyleElement NoMargin { get { return VisualStyleElement.CreateElement(className, 2, 1); } }
+				public static VisualStyleElement NoMargin => VisualStyleElement.CreateElement(className, 2, 1);
 			}
 
 			/// <summary>
@@ -138,10 +138,10 @@ namespace AeroWizard.VisualStyles
 			{
 				/// <summary>Gets a visual style element that represents the titlebar of an active wizard.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents the titlebar of an active wizard.</value>
-				public static VisualStyleElement Active { get { return VisualStyleElement.CreateElement(className, 1, 1); } }
+				public static VisualStyleElement Active => VisualStyleElement.CreateElement(className, 1, 1);
 				/// <summary>Gets a visual style element that represents the titlebar of an inactive wizard.</summary>
 				/// <value>A <see cref="VisualStyleElement"/> that represents the titlebar of an inactive wizard.</value>
-				public static VisualStyleElement Inactive { get { return VisualStyleElement.CreateElement(className, 1, 2); } }
+				public static VisualStyleElement Inactive => VisualStyleElement.CreateElement(className, 1, 2);
 			}
 		}
 	}

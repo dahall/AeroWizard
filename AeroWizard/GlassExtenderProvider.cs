@@ -96,10 +96,7 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// <returns>
 		/// true if this object can provide extender properties to the specified object; otherwise, false.
 		/// </returns>
-		bool IExtenderProvider.CanExtend(object form)
-		{
-			return (form != this) && (form is Form);
-		}
+		bool IExtenderProvider.CanExtend(object form) => (form != this) && (form is Form);
 
 		/// <summary>
 		/// Set whether the glass should be extended into the client space.
@@ -132,7 +129,7 @@ namespace Microsoft.Win32.DesktopWindowManager
 		public void SetGlassMargins(Form form, Padding value)
 		{
 			if (form == null)
-				throw new ArgumentNullException("form");
+				throw new ArgumentNullException(nameof(form));
 
 			GlassFormProperties prop = GetFormProperties(form);
 			if (value == null || value == Padding.Empty)

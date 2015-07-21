@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtensionAttributeFor.NET_2.0.cs" Condition=" $(TargetFrameworkVersion.Replace('v', '')) &lt; 3.5 " />
+    <Compile Include="GenericDesigner.cs" />
     <Compile Include="GlassExtenderProvider.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -112,7 +113,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="StepWizardControl.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="VisualStyleElementEx.cs" />
     <Compile Include="ControlExtension.cs" />
@@ -146,7 +147,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WizardControl.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="WizardControl.designer.cs">
       <DependentUpon>WizardControl.cs</DependentUpon>

@@ -21,12 +21,12 @@ namespace AeroWizard
 		/// </summary>
 		public StepWizardControl()
 		{
-			var ds = this.RightToLeft == System.Windows.Forms.RightToLeft.Yes ? DockStyle.Right : DockStyle.Left;
-			this.pageContainer.Controls.Add(splitter = new Splitter() { Dock = ds, BorderStyle = BorderStyle.FixedSingle, Width = 1, Name = "splitter" });
-			this.pageContainer.Controls.Add(list = new StepList() { Dock = ds, Name = "stepList" });
+			var ds = RightToLeft == System.Windows.Forms.RightToLeft.Yes ? DockStyle.Right : DockStyle.Left;
+			pageContainer.Controls.Add(splitter = new Splitter() { Dock = ds, BorderStyle = BorderStyle.FixedSingle, Width = 1, Name = "splitter" });
+			pageContainer.Controls.Add(list = new StepList() { Dock = ds, Name = "stepList" });
 			list.DrawItem += list_DrawItem;
 			list.MeasureItem += list_MeasureItem;
-			this.Pages.Reset += Pages_Reset;
+			Pages.Reset += Pages_Reset;
 		}
 
 		/// <summary>
@@ -86,10 +86,7 @@ namespace AeroWizard
 		/// <param name="page">The page.</param>
 		/// <returns>Step text for the specified wizard page.</returns>
 		[DefaultValue((string)null), Category("Appearance"), Description("Alternate text to provide to the StepList. Default value comes the Text property of the WizardPage.")]
-		public string GetStepText(WizardPage page)
-		{
-			return list.GetStepText(page);
-		}
+		public string GetStepText(WizardPage page) => list.GetStepText(page);
 
 		/// <summary>
 		/// Gets the step text indent level.
@@ -97,10 +94,7 @@ namespace AeroWizard
 		/// <param name="page">The page.</param>
 		/// <returns>Step text indent level for the specified wizard page.</returns>
 		[DefaultValue(0), Category("Appearance"), Description("Indentation level for text provided to the StepList.")]
-		public int GetStepTextIndentLevel(WizardPage page)
-		{
-			return list.GetStepTextIndentLevel(page);
-		}
+		public int GetStepTextIndentLevel(WizardPage page) => list.GetStepTextIndentLevel(page);
 
 		/// <summary>
 		/// Specifies whether this object can provide its extender properties to the specified object.
@@ -109,10 +103,7 @@ namespace AeroWizard
 		/// <returns>
 		/// true if this object can provide extender properties to the specified object; otherwise, false.
 		/// </returns>
-		bool IExtenderProvider.CanExtend(object extendee)
-		{
-			return (extendee is WizardPage);
-		}
+		bool IExtenderProvider.CanExtend(object extendee) => (extendee is WizardPage);
 
 		/// <summary>
 		/// Sets the step text.
@@ -140,7 +131,7 @@ namespace AeroWizard
 		/// <param name="e">The <see cref="DrawStepListItemEventArgs"/> instance containing the event data.</param>
 		protected virtual void OnDrawStepListItem(DrawStepListItemEventArgs e)
 		{
-			var h = this.DrawStepListItem;
+			var h = DrawStepListItem;
 			if (h != null)
 				h(this, e);
 		}
@@ -151,7 +142,7 @@ namespace AeroWizard
 		/// <param name="e">The <see cref="MeasureStepListItemEventArgs"/> instance containing the event data.</param>
 		protected virtual void OnMeasureStepListItem(MeasureStepListItemEventArgs e)
 		{
-			var h = this.MeasureStepListItem;
+			var h = MeasureStepListItem;
 			if (h != null)
 				h(this, e);
 		}
@@ -163,11 +154,11 @@ namespace AeroWizard
 		protected override void OnRightToLeftChanged(System.EventArgs e)
 		{
 			base.OnRightToLeftChanged(e);
-			var ds = this.RightToLeft == System.Windows.Forms.RightToLeft.Yes ? DockStyle.Right : DockStyle.Left;
-			if (this.pageContainer.Controls.Count > 1)
+			var ds = RightToLeft == System.Windows.Forms.RightToLeft.Yes ? DockStyle.Right : DockStyle.Left;
+			if (pageContainer.Controls.Count > 1)
 			{
-				this.pageContainer.Controls["splitter"].Dock = ds;
-				this.pageContainer.Controls["stepList"].Dock = ds;
+				pageContainer.Controls["splitter"].Dock = ds;
+				pageContainer.Controls["stepList"].Dock = ds;
 			}
 		}
 
@@ -183,13 +174,13 @@ namespace AeroWizard
 
 		void Pages_Reset(object sender, System.Collections.Generic.EventedList<WizardPage>.ListChangedEventArgs<WizardPage> e)
 		{
-			this.pageContainer.Controls.Add(splitter);
-			this.pageContainer.Controls.Add(list);
+			pageContainer.Controls.Add(splitter);
+			pageContainer.Controls.Add(list);
 		}
 
 		private void ResetStepListFont()
 		{
-			list.Font = this.Font;
+			list.Font = Font;
 		}
 
 		private void ResetStepText(WizardPage page)
@@ -197,15 +188,9 @@ namespace AeroWizard
 			SetStepText(page, null);
 		}
 
-		private bool ShouldSerializeStepListFont()
-		{
-			return this.Font != list.Font;
-		}
+		private bool ShouldSerializeStepListFont() => Font != list.Font;
 
-		private bool ShouldSerializeStepText(WizardPage page)
-		{
-			return (GetStepText(page) != page.Text);
-		}
+		private bool ShouldSerializeStepText(WizardPage page) => (GetStepText(page) != page.Text);
 	}
 
 	/// <summary>
@@ -215,12 +200,12 @@ namespace AeroWizard
 	{
 		internal DrawStepListItemEventArgs(Graphics graphics, Font font, Rectangle itemRect, WizardPage page, bool isSelected, bool isCompleted)
 		{
-			this.Graphics = graphics;
-			this.Font = font;
-			this.Bounds = itemRect;
-			this.Item = page;
-			this.Selected = isSelected;
-			this.Completed = isCompleted;
+			Graphics = graphics;
+			Font = font;
+			Bounds = itemRect;
+			Item = page;
+			Selected = isSelected;
+			Completed = isCompleted;
 		}
 
 		/// <summary>
@@ -229,7 +214,7 @@ namespace AeroWizard
 		/// <value>
 		/// A rectangle that represents the bounds of the item to draw.
 		/// </value>
-		public Rectangle Bounds { get; private set; }
+		public Rectangle Bounds { get; }
 
 		/// <summary>
 		/// Gets a value indicating whether this step has already been completed.
@@ -237,7 +222,7 @@ namespace AeroWizard
 		/// <value>
 		///   <c>true</c> if completed; otherwise, <c>false</c>.
 		/// </value>
-		public bool Completed { get; private set; }
+		public bool Completed { get; }
 
 		/// <summary>
 		/// Gets the <see cref="Font"/> used to draw the item.
@@ -245,7 +230,7 @@ namespace AeroWizard
 		/// <value>
 		/// The <see cref="Font"/> used to draw the item.
 		/// </value>
-		public Font Font { get; private set; }
+		public Font Font { get; }
 
 		/// <summary>
 		/// Gets the <see cref="Graphics"/> used to draw the item.
@@ -253,7 +238,7 @@ namespace AeroWizard
 		/// <value>
 		/// The <see cref="Graphics"/> used to draw the item.
 		/// </value>
-		public Graphics Graphics { get; private set; }
+		public Graphics Graphics { get; }
 
 		/// <summary>
 		/// Gets the <see cref="WizardPage"/> to which this item refers.
@@ -261,7 +246,7 @@ namespace AeroWizard
 		/// <value>
 		/// The <see cref="WizardPage"/> to which this item refers.
 		/// </value>
-		public WizardPage Item { get; private set; }
+		public WizardPage Item { get; }
 
 		/// <summary>
 		/// Gets a value indicating whether this item is the one currently selected.
@@ -269,7 +254,7 @@ namespace AeroWizard
 		/// <value>
 		///   <c>true</c> if selected; otherwise, <c>false</c>.
 		/// </value>
-		public bool Selected { get; private set; }
+		public bool Selected { get; }
 	}
 
 	/// <summary>
@@ -279,10 +264,10 @@ namespace AeroWizard
 	{
 		internal MeasureStepListItemEventArgs(Graphics graphics, Font font, WizardPage page, Size itemSize)
 		{
-			this.Graphics = graphics;
-			this.Font = font;
-			this.Item = page;
-			this.ItemSize = itemSize;
+			Graphics = graphics;
+			Font = font;
+			Item = page;
+			ItemSize = itemSize;
 		}
 
 		/// <summary>
@@ -291,7 +276,7 @@ namespace AeroWizard
 		/// <value>
 		/// The <see cref="Font"/> used to draw the item.
 		/// </value>
-		public Font Font { get; private set; }
+		public Font Font { get; }
 
 		/// <summary>
 		/// Gets the <see cref="Graphics"/> used to draw the item.
@@ -299,7 +284,7 @@ namespace AeroWizard
 		/// <value>
 		/// The <see cref="Graphics"/> used to draw the item.
 		/// </value>
-		public Graphics Graphics { get; private set; }
+		public Graphics Graphics { get; }
 
 		/// <summary>
 		/// Gets the <see cref="WizardPage"/> to which this item refers.
@@ -307,7 +292,7 @@ namespace AeroWizard
 		/// <value>
 		/// The <see cref="WizardPage"/> to which this item refers.
 		/// </value>
-		public WizardPage Item { get; private set; }
+		public WizardPage Item { get; }
 
 		/// <summary>
 		/// Gets or sets the size of the item.

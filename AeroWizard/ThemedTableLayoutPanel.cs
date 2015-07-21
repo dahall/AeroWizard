@@ -100,16 +100,16 @@ namespace AeroWizard
 			else
 			{
 				if (this.IsDesignMode() || rnd == null || !Application.RenderWithVisualStyles)
-					try { e.Graphics.Clear(this.BackColor); } catch { }
+					try { e.Graphics.Clear(BackColor); } catch { }
 				else
-					rnd.DrawBackground(e.Graphics, this.ClientRectangle, e.ClipRectangle);
+					rnd.DrawBackground(e.Graphics, ClientRectangle, e.ClipRectangle);
 			}
 			base.OnPaint(e);
 		}
 
 		private void AttachToFormEvents()
 		{
-			Form pForm = this.FindForm();
+			Form pForm = FindForm();
 			if (pForm != null && WatchFocus)
 			{
 				pForm.Activated += new System.EventHandler(Form_GotFocus);

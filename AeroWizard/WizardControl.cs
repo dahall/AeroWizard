@@ -63,8 +63,8 @@ namespace AeroWizard
 			ResetTitleIcon();
 
 			// Connect to page add and remove events to track property changes
-			this.Pages.ItemAdded += Pages_ItemAdded;
-			this.Pages.ItemDeleted += Pages_ItemDeleted;
+			Pages.ItemAdded += Pages_ItemAdded;
+			Pages.ItemDeleted += Pages_ItemDeleted;
 		}
 
 		/// <summary>
@@ -91,10 +91,7 @@ namespace AeroWizard
 		/// <value>The state of the back button.</value>
 		[Browsable(false),
 		DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		public WizardCommandButtonState BackButtonState
-		{
-			get { return pageContainer.BackButtonState; }
-		}
+		public WizardCommandButtonState BackButtonState => pageContainer.BackButtonState;
 
 		/// <summary>
 		/// Gets or sets the back button tool tip text.
@@ -113,11 +110,8 @@ namespace AeroWizard
 		/// <value>The state of the cancel button.</value>
 		[Browsable(false),
 		DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		public WizardCommandButtonState CancelButtonState
-		{
-			get { return pageContainer.CancelButtonState; }
-		}
-		
+		public WizardCommandButtonState CancelButtonState => pageContainer.CancelButtonState;
+
 		/// <summary>
 		/// Gets or sets the cancel button text.
 		/// </summary>
@@ -125,8 +119,8 @@ namespace AeroWizard
 		[Category("Wizard"), Localizable(true), Description("The cancel button text")]
 		public string CancelButtonText
 		{
-			get { return this.pageContainer.CancelButtonText; }
-			set { this.pageContainer.CancelButtonText = value; Refresh(); }
+			get { return pageContainer.CancelButtonText; }
+			set { pageContainer.CancelButtonText = value; Refresh(); }
 		}
 
 		/// <summary>
@@ -147,8 +141,8 @@ namespace AeroWizard
 		[Category("Wizard"), Localizable(true), Description("The finish button text")]
 		public string FinishButtonText
 		{
-			get { return this.pageContainer.FinishButtonText; }
-			set { this.pageContainer.FinishButtonText = value; Refresh(); }
+			get { return pageContainer.FinishButtonText; }
+			set { pageContainer.FinishButtonText = value; Refresh(); }
 		}
 
 		/// <summary>
@@ -171,8 +165,8 @@ namespace AeroWizard
 		[DefaultValue(false), Category("Wizard"), Description("Show a shield icon on the next button")]
 		public Boolean NextButtonShieldEnabled
 		{
-			get { return this.pageContainer.NextButtonShieldEnabled; }
-			set { this.pageContainer.NextButtonShieldEnabled = value; }
+			get { return pageContainer.NextButtonShieldEnabled; }
+			set { pageContainer.NextButtonShieldEnabled = value; }
 		}
 
 		/// <summary>
@@ -181,10 +175,7 @@ namespace AeroWizard
 		/// <value>The state of the next button.</value>
 		[Browsable(false),
 		DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		public WizardCommandButtonState NextButtonState
-		{
-			get { return pageContainer.NextButtonState; }
-		}
+		public WizardCommandButtonState NextButtonState => pageContainer.NextButtonState;
 
 		/// <summary>
 		/// Gets or sets the next button text.
@@ -193,8 +184,8 @@ namespace AeroWizard
 		[Category("Wizard"), Localizable(true), Description("The next button text.")]
 		public string NextButtonText
 		{
-			get { return this.pageContainer.NextButtonText; }
-			set { this.pageContainer.NextButtonText = value; Refresh(); }
+			get { return pageContainer.NextButtonText; }
+			set { pageContainer.NextButtonText = value; Refresh(); }
 		}
 
 		/// <summary>
@@ -203,20 +194,14 @@ namespace AeroWizard
 		/// <value>The <see cref="WizardPageCollection"/> that contains the <see cref="WizardPage"/> objects in this <see cref="WizardControl"/>.</value>
 		[Category("Wizard"), Description("Collection of wizard pages.")]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-		public WizardPageCollection Pages
-		{
-			get { return this.pageContainer.Pages; }
-		}
+		public WizardPageCollection Pages => pageContainer.Pages;
 
 		/// <summary>
 		/// Gets how far the wizard has progressed, as a percentage.
 		/// </summary>
 		/// <value>A value between 0 and 100.</value>
 		[Browsable(false), Description("The percentage of the current page against all pages at run-time.")]
-		public ushort PercentComplete
-		{
-			get { return this.pageContainer.PercentComplete; }
-		}
+		public short PercentComplete => pageContainer.PercentComplete;
 
 		/// <summary>
 		/// Gets the currently selected wizard page.
@@ -225,8 +210,8 @@ namespace AeroWizard
 		[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public virtual WizardPage SelectedPage
 		{
-			get { return this.pageContainer.SelectedPage; }
-			internal set { this.pageContainer.SelectedPage = value; if (value != null) this.HeaderText = value.Text; }
+			get { return pageContainer.SelectedPage; }
+			internal set { pageContainer.SelectedPage = value; if (value != null) HeaderText = value.Text; }
 		}
 
 		/// <summary>
@@ -241,8 +226,8 @@ namespace AeroWizard
 		[Category("Wizard"), DefaultValue(false), Description("Indicates whether to show progress in form's taskbar icon")]
 		public bool ShowProgressInTaskbarIcon
 		{
-			get { return this.pageContainer.ShowProgressInTaskbarIcon; }
-			set { this.pageContainer.ShowProgressInTaskbarIcon = value; }
+			get { return pageContainer.ShowProgressInTaskbarIcon; }
+			set { pageContainer.ShowProgressInTaskbarIcon = value; }
 		}
 
 		/// <summary>
@@ -295,15 +280,9 @@ namespace AeroWizard
 			}
 		}
 
-		internal int SelectedPageIndex
-		{
-			get { return this.pageContainer.SelectedPageIndex; }
-		}
+		internal int SelectedPageIndex => pageContainer.SelectedPageIndex;
 
-		private bool UseAeroStyle
-		{
-			get { return classicStyle == WizardClassicStyle.AeroStyle || (classicStyle == WizardClassicStyle.Automatic && DesktopWindowManager.CompositionSupported && Application.RenderWithVisualStyles); }
-		}
+		private bool UseAeroStyle => classicStyle == WizardClassicStyle.AeroStyle || (classicStyle == WizardClassicStyle.Automatic && DesktopWindowManager.CompositionSupported && Application.RenderWithVisualStyles);
 
 		/// <summary>
 		/// Adds a new control to the command bar.
@@ -348,7 +327,7 @@ namespace AeroWizard
 		/// <exception cref="ArgumentException">When specifying a value for nextPage, it must already be in the Pages collection.</exception>
 		public virtual void NextPage(WizardPage nextPage, bool skipCommit = false)
 		{
-			this.pageContainer.NextPage(nextPage, skipCommit);
+			pageContainer.NextPage(nextPage, skipCommit);
 		}
 
 		/// <summary>
@@ -373,7 +352,7 @@ namespace AeroWizard
 		/// </summary>
 		public virtual void PreviousPage()
 		{
-			this.pageContainer.PreviousPage();
+			pageContainer.PreviousPage();
 		}
 
 		/// <summary>
@@ -381,7 +360,7 @@ namespace AeroWizard
 		/// </summary>
 		public void RestartPages()
 		{
-			this.pageContainer.RestartPages();
+			pageContainer.RestartPages();
 		}
 
 		/// <summary>
@@ -458,8 +437,8 @@ namespace AeroWizard
 		{
 			System.Diagnostics.Debug.WriteLine("OnHandleCreated");
 			base.OnHandleCreated(e);
-			this.SetLayout();
-			this.AddSystemEvents();
+			SetLayout();
+			AddSystemEvents();
 		}
 
 		/// <summary>
@@ -468,7 +447,7 @@ namespace AeroWizard
 		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
 		protected override void OnHandleDestroyed(EventArgs e)
 		{
-			this.RemoveSystemEvents();
+			RemoveSystemEvents();
 			base.OnHandleDestroyed(e);
 		}
 
@@ -482,7 +461,7 @@ namespace AeroWizard
 					DesktopWindowManager.CompositionChanged += DisplyColorOrCompositionChanged;
 				}
 				Microsoft.Win32.SystemEvents.DisplaySettingsChanged += DisplyColorOrCompositionChanged;
-				this.SystemColorsChanged += DisplyColorOrCompositionChanged;
+				SystemColorsChanged += DisplyColorOrCompositionChanged;
 			}
 		}
 
@@ -496,7 +475,7 @@ namespace AeroWizard
 					DesktopWindowManager.ColorizationColorChanged -= DisplyColorOrCompositionChanged;
 				}
 				Microsoft.Win32.SystemEvents.DisplaySettingsChanged -= DisplyColorOrCompositionChanged;
-				this.SystemColorsChanged -= DisplyColorOrCompositionChanged;
+				SystemColorsChanged -= DisplyColorOrCompositionChanged;
 			}
 		}
 
@@ -510,7 +489,7 @@ namespace AeroWizard
 			if (parentForm != null)
 				parentForm.Load -= parentForm_Load;
 			parentForm = base.Parent as Form;
-			this.Dock = DockStyle.Fill;
+			Dock = DockStyle.Fill;
 			if (parentForm != null)
 				parentForm.Load += parentForm_Load;
 		}
@@ -572,7 +551,7 @@ namespace AeroWizard
 				{
 					headerLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 					headerLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(112)))), ((int)(((byte)(171)))));
-					title.Font = this.Font;
+					title.Font = Font;
 				}
 			}
 			else
@@ -581,13 +560,13 @@ namespace AeroWizard
 				header.BackColor = contentArea.BackColor = SystemColors.Control;
 				headerLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 				headerLabel.ForeColor = SystemColors.ControlText;
-				title.Font = new Font(this.Font, FontStyle.Bold);
+				title.Font = new Font(Font, FontStyle.Bold);
 			}
 		}
 
 		private void ConfigureWindowFrame()
 		{
-			System.Diagnostics.Debug.WriteLine(string.Format("ConfigureWindowFrame: compEnab={0},parentForm={1}", DesktopWindowManager.IsCompositionEnabled(), parentForm == null ? "null" : parentForm.Name));
+			System.Diagnostics.Debug.WriteLine($"ConfigureWindowFrame: compEnab={DesktopWindowManager.IsCompositionEnabled()},parentForm={(parentForm == null ? "null" : parentForm.Name)}");
 			ConfigureStyles();
 			if (DesktopWindowManager.IsCompositionEnabled())
 			{
@@ -613,15 +592,15 @@ namespace AeroWizard
 
 			if (parentForm != null)
 			{
-				if (!this.SuppressParentFormCaptionSync)
-					parentForm.Text = this.Title;
-				if (!this.SuppressParentFormIconSync && this.titleImageIcon != null)
+				if (!SuppressParentFormCaptionSync)
+					parentForm.Text = Title;
+				if (!SuppressParentFormIconSync && titleImageIcon != null)
 				{
-					parentForm.Icon = this.TitleIcon;
+					parentForm.Icon = TitleIcon;
 					parentForm.ShowIcon = true;
 				}
-				parentForm.CancelButton = this.cancelButton;
-				parentForm.AcceptButton = this.nextButton;
+				parentForm.CancelButton = cancelButton;
+				parentForm.AcceptButton = nextButton;
 				parentForm.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 				parentForm.SetWindowThemeAttribute(Microsoft.Win32.NativeMethods.WindowThemeNonClientAttributes.NoDrawCaption | Microsoft.Win32.NativeMethods.WindowThemeNonClientAttributes.NoDrawIcon | Microsoft.Win32.NativeMethods.WindowThemeNonClientAttributes.NoSysMenu);
 				parentForm.Invalidate();
@@ -630,18 +609,18 @@ namespace AeroWizard
 
 		private void contentArea_Paint(object sender, PaintEventArgs pe)
 		{
-			if (this.IsDesignMode() && this.Pages.Count == 0)
+			if (this.IsDesignMode() && Pages.Count == 0)
 			{
 				string noPagesText = Properties.Resources.WizardNoPagesNotice;
-				Rectangle r = this.GetContentAreaRectangle(false);
+				Rectangle r = GetContentAreaRectangle(false);
 
 				r.Inflate(-2, -2);
 				//pe.Graphics.DrawRectangle(SystemPens.GrayText, r);
 				ControlPaint.DrawFocusRectangle(pe.Graphics, r);
 
-				SizeF textSize = pe.Graphics.MeasureString(noPagesText, this.Font);
+				SizeF textSize = pe.Graphics.MeasureString(noPagesText, Font);
 				r.Inflate((r.Width - (int)textSize.Width) / -2, (r.Height - (int)textSize.Height) / -2);
-				pe.Graphics.DrawString(noPagesText, this.Font, SystemBrushes.GrayText, r);
+				pe.Graphics.DrawString(noPagesText, Font, SystemBrushes.GrayText, r);
 			}
 		}
 
@@ -691,8 +670,8 @@ namespace AeroWizard
 
 		private void pageContainer_SelectedPageChanged(object sender, EventArgs e)
 		{
-			if (this.pageContainer.SelectedPage != null)
-				this.HeaderText = this.pageContainer.SelectedPage.Text;
+			if (pageContainer.SelectedPage != null)
+				HeaderText = pageContainer.SelectedPage.Text;
 			OnSelectedPageChanged();
 		}
 
@@ -708,7 +687,7 @@ namespace AeroWizard
 
 		private void Page_TextChanged(object sender, EventArgs e)
 		{
-			this.HeaderText = ((WizardPage)sender).Text;
+			HeaderText = ((WizardPage)sender).Text;
 		}
 
 		private void parentForm_Load(object sender, EventArgs e)
@@ -757,7 +736,7 @@ namespace AeroWizard
 			if (isMin6 && Application.RenderWithVisualStyles)
 			{
 				VisualStyleRenderer theme;
-				using (Graphics g = this.CreateGraphics())
+				using (Graphics g = CreateGraphics())
 				{
 					// Back button
 					theme = new VisualStyleRenderer(VisualStyleElementEx.Navigation.BackButton.Normal);
@@ -779,7 +758,7 @@ namespace AeroWizard
 
 					// Content
 					theme.SetParameters(VisualStyleElementEx.AeroWizard.ContentArea.Normal);
-					this.BackColor = theme.GetColor(ColorProperty.FillColor);
+					BackColor = theme.GetColor(ColorProperty.FillColor);
 					contentArea.Font = theme.GetFont2(g);
 					Padding cp = theme.GetMargins2(g, MarginProperty.ContentMargins);
 					contentArea.ColumnStyles[0].Width = cp.Left;
@@ -810,44 +789,23 @@ namespace AeroWizard
 			{
 				commandAreaBorder.Height = 1;
 				backButton.Size = new Size(GetUnthemedBackButtonImage().Width, GetUnthemedBackButtonImage().Height / 4);
-				this.BackColor = UseAeroStyle ? SystemColors.Window : SystemColors.Control;
+				BackColor = UseAeroStyle ? SystemColors.Window : SystemColors.Control;
 			}
 		}
 
-		private bool ShouldSerializeBackButtonToolTipText()
-		{
-			return BackButtonToolTipText != Properties.Resources.WizardBackButtonToolTip;
-		}
+		private bool ShouldSerializeBackButtonToolTipText() => BackButtonToolTipText != Properties.Resources.WizardBackButtonToolTip;
 
-		private bool ShouldSerializeBackButtonText()
-		{
-			return pageContainer.ShouldSerializeBackButtonText();
-		}
+		private bool ShouldSerializeBackButtonText() => pageContainer.ShouldSerializeBackButtonText();
 
-		private bool ShouldSerializeCancelButtonText()
-		{
-			return pageContainer.ShouldSerializeCancelButtonText();
-		}
+		private bool ShouldSerializeCancelButtonText() => pageContainer.ShouldSerializeCancelButtonText();
 
-		private bool ShouldSerializeFinishButtonText()
-		{
-			return pageContainer.ShouldSerializeFinishButtonText();
-		}
+		private bool ShouldSerializeFinishButtonText() => pageContainer.ShouldSerializeFinishButtonText();
 
-		private bool ShouldSerializeNextButtonText()
-		{
-			return pageContainer.ShouldSerializeNextButtonText();
-		}
+		private bool ShouldSerializeNextButtonText() => pageContainer.ShouldSerializeNextButtonText();
 
-		private bool ShouldSerializeTitle()
-		{
-			return Title != Properties.Resources.WizardTitle;
-		}
+		private bool ShouldSerializeTitle() => Title != Properties.Resources.WizardTitle;
 
-		private bool ShouldSerializeTitleIcon()
-		{
-			return titleImageIconSet;
-		}
+		private bool ShouldSerializeTitleIcon() => titleImageIconSet;
 
 		private void TitleBar_MouseDown(object sender, MouseEventArgs e)
 		{
@@ -857,7 +815,7 @@ namespace AeroWizard
 				if (c != backButton)
 				{
 					formMoveTracking = true;
-					formMoveLastMousePos = this.PointToScreen(e.Location);
+					formMoveLastMousePos = PointToScreen(e.Location);
 				}
 			}
 
@@ -868,13 +826,13 @@ namespace AeroWizard
 		{
 			if (formMoveTracking)
 			{
-				Point screen = this.PointToScreen(e.Location);
+				Point screen = PointToScreen(e.Location);
 
 				Point diff = new Point(screen.X - formMoveLastMousePos.X, screen.Y - formMoveLastMousePos.Y);
 
-				Point loc = this.parentForm.Location;
+				Point loc = parentForm.Location;
 				loc.Offset(diff);
-				this.parentForm.Location = loc;
+				parentForm.Location = loc;
 
 				formMoveLastMousePos = screen;
 			}

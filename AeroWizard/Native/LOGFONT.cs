@@ -36,7 +36,7 @@ namespace Microsoft.Win32
 			public static LOGFONT FromFont(Font font)
 			{
 				if (font == null)
-					throw new System.ArgumentNullException("font");
+					throw new System.ArgumentNullException(nameof(font));
 
 				LOGFONT lf = new LOGFONT();
 				if (GetObject(font.ToHfont(), Marshal.SizeOf(typeof(LOGFONT)), lf) == 0)
@@ -45,15 +45,12 @@ namespace Microsoft.Win32
 				return lf;
 			}
 
-			public override string ToString()
-			{
-				return string.Concat(new object[] { 
-					"lfHeight=", this.lfHeight, ", lfWidth=", this.lfWidth, ", lfEscapement=", this.lfEscapement, ", lfOrientation=", this.lfOrientation,
-					", lfWeight=", this.lfWeight, ", lfItalic=", this.lfItalic, ", lfUnderline=", this.lfUnderline, ", lfStrikeOut=", this.lfStrikeOut, 
-					", lfCharSet=", this.lfCharSet, ", lfOutPrecision=", this.lfOutPrecision, ", lfClipPrecision=", this.lfClipPrecision, 
-					", lfQuality=", this.lfQuality, ", lfPitchAndFamily=", this.lfPitchAndFamily, ", lfFaceName=", this.lfFaceName
+			public override string ToString() => string.Concat(new object[] {
+					"lfHeight=", lfHeight, ", lfWidth=", lfWidth, ", lfEscapement=", lfEscapement, ", lfOrientation=", lfOrientation,
+					", lfWeight=", lfWeight, ", lfItalic=", lfItalic, ", lfUnderline=", lfUnderline, ", lfStrikeOut=", lfStrikeOut,
+					", lfCharSet=", lfCharSet, ", lfOutPrecision=", lfOutPrecision, ", lfClipPrecision=", lfClipPrecision,
+					", lfQuality=", lfQuality, ", lfPitchAndFamily=", lfPitchAndFamily, ", lfFaceName=", lfFaceName
 				});
-			}
 		}
 
 		[DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]

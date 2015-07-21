@@ -84,10 +84,7 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// Gets or sets a value indicating whether composition (Windows Aero) is supported.
 		/// </summary>
 		/// <value><c>true</c> if composition is supported; otherwise, <c>false</c>.</value>
-		public static bool CompositionSupported
-		{
-			get { return System.Environment.OSVersion.Version.Major >= 6; }
-		}
+		public static bool CompositionSupported => System.Environment.OSVersion.Version.Major >= 6;
 
 		/// <summary>
 		/// Gets or sets a value that indicates whether the <see cref="CompositionColor"/> is transparent.
@@ -170,7 +167,7 @@ namespace Microsoft.Win32.DesktopWindowManager
 		public static void ExcludeChildFromGlass(this Control parent, Control control)
 		{
 			if (control == null)
-				throw new ArgumentNullException("control");
+				throw new ArgumentNullException(nameof(control));
 			if (!parent.Contains(control))
 				throw new ArgumentException("Control must be a child control.");
 
@@ -241,7 +238,7 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// <summary>
 		/// Window attribute to get through the <see cref="GetWindowAttr"/> methods.
 		/// </summary>
-		public enum GetWindowAttr : uint
+		public enum GetWindowAttr
 		{
 			/// <summary>Gets whether non-client rendering is enabled. The retrieved value is of type bool. True if non-client rendering is enabled; otherwise, False.</summary>
 			NonClientRenderingEnabled = 1,
@@ -256,7 +253,7 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// <summary>
 		/// Window attribute to set through the <see cref="SetWindowAttr"/> methods.
 		/// </summary>
-		public enum SetWindowAttr : uint
+		public enum SetWindowAttr
 		{
 			/// <summary>Sets the non-client rendering policy. The retrieved value is from the NonClientRenderingPolicy enumeration.</summary>
 			NonClientRenderingPolicy = 2,
@@ -375,12 +372,12 @@ namespace Microsoft.Win32.DesktopWindowManager
 			{
 				CreateParams cp = new CreateParams() { Style = 0, ExStyle = 0, ClassStyle = 0, Parent = IntPtr.Zero };
 				cp.Caption = base.GetType().Name;
-				this.CreateHandle(cp);
+				CreateHandle(cp);
 			}
 
 			public void Dispose()
 			{
-				this.DestroyHandle();
+				DestroyHandle();
 			}
 
 			[System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]

@@ -56,7 +56,7 @@ namespace AeroWizard
 		/// Gets the default size of the control.
 		/// </summary>
 		/// <returns>The default <see cref="T:System.Drawing.Size" /> of the control.</returns>
-		protected override Size DefaultSize { get { return new Size(150, 200); } }
+		protected override Size DefaultSize => new Size(150, 200);
 
 		/// <summary>
 		/// Gets the step text.
@@ -86,10 +86,7 @@ namespace AeroWizard
 			return 0;
 		}
 
-		bool IExtenderProvider.CanExtend(object extendee)
-		{
-			return (extendee is WizardPage);
-		}
+		bool IExtenderProvider.CanExtend(object extendee) => (extendee is WizardPage);
 
 		/// <summary>
 		/// Sets the step text.
@@ -126,7 +123,7 @@ namespace AeroWizard
 		/// <param name="e">The <see cref="DrawStepListItemEventArgs"/> instance containing the event data.</param>
 		protected virtual void OnDrawItem(DrawStepListItemEventArgs e)
 		{
-			var h = this.DrawItem;
+			var h = DrawItem;
 			if (h != null)
 				h(this, e);
 		}
@@ -138,11 +135,11 @@ namespace AeroWizard
 		protected override void OnFontChanged(EventArgs e)
 		{
 			base.OnFontChanged(e);
-			using (Graphics g = this.CreateGraphics())
+			using (Graphics g = CreateGraphics())
 			{
-				defItemHeight = (int)Math.Ceiling(TextRenderer.MeasureText(g, "Wg", this.Font).Height * 1.2);
-				ptrFont = new Font("Marlett", this.Font.Size);
-				boldFont = new Font(this.Font, FontStyle.Bold);
+				defItemHeight = (int)Math.Ceiling(TextRenderer.MeasureText(g, "Wg", Font).Height * 1.2);
+				ptrFont = new Font("Marlett", Font.Size);
+				boldFont = new Font(Font, FontStyle.Bold);
 				bulletWidth = TextRenderer.MeasureText(g, "4", ptrFont, new Size(0, defItemHeight), defBulletTextFormat).Width;
 			}
 		}
@@ -153,7 +150,7 @@ namespace AeroWizard
 		/// <param name="e">The <see cref="MeasureStepListItemEventArgs"/> instance containing the event data.</param>
 		protected virtual void OnMeasureItem(MeasureStepListItemEventArgs e)
 		{
-			var h = this.MeasureItem;
+			var h = MeasureItem;
 			if (h != null)
 				h(this, e);
 		}
@@ -166,7 +163,7 @@ namespace AeroWizard
 		{
 			base.OnPaint(e);
 			if (myParent == null) return;
-			int y = this.Padding.Top;
+			int y = Padding.Top;
 			WizardPageCollection pages = myParent.Pages;
 			bool hit = false;
 			for (int i = 0; i < pages.Count; i++)
@@ -174,18 +171,18 @@ namespace AeroWizard
 				var curPage = pages[i];
 				if (!curPage.Suppress)
 				{
-					Size itemSize = new Size(this.Width - this.Padding.Horizontal, this.defItemHeight);
+					Size itemSize = new Size(Width - Padding.Horizontal, defItemHeight);
 					if (OwnerDraw)
 					{
-						var meArg = new MeasureStepListItemEventArgs(e.Graphics, this.Font, curPage, new Size(this.Width, defItemHeight));
+						var meArg = new MeasureStepListItemEventArgs(e.Graphics, Font, curPage, new Size(Width, defItemHeight));
 						OnMeasureItem(meArg);
 						itemSize = meArg.ItemSize;
 					}
-					if (y + itemSize.Height > (this.Height - this.Padding.Bottom))
+					if (y + itemSize.Height > (Height - Padding.Bottom))
 						break;
 					bool isSelected = myParent.SelectedPage == curPage;
 					if (isSelected) hit = true;
-					var eArg = new DrawStepListItemEventArgs(e.Graphics, this.Font, new Rectangle(new Point(this.Padding.Left, y), itemSize), curPage, isSelected, hit);
+					var eArg = new DrawStepListItemEventArgs(e.Graphics, Font, new Rectangle(new Point(Padding.Left, y), itemSize), curPage, isSelected, hit);
 					if (OwnerDraw)
 						OnDrawItem(eArg);
 					else
@@ -214,16 +211,16 @@ namespace AeroWizard
 
 		private void DefaultDrawItem(DrawStepListItemEventArgs e)
 		{
-			Color fc = this.ForeColor, bc = this.BackColor;
+			Color fc = ForeColor, bc = BackColor;
 			int level = GetStepTextIndentLevel(e.Item);
-			bool isRTL = this.RightToLeft == System.Windows.Forms.RightToLeft.Yes;
+			bool isRTL = RightToLeft == System.Windows.Forms.RightToLeft.Yes;
 			var tffrtl = isRTL ? TextFormatFlags.Right : 0;
 			Rectangle rect, prect;
 			if (isRTL)
 			{
-				Split(e.Bounds, this.Width - bulletWidth, out rect, out prect);
+				Split(e.Bounds, Width - bulletWidth, out rect, out prect);
 				prect.X = e.Bounds.Width - (bulletWidth * (level + 1));
-				rect.Width = this.Width - (bulletWidth * (level + 1));
+				rect.Width = Width - (bulletWidth * (level + 1));
 			}
 			else
 			{
@@ -236,7 +233,7 @@ namespace AeroWizard
 			using (Brush br = new SolidBrush(bc))
 				e.Graphics.FillRectangle(br, Rectangle.Union(rect, prect));
 			TextRenderer.DrawText(e.Graphics, e.Completed ? (isRTL ? "3" : "4") : "a", ptrFont, prect, fc, defBulletTextFormat | tffrtl);
-			TextRenderer.DrawText(e.Graphics, GetStepText(e.Item), e.Selected ? boldFont : this.Font, rect, fc, defStringTextFormat | tffrtl);
+			TextRenderer.DrawText(e.Graphics, GetStepText(e.Item), e.Selected ? boldFont : Font, rect, fc, defStringTextFormat | tffrtl);
 		}
 
 		private void pages_Changed(object sender, EventedList<WizardPage>.ListChangedEventArgs<WizardPage> e)
@@ -269,9 +266,6 @@ namespace AeroWizard
 			Refresh();
 		}
 
-		private bool ShouldSerializeStepText(WizardPage page)
-		{
-			return (GetStepText(page) != page.Text);
-		}
+		private bool ShouldSerializeStepText(WizardPage page) => (GetStepText(page) != page.Text);
 	}
 }

@@ -12,12 +12,12 @@ namespace TestWizard
 
 		private void wizardPageContainer1_Cancelling(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			this.Close();
+			Close();
 		}
 
 		private void wizardPageContainer1_Finished(object sender, EventArgs e)
 		{
-			this.Close();
+			Close();
 		}
 
 		private void wizardPageContainer1_SelectedPageChanged(object sender, EventArgs e)

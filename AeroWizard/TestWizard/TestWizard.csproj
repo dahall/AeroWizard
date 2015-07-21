@@ -89,6 +89,14 @@
     <Compile Include="MyWizard.Designer.cs">
       <DependentUpon>MyWizard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Native\CommandLink.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Native\RECT.cs" />
+    <Compile Include="Native\USER32.cs" />
+    <Compile Include="Native\VistaButtonBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="OldStyleWizard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +110,12 @@
     </Compile>
     <Compile Include="CustomWizardTemplate.Designer.cs">
       <DependentUpon>CustomWizardTemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Win10Wiz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Win10Wiz.Designer.cs">
+      <DependentUpon>Win10Wiz.cs</DependentUpon>
     </Compile>
     <Compile Include="TestWizBase.cs">
       <SubType>Form</SubType>
@@ -136,6 +150,9 @@
     </Compile>
     <EmbeddedResource Include="CustomWizardTemplate.resx">
       <DependentUpon>CustomWizardTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Win10Wiz.resx">
+      <DependentUpon>Win10Wiz.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TestWizBase.resx">
       <DependentUpon>TestWizBase.cs</DependentUpon>

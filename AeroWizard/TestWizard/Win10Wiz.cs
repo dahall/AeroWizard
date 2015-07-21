@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace TestWizard
 {
-	public partial class TestWizBase : Form
+	public partial class Win10Wiz : Form
 	{
-		public TestWizBase()
+		public Win10Wiz()
 		{
 			InitializeComponent();
 		}

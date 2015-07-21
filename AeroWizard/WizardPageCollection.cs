@@ -20,6 +20,6 @@ namespace AeroWizard
 		/// Gets the <see cref="WizardControl"/> to which this collection belongs.
 		/// </summary>
 		/// <value>The <see cref="WizardControl"/>.</value>
-		public WizardPageContainer Owner { get; private set; }
+		public WizardPageContainer Owner { get; }
 	}
 }

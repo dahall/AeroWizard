@@ -49,10 +49,7 @@ namespace Microsoft.Win32
 				dwFlags = BlurBehindFlags.Enable;
 			}
 
-			public System.Drawing.Region Region
-			{
-				get { return System.Drawing.Region.FromHrgn(hRgnBlur); }
-			}
+			public System.Drawing.Region Region => System.Drawing.Region.FromHrgn(hRgnBlur);
 
 			public bool TransitionOnMaximized
 			{
@@ -107,15 +104,9 @@ namespace Microsoft.Win32
 			{
 			}
 
-			public static bool operator !=(Margins m1, Margins m2)
-			{
-				return !m1.Equals(m2);
-			}
+			public static bool operator !=(Margins m1, Margins m2) => !m1.Equals(m2);
 
-			public static bool operator ==(Margins m1, Margins m2)
-			{
-				return m1.Equals(m2);
-			}
+			public static bool operator ==(Margins m1, Margins m2) => m1.Equals(m2);
 
 			public override bool Equals(object obj)
 			{
@@ -127,15 +118,9 @@ namespace Microsoft.Win32
 				return base.Equals(obj);
 			}
 
-			public override int GetHashCode()
-			{
-				return (((this.Left ^ RotateLeft(this.Top, 8)) ^ RotateLeft(this.Right, 0x10)) ^ RotateLeft(this.Bottom, 0x18));
-			}
+			public override int GetHashCode() => (((Left ^ RotateLeft(Top, 8)) ^ RotateLeft(Right, 0x10)) ^ RotateLeft(Bottom, 0x18));
 
-			public override string ToString()
-			{
-				return string.Format("{{Left={0},Right={1},Top={2},Bottom={3}}}", Left, Right, Top, Bottom);
-			}
+			public override string ToString() => $"{{Left={Left},Right={Right},Top={Top},Bottom={Bottom}}}";
 
 			internal static int RotateLeft(int value, int nBits)
 			{

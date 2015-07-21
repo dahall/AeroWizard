@@ -25,18 +25,18 @@ namespace AeroWizard
 		/// </summary>
 		public ThemedImageButton()
 		{
-			this.SetStyle(ControlStyles.SupportsTransparentBackColor |
+			SetStyle(ControlStyles.SupportsTransparentBackColor |
 				ControlStyles.OptimizedDoubleBuffer |
 				ControlStyles.AllPaintingInWmPaint |
 				ControlStyles.ResizeRedraw |
 				ControlStyles.UserPaint, true);
 
-			this.ButtonState = PushButtonState.Normal;
-			this.toolTip = new ToolTip();
-			this.toolTip.SetToolTip(this, defaultToolTip);
-			this.StyleClass = "BUTTON";
-			this.StylePart = 1;
-			this.Text = defaultText;
+			ButtonState = PushButtonState.Normal;
+			toolTip = new ToolTip();
+			toolTip.SetToolTip(this, defaultToolTip);
+			StyleClass = "BUTTON";
+			StylePart = 1;
+			Text = defaultText;
 		}
 
 		/// <summary>
@@ -61,10 +61,10 @@ namespace AeroWizard
 				if (value != null)
 				{
 					InitializeImageList(value.Size);
-					base.ImageList.Images.Add(value);
+					ImageList.Images.Add(value);
 				}
 				else
-					base.ImageList = null;
+					ImageList = null;
 				base.Image = value;
 			}
 		}
@@ -117,10 +117,7 @@ namespace AeroWizard
 		/// Gets a value indicating whether on glass.
 		/// </summary>
 		/// <value><c>true</c> if on glass; otherwise, <c>false</c>.</value>
-		private bool OnGlass
-		{
-			get { return !this.IsDesignMode() && DesktopWindowManager.CompositionEnabled; }
-		}
+		private bool OnGlass => !this.IsDesignMode() && DesktopWindowManager.CompositionEnabled;
 
 		/// <summary>
 		/// Retrieves the default size for the control.
@@ -129,10 +126,7 @@ namespace AeroWizard
 		/// <returns>
 		/// The default <see cref="T:System.Drawing.Size"/> of the control.
 		/// </returns>
-		protected override Size DefaultSize
-		{
-			get { return new Size(30, 30); }
-		}
+		protected override Size DefaultSize => new Size(30, 30);
 
 		/// <summary>
 		/// Retrieves the size of a rectangular area into which a control can be fitted.
@@ -141,10 +135,7 @@ namespace AeroWizard
 		/// <returns>
 		/// An ordered pair of type <see cref="T:System.Drawing.Size"/> representing the width and height of a rectangle.
 		/// </returns>
-		public override Size GetPreferredSize(Size proposedSize)
-		{
-			return DefaultSize;
-		}
+		public override Size GetPreferredSize(Size proposedSize) => DefaultSize;
 
 		/// <summary>
 		/// For button user use to simulate a click operate.
@@ -162,7 +153,7 @@ namespace AeroWizard
 		public void SetImageListImageStrip(Image imageStrip, Orientation orientation)
 		{
 			if (imageStrip == null)
-				base.ImageList = null;
+				ImageList = null;
 			else
 			{
 				Size imageSize = orientation == Orientation.Vertical ? new Size(imageStrip.Width, imageStrip.Height / 4) : new Size(imageStrip.Width / 4, imageStrip.Height);
@@ -170,7 +161,7 @@ namespace AeroWizard
 				using (Bitmap bmp = new Bitmap(imageStrip))
 				{
 					for (Rectangle r = new Rectangle(Point.Empty, imageSize); r.Y < imageStrip.Height; r.Y += imageSize.Height)
-						base.ImageList.Images.Add(bmp.Clone(r, bmp.PixelFormat));
+						ImageList.Images.Add(bmp.Clone(r, bmp.PixelFormat));
 				}
 			}
 		}
@@ -247,7 +238,7 @@ namespace AeroWizard
 		protected override void OnMouseUp(MouseEventArgs e)
 		{
 			if ((e.Button & MouseButtons.Left) != MouseButtons.Left) return;
-			ButtonState = this.Enabled ? PushButtonState.Hot : PushButtonState.Disabled;
+			ButtonState = Enabled ? PushButtonState.Hot : PushButtonState.Disabled;
 			Invalidate();
 			base.OnMouseUp(e);
 		}
@@ -285,7 +276,7 @@ namespace AeroWizard
 		/// <param name="bounds">The bounds.</param>
 		protected virtual void PaintButton(Graphics graphics, Rectangle bounds)
 		{
-			System.Diagnostics.Debug.WriteLine(string.Format("PaintButton: desMode:{0};vsEnabled:{4};vsOnOS:{5};btnState:{1};enabled:{2};imgCt:{3}", this.IsDesignMode(), this.ButtonState, Enabled, base.ImageList != null ? base.ImageList.Images.Count : 0, Application.RenderWithVisualStyles, VisualStyleInformation.IsSupportedByOS));
+			System.Diagnostics.Debug.WriteLine($"PaintButton: desMode:{this.IsDesignMode()};vsEnabled:{Application.RenderWithVisualStyles};vsOnOS:{VisualStyleInformation.IsSupportedByOS};btnState:{ButtonState};enabled:{Enabled};imgCt:{(ImageList != null ? ImageList.Images.Count : 0)}");
 
 			if (InitializeRenderer())
 			{
@@ -301,19 +292,19 @@ namespace AeroWizard
 			}
 			else
 			{
-				if (base.ImageList != null && base.ImageList.Images.Count > 0)
+				if (ImageList != null && ImageList.Images.Count > 0)
 				{
 					int idx = (int)ButtonState - 1;
-					if (base.ImageList.Images.Count == 1)
+					if (ImageList.Images.Count == 1)
 						idx = 0;
-					else if (base.ImageList.Images.Count == 2)
+					else if (ImageList.Images.Count == 2)
 						idx = ButtonState == PushButtonState.Disabled ? 1 : 0;
-					else if (base.ImageList.Images.Count == 3)
+					else if (ImageList.Images.Count == 3)
 						idx = ButtonState == PushButtonState.Normal ? 0 : idx - 1;
-					bool forceDisabled = !Enabled && base.ImageList.Images.Count == 1;
+					bool forceDisabled = !Enabled && ImageList.Images.Count == 1;
 					if (OnGlass)
 					{
-						VisualStyleRendererExtension.DrawGlassImage(null, graphics, bounds, base.ImageList.Images[idx], forceDisabled);
+						VisualStyleRendererExtension.DrawGlassImage(null, graphics, bounds, ImageList.Images[idx], forceDisabled);
 					}
 					else
 					{
@@ -323,20 +314,20 @@ namespace AeroWizard
 							Rectangle translateRect = bounds;
 							graphics.TranslateTransform(-bounds.Left, -bounds.Top);
 							PaintEventArgs pe = new PaintEventArgs(graphics, translateRect);
-							this.InvokePaintBackground(this.Parent, pe);
-							this.InvokePaint(this.Parent, pe);
+							InvokePaintBackground(Parent, pe);
+							InvokePaint(Parent, pe);
 							graphics.ResetTransform();
 							graphics.EndContainer(g);
 						}
 						else
-							graphics.Clear(this.Parent.BackColor);
+							graphics.Clear(Parent.BackColor);
 						if (forceDisabled)
-							ControlPaint.DrawImageDisabled(graphics, base.ImageList.Images[idx], 0, 0, Color.Transparent);
+							ControlPaint.DrawImageDisabled(graphics, ImageList.Images[idx], 0, 0, Color.Transparent);
 						else
 						{
 							//base.ImageList.Draw(graphics, bounds.X, bounds.Y, bounds.Width, bounds.Height, idx);
 							//VisualStyleRendererExtender.DrawGlassImage(null, graphics, bounds, base.ImageList.Images[idx], forceDisabled); // Not 7
-							graphics.DrawImage(base.ImageList.Images[idx], bounds, bounds, GraphicsUnit.Pixel); // Works on XP, not 7, with Parent.BackColor
+							graphics.DrawImage(ImageList.Images[idx], bounds, bounds, GraphicsUnit.Pixel); // Works on XP, not 7, with Parent.BackColor
 						}
 					}
 				}
@@ -356,17 +347,17 @@ namespace AeroWizard
 				else
 				{
 					ButtonRenderer.DrawParentBackground(graphics, bounds, this);
-					ButtonRenderer.DrawButton(graphics, bounds, this.ButtonState);
+					ButtonRenderer.DrawButton(graphics, bounds, ButtonState);
 				}
 			}
 
-			if (this.Focused)
+			if (Focused)
 				ControlPaint.DrawFocusRectangle(graphics, bounds);
 		}
 
 		private void InitializeImageList(Size imageSize)
 		{
-			base.ImageList = new ImageList() { ImageSize = imageSize, ColorDepth = ColorDepth.Depth32Bit, TransparentColor = Color.Transparent };
+			ImageList = new ImageList() { ImageSize = imageSize, ColorDepth = ColorDepth.Depth32Bit, TransparentColor = Color.Transparent };
 		}
 
 		private bool InitializeRenderer()

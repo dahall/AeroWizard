@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AeroWizard", "AeroWizard.csproj", "{199C12C4-3EEF-4D08-BAC3-F2A62BCF969C}"
 EndProject
@@ -33,32 +33,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wizard97ItemTemplate", "Wiz
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 8
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs06
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = AeroWizard.csproj
-		SccLocalPath1 = .
-		SccProjectUniqueName2 = TestWizard\\TestWizard.csproj
-		SccProjectName2 = TestWizard
-		SccLocalPath2 = TestWizard
-		SccProjectUniqueName3 = AeroWizardHelp\\AeroWizardHelp.shfbproj
-		SccProjectName3 = AeroWizardHelp
-		SccLocalPath3 = AeroWizardHelp
-		SccProjectUniqueName4 = AeroWizardTemplates\\AeroWizardTemplates.csproj
-		SccProjectName4 = AeroWizardTemplates
-		SccLocalPath4 = AeroWizardTemplates
-		SccProjectUniqueName5 = AeroWizardItemTemplate\\AeroWizardItemTemplate.csproj
-		SccProjectName5 = AeroWizardItemTemplate
-		SccLocalPath5 = AeroWizardItemTemplate
-		SccProjectUniqueName6 = CustomWizardItemTemplate\\CustomWizardItemTemplate.csproj
-		SccProjectName6 = CustomWizardItemTemplate
-		SccLocalPath6 = CustomWizardItemTemplate
-		SccProjectUniqueName7 = Wizard97ItemTemplate\\Wizard97ItemTemplate.csproj
-		SccProjectName7 = Wizard97ItemTemplate
-		SccLocalPath7 = Wizard97ItemTemplate
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -89,5 +63,31 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 8
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs06
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = AeroWizard.csproj
+		SccLocalPath1 = .
+		SccProjectUniqueName2 = TestWizard\\TestWizard.csproj
+		SccProjectName2 = TestWizard
+		SccLocalPath2 = TestWizard
+		SccProjectUniqueName3 = AeroWizardHelp\\AeroWizardHelp.shfbproj
+		SccProjectName3 = AeroWizardHelp
+		SccLocalPath3 = AeroWizardHelp
+		SccProjectUniqueName4 = AeroWizardTemplates\\AeroWizardTemplates.csproj
+		SccProjectName4 = AeroWizardTemplates
+		SccLocalPath4 = AeroWizardTemplates
+		SccProjectUniqueName5 = AeroWizardItemTemplate\\AeroWizardItemTemplate.csproj
+		SccProjectName5 = AeroWizardItemTemplate
+		SccLocalPath5 = AeroWizardItemTemplate
+		SccProjectUniqueName6 = CustomWizardItemTemplate\\CustomWizardItemTemplate.csproj
+		SccProjectName6 = CustomWizardItemTemplate
+		SccLocalPath6 = CustomWizardItemTemplate
+		SccProjectUniqueName7 = Wizard97ItemTemplate\\Wizard97ItemTemplate.csproj
+		SccProjectName7 = Wizard97ItemTemplate
+		SccLocalPath7 = Wizard97ItemTemplate
 	EndGlobalSection
 EndGlobal

@@ -14,7 +14,7 @@ namespace TestWizard
 		private void wizardControl1_DrawStepListItem(object sender, AeroWizard.DrawStepListItemEventArgs e)
 		{
 			string pre = e.Selected ? "> " : e.Completed ? "- " : "+ ";
-			TextRenderer.DrawText(e.Graphics, pre + wizardControl1.GetStepText(e.Item), myFont, e.Bounds, this.ForeColor);
+			TextRenderer.DrawText(e.Graphics, pre + wizardControl1.GetStepText(e.Item), myFont, e.Bounds, ForeColor);
 		}
 
 		private void wizardControl1_MeasureStepListItem(object sender, AeroWizard.MeasureStepListItemEventArgs e)

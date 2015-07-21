@@ -13,19 +13,13 @@ namespace Microsoft.Win32
 			: base(ptr, ownsHandle)
 		{
 			if (closeMethod == null)
-				throw new ArgumentNullException("closeMethod");
+				throw new ArgumentNullException(nameof(closeMethod));
 			this.closeMethod = closeMethod;
 		}
 
-		public override bool IsInvalid
-		{
-			get { return base.handle == IntPtr.Zero; }
-		}
+		public override bool IsInvalid => base.handle == IntPtr.Zero;
 
-		public static implicit operator IntPtr(GenericSafeHandle h)
-		{
-			return h.DangerousGetHandle();
-		}
+		public static implicit operator IntPtr(GenericSafeHandle h) => h.DangerousGetHandle();
 
 		protected override bool ReleaseHandle()
 		{

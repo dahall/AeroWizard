@@ -12,14 +12,14 @@ namespace TestWizard
 		{
 			InitializeComponent();
 			//this.wizardControl1.TitleIcon = null;
-			foreach (var i in this.wizardControl1.Pages)
+			foreach (var i in wizardControl1.Pages)
 				i.Commit += new System.EventHandler<AeroWizard.WizardPageConfirmEventArgs>(i_Commit);
-			this.wizardControl1.Finished += new System.EventHandler(wizardControl1_Finished);
+			wizardControl1.Finished += new System.EventHandler(wizardControl1_Finished);
 			extraBtn = new Button { Text = "Events", AutoSize = true, AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink, Anchor = AnchorStyles.Top | AnchorStyles.Right, Margin = Padding.Empty };
-			this.wizardControl1.AddCommandControl(extraBtn);
+			wizardControl1.AddCommandControl(extraBtn);
 			extraBtn.Click += extraBtn_Click;
-			this.SystemColorsChanged += MyWizard_SystemColorsChanged;
-			this.StyleChanged += MyWizard_StyleChanged;
+			SystemColorsChanged += MyWizard_SystemColorsChanged;
+			StyleChanged += MyWizard_StyleChanged;
 			if (System.Environment.OSVersion.Version.Major >= 6)
 			{
 				DesktopWindowManager.ColorizationColorChanged += DesktopWindowManager_ColorizationColorChanged;
@@ -89,7 +89,7 @@ namespace TestWizard
 
 		void i_Commit(object sender, AeroWizard.WizardPageConfirmEventArgs e)
 		{
-			System.Diagnostics.Debug.WriteLine(string.Format("--> Page {0} committed.", e.Page.Name));
+			System.Diagnostics.Debug.WriteLine($"--> Page {e.Page.Name} committed.");
 		}
 
 		private void commandLink1_Click(object sender, System.EventArgs e)

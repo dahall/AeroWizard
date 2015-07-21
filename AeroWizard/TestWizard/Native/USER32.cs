@@ -191,6 +191,8 @@ namespace Microsoft.Win32
 			public IntPtr hwndFrom;
 			public IntPtr idFrom;
 			public int code;
+
+			public override string ToString() => $"hwndFrom:{hwndFrom}; idFrom:{idFrom}; code:{code}";
 		}
 	}
 }

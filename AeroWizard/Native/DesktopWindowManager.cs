@@ -6,7 +6,9 @@ using System.Windows.Forms;
 namespace Microsoft.Win32.DesktopWindowManager
 {
 	/// <summary>Main DWM class, provides glass sheet effect and blur behind.</summary>
+	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces")]
 	[System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
+	[System.Security.SecuritySafeCritical]
 	public static class DesktopWindowManager
 	{
 		static object ColorizationColorChangedKey = new object();
@@ -140,6 +142,8 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// <param name="transitionOnMaximized"><c>true</c> if the window's colorization should transition to match the maximized windows; otherwise, <c>false</c>.</param>
 		public static void EnableBlurBehind(this IWin32Window window, System.Drawing.Graphics graphics, System.Drawing.Region region, bool enabled, bool transitionOnMaximized)
 		{
+			if (window == null)
+				throw new ArgumentNullException(nameof(window));
 			NativeMethods.BlurBehind bb = new NativeMethods.BlurBehind(enabled);
 			if (graphics != null && region != null)
 				bb.SetRegion(graphics, region);
@@ -166,6 +170,8 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// <exception cref="ArgumentException">Occurs if control is not a child control.</exception>
 		public static void ExcludeChildFromGlass(this Control parent, Control control)
 		{
+			if (parent == null)
+				throw new ArgumentNullException(nameof(parent));
 			if (control == null)
 				throw new ArgumentNullException(nameof(control));
 			if (!parent.Contains(control))
@@ -191,6 +197,8 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// <param name="padding">The padding to use as the area into which the frame is extended.</param>
 		public static void ExtendFrameIntoClientArea(this IWin32Window window, Padding padding)
 		{
+			if (window == null)
+				throw new ArgumentNullException(nameof(window));
 			NativeMethods.Margins m = new NativeMethods.Margins(padding);
 			NativeMethods.DwmExtendFrameIntoClientArea(window.Handle, ref m);
 		}
@@ -224,6 +232,7 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// <summary>
 		/// Use with GetWindowAttr and WindowAttribute.Cloaked. If the window is cloaked, provides one of the following values explaining why.
 		/// </summary>
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1714:FlagsEnumsShouldHavePluralNames")]
 		[Flags]
 		public enum CloakingSource
 		{
@@ -240,6 +249,8 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// </summary>
 		public enum GetWindowAttr
 		{
+			/// <summary>No attribute.</summary>
+			None = 0,
 			/// <summary>Gets whether non-client rendering is enabled. The retrieved value is of type bool. True if non-client rendering is enabled; otherwise, False.</summary>
 			NonClientRenderingEnabled = 1,
 			/// <summary>Gets the bounds of the caption button area in the window-relative space. The retrieved value is of type RECT.</summary>
@@ -255,6 +266,8 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// </summary>
 		public enum SetWindowAttr
 		{
+			/// <summary>No attribute.</summary>
+			None = 0,
 			/// <summary>Sets the non-client rendering policy. The retrieved value is from the NonClientRenderingPolicy enumeration.</summary>
 			NonClientRenderingPolicy = 2,
 			/// <summary>Enables or forcibly disables DWM transitions. The retrieved value is of type bool. True to disable transitions or False to enable transitions.</summary>
@@ -284,44 +297,33 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// </summary>
 		/// <typeparam name="T">Return type. Must match the attribute.</typeparam>
 		/// <param name="window">The window.</param>
-		/// <param name="attr">The attribute.</param>
+		/// <param name="attribute">The attribute.</param>
 		/// <returns>Value of the windows attribute.</returns>
-		public static T GetWindowAttribute<T>(this IWin32Window window, GetWindowAttr attr) where T : struct
+		public static T GetWindowAttribute<T>(this IWin32Window window, GetWindowAttr attribute) where T : struct
 		{
-			T retVal = default(T);
-			int cbAttr = System.Runtime.InteropServices.Marshal.SizeOf(typeof(T));
-			IntPtr ptr = System.Runtime.InteropServices.Marshal.AllocHGlobal(cbAttr);
-			try
+			if (window == null)
+				throw new ArgumentNullException(nameof(window));
+			using (var ptr = System.Runtime.InteropServices.SafeHGlobalHandle.AllocHGlobal<T>())
 			{
-				NativeMethods.DwmGetWindowAttribute(window.Handle, (NativeMethods.DWMWINDOWATTRIBUTE)attr, ptr, cbAttr);
-				retVal = (T)System.Runtime.InteropServices.Marshal.PtrToStructure(ptr, typeof(T));
+				NativeMethods.DwmGetWindowAttribute(window.Handle, (NativeMethods.DWMWINDOWATTRIBUTE)attribute, ptr, ptr.Size);
+				return ptr.ToStructure<T>();
 			}
-			finally
-			{
-				System.Runtime.InteropServices.Marshal.FreeHGlobal(ptr);
-			}
-			return retVal;
 		}
 
 		/// <summary>
 		/// Sets the specified window attribute through the Desktop Window Manager (DWM).
 		/// </summary>
 		/// <param name="window">The window.</param>
-		/// <param name="attr">The attribute.</param>
-		/// <param name="val">The value.</param>
-		public static void SetWindowAttribute(this IWin32Window window, SetWindowAttr attr, object val)
+		/// <param name="attribute">The attribute.</param>
+		/// <param name="value">The value.</param>
+		public static void SetWindowAttribute(this IWin32Window window, SetWindowAttr attribute, object value)
 		{
-			int cbAttr = System.Runtime.InteropServices.Marshal.SizeOf(val);
-			IntPtr ptr = System.Runtime.InteropServices.Marshal.AllocHGlobal(cbAttr);
-			try
-			{
-				System.Runtime.InteropServices.Marshal.StructureToPtr(val, ptr, false);
-				NativeMethods.DwmSetWindowAttribute(window.Handle, (NativeMethods.DWMWINDOWATTRIBUTE)attr, ptr, cbAttr);
-			}
-			finally
-			{
-				System.Runtime.InteropServices.Marshal.FreeHGlobal(ptr);
-			}
+			if (window == null)
+				throw new ArgumentNullException(nameof(window));
+			if (value == null)
+				throw new ArgumentNullException(nameof(value));
+			using (var ptr = new System.Runtime.InteropServices.SafeHGlobalHandle(value))
+				NativeMethods.DwmSetWindowAttribute(window.Handle, (NativeMethods.DWMWINDOWATTRIBUTE)attribute, ptr, ptr.Size);
 		}
 
 		/// <summary>
@@ -361,6 +363,7 @@ namespace Microsoft.Win32.DesktopWindowManager
 		}
 
 		[System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
+		[System.Security.SecuritySafeCritical]
 		private class MessageWindow : NativeWindow, IDisposable
 		{
 			const int WM_DWMCOLORIZATIONCOLORCHANGED = 0x0320;
@@ -368,6 +371,7 @@ namespace Microsoft.Win32.DesktopWindowManager
 			const int WM_DWMNCRENDERINGCHANGED = 0x031F;
 			//const int WM_DWMWINDOWMAXIMIZEDCHANGE = 0x0321;
 
+			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
 			public MessageWindow()
 			{
 				CreateParams cp = new CreateParams() { Style = 0, ExStyle = 0, ClassStyle = 0, Parent = IntPtr.Zero };

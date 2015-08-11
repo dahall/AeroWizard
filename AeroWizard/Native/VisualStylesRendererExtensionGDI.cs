@@ -9,15 +9,22 @@ namespace System.Windows.Forms.VisualStyles
 
 		public static void DrawGlassBackground(this VisualStyleRenderer rnd, IDeviceContext dc, Rectangle bounds, Rectangle clipRectangle, bool rightToLeft = false)
 		{
+			const uint GDI_ERROR = 0xFFFFFFFF;
+			//const uint LAYOUT_LRT = 0;
+			const uint LAYOUT_RTL = 1;
 			DrawWrapper(rnd, dc, bounds,
 				delegate(IntPtr memoryHdc)
 				{
 					NativeMethods.RECT rBounds = new NativeMethods.RECT(bounds);
 					NativeMethods.RECT rClip = new NativeMethods.RECT(clipRectangle);
 					// Draw background
-					if (rightToLeft) NativeMethods.SetLayout(memoryHdc, 1);
+					uint oldLayout = GDI_ERROR;
+					if (rightToLeft)
+						if ((oldLayout = NativeMethods.SetLayout(memoryHdc, LAYOUT_RTL)) == GDI_ERROR)
+							throw new NotSupportedException("Unable to change graphics layout to RTL.");
 					NativeMethods.DrawThemeBackground(rnd.Handle, memoryHdc, rnd.Part, rnd.State, ref rBounds, ref rClip);
-					NativeMethods.SetLayout(memoryHdc, 0);
+					if (oldLayout != GDI_ERROR)
+						NativeMethods.SetLayout(memoryHdc, oldLayout);
 				}
 			);
 		}

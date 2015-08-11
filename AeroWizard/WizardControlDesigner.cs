@@ -69,10 +69,7 @@ namespace AeroWizard.Design
 		{
 			IDesignerHost h = DesignerHost;
 			IComponentChangeService c = ComponentChangeService;
-			WizardControl wiz = Control as WizardControl;
-			if (h == null || c == null)
-				throw new ArgumentNullException("Both IDesignerHost and IComponentChangeService arguments cannot be null.");
-
+			WizardControl wiz = Control;
 			DesignerTransaction dt = null;
 			try
 			{
@@ -109,7 +106,7 @@ namespace AeroWizard.Design
 			IDesignerHost h = DesignerHost;
 			IComponentChangeService c = ComponentChangeService;
 			if (h == null || c == null)
-				throw new ArgumentNullException("Both IDesignerHost and IComponentChangeService arguments cannot be null.");
+				throw new ArgumentException("Both IDesignerHost and IComponentChangeService arguments cannot be null.");
 
 			if (Control == null || !Control.Pages.Contains(page))
 				return;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 namespace Microsoft.Win32
@@ -7,80 +8,112 @@ namespace Microsoft.Win32
 	{
 		internal const string USER32 = "user32.dll";
 
-		[DllImport(USER32, CharSet = CharSet.Unicode, ExactSpelling = true)]
+		[DllImport(USER32, ExactSpelling = true)]
+		[System.Security.SecurityCritical]
 		public static extern IntPtr GetActiveWindow();
 
-		[DllImport(USER32, CharSet = CharSet.Unicode, ExactSpelling = true)]
-		public static extern IntPtr ChildWindowFromPointEx(IntPtr hwndParent, System.Drawing.Point pt, System.Windows.Forms.GetChildAtPointSkip uFlags);
+		[DllImport(USER32, CharSet = CharSet.Auto, ExactSpelling = true)]
+		[System.Security.SecurityCritical]
+		public static extern IntPtr ChildWindowFromPointEx(IntPtr hwndParent, ref System.Drawing.Point pt, System.Windows.Forms.GetChildAtPointSkip uFlags);
 
 		[DllImport(USER32, CharSet = CharSet.Auto, ExactSpelling = true)]
 		[return: MarshalAs(UnmanagedType.Bool)]
+		[System.Security.SecurityCritical]
 		public static extern bool GetClientRect(IntPtr hWnd, [In, Out] ref NativeMethods.RECT rect);
 
 		public static IntPtr GetWindowLong(IntPtr hWnd, int nIndex)
 		{
+			IntPtr ret = IntPtr.Zero;
 			if (IntPtr.Size == 4)
-				return GetWindowLong32(hWnd, nIndex);
-			return GetWindowLongPtr64(hWnd, nIndex);
+				ret = (IntPtr)GetWindowLong32(hWnd, nIndex);
+			else
+				ret = GetWindowLongPtr(hWnd, nIndex);
+			if (ret == IntPtr.Zero)
+				throw new System.ComponentModel.Win32Exception();
+			return ret;
 		}
 
-		[DllImport(USER32, EntryPoint = "GetWindowLong", CharSet = CharSet.Auto)]
-		public static extern IntPtr GetWindowLong32(IntPtr hWnd, int nIndex);
+		[DllImport(USER32, EntryPoint = "GetWindowLong", SetLastError = true)]
+		[SuppressMessage("Microsoft.Portability", "CA1901:PInvokeDeclarationsShouldBePortable", MessageId = "return", Justification = "This declaration is not used on 64-bit Windows.")]
+		[SuppressMessage("Microsoft.Portability", "CA1901:PInvokeDeclarationsShouldBePortable", MessageId = "2", Justification = "This declaration is not used on 64-bit Windows.")]
+		[System.Security.SecurityCritical]
+		public static extern int GetWindowLong32(IntPtr hWnd, int nIndex);
 
-		[DllImport(USER32, EntryPoint = "GetWindowLongPtr", CharSet = CharSet.Auto)]
-		public static extern IntPtr GetWindowLongPtr64(IntPtr hWnd, int nIndex);
+		[DllImport(USER32, EntryPoint = "GetWindowLongPtr", SetLastError = true)]
+		[SuppressMessage("Microsoft.Interoperability", "CA1400:PInvokeEntryPointsShouldExist", Justification = "Entry point does exist on 64-bit Windows.")]
+		[System.Security.SecurityCritical]
+		public static extern IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex);
 
 		[DllImport(USER32, ExactSpelling = true, SetLastError = true)]
 		[return: MarshalAs(UnmanagedType.Bool)]
+		[System.Security.SecurityCritical]
 		public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
 
 		[DllImport(USER32, ExactSpelling = true)]
 		[return: MarshalAs(UnmanagedType.Bool)]
+		[System.Security.SecurityCritical]
 		public static extern bool InvalidateRect(IntPtr hWnd, [In] ref NativeMethods.RECT rect, [MarshalAs(UnmanagedType.Bool)] bool bErase);
 
 		[DllImport(USER32, ExactSpelling = true)]
 		[return: MarshalAs(UnmanagedType.Bool)]
+		[System.Security.SecurityCritical]
 		public static extern bool InvalidateRect(IntPtr hWnd, IntPtr rect, [MarshalAs(UnmanagedType.Bool)] bool bErase);
 
 		[DllImport(USER32, ExactSpelling = true, CharSet = CharSet.Auto)]
+		[System.Security.SecurityCritical]
 		public static extern int LoadString(IntPtr hInstance, int uID, out IntPtr lpBuffer, int nBufferMax);
 
 		[DllImport(USER32, CharSet = CharSet.Auto, ExactSpelling = true)]
 		[return: MarshalAs(UnmanagedType.Bool)]
+		[System.Security.SecurityCritical]
 		public static extern bool ScreenToClient(IntPtr hWnd, [In, Out] ref System.Drawing.Point lpPoint);
 
 		[DllImport(USER32, CharSet = CharSet.Unicode, SetLastError = false)]
+		[System.Security.SecurityCritical]
 		public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
 		[DllImport(USER32, CharSet = CharSet.Unicode, SetLastError = false)]
-		public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, int wParam, IntPtr lParam);
+		[System.Security.SecurityCritical]
+		public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, [MarshalAs(UnmanagedType.SysInt)] int wParam, IntPtr lParam);
 
 		[DllImport(USER32, CharSet = CharSet.Unicode, SetLastError = false)]
-		public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, int wParam, int lParam);
+		[System.Security.SecurityCritical]
+		public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, [MarshalAs(UnmanagedType.SysInt)] int wParam, [MarshalAs(UnmanagedType.SysInt)] int lParam);
 
 		public static IntPtr SendMessage(IntPtr hWnd, uint Msg, int wParam = 0) => SendMessage(hWnd, Msg, wParam, 0);
 
 		[DllImport(USER32, CharSet = CharSet.Unicode, SetLastError = false)]
+		[System.Security.SecurityCritical]
 		public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, ref RECT rect);
 
 		[DllImport(USER32, CharSet = CharSet.Unicode, SetLastError = false)]
+		[System.Security.SecurityCritical]
 		public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, [In, MarshalAs(UnmanagedType.LPWStr)] string lParam);
 
 		[DllImport(USER32, CharSet = CharSet.Unicode, SetLastError = false)]
+		[System.Security.SecurityCritical]
 		public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, ref int wParam, [In, Out, MarshalAs(UnmanagedType.LPWStr)] System.Text.StringBuilder lParam);
 
-		public static IntPtr SetWindowLong(IntPtr hWnd, int nIndex, IntPtr dwNewLong)
+		public static IntPtr SetWindowLong(IntPtr hWnd, Int32 nIndex, IntPtr dwNewLong)
 		{
+			IntPtr ret = IntPtr.Zero;
 			if (IntPtr.Size == 4)
-				return SetWindowLongPtr32(hWnd, nIndex, dwNewLong);
-			return SetWindowLongPtr64(hWnd, nIndex, dwNewLong);
+				ret = SetWindowLongPtr32(hWnd, nIndex, dwNewLong);
+			else
+				ret = SetWindowLongPtr64(hWnd, nIndex, dwNewLong);
+			if (ret == IntPtr.Zero)
+				throw new System.ComponentModel.Win32Exception();
+			return ret;
 		}
 
-		[DllImport(USER32, EntryPoint = "SetWindowLong", CharSet = CharSet.Auto)]
-		private static extern IntPtr SetWindowLongPtr32(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+		[DllImport(USER32, SetLastError = true, EntryPoint = "SetWindowLong")]
+		[SuppressMessage("Microsoft.Portability", "CA1901:PInvokeDeclarationsShouldBePortable", MessageId = "return", Justification = "This declaration is not used on 64-bit Windows.")]
+		[SuppressMessage("Microsoft.Portability", "CA1901:PInvokeDeclarationsShouldBePortable", MessageId = "2", Justification = "This declaration is not used on 64-bit Windows.")]
+		private static extern IntPtr SetWindowLongPtr32(IntPtr hWnd, Int32 nIndex, IntPtr dwNewLong);
 
-		[DllImport(USER32, EntryPoint = "SetWindowLongPtr", CharSet = CharSet.Auto)]
-		private static extern IntPtr SetWindowLongPtr64(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+		[DllImport(USER32, SetLastError = true, EntryPoint = "SetWindowLongPtr")]
+		[SuppressMessage("Microsoft.Interoperability", "CA1400:PInvokeEntryPointsShouldExist", Justification = "Entry point does exist on 64-bit Windows.")]
+		private static extern IntPtr SetWindowLongPtr64(IntPtr hWnd, Int32 nIndex, IntPtr dwNewLong);
 
 		/// <summary>
 		/// Special window handles
@@ -167,10 +200,12 @@ namespace Microsoft.Win32
 
 		[DllImport(USER32, SetLastError = true)]
 		[return: MarshalAs(UnmanagedType.Bool)]
+		[System.Security.SecurityCritical]
 		public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, SetWindowPosFlags uFlags);
 
 		[DllImport(USER32, CharSet = CharSet.Unicode)]
 		[return: MarshalAs(UnmanagedType.Bool)]
+		[System.Security.SecurityCritical]
 		public static extern bool SetWindowText(IntPtr hWnd, [MarshalAs(UnmanagedType.LPWStr)] string lpString);
 
 		[StructLayout(LayoutKind.Sequential)]

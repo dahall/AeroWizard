@@ -8,6 +8,7 @@ namespace Microsoft.Win32
 	{
 		private IDeviceContext idc;
 
+		[System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.LinkDemand, Flags = System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode)]
 		public SafeGDIHandle(IDeviceContext dc)
 			: base(IntPtr.Zero, true)
 		{
@@ -20,6 +21,7 @@ namespace Microsoft.Win32
 
 		public override bool IsInvalid => base.handle == IntPtr.Zero;
 
+		[System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.LinkDemand, Flags = System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode)]
 		public static implicit operator IntPtr(SafeGDIHandle h) => h.DangerousGetHandle();
 
 		protected override bool ReleaseHandle()

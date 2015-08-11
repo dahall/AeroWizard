@@ -92,10 +92,12 @@
     <Compile Include="GlassExtenderProvider.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Native\ButtonExtension.cs" />
     <Compile Include="Native\GenericSafeHandle.cs" />
     <Compile Include="Native\LOGFONT.cs" />
     <Compile Include="Native\SafeDCHandles.cs" />
+    <Compile Include="Native\SafeHGlobalHandle.cs" />
     <Compile Include="Native\SIZE.cs" />
     <Compile Include="Native\TaskbarList.cs" />
     <Compile Include="Native\BITMAPINFO.cs" />

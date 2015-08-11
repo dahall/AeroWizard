@@ -5,7 +5,7 @@ namespace Microsoft.Win32
 {
 	internal static partial class NativeMethods
 	{
-		[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+		[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
 		public struct LOGFONT
 		{
 			public int lfHeight;
@@ -39,7 +39,7 @@ namespace Microsoft.Win32
 					throw new System.ArgumentNullException(nameof(font));
 
 				LOGFONT lf = new LOGFONT();
-				if (GetObject(font.ToHfont(), Marshal.SizeOf(typeof(LOGFONT)), lf) == 0)
+				if (GetObject(font.ToHfont(), Marshal.SizeOf(typeof(LOGFONT)), ref lf) == 0)
 					throw new System.ComponentModel.Win32Exception();
 
 				return lf;
@@ -54,6 +54,7 @@ namespace Microsoft.Win32
 		}
 
 		[DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
-		public static extern int GetObject(System.IntPtr hFont, int nSize, [In, Out] LOGFONT logfont);
+		[System.Security.SecurityCritical]
+		public static extern int GetObject(System.IntPtr hFont, int nSize, [In, Out] ref LOGFONT logfont);
 	}
 }

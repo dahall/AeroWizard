@@ -35,6 +35,7 @@ namespace Microsoft.Win32
 		}
 
 		[DllImport(GDI32, ExactSpelling = true, SetLastError = true)]
-		public static extern IntPtr CreateDIBSection(IntPtr hdc, ref NativeMethods.BITMAPINFO pbmi, uint iUsage, IntPtr ppvBits, IntPtr hSection, uint dwOffset);
+		[System.Security.SecurityCritical]
+		public static extern IntPtr CreateDIBSection(IntPtr hdc, ref BITMAPINFO pbmi, uint iUsage, IntPtr ppvBits, IntPtr hSection, uint dwOffset);
 	}
 }

@@ -35,6 +35,7 @@ namespace System.Windows.Forms
 		/// <typeparam name="T">The <see cref="Control"/> based <see cref="Type"/> of the parent control to retrieve.</typeparam>
 		/// <param name="ctrl">This control.</param>
 		/// <returns>The parent control matching T or null if not found.</returns>
+		[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
 		public static T GetParent<T>(this Control ctrl) where T : Control, new()
 		{
 			Control p = ctrl.Parent;

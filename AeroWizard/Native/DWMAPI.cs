@@ -130,30 +130,38 @@ namespace Microsoft.Win32
 		}
 
 		[DllImport(DWMAPI, EntryPoint = "#127", PreserveSig = false)]
+		[System.Security.SecurityCritical]
 		public static extern void DwmGetColorizationParameters(ref ColorizationParams parameters);
 
 		[DllImport(DWMAPI, EntryPoint = "#131", PreserveSig = false)]
+		[System.Security.SecurityCritical]
 		public static extern void DwmSetColorizationParameters(ref ColorizationParams parameters, uint unk);
 
 		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
+		[System.Security.SecurityCritical]
 		public static extern void DwmEnableBlurBehindWindow(IntPtr hWnd, ref BlurBehind pBlurBehind);
 
 		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
+		[System.Security.SecurityCritical]
 		public static extern void DwmEnableComposition(int compositionAction);
 
 		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
+		[System.Security.SecurityCritical]
 		public static extern void DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins pMarInset);
 
 		//[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
 		//public static extern void DwmGetColorizationColor(out uint ColorizationColor, [MarshalAs(UnmanagedType.Bool)]out bool ColorizationOpaqueBlend);
 
 		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
+		[System.Security.SecurityCritical]
 		public static extern void DwmGetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE dwAttribute, IntPtr pvAttribute, int cbAttribute);
 
 		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
+		[System.Security.SecurityCritical]
 		public static extern void DwmIsCompositionEnabled(ref int pfEnabled);
 
 		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
+		[System.Security.SecurityCritical]
 		public static extern void DwmSetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE dwAttribute, [In] IntPtr pvAttribute, int cbAttribute);
 	}
 }

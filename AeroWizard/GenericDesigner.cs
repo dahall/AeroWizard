@@ -68,7 +68,7 @@ namespace System.ComponentModel.Design
 			while (i < col.Count)
 			{
 				string curCat = col[i].Category;
-				if (string.Compare(curCat, cat, true) != 0)
+				if (string.Compare(curCat, cat, true, Globalization.CultureInfo.CurrentCulture) != 0)
 				{
 					col.Insert(i++, new DesignerActionHeaderItem(curCat));
 					cat = curCat;
@@ -113,6 +113,7 @@ namespace System.ComponentModel.Design
 			}
 		}
 
+		[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "d")]
 		public static void RemoveProperties(this ComponentDesigner d, System.Collections.IDictionary properties, IEnumerable<string> propertiesToRemove)
 		{
 			foreach (string p in propertiesToRemove)
@@ -146,13 +147,13 @@ namespace System.ComponentModel.Design
 
 		private static int CompareItems(DesignerActionItem a, DesignerActionItem b)
 		{
-			int c = string.Compare(a.Category ?? string.Empty, b.Category ?? string.Empty, true);
+			int c = string.Compare(a.Category ?? string.Empty, b.Category ?? string.Empty, true, Globalization.CultureInfo.CurrentCulture);
 			if (c != 0)
 				return c;
 			c = (int)a.Properties["Order"] - (int)b.Properties["Order"];
 			if (c != 0)
 				return c;
-			return string.Compare(a.DisplayName, b.DisplayName, true);
+			return string.Compare(a.DisplayName, b.DisplayName, true, Globalization.CultureInfo.CurrentCulture);
 		}
 	}
 
@@ -347,6 +348,8 @@ namespace System.Windows.Forms.Design
 
 		public DialogResult ShowDialog(Form dialog)
 		{
+			if (dialog == null)
+				throw new ArgumentNullException(nameof(dialog));
 			IUIService service = GetService<IUIService>();
 			if (service != null)
 				return service.ShowDialog(dialog);

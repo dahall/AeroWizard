@@ -7,6 +7,7 @@ namespace System.Collections.Generic
 	/// A generic list that provides event for changes to the list.
 	/// </summary>
 	/// <typeparam name="T">Type for the list.</typeparam>
+	[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
 	[Serializable]
 	public class EventedList<T> : IList<T>, IList
 	{
@@ -33,7 +34,8 @@ namespace System.Collections.Generic
 		/// Initializes a new instance of the <see cref="EventedList{T}" /> class that contains elements copied from the specified collection and has sufficient capacity to accommodate the number of elements copied.
 		/// </summary>
 		/// <param name="collection">The collection whose elements are copied to the new list.</param>
-		/// <exception cref="System.ArgumentNullException"><paramref name="collection"/> is <c>null</c>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="collection"/> is <c>null</c>.</exception>
+		[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
 		public EventedList(IEnumerable<T> collection)
 		{
 			if (collection == null)
@@ -288,7 +290,7 @@ namespace System.Collections.Generic
 			}
 			if ((_size - index) < count)
 			{
-				throw new ArgumentException();
+				throw new ArgumentException($"{nameof(index)} and {nameof(count)} do not denote a valid range in the {nameof(EventedList<T>)}.");
 			}
 			return Array.BinarySearch<T>(_items, index, count, item, comparer);
 		}
@@ -394,7 +396,7 @@ namespace System.Collections.Generic
 		{
 			if ((_size - index) < count)
 			{
-				throw new ArgumentException();
+				throw new ArgumentException($"{nameof(array)} is multidimensional. -or- {nameof(arrayIndex)} is equal to or greater than the length of {nameof(array)}. -or- The number of elements in the source list is greater than the available space from {nameof(arrayIndex)} to the end of the destination {nameof(array)}. -or- Type {nameof(T)} cannot be cast automatically to the type of the destination {nameof(array)}.");
 			}
 			Array.Copy(_items, index, array, arrayIndex, count);
 		}
@@ -620,20 +622,20 @@ namespace System.Collections.Generic
 		public EventedList<T>.Enumerator GetEnumerator() => new EventedList<T>.Enumerator((EventedList<T>)this);
 
 		/// <summary>
-		/// Creates a shallow copy of a range of elements in the source <see cref="EventedList{T}"/>.
+		/// Creates a shallow copy of a range of elements in the source <see cref="EventedList{T}" />.
 		/// </summary>
-		/// <param name="index">The zero-based <see cref="EventedList{T}"/> index at which the range starts.</param>
+		/// <param name="index">The zero-based <see cref="EventedList{T}" /> index at which the range starts.</param>
 		/// <param name="count">The number of elements in the range.</param>
-		/// <returns>A shallow copy of a range of elements in the source <see cref="EventedList{T}"/>.</returns>
+		/// <returns>A shallow copy of a range of elements in the source <see cref="EventedList{T}" />.</returns>
 		public EventedList<T> GetRange(int index, int count)
 		{
 			if ((index < 0) || (count < 0))
 			{
-				throw new ArgumentOutOfRangeException((index < 0) ? "index" : "count");
+				throw new ArgumentOutOfRangeException((index < 0) ? nameof(index) : nameof(count));
 			}
 			if ((_size - index) < count)
 			{
-				throw new ArgumentException();
+				throw new ArgumentException($"{nameof(index)} and {nameof(count)} do not denote a valid range of elements in the {nameof(EventedList<T>)}.");
 			}
 			EventedList<T> list = new EventedList<T>(count);
 			Array.Copy(_items, index, list._items, 0, count);
@@ -646,20 +648,18 @@ namespace System.Collections.Generic
 		/// </summary>
 		/// <param name="array">The array.</param>
 		/// <param name="arrayIndex">Index of the array.</param>
-		/// <exception cref="System.ArgumentException"></exception>
+		/// <exception cref="System.ArgumentException">Destination array cannot be null or multidimensional.</exception>
 		void ICollection.CopyTo(Array array, int arrayIndex)
 		{
-			if ((array != null) && (array.Rank != 1))
-			{
-				throw new ArgumentException();
-			}
+			if (array?.Rank != 1)
+				throw new ArgumentException("Destination array cannot be null or multidimensional.", nameof(array));
 			try
 			{
 				Array.Copy(_items, 0, array, arrayIndex, _size);
 			}
-			catch (ArrayTypeMismatchException)
+			catch (ArrayTypeMismatchException e)
 			{
-				throw new ArgumentException();
+				throw new ArgumentException("Type mismatch", e);
 			}
 		}
 
@@ -1027,7 +1027,7 @@ namespace System.Collections.Generic
 			}
 			if ((_size - index) < count)
 			{
-				throw new ArgumentException();
+				throw new ArgumentException($"{nameof(index)} and {nameof(count)} do not denote a valid range of elements in the {nameof(EventedList<T>)}.");
 			}
 			if (count > 0)
 			{
@@ -1066,7 +1066,7 @@ namespace System.Collections.Generic
 			}
 			if ((_size - index) < count)
 			{
-				throw new ArgumentException();
+				throw new ArgumentException($"{nameof(index)} and {nameof(count)} do not denote a valid range of elements in the {nameof(EventedList<T>)}.");
 			}
 			Array.Reverse(_items, index, count);
 			_version++;
@@ -1103,7 +1103,7 @@ namespace System.Collections.Generic
 			}
 			if ((_size - index) < count)
 			{
-				throw new ArgumentException();
+				throw new ArgumentException($"{nameof(index)} and {nameof(count)} do not denote a valid range of elements in the {nameof(EventedList<T>)}.");
 			}
 			Array.Sort<T>(_items, index, count, comparer);
 			_version++;
@@ -1224,7 +1224,7 @@ namespace System.Collections.Generic
 		{
 			if (!EventedList<T>.IsCompatibleObject(value))
 			{
-				throw new ArgumentException("value");
+				throw new ArgumentException("Incompatible type.", nameof(value));
 			}
 		}
 
@@ -1342,6 +1342,7 @@ namespace System.Collections.Generic
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 #pragma warning disable 693
+		[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
 		public class ListChangedEventArgs<T> : EventArgs
 		{
 			/// <summary>

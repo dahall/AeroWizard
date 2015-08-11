@@ -68,25 +68,32 @@ namespace Microsoft.Win32
 			NoMirrorHelp = 0x00000008
 		}
 
-		[DllImport(UXTHEME)]
-		public static extern int DrawThemeBackground(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, ref NativeMethods.RECT pRect, ref NativeMethods.RECT pClipRect);
+		[DllImport(UXTHEME, PreserveSig = false)]
+		[System.Security.SecurityCritical]
+		public static extern void DrawThemeBackground(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, ref NativeMethods.RECT pRect, ref NativeMethods.RECT pClipRect);
 
-		[DllImport(UXTHEME)]
-		public static extern int DrawThemeIcon(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, ref NativeMethods.RECT pRect, IntPtr himl, int iImageIndex);
+		[DllImport(UXTHEME, PreserveSig = false)]
+		[System.Security.SecurityCritical]
+		public static extern void DrawThemeIcon(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, ref NativeMethods.RECT pRect, IntPtr himl, int iImageIndex);
 
-		[DllImport(UXTHEME, CharSet = CharSet.Unicode)]
-		public static extern int DrawThemeTextEx(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, string text, int iCharCount, int dwFlags, ref NativeMethods.RECT pRect, ref DrawThemeTextOptions pOptions);
-
-		[DllImport(UXTHEME, ExactSpelling = true)]
-		public static extern int GetThemeMargins(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, int iPropId, IntPtr prc, out NativeMethods.RECT pMargins);
+		[DllImport(UXTHEME, CharSet = CharSet.Unicode, PreserveSig = false)]
+		[System.Security.SecurityCritical]
+		public static extern void DrawThemeTextEx(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, string text, int iCharCount, int dwFlags, ref NativeMethods.RECT pRect, ref DrawThemeTextOptions pOptions);
 
 		[DllImport(UXTHEME, ExactSpelling = true, PreserveSig = false)]
+		[System.Security.SecurityCritical]
+		public static extern void GetThemeMargins(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, int iPropId, IntPtr prc, out NativeMethods.RECT pMargins);
+
+		[DllImport(UXTHEME, ExactSpelling = true, PreserveSig = false)]
+		[System.Security.SecurityCritical]
 		public static extern void GetThemeTransitionDuration(IntPtr hTheme, int iPartId, int iStateIdFrom, int iStateIdTo, int iPropId, ref UInt32 pdwDuration);
 
 		[DllImport(UXTHEME, ExactSpelling = true, PreserveSig = false, CharSet = CharSet.Unicode)]
+		[System.Security.SecurityCritical]
 		public static extern void SetWindowTheme(IntPtr hWnd, string pszSubAppName, string pszSubIdList);
 
 		[DllImport(UXTHEME, ExactSpelling = true, PreserveSig = false)]
+		[System.Security.SecurityCritical]
 		public static extern void SetWindowThemeAttribute(IntPtr hWnd, WindowThemeAttributeType wtype, ref WTA_OPTIONS attributes, int size);
 
 		[StructLayout(LayoutKind.Sequential)]

@@ -86,7 +86,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <VSTemplate Include="Wizard97ItemTemplate.vstemplate" />
+    <VSTemplate Include="Wizard97ItemTemplate.vstemplate">
+		<OutputSubPath>Windows Forms</OutputSubPath>
+		<SubType>Designer</SubType>
+	</VSTemplate>
     <None Include="__PreviewImage.PNG" />
     <None Include="__TemplateIcon.ico" />
   </ItemGroup>

@@ -12,7 +12,7 @@ namespace AeroWizard
 	/// </summary>
 	//[Designer("AeroWizard.Design.ThemedLabelDesigner")]
 	[DefaultProperty("Text")]
-	[ToolboxItem(true), ToolboxBitmap(typeof(WizardControl), "ThemedLabel.bmp")]
+	[ToolboxItem(true), ToolboxBitmap(typeof(ThemedLabel), "ThemedLabel.bmp")]
 	public class ThemedLabel : Label
 	{
 		/// <summary>

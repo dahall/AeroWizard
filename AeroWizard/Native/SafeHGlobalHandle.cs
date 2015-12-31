@@ -73,7 +73,6 @@ namespace System.Runtime.InteropServices
 		/// </summary>
 		/// <typeparam name="T">Native structure type</typeparam>
 		/// <param name="values">Collection of structure objects</param>
-		/// <param name="count">Number of elements in the collection</param>
 		/// <returns>SafeHGlobalHandle object to an native (unmanaged) array of structures</returns>
 		public static SafeHGlobalHandle AllocHGlobal<T>(ICollection<T> values) where T : struct
 		{

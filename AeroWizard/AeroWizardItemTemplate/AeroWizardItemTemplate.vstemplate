@@ -5,6 +5,7 @@
 		<Name>AeroWizard Control</Name>
 		<Description>Windows Form hosting a WizardControl to create an Aero style wizard</Description>
 		<ProjectType>CSharp</ProjectType>
+		<CreateNewFolder>true</CreateNewFolder>
 		<NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
 		<RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
 		<SortOrder>100</SortOrder>
@@ -29,7 +30,7 @@
 				<Assembly>AeroWizard</Assembly>
 			</Reference>
 		</References>
-		<ProjectItem SubType="Form" TargetFileName="$fileinputname$.cs" ReplaceParameters="true">AeroWizardItemTemplate.cs</ProjectItem>
+		<ProjectItem SubType="Form" TargetFileName="$fileinputname$.cs" ReplaceParameters="true" OpenInEditor="true">AeroWizardItemTemplate.cs</ProjectItem>
 		<ProjectItem SubType="" TargetFileName="$fileinputname$.Designer.cs" ReplaceParameters="true">AeroWizardItemTemplate.Designer.cs</ProjectItem>
 		<ProjectItem SubType="" TargetFileName="$fileinputname$.resx" ReplaceParameters="true">AeroWizardItemTemplate.resx</ProjectItem>
 	</TemplateContent>
@@ -39,7 +40,7 @@
 	</WizardExtension>
 	<WizardData>
 		<packages repository="extension" repositoryId="AeroWizardTemplates..134dde00-8c48-450a-926c-63377b215799" >
-			<package id="AeroWizard" version="2.1.0" />
+			<package id="AeroWizard" version="2.1.1" />
 		</packages>
 	</WizardData>
 </VSTemplate>

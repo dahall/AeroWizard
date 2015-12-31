@@ -86,7 +86,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <VSTemplate Include="CustomWizardItemTemplate.vstemplate" />
+    <VSTemplate Include="CustomWizardItemTemplate.vstemplate" >
+      <OutputSubPath>Windows Forms</OutputSubPath>
+      <SubType>Designer</SubType>
+    </VSTemplate>
   </ItemGroup>
   <ItemGroup>
     <None Include="CustomWizardItemTemplate.resx">

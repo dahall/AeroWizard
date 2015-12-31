@@ -8,7 +8,7 @@ namespace AeroWizard
 	/// <summary>
 	/// A table layout panel that supports a glass overlay.
 	/// </summary>
-	[ToolboxItem(true), System.Drawing.ToolboxBitmap(typeof(WizardControl), "ThemedTableLayoutPanel.bmp")]
+	[ToolboxItem(true), System.Drawing.ToolboxBitmap(typeof(ThemedTableLayoutPanel), "ThemedTableLayoutPanel.bmp")]
 	public class ThemedTableLayoutPanel : TableLayoutPanel
 	{
 		private VisualStyleRenderer rnd;

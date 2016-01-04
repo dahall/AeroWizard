@@ -17,10 +17,16 @@
 	</metadata>
 	<files>
 		<file src="bin\Release\v2.0\AeroWizard.dll" target="lib\net20\AeroWizard.dll" />
+		<file src="bin\Release\v2.0\AeroWizard.pdb" target="lib\net20\AeroWizard.pdb" />
 		<file src="bin\Release\v2.0\AeroWizard.XML" target="lib\net20\AeroWizard.XML" />
 		<file src="bin\Release\v3.5\AeroWizard.dll" target="lib\net35\AeroWizard.dll" />
+		<file src="bin\Release\v3.5\AeroWizard.pdb" target="lib\net35\AeroWizard.pdb" />
 		<file src="bin\Release\v3.5\AeroWizard.XML" target="lib\net35\AeroWizard.XML" />
 		<file src="bin\Release\v4.0\AeroWizard.dll" target="lib\net40\AeroWizard.dll" />
+		<file src="bin\Release\v4.0\AeroWizard.pdb" target="lib\net40\AeroWizard.pdb" />
 		<file src="bin\Release\v4.0\AeroWizard.XML" target="lib\net40\AeroWizard.XML" />
+		<file src="*.cs" target="src" />
+		<file src="Native\*.cs" target="src\Native" />
+		<file src="Properties\*.cs" target="src\Properties" />
 	</files>
 </package>

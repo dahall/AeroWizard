@@ -154,7 +154,7 @@
 			this.nextButton.Name = "nextButton";
 			this.nextButton.Size = new System.Drawing.Size(70, 23);
 			this.nextButton.TabIndex = 0;
-			this.nextButton.Text = "&Next >";
+			this.nextButton.Text = "&Next";
 			this.nextButton.UseVisualStyleBackColor = true;
 			// 
 			// header

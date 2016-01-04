@@ -77,7 +77,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Packages\AeroWizard.2.1.1.nupkg">
+    <Content Include="Packages\AeroWizard.2.1.2.nupkg">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="source.extension.vsixmanifest">

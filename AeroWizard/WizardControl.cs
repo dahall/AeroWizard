@@ -380,10 +380,8 @@ namespace AeroWizard
 		/// </summary>
 		protected virtual void OnCancelling()
 		{
-			CancelEventHandler h = Cancelling;
 			CancelEventArgs arg = new CancelEventArgs(true);
-			if (h != null)
-				h(this, arg);
+			Cancelling?.Invoke(this, arg);
 
 			if (arg.Cancel)
 			{
@@ -411,9 +409,7 @@ namespace AeroWizard
 		/// </summary>
 		protected virtual void OnFinished()
 		{
-			EventHandler h = Finished;
-			if (h != null)
-				h(this, EventArgs.Empty);
+			Finished?.Invoke(this, EventArgs.Empty);
 
 			if (!this.IsDesignMode())
 				CloseForm(DialogResult.OK);
@@ -513,16 +509,19 @@ namespace AeroWizard
 		/// </summary>
 		protected void OnSelectedPageChanged()
 		{
-			EventHandler temp = SelectedPageChanged;
-			if (temp != null)
-				temp(this, EventArgs.Empty);
+			SelectedPageChanged?.Invoke(this, EventArgs.Empty);
 		}
 
 		private void CloseForm(DialogResult dlgResult)
 		{
 			Form form = base.FindForm();
-			if (form != null && form.Modal)
-				form.DialogResult = dlgResult;
+			if (form != null)
+			{
+				if (form.Modal)
+					form.DialogResult = dlgResult;
+				else
+					form.Close();
+			}
 		}
 
 		private void ConfigureStyles()

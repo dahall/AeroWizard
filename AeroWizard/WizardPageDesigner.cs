@@ -31,7 +31,7 @@ namespace AeroWizard.Design
 		public override void Initialize(System.ComponentModel.IComponent component)
 		{
 			base.Initialize(component);
-			base.Glyphs.Add(new WizardPageDesignerGlyph(this));
+			//base.Glyphs.Add(new WizardPageDesignerGlyph(this));
 			DesignerActionService service = GetService(typeof(DesignerActionService)) as DesignerActionService;
 			if (service != null)
 				service.Remove(component);

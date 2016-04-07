@@ -40,7 +40,7 @@
 	</WizardExtension>
 	<WizardData>
 		<packages repository="extension" repositoryId="AeroWizardTemplates..134dde00-8c48-450a-926c-63377b215799" >
-			<package id="AeroWizard" version="2.1.5" />
+			<package id="AeroWizard" version="2.1.6" />
 		</packages>
 	</WizardData>
 </VSTemplate>

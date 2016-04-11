@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>AeroWizard</id>
-		<version>2.1.6</version>
+		<version>2.1.7</version>
 		<title>Windows Forms Aero-Wizard Control</title>
 		<authors>David Hall</authors>
 		<licenseUrl>http://aerowizard.codeplex.com/license</licenseUrl>
@@ -25,9 +25,9 @@
 		<file src="bin\Release\v4.0\AeroWizard.dll" target="lib\net40\AeroWizard.dll" />
 		<file src="bin\Release\v4.0\AeroWizard.pdb" target="lib\net40\AeroWizard.pdb" />
 		<file src="bin\Release\v4.0\AeroWizard.XML" target="lib\net40\AeroWizard.XML" />
-		<file src="bin\Release\v4.5.2\AeroWizard.dll" target="lib\net45\AeroWizard.dll" />
-		<file src="bin\Release\v4.5.2\AeroWizard.pdb" target="lib\net45\AeroWizard.pdb" />
-		<file src="bin\Release\v4.5.2\AeroWizard.XML" target="lib\net45\AeroWizard.XML" />
+		<file src="bin\Release\v4.5.2\AeroWizard.dll" target="lib\net452\AeroWizard.dll" />
+		<file src="bin\Release\v4.5.2\AeroWizard.pdb" target="lib\net452\AeroWizard.pdb" />
+		<file src="bin\Release\v4.5.2\AeroWizard.XML" target="lib\net452\AeroWizard.XML" />
 		<file src="*.cs" target="src" />
 		<file src="Native\*.cs" target="src\Native" />
 		<file src="Properties\*.cs" target="src\Properties" />

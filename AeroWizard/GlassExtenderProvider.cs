@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
 //using Microsoft.Win32.DesktopWindowManager;
@@ -17,25 +18,19 @@ namespace Microsoft.Win32.DesktopWindowManager
 	[Description("Extender for a Form that adds Aero glass properties.")]
 	public class GlassExtenderProvider : Component, IExtenderProvider
 	{
-		private Dictionary<Control, GlassFormProperties> formProps = new Dictionary<Control, GlassFormProperties>();
+		private readonly Dictionary<Control, GlassFormProperties> formProps = new Dictionary<Control, GlassFormProperties>();
 
 		/// <summary>
 		/// Properties for each form that is extended.
 		/// </summary>
+		[SuppressMessage("ReSharper", "InconsistentNaming")]
 		private class GlassFormProperties
 		{
 			public Point FormMoveLastMousePos = Point.Empty;
-			public bool FormMoveTracking = false;
+			public bool FormMoveTracking;
 			public bool GlassEnabled = true;
 			public Padding GlassMargins = Padding.Empty;
 			public bool GlassMarginMovesForm = true;
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="GlassExtenderProvider"/> class.
-		/// </summary>
-		public GlassExtenderProvider()
-		{
 		}
 
 		/// <summary>
@@ -43,7 +38,7 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// </summary>
 		/// <param name="form">The <see cref="System.Windows.Forms.Form"/> to be extended.</param>
 		/// <returns><c>true</c> if the glass is enabled; otherwise <c>false</c>.</returns>
-		[DisplayName("GlassEnabled")]
+		[DisplayName(@"GlassEnabled")]
 		[DefaultValue(true)]
 		[Category("Behavior")]
 		[Description("Indicates whether extending glass into the client area is enabled.")]
@@ -60,7 +55,7 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// </summary>
 		/// <param name="form">The <see cref="System.Windows.Forms.Form"/> to be extended.</param>
 		/// <returns><c>true</c> if clicking and dragging on the top margin moves the form; otherwise, <c>false</c>.</returns>
-		[DisplayName("GlassMarginMovesForm")]
+		[DisplayName(@"GlassMarginMovesForm")]
 		[DefaultValue(true)]
 		[Category("Behavior")]
 		[Description("Specifies if clicking and dragging within the margin will move the form. ")]
@@ -78,7 +73,7 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// <param name="form">The <see cref="System.Windows.Forms.Form"/> to be extended.</param>
 		/// <returns>The margins where the glass will be extended.</returns>
 		[DefaultValue(typeof(Padding), "0")]
-		[DisplayName("GlassMargins")]
+		[DisplayName(@"GlassMargins")]
 		[Description("Specifies the interior glass margin of the form. Set to -1 for full window glass.")]
 		[Category("Layout")]
 		public Padding GetGlassMargins(Form form)
@@ -105,7 +100,7 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// <param name="value">The enabled value.</param>
 		public void SetGlassEnabled(Form form, bool value)
 		{
-			GlassFormProperties prop = GetFormProperties(form);
+			var prop = GetFormProperties(form);
 			prop.GlassEnabled = value;
 			GlassifyForm(form);
 		}
@@ -117,7 +112,7 @@ namespace Microsoft.Win32.DesktopWindowManager
 		/// <param name="value"><c>true</c> if clicking and dragging within the margin moves the form; otherwise, <c>false</c>.</param>
 		public void SetGlassMarginMovesForm(Form form, bool value)
 		{
-			GlassFormProperties prop = GetFormProperties(form);
+			var prop = GetFormProperties(form);
 			prop.GlassMarginMovesForm = value;
 		}
 
@@ -131,8 +126,8 @@ namespace Microsoft.Win32.DesktopWindowManager
 			if (form == null)
 				throw new ArgumentNullException(nameof(form));
 
-			GlassFormProperties prop = GetFormProperties(form);
-			if (value == null || value == Padding.Empty)
+			var prop = GetFormProperties(form);
+			if (value == Padding.Empty)
 			{
 				prop.GlassMargins = Padding.Empty;
 				UnhookForm(form);
@@ -140,14 +135,14 @@ namespace Microsoft.Win32.DesktopWindowManager
 			else
 			{
 				prop.GlassMargins = value;
-				form.Paint += new PaintEventHandler(form_Paint);
+				form.Paint += form_Paint;
 				if (!form.IsDesignMode())
 				{
-					form.MouseDown += new MouseEventHandler(form_MouseDown);
-					form.MouseMove += new MouseEventHandler(form_MouseMove);
-					form.MouseUp += new MouseEventHandler(form_MouseUp);
-					form.Resize += new EventHandler(form_Resize);
-					form.Shown += new EventHandler(form_Shown);
+					form.MouseDown += form_MouseDown;
+					form.MouseMove += form_MouseMove;
+					form.MouseUp += form_MouseUp;
+					form.Resize += form_Resize;
+					form.Shown += form_Shown;
 				}
 			}
 			form.Invalidate();
@@ -161,12 +156,11 @@ namespace Microsoft.Win32.DesktopWindowManager
 		{
 			if (disposing)
 			{
-				foreach (Form form in formProps.Keys)
+				foreach (var control in formProps.Keys)
 				{
-					if (!form.IsDisposed)
-					{
+					var form = control as Form;
+					if (form != null && !form.IsDisposed)
 						UnhookForm(form);
-					}
 				}
 			}
 			base.Dispose(disposing);
@@ -174,42 +168,32 @@ namespace Microsoft.Win32.DesktopWindowManager
 
 		private void form_MouseDown(object sender, MouseEventArgs e)
 		{
-			if (e.Button == MouseButtons.Left)
-			{
-				GlassFormProperties prop = GetFormProperties(sender as Form);
-				if (prop.GlassMarginMovesForm)
-				{
-					prop.FormMoveTracking = true;
-					prop.FormMoveLastMousePos = ((Control)sender).PointToScreen(e.Location);
-				}
-			}
+			if (e.Button != MouseButtons.Left) return;
+			var prop = GetFormProperties(sender as Form);
+			if (!prop.GlassMarginMovesForm) return;
+			prop.FormMoveTracking = true;
+			prop.FormMoveLastMousePos = ((Control)sender).PointToScreen(e.Location);
 		}
 
 		private void form_MouseMove(object sender, MouseEventArgs e)
 		{
-			Form form = sender as Form;
-			GlassFormProperties prop = GetFormProperties(form);
-			if (prop.FormMoveTracking && !GetNonGlassArea(form, prop).Contains(e.Location))
-			{
-				Point screen = form.PointToScreen(e.Location);
-
-				Point diff = new Point(screen.X - prop.FormMoveLastMousePos.X, screen.Y - prop.FormMoveLastMousePos.Y);
-
-				Point loc = form.Location;
-				loc.Offset(diff);
-				form.Location = loc;
-
-				prop.FormMoveLastMousePos = screen;
-			}
+			var form = sender as Form;
+			if (form == null) return;
+			var prop = GetFormProperties(form);
+			if (!prop.FormMoveTracking || GetNonGlassArea(form, prop).Contains(e.Location)) return;
+			var screen = form.PointToScreen(e.Location);
+			var diff = new Point(screen.X - prop.FormMoveLastMousePos.X, screen.Y - prop.FormMoveLastMousePos.Y);
+			var loc = form.Location;
+			loc.Offset(diff);
+			form.Location = loc;
+			prop.FormMoveLastMousePos = screen;
 		}
 
 		private void form_MouseUp(object sender, MouseEventArgs e)
 		{
-			if (e.Button == MouseButtons.Left)
-			{
-				GlassFormProperties prop = GetFormProperties(sender as Form);
-				prop.FormMoveTracking = false;
-			}
+			if (e.Button != MouseButtons.Left) return;
+			var prop = GetFormProperties(sender as Form);
+			prop.FormMoveTracking = false;
 		}
 
 		private void form_Paint(object sender, PaintEventArgs e)
@@ -219,8 +203,8 @@ namespace Microsoft.Win32.DesktopWindowManager
 
 		private void form_Resize(object sender, EventArgs e)
 		{
-			Form form = sender as Form;
-			if ((DesktopWindowManager.IsCompositionEnabled() && GetGlassEnabled(form)) || form.IsDesignMode())
+			var form = sender as Form;
+			if (form != null && (DesktopWindowManager.IsCompositionEnabled() && GetGlassEnabled(form)) || form.IsDesignMode())
 				InvalidateNonGlassClientArea(form);
 		}
 
@@ -261,7 +245,7 @@ namespace Microsoft.Win32.DesktopWindowManager
 				g.FillRectangle(Brushes.Black, form.ClientRectangle);
 			else
 			{
-				using (Region r = new Region(form.ClientRectangle))
+				using (var r = new Region(form.ClientRectangle))
 				{
 					r.Exclude(GetNonGlassArea(form, prop));
 					g.FillRegion(Brushes.Black, r);
@@ -274,13 +258,11 @@ namespace Microsoft.Win32.DesktopWindowManager
 
 		private void InvalidateNonGlassClientArea(Form form)
 		{
-			Padding glassMargin = GetGlassMargins(form);
-			if (glassMargin != Padding.Empty)
-			{
-				Rectangle rect = new Rectangle(glassMargin.Left, glassMargin.Top, form.ClientRectangle.Width - glassMargin.Right,
-					form.ClientRectangle.Height - glassMargin.Bottom);
-				form.Invalidate(rect, false);
-			}
+			var glassMargin = GetGlassMargins(form);
+			if (glassMargin == Padding.Empty) return;
+			var rect = new Rectangle(glassMargin.Left, glassMargin.Top, form.ClientRectangle.Width - glassMargin.Right,
+				form.ClientRectangle.Height - glassMargin.Bottom);
+			form.Invalidate(rect, false);
 		}
 
 		private void UnhookForm(Form form)

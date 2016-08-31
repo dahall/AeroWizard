@@ -154,4 +154,7 @@
   <data name="WizardTitle" xml:space="preserve">
     <value>Wizard Title</value>
   </data>
+	<data name="WizardPageDefaultHelpText" xml:space="preserve">
+    <value>Help</value>
+  </data>
 </root>

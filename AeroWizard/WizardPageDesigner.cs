@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Drawing;
 using System.Windows.Forms;
@@ -9,32 +8,23 @@ namespace AeroWizard.Design
 {
 	internal class WizardPageDesigner : RichParentControlDesigner<WizardPage, WizardPageDesigner.WizardPageDesignerActionList>
 	{
-		private static string[] propsToRemove = new string[] { "Anchor", "AutoScrollOffset", "AutoSize", "BackColor",
+		private static readonly string[] propsToRemove = new string[] { "Anchor", "AutoScrollOffset", "AutoSize", "BackColor",
 			"BackgroundImage", "BackgroundImageLayout", "ContextMenuStrip", "Cursor", "Dock", "Enabled", "Font",
 			"ForeColor", "Location", "Margin", "MaximumSize", "MinimumSize", "Padding", "TabStop", "UseWaitCursor", "Visible" };
 
-		public override SelectionRules SelectionRules => (SelectionRules.Visible | SelectionRules.Locked);
+		public override SelectionRules SelectionRules => SelectionRules.Visible | SelectionRules.Locked;
 
 		protected override bool EnableDragRect => false;
 
-		public override bool CanBeParentedTo(IDesigner parentDesigner) => ((parentDesigner != null) && (parentDesigner.Component is WizardPageContainer));
+		public override bool CanBeParentedTo(IDesigner parentDesigner) => parentDesigner?.Component is WizardPageContainer;
 
-		internal WizardBaseDesigner ContainerDesigner
-		{
-			get
-			{
-				IDesignerHost host = GetService<IDesignerHost>();
-				return (host != null) ? host.GetDesigner(Control.Owner) as WizardBaseDesigner : null;
-			}
-		}
+		internal WizardBaseDesigner ContainerDesigner => GetService<IDesignerHost>()?.GetDesigner(Control.Owner) as WizardBaseDesigner;
 
 		public override void Initialize(System.ComponentModel.IComponent component)
 		{
 			base.Initialize(component);
 			//base.Glyphs.Add(new WizardPageDesignerGlyph(this));
-			DesignerActionService service = GetService(typeof(DesignerActionService)) as DesignerActionService;
-			if (service != null)
-				service.Remove(component);
+			GetService<DesignerActionService>()?.Remove(component);
 		}
 
 		internal void OnDragDropInternal(DragEventArgs de)
@@ -64,7 +54,7 @@ namespace AeroWizard.Design
 
 		protected override void OnPaintAdornments(PaintEventArgs pe)
 		{
-			Rectangle clientRectangle = Control.ClientRectangle;
+			var clientRectangle = Control.ClientRectangle;
 			clientRectangle.Width--;
 			clientRectangle.Height--;
 			ControlPaint.DrawFocusRectangle(pe.Graphics, clientRectangle);
@@ -158,8 +148,10 @@ namespace AeroWizard.Design
 					case WizardPageDesignerGlyph.ClickState.LastBtn:
 						Designer.Control.Owner.SelectedPage = Designer.Control.Owner.Pages[Designer.Control.Owner.Pages.Count - 1];
 						break;
-					default:
+					case WizardPageDesignerGlyph.ClickState.Control:
 						break;
+					default:
+						throw new ArgumentOutOfRangeException();
 				}
 			}
 			return base.OnMouseDown(g, button, mouseLoc);
@@ -168,20 +160,23 @@ namespace AeroWizard.Design
 
 	internal class WizardPageDesignerGlyph : RichGlyph<WizardPageDesigner>
 	{
-		private const int btnCount = 4, btnSize = 16, navBoxWidth = (btnSize * btnCount) + ((btnCount - 1) * 2) + 4, navBoxHeight = btnSize + 4;
+		private const int btnCount = 4, btnSize = 16, navBoxWidth = btnSize*btnCount + (btnCount - 1)*2 + 4, navBoxHeight = btnSize + 4;
 		private Rectangle navBox;
 
-		public WizardPageDesignerGlyph(WizardPageDesigner designer)
-			: base(designer, new WizardPageDesignerBehavior(designer))
+		public WizardPageDesignerGlyph(WizardPageDesigner designer) : base(designer, new WizardPageDesignerBehavior(designer))
 		{
-			base.Designer.SelectionService.SelectionChanged += selSvc_SelectionChanged;
-			base.Designer.Control.Move += control_Move;
-			base.Designer.Control.Resize += control_Move;
+			Designer.SelectionService.SelectionChanged += selSvc_SelectionChanged;
+			Designer.Control.Move += control_Move;
+			Designer.Control.Resize += control_Move;
 		}
 
 		internal enum ClickState
 		{
-			Control, FirstBtn, PrevBtn, NextBtn, LastBtn
+			Control,
+			FirstBtn,
+			PrevBtn,
+			NextBtn,
+			LastBtn
 		}
 
 		public override Rectangle Bounds => navBox;
@@ -190,16 +185,16 @@ namespace AeroWizard.Design
 
 		public override void Dispose()
 		{
-			base.Designer.SelectionService.SelectionChanged -= selSvc_SelectionChanged;
-			base.Designer.Control.Move -= control_Move;
-			base.Designer.Control.Resize -= control_Move;
+			Designer.SelectionService.SelectionChanged -= selSvc_SelectionChanged;
+			Designer.Control.Move -= control_Move;
+			Designer.Control.Resize -= control_Move;
 			base.Dispose();
 		}
 
 		public override Cursor GetHitTest(Point p)
 		{
-			Rectangle r1 = new Rectangle(navBox.X + 2, navBox.Y + 2, btnSize, btnSize);
-			for (int i = 0; i < btnCount; i++)
+			var r1 = new Rectangle(navBox.X + 2, navBox.Y + 2, btnSize, btnSize);
+			for (var i = 0; i < btnCount; i++)
 			{
 				if (r1.Contains(p))
 				{
@@ -214,19 +209,19 @@ namespace AeroWizard.Design
 
 		public override void Paint(PaintEventArgs pe)
 		{
-			bool isMin7 = (Environment.OSVersion.Version >= new Version(6, 1));
-			string fn = isMin7 ? "Webdings" : "Arial Narrow";
-			string[] btnText = isMin7 ? new string[btnCount] { "9", "3", "4", ":" } : new string[btnCount] { "«", "<", ">", "»" };
-			using (Font f = new Font(fn, btnSize - 2, isMin7 ? FontStyle.Regular : FontStyle.Bold, GraphicsUnit.Pixel))
+			var isMin7 = Environment.OSVersion.Version >= new Version(6, 1);
+			var fn = isMin7 ? "Webdings" : "Arial Narrow";
+			var btnText = isMin7 ? new[] {"9", "3", "4", ":"} : new[] {"«", "<", ">", "»"};
+			using (var f = new Font(fn, btnSize - 2, isMin7 ? FontStyle.Regular : FontStyle.Bold, GraphicsUnit.Pixel))
 			{
 				pe.Graphics.FillRectangle(SystemBrushes.Control, new Rectangle(navBox.X, navBox.Y, navBox.Width + 1, navBox.Height + 1));
-				using (var pen = new Pen(SystemBrushes.ControlDark, 1f) { DashStyle = System.Drawing.Drawing2D.DashStyle.Dot })
+				using (var pen = new Pen(SystemBrushes.ControlDark, 1f) {DashStyle = System.Drawing.Drawing2D.DashStyle.Dot})
 				{
 					pe.Graphics.DrawRectangle(pen, navBox);
-					Rectangle r1 = new Rectangle(navBox.X + 2, navBox.Y + 2, btnSize, btnSize);
+					var r1 = new Rectangle(navBox.X + 2, navBox.Y + 2, btnSize, btnSize);
 					pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-					StringFormat sf = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
-					for (int i = 0; i < btnCount; i++)
+					var sf = new StringFormat() {Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center};
+					for (var i = 0; i < btnCount; i++)
 					{
 						pe.Graphics.DrawRectangle(pen, r1);
 						r1.Offset(1, 1);
@@ -240,32 +235,32 @@ namespace AeroWizard.Design
 
 		private void control_Move(object sender, EventArgs e)
 		{
-			if (object.ReferenceEquals(base.Designer.SelectionService.PrimarySelection, base.Designer.Control))
+			if (ReferenceEquals(Designer.SelectionService.PrimarySelection, Designer.Control))
 			{
 				SetNavBoxes();
-				base.Designer.Adorner.Invalidate();
+				Designer.Adorner.Invalidate();
 			}
 		}
 
 		private void selSvc_SelectionChanged(object sender, EventArgs e)
 		{
-			if (object.ReferenceEquals(base.Designer.SelectionService.PrimarySelection, base.Designer.Control))
+			if (ReferenceEquals(Designer.SelectionService.PrimarySelection, Designer.Control))
 			{
 				SetNavBoxes();
-				base.Designer.Adorner.Enabled = true;
-				base.Designer.Control.Owner.DesignerSelected = true;
+				Designer.Adorner.Enabled = true;
+				Designer.Control.Owner.DesignerSelected = true;
 			}
-			else if (base.Designer.Control.Owner.DesignerSelected)
+			else if (Designer.Control.Owner.DesignerSelected)
 			{
-				base.Designer.Adorner.Enabled = false;
-				base.Designer.Control.Owner.DesignerSelected = false;
+				Designer.Adorner.Enabled = false;
+				Designer.Control.Owner.DesignerSelected = false;
 			}
 		}
 
 		private void SetNavBoxes()
 		{
-			var pt = base.Designer.BehaviorService.ControlToAdornerWindow(base.Designer.Control);
-			navBox = new Rectangle(pt.X + base.Designer.Control.Width - navBoxWidth - 17, pt.Y - navBoxHeight - 5, navBoxWidth, navBoxHeight);
+			var pt = Designer.BehaviorService.ControlToAdornerWindow(Designer.Control);
+			navBox = new Rectangle(pt.X + Designer.Control.Width - navBoxWidth - 17, pt.Y - navBoxHeight - 5, navBoxWidth, navBoxHeight);
 		}
 	}
 }

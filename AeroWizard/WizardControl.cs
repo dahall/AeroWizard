@@ -36,15 +36,15 @@ namespace AeroWizard
 #endif
 		, ISupportInitialize
 	{
-		private static bool isMin6 = System.Environment.OSVersion.Version.Major >= 6;
+		private static readonly bool isMin6 = Environment.OSVersion.Version.Major >= 6;
 
 		private WizardClassicStyle classicStyle = WizardClassicStyle.AeroStyle;
-		private bool themePropsSet = false;
 		private Point formMoveLastMousePos;
 		private bool formMoveTracking;
 		private Form parentForm;
+		private bool themePropsSet;
 		private Icon titleImageIcon;
-		private bool titleImageIconSet = false;
+		private bool titleImageIconSet;
 
 		internal int contentCol = 1;
 
@@ -101,7 +101,7 @@ namespace AeroWizard
 		public string BackButtonToolTipText
 		{
 			get { return backButton.ToolTipText; }
-			set { backButton.ToolTipText = value; base.Invalidate(); }
+			set { backButton.ToolTipText = value; Invalidate(); }
 		}
 
 		/// <summary>
@@ -131,7 +131,7 @@ namespace AeroWizard
 		public WizardClassicStyle ClassicStyle
 		{
 			get { return classicStyle; }
-			set { classicStyle = value; ConfigureStyles(); base.Invalidate(); }
+			set { classicStyle = value; ConfigureStyles(); Invalidate(); }
 		}
 
 		/// <summary>
@@ -252,7 +252,7 @@ namespace AeroWizard
 		public string Title
 		{
 			get { return title.Text; }
-			set { title.Text = value; base.Invalidate(); }
+			set { title.Text = value; Invalidate(); }
 		}
 
 		/// <summary>
@@ -276,7 +276,7 @@ namespace AeroWizard
 					titleImage.ImageIndex = 0;
 				}
 				titleImageIconSet = true;
-				base.Invalidate();
+				Invalidate();
 			}
 		}
 
@@ -312,20 +312,12 @@ namespace AeroWizard
 		}
 
 		/// <summary>
-		/// Advances to the next page in the sequence.
-		/// </summary>
-		public void NextPage()
-		{
-			NextPage(null);
-		}
-
-		/// <summary>
 		/// Advances to the specified page.
 		/// </summary>
 		/// <param name="nextPage">The wizard page to go to next.</param>
 		/// <param name="skipCommit">if set to <c>true</c> skip <see cref="WizardPage.Commit"/> event.</param>
 		/// <exception cref="ArgumentException">When specifying a value for nextPage, it must already be in the Pages collection.</exception>
-		public virtual void NextPage(WizardPage nextPage, bool skipCommit = false)
+		public virtual void NextPage(WizardPage nextPage = null, bool skipCommit = false)
 		{
 			pageContainer.NextPage(nextPage, skipCommit);
 		}
@@ -369,7 +361,7 @@ namespace AeroWizard
 		/// <returns><see cref="Bitmap"/> with the four state images stacked on top of each other.</returns>
 		protected virtual Bitmap GetUnthemedBackButtonImage()
 		{
-			if (System.Environment.OSVersion.Version >= new Version(6, 2))
+			if (Environment.OSVersion.Version >= new Version(6, 2))
 				return Properties.Resources.BackBtnStrip2;
 			else
 				return Properties.Resources.BackBtnStrip;
@@ -380,7 +372,7 @@ namespace AeroWizard
 		/// </summary>
 		protected virtual void OnCancelling()
 		{
-			CancelEventArgs arg = new CancelEventArgs(true);
+			var arg = new CancelEventArgs(true);
 			Cancelling?.Invoke(this, arg);
 
 			if (arg.Cancel)
@@ -397,11 +389,10 @@ namespace AeroWizard
 		protected override void OnControlAdded(ControlEventArgs e)
 		{
 			base.OnControlAdded(e);
-			if (e.Control is WizardPage)
-			{
-				Controls.Remove(e.Control);
-				Pages.Add(e.Control as WizardPage);
-			}
+			var page = e.Control as WizardPage;
+			if (page == null) return;
+			Controls.Remove(page);
+			Pages.Add(page);
 		}
 
 		/// <summary>
@@ -484,7 +475,7 @@ namespace AeroWizard
 			base.OnParentChanged(e);
 			if (parentForm != null)
 				parentForm.Load -= parentForm_Load;
-			parentForm = base.Parent as Form;
+			parentForm = base.Parent as Form; // FindForm();
 			Dock = DockStyle.Fill;
 			if (parentForm != null)
 				parentForm.Load += parentForm_Load;
@@ -497,8 +488,8 @@ namespace AeroWizard
 		protected override void OnRightToLeftChanged(EventArgs e)
 		{
 			base.OnRightToLeftChanged(e);
-			bool r2l = (this.GetRightToLeftProperty() == System.Windows.Forms.RightToLeft.Yes);
-			Bitmap btnStrip = GetUnthemedBackButtonImage();
+			var r2l = this.GetRightToLeftProperty() == RightToLeft.Yes;
+			var btnStrip = GetUnthemedBackButtonImage();
 			if (r2l) btnStrip.RotateFlip(RotateFlipType.RotateNoneFlipX);
 			backButton.SetImageListImageStrip(btnStrip, Orientation.Vertical);
 			backButton.StylePart = r2l ? 2 : 1;
@@ -514,7 +505,7 @@ namespace AeroWizard
 
 		private void CloseForm(DialogResult dlgResult)
 		{
-			Form form = base.FindForm();
+			var form = FindForm();
 			if (form != null)
 			{
 				if (form.Modal)
@@ -539,25 +530,25 @@ namespace AeroWizard
 				header.ClearTheme();
 				contentArea.ClearTheme();
 				commandArea.ClearTheme();
-				titleBar.BackColor = System.Drawing.SystemColors.Control;
+				titleBar.BackColor = SystemColors.Control;
 			}
 
 			if (UseAeroStyle)
 			{
-				bodyPanel.BorderStyle = System.Windows.Forms.BorderStyle.None;
+				bodyPanel.BorderStyle = BorderStyle.None;
 				header.BackColor = contentArea.BackColor = SystemColors.Window;
 				if (!themePropsSet)
 				{
-					headerLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-					headerLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(112)))), ((int)(((byte)(171)))));
+					headerLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+					headerLabel.ForeColor = Color.FromArgb(19, 112, 171);
 					title.Font = Font;
 				}
 			}
 			else
 			{
-				bodyPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+				bodyPanel.BorderStyle = BorderStyle.FixedSingle;
 				header.BackColor = contentArea.BackColor = SystemColors.Control;
-				headerLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+				headerLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
 				headerLabel.ForeColor = SystemColors.ControlText;
 				title.Font = new Font(Font, FontStyle.Bold);
 			}
@@ -572,52 +563,49 @@ namespace AeroWizard
 				titleBar.BackColor = Color.Black;
 				try
 				{
-					if (parentForm != null)
-					{
-						//if (!parentForm.GetWindowAttribute<bool>(DesktopWindowManager.GetWindowAttr.NonClientRenderingEnabled))
-						//	parentForm.SetWindowAttribute(DesktopWindowManager.SetWindowAttr.NonClientRenderingPolicy, DesktopWindowManager.NonClientRenderingPolicy.Enabled);
-						//parentForm.ExtendFrameIntoClientArea(new Padding(0));
-						// TODO: Need to figure out how to reset for Win7
-						parentForm.ExtendFrameIntoClientArea(new Padding(0) { Top = titleBar.Height });
-						//Microsoft.Win32.NativeMethods.SetWindowPos(this.Handle, IntPtr.Zero, this.Location.X, this.Location.Y, this.Width, this.Height, Microsoft.Win32.NativeMethods.SetWindowPosFlags.FrameChanged);
-					}
+					//if (!parentForm.GetWindowAttribute<bool>(DesktopWindowManager.GetWindowAttr.NonClientRenderingEnabled))
+					//	parentForm.SetWindowAttribute(DesktopWindowManager.SetWindowAttr.NonClientRenderingPolicy, DesktopWindowManager.NonClientRenderingPolicy.Enabled);
+					//parentForm.ExtendFrameIntoClientArea(new Padding(0));
+					//Microsoft.Win32.NativeMethods.SetWindowPos(this.Handle, IntPtr.Zero, this.Location.X, this.Location.Y, this.Width, this.Height, Microsoft.Win32.NativeMethods.SetWindowPosFlags.FrameChanged);
+					parentForm?.ExtendFrameIntoClientArea(new Padding(0) {Top = titleBar.Visible ? titleBar.Height : 0});
 				}
-				catch { titleBar.BackColor = commandArea.BackColor; }
+				catch
+				{
+					titleBar.BackColor = commandArea.BackColor;
+				}
 			}
 			else
 			{
 				titleBar.BackColor = commandArea.BackColor;
 			}
 
-			if (parentForm != null)
+			if (parentForm == null) return;
+			if (!SuppressParentFormCaptionSync)
+				parentForm.Text = Title;
+			if (!SuppressParentFormIconSync && titleImageIcon != null)
 			{
-				if (!SuppressParentFormCaptionSync)
-					parentForm.Text = Title;
-				if (!SuppressParentFormIconSync && titleImageIcon != null)
-				{
-					parentForm.Icon = TitleIcon;
-					parentForm.ShowIcon = true;
-				}
-				parentForm.CancelButton = cancelButton;
-				parentForm.AcceptButton = nextButton;
-				parentForm.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-				parentForm.SetWindowThemeAttribute(Microsoft.Win32.NativeMethods.WindowThemeNonClientAttributes.NoDrawCaption | Microsoft.Win32.NativeMethods.WindowThemeNonClientAttributes.NoDrawIcon | Microsoft.Win32.NativeMethods.WindowThemeNonClientAttributes.NoSysMenu);
-				parentForm.Invalidate();
+				parentForm.Icon = TitleIcon;
+				parentForm.ShowIcon = true;
 			}
+			parentForm.CancelButton = cancelButton;
+			parentForm.AcceptButton = nextButton;
+			parentForm.AutoScaleMode = AutoScaleMode.Font;
+			parentForm.SetWindowThemeAttribute(Microsoft.Win32.NativeMethods.WindowThemeNonClientAttributes.NoDrawCaption | Microsoft.Win32.NativeMethods.WindowThemeNonClientAttributes.NoDrawIcon | Microsoft.Win32.NativeMethods.WindowThemeNonClientAttributes.NoSysMenu);
+			parentForm.Invalidate();
 		}
 
 		private void contentArea_Paint(object sender, PaintEventArgs pe)
 		{
 			if (this.IsDesignMode() && Pages.Count == 0)
 			{
-				string noPagesText = Properties.Resources.WizardNoPagesNotice;
-				Rectangle r = GetContentAreaRectangle(false);
+				var noPagesText = Properties.Resources.WizardNoPagesNotice;
+				var r = GetContentAreaRectangle(false);
 
 				r.Inflate(-2, -2);
 				//pe.Graphics.DrawRectangle(SystemPens.GrayText, r);
 				ControlPaint.DrawFocusRectangle(pe.Graphics, r);
 
-				SizeF textSize = pe.Graphics.MeasureString(noPagesText, Font);
+				var textSize = pe.Graphics.MeasureString(noPagesText, Font);
 				r.Inflate((r.Width - (int)textSize.Width) / -2, (r.Height - (int)textSize.Height) / -2);
 				pe.Graphics.DrawString(noPagesText, Font, SystemBrushes.GrayText, r);
 			}
@@ -627,8 +615,7 @@ namespace AeroWizard
 		{
 			SetLayout();
 			ConfigureWindowFrame();
-			if (parentForm != null)
-				parentForm.Refresh();
+			parentForm?.Refresh();
 		}
 
 		/// <summary>
@@ -638,9 +625,9 @@ namespace AeroWizard
 		/// <returns>Coordinates of content area.</returns>
 		private Rectangle GetContentAreaRectangle(bool parentRelative)
 		{
-			int[] cw = contentArea.GetColumnWidths();
-			int[] ch = contentArea.GetRowHeights();
-			Rectangle r = new Rectangle(cw[contentCol - 1], 0, cw[contentCol], ch[0]);
+			var cw = contentArea.GetColumnWidths();
+			var ch = contentArea.GetRowHeights();
+			var r = new Rectangle(cw[contentCol - 1], 0, cw[contentCol], ch[0]);
 			if (parentRelative)
 				r.Offset(contentArea.Location);
 			return r;
@@ -648,7 +635,7 @@ namespace AeroWizard
 
 		private void pageContainer_ButtonStateChanged(object sender, EventArgs e)
 		{
-			bool vis = false;
+			var vis = false;
 			foreach (Control c in commandAreaButtonFlowLayout.Controls)
 			{
 				if (c.Visible || (c is ButtonBase && pageContainer.GetCmdButtonState(c as ButtonBase) != WizardCommandButtonState.Hidden))
@@ -734,12 +721,11 @@ namespace AeroWizard
 		{
 			if (isMin6 && Application.RenderWithVisualStyles)
 			{
-				VisualStyleRenderer theme;
-				using (Graphics g = CreateGraphics())
+				using (var g = CreateGraphics())
 				{
 					// Back button
-					theme = new VisualStyleRenderer(VisualStyleElementEx.Navigation.BackButton.Normal);
-					Size bbSize = theme.GetPartSize(g, ThemeSizeType.Draw);
+					var theme = new VisualStyleRenderer(VisualStyleElementEx.Navigation.BackButton.Normal);
+					var bbSize = theme.GetPartSize(g, ThemeSizeType.Draw);
 
 					// Title
 					theme.SetParameters(VisualStyleElementEx.AeroWizard.TitleBar.Active);
@@ -759,7 +745,7 @@ namespace AeroWizard
 					theme.SetParameters(VisualStyleElementEx.AeroWizard.ContentArea.Normal);
 					BackColor = theme.GetColor(ColorProperty.FillColor);
 					contentArea.Font = theme.GetFont2(g);
-					Padding cp = theme.GetMargins2(g, MarginProperty.ContentMargins);
+					var cp = theme.GetMargins2(g, MarginProperty.ContentMargins);
 					contentArea.ColumnStyles[0].Width = cp.Left;
 					contentArea.RowStyles[1].Height = cp.Bottom;
 
@@ -771,9 +757,9 @@ namespace AeroWizard
 					commandArea.ColumnStyles[1].Width = contentArea.ColumnStyles[contentCol + 1].Width = cp.Right;
 					commandAreaBorder.Height = 0;
 					theme.SetParameters(VisualStyleElementEx.AeroWizard.Button.Normal);
-					int btnHeight = theme.GetInteger(IntegerProperty.Height);
+					var btnHeight = theme.GetInteger(IntegerProperty.Height);
 					commandAreaButtonFlowLayout.MinimumSize = new Size(0, btnHeight);
-					Font btnFont = theme.GetFont2(g);
+					var btnFont = theme.GetFont2(g);
 					foreach (Control ctrl in commandAreaButtonFlowLayout.Controls)
 					{
 						ctrl.Font = btnFont;
@@ -810,7 +796,7 @@ namespace AeroWizard
 		{
 			if (e.Button == MouseButtons.Left)
 			{
-				Control c = titleBar.GetChildAtPoint(e.Location);
+				var c = titleBar.GetChildAtPoint(e.Location);
 				if (c != backButton)
 				{
 					formMoveTracking = true;
@@ -818,25 +804,25 @@ namespace AeroWizard
 				}
 			}
 
-			base.OnMouseDown(e);
+			OnMouseDown(e);
 		}
 
 		private void TitleBar_MouseMove(object sender, MouseEventArgs e)
 		{
 			if (formMoveTracking)
 			{
-				Point screen = PointToScreen(e.Location);
+				var screen = PointToScreen(e.Location);
 
-				Point diff = new Point(screen.X - formMoveLastMousePos.X, screen.Y - formMoveLastMousePos.Y);
+				var diff = new Point(screen.X - formMoveLastMousePos.X, screen.Y - formMoveLastMousePos.Y);
 
-				Point loc = parentForm.Location;
+				var loc = parentForm.Location;
 				loc.Offset(diff);
 				parentForm.Location = loc;
 
 				formMoveLastMousePos = screen;
 			}
 
-			base.OnMouseMove(e);
+			OnMouseMove(e);
 		}
 
 		private void TitleBar_MouseUp(object sender, MouseEventArgs e)
@@ -844,7 +830,7 @@ namespace AeroWizard
 			if (e.Button == MouseButtons.Left)
 				formMoveTracking = false;
 
-			base.OnMouseUp(e);
+			OnMouseUp(e);
 		}
 	}
 }

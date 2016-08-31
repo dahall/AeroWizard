@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using AeroWizard.Properties;
 
 namespace AeroWizard
 {
@@ -13,9 +14,9 @@ namespace AeroWizard
 	public partial class WizardPage : Control
 	{
 		private bool allowCancel = true, allowNext = true, allowBack = true;
-		private bool showCancel = true, showNext = true, suppress = false;
-		private bool isFinishPage = false;
-		private string helpText = null;
+		private bool showCancel = true, showNext = true, suppress;
+		private bool isFinishPage;
+		private string helpText;
 
 		private LinkLabel helpLink;
 
@@ -63,11 +64,9 @@ namespace AeroWizard
 			get { return allowBack; }
 			set
 			{
-				if (allowBack != value)
-				{
-					allowBack = value;
-					UpdateOwner();
-				}
+				if (allowBack == value) return;
+				allowBack = value;
+				UpdateOwner();
 			}
 		}
 
@@ -81,11 +80,9 @@ namespace AeroWizard
 			get { return allowCancel; }
 			set
 			{
-				if (allowCancel != value)
-				{
-					allowCancel = value;
-					UpdateOwner();
-				}
+				if (allowCancel == value) return;
+				allowCancel = value;
+				UpdateOwner();
 			}
 		}
 
@@ -99,11 +96,9 @@ namespace AeroWizard
 			get { return allowNext; }
 			set
 			{
-				if (allowNext != value)
-				{
-					allowNext = value;
-					UpdateOwner();
-				}
+				if (allowNext == value) return;
+				allowNext = value;
+				UpdateOwner();
 			}
 		}
 
@@ -113,7 +108,7 @@ namespace AeroWizard
 		/// <value>
 		/// The help text to display.
 		/// </value>
-		[DefaultValue((string)null), Category("Appearance"), Description("Help text to display on hyperlink at bottom left of content area.")]
+		[DefaultValue(null), Category("Appearance"), Description("Help text to display on hyperlink at bottom left of content area.")]
 		public string HelpText
 		{
 			get { return helpText; }
@@ -121,8 +116,8 @@ namespace AeroWizard
 			{
 				if (helpLink == null)
 				{
-					helpLink = new LinkLabel() { AutoSize = true, Dock = DockStyle.Bottom, Text = "Help", Visible = false };
-					helpLink.LinkClicked += new LinkLabelLinkClickedEventHandler(helpLink_LinkClicked);
+					helpLink = new LinkLabel() { AutoSize = true, Dock = DockStyle.Bottom, Text = Resources.WizardPageDefaultHelpText, Visible = false };
+					helpLink.LinkClicked += helpLink_LinkClicked;
 					Controls.Add(helpLink);
 				}
 				helpText = value;
@@ -148,16 +143,14 @@ namespace AeroWizard
 			get { return isFinishPage; }
 			set
 			{
-				if (isFinishPage != value)
-				{
-					isFinishPage = value;
-					UpdateOwner();
-				}
+				if (isFinishPage == value) return;
+				isFinishPage = value;
+				UpdateOwner();
 			}
 		}
 
 		/// <summary>
-		/// Gets or sets the next page that should be used when the user clicks the Next button or when the <see cref="WizardControl.NextPage()"/> method is called. This is used to override the default behavior of going to the next page in the sequence defined within the <see cref="WizardControl.Pages"/> collection.
+		/// Gets or sets the next page that should be used when the user clicks the Next button or when the <see cref="WizardControl.NextPage"/> method is called. This is used to override the default behavior of going to the next page in the sequence defined within the <see cref="WizardControl.Pages"/> collection.
 		/// </summary>
 		/// <value>The wizard page to go to.</value>
 		[DefaultValue(null), Category("Behavior"),
@@ -181,11 +174,9 @@ namespace AeroWizard
 			get { return showCancel; }
 			set
 			{
-				if (showCancel != value)
-				{
-					showCancel = value;
-					UpdateOwner();
-				}
+				if (showCancel == value) return;
+				showCancel = value;
+				UpdateOwner();
 			}
 		}
 
@@ -199,11 +190,9 @@ namespace AeroWizard
 			get { return showNext; }
 			set
 			{
-				if (showNext != value)
-				{
-					showNext = value;
-					UpdateOwner();
-				}
+				if (showNext == value) return;
+				showNext = value;
+				UpdateOwner();
 			}
 		}
 
@@ -229,11 +218,9 @@ namespace AeroWizard
 			get { return suppress; }
 			set
 			{
-				if (suppress != value)
-				{
-					suppress = value;
-					UpdateOwner();
-				}
+				if (suppress == value) return;
+				suppress = value;
+				UpdateOwner();
 			}
 		}
 
@@ -245,9 +232,9 @@ namespace AeroWizard
 		{
 			get
 			{
-				CreateParams createParams = base.CreateParams;
-				Form parent = FindForm();
-				bool parentRightToLeftLayout = parent != null ? parent.RightToLeftLayout : false;
+				var createParams = base.CreateParams;
+				var parent = FindForm();
+				var parentRightToLeftLayout = parent != null && parent.RightToLeftLayout;
 				if ((RightToLeft == RightToLeft.Yes) && parentRightToLeftLayout)
 				{
 					createParams.ExStyle |= 0x500000; // WS_EX_LAYOUTRTL | WS_EX_NOINHERITLAYOUT
@@ -280,10 +267,8 @@ namespace AeroWizard
 		/// <returns><c>true</c> if handler does not set the <see cref="WizardPageConfirmEventArgs.Cancel"/> to <c>true</c>; otherwise, <c>false</c>.</returns>
 		protected virtual bool OnCommit()
 		{
-			EventHandler<WizardPageConfirmEventArgs> handler = Commit;
-			WizardPageConfirmEventArgs e =  new WizardPageConfirmEventArgs(this);
-			if (handler != null)
-				handler(this,e);
+			var e =  new WizardPageConfirmEventArgs(this);
+			Commit?.Invoke(this,e);
 			return !e.Cancel;
 		}
 
@@ -294,9 +279,8 @@ namespace AeroWizard
 		protected override void OnGotFocus(EventArgs e)
 		{
 			base.OnGotFocus(e);
-			Control firstChild = GetNextControl(this, true);
-			if (firstChild != null)
-				firstChild.Focus();
+			var firstChild = GetNextControl(this, true);
+			firstChild?.Focus();
 		}
 
 		/// <summary>
@@ -304,9 +288,7 @@ namespace AeroWizard
 		/// </summary>
 		protected virtual void OnHelpClicked()
 		{
-			EventHandler handler = HelpClicked;
-			if (handler != null)
-				handler(this, EventArgs.Empty);
+			HelpClicked?.Invoke(this, EventArgs.Empty);
 		}
 
 		/// <summary>
@@ -315,9 +297,7 @@ namespace AeroWizard
 		/// <param name="prevPage">The page that was previously selected.</param>
 		protected virtual void OnInitialize(WizardPage prevPage)
 		{
-			EventHandler<WizardPageInitEventArgs> handler = Initialize;
-			if (handler != null)
-				handler(this, new WizardPageInitEventArgs(this, prevPage));
+			Initialize?.Invoke(this, new WizardPageInitEventArgs(this, prevPage));
 		}
 
 		/// <summary>
@@ -326,10 +306,8 @@ namespace AeroWizard
 		/// <returns><c>true</c> if handler does not set the <see cref="WizardPageConfirmEventArgs.Cancel"/> to <c>true</c>; otherwise, <c>false</c>.</returns>
 		protected virtual bool OnRollback()
 		{
-			EventHandler<WizardPageConfirmEventArgs> handler = Rollback;
-			WizardPageConfirmEventArgs e = new WizardPageConfirmEventArgs(this);
-			if (handler != null)
-				handler(this, e);
+			var e = new WizardPageConfirmEventArgs(this);
+			Rollback?.Invoke(this, e);
 			return !e.Cancel;
 		}
 

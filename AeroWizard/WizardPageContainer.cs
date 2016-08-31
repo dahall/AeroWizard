@@ -30,14 +30,14 @@ namespace AeroWizard
 	public class WizardPageContainer : ContainerControl, ISupportInitialize
 	{
 		private string finishBtnText;
-		private bool initialized = false;
-		private bool initializing = false;
-		private bool nextButtonShieldEnabled = false;
+		private bool initialized;
+		private bool initializing;
+		private bool nextButtonShieldEnabled;
 		private string nextBtnText;
-		private Stack<WizardPage> pageHistory;
+		private readonly Stack<WizardPage> pageHistory;
 		private Timer progressTimer;
 		private WizardPage selectedPage;
-		private bool showProgressInTaskbarIcon = false;
+		private bool showProgressInTaskbarIcon;
 		private ITaskbarList4 taskbar;
 		private ButtonBase backButton, cancelButton, nextButton;
 
@@ -294,7 +294,7 @@ namespace AeroWizard
 		{
 			get
 			{
-				if ((selectedPage == null) || (Pages.Count == 0))
+				if (selectedPage == null || Pages.Count == 0)
 					return null;
 				return selectedPage;
 			}
@@ -306,14 +306,13 @@ namespace AeroWizard
 				System.Diagnostics.Debug.WriteLine($"SelectPage: New={(value == null ? "null" : value.Name)},Prev={(selectedPage == null ? "null" : selectedPage.Name)}");
 				if (value != selectedPage)
 				{
-					WizardPage prev = selectedPage;
-					if (selectedPage != null)
-						selectedPage.Hide();
+					var prev = selectedPage;
+					selectedPage?.Hide();
 					selectedPage = value;
-					int idx = SelectedPageIndex;
+					var idx = SelectedPageIndex;
 					if (!this.IsDesignMode())
 					{
-						while (idx < Pages.Count - 1 && selectedPage.Suppress)
+						while (selectedPage != null && idx < Pages.Count - 1 && selectedPage.Suppress)
 							selectedPage = Pages[++idx];
 					}
 					if (selectedPage != null)
@@ -359,7 +358,7 @@ namespace AeroWizard
 		/// Gets a value indicating whether running on win7.
 		/// </summary>
 		/// <value><c>true</c> if [running on win7]; otherwise, <c>false</c>.</value>
-		private static bool RunningOnWin7 => ((Environment.OSVersion.Platform == PlatformID.Win32NT) && (Environment.OSVersion.Version.CompareTo(new Version(6, 1)) >= 0));
+		private static bool RunningOnWin7 => (Environment.OSVersion.Platform == PlatformID.Win32NT) && (Environment.OSVersion.Version.CompareTo(new Version(6, 1)) >= 0);
 
 		/// <summary>
 		/// Gets the task bar interface for the current form.
@@ -373,7 +372,7 @@ namespace AeroWizard
 				{
 					taskbar = (ITaskbarList4)new CTaskbarList();
 					taskbar.HrInit();
-					taskbar.SetProgressState(ParentForm.Handle, TaskbarProgressBarStatus.Normal);
+					if (ParentForm != null) taskbar.SetProgressState(ParentForm.Handle, TaskbarProgressBarStatus.Normal);
 				}
 				return taskbar;
 			}
@@ -422,7 +421,7 @@ namespace AeroWizard
 		{
 			if (this.IsDesignMode())
 			{
-				int idx = SelectedPageIndex;
+				var idx = SelectedPageIndex;
 				if (idx < Pages.Count - 1)
 					SelectedPage = Pages[idx + 1];
 				return;
@@ -433,13 +432,13 @@ namespace AeroWizard
 				if (nextPage != null)
 				{
 					if (!Pages.Contains(nextPage))
-						throw new ArgumentException("When specifying a value for nextPage, it must already be in the Pages collection.", nameof(nextPage));
+						throw new ArgumentException(@"When specifying a value for nextPage, it must already be in the Pages collection.", nameof(nextPage));
 					pageHistory.Push(SelectedPage);
 					SelectedPage = nextPage;
 				}
 				else
 				{
-					WizardPage selNext = GetNextPage(SelectedPage);
+					var selNext = GetNextPage(SelectedPage);
 
 					// Check for last page
 					if (SelectedPage.IsFinishPage || selNext == null)
@@ -462,7 +461,7 @@ namespace AeroWizard
 		{
 			if (this.IsDesignMode())
 			{
-				int idx = SelectedPageIndex;
+				var idx = SelectedPageIndex;
 				if (idx > 0)
 					SelectedPage = Pages[idx - 1];
 				return;
@@ -486,10 +485,8 @@ namespace AeroWizard
 		/// </summary>
 		protected virtual void OnCancelling()
 		{
-			CancelEventHandler h = Cancelling;
-			CancelEventArgs arg = new CancelEventArgs(true);
-			if (h != null)
-				h(this, arg);
+			var arg = new CancelEventArgs(true);
+			Cancelling?.Invoke(this, arg);
 		}
 
 		/// <summary>
@@ -497,9 +494,7 @@ namespace AeroWizard
 		/// </summary>
 		protected virtual void OnFinished()
 		{
-			EventHandler h = Finished;
-			if (h != null)
-				h(this, EventArgs.Empty);
+			Finished?.Invoke(this, EventArgs.Empty);
 		}
 
 		/// <summary>
@@ -509,8 +504,7 @@ namespace AeroWizard
 		protected override void OnGotFocus(EventArgs e)
 		{
 			base.OnGotFocus(e);
-			if (selectedPage != null)
-				selectedPage.Focus();
+			selectedPage?.Focus();
 		}
 
 		/// <summary>
@@ -528,9 +522,7 @@ namespace AeroWizard
 		/// </summary>
 		protected void OnSelectedPageChanged()
 		{
-			EventHandler temp = SelectedPageChanged;
-			if (temp != null)
-				temp(this, EventArgs.Empty);
+			SelectedPageChanged?.Invoke(this, EventArgs.Empty);
 		}
 
 		/// <summary>
@@ -538,7 +530,7 @@ namespace AeroWizard
 		/// </summary>
 		protected internal void UpdateUIDependencies()
 		{
-			System.Diagnostics.Debug.WriteLine($"UpdBtn: hstCnt={pageHistory.Count},pgIdx={SelectedPageIndex}:{Pages.Count},isFin={(selectedPage == null ? false : selectedPage.IsFinishPage)}");
+			System.Diagnostics.Debug.WriteLine($"UpdBtn: hstCnt={pageHistory.Count},pgIdx={SelectedPageIndex}:{Pages.Count},isFin={selectedPage != null && selectedPage.IsFinishPage}");
 			if (selectedPage == null)
 			{
 				CancelButtonState = this.IsDesignMode() ? WizardCommandButtonState.Disabled : WizardCommandButtonState.Enabled;
@@ -560,7 +552,7 @@ namespace AeroWizard
 						SetCmdButtonText(NextButton, FinishButtonText);
 					else
 						SetCmdButtonText(NextButton, NextButtonText);
-					BackButtonState = (pageHistory.Count == 0 || !selectedPage.AllowBack) ? WizardCommandButtonState.Disabled : WizardCommandButtonState.Enabled;
+					BackButtonState = pageHistory.Count == 0 || !selectedPage.AllowBack ? WizardCommandButtonState.Disabled : WizardCommandButtonState.Enabled;
 
 					UpdateTaskbarProgress();
 				}
@@ -581,19 +573,15 @@ namespace AeroWizard
 
 		internal WizardCommandButtonState GetCmdButtonState(ButtonBase btn)
 		{
-			if (btn == null || btn.Tag == null)
+			if (btn?.Tag == null)
 				return WizardCommandButtonState.Hidden;
-			else if (btn.Tag is WizardCommandButtonState)
+			if (btn.Tag is WizardCommandButtonState)
 				return (WizardCommandButtonState)btn.Tag;
-			else
-			{
-				if (btn.Enabled)
-					return WizardCommandButtonState.Enabled;
-				else if (!btn.Visible)
-					return WizardCommandButtonState.Hidden;
-				else
-					return WizardCommandButtonState.Disabled;
-			}
+			if (btn.Enabled)
+				return WizardCommandButtonState.Enabled;
+			if (!btn.Visible)
+				return WizardCommandButtonState.Hidden;
+			return WizardCommandButtonState.Disabled;
 		}
 
 		private string GetCmdButtonText(ButtonBase btn) => btn == null ? string.Empty : btn.Text;
@@ -605,7 +593,7 @@ namespace AeroWizard
 
 			do
 			{
-				int pgIdx = Pages.IndexOf(page);
+				var pgIdx = Pages.IndexOf(page);
 				if (page.NextPage != null)
 					page = page.NextPage;
 				else if (pgIdx == Pages.Count - 1)
@@ -670,7 +658,7 @@ namespace AeroWizard
 
 		private void Pages_Reset(object sender, EventedList<WizardPage>.ListChangedEventArgs<WizardPage> e)
 		{
-			WizardPage curPage = selectedPage;
+			var curPage = selectedPage;
 			SelectedPage = null;
 			Controls.Clear();
 			foreach (var item in Pages)
@@ -720,7 +708,7 @@ namespace AeroWizard
 			if (btn == null)
 				return;
 
-			WizardCommandButtonState prevVal = GetCmdButtonState(btn);
+			var prevVal = GetCmdButtonState(btn);
 			switch (value)
 			{
 				case WizardCommandButtonState.Disabled:
@@ -733,30 +721,27 @@ namespace AeroWizard
 						btn.Visible = false;
 					break;
 				case WizardCommandButtonState.Enabled:
-				default:
 					btn.Enabled = true;
 					btn.Visible = true;
 					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(value), value, null);
 			}
 
 			if (prevVal != value)
 			{
 				btn.Tag = value;
-				EventHandler h = ButtonStateChanged;
-				if (h != null)
-					h(btn, EventArgs.Empty);
+				ButtonStateChanged?.Invoke(btn, EventArgs.Empty);
 			}
 
-			base.Invalidate();
+			Invalidate();
 		}
 
 		private void SetCmdButtonText(ButtonBase btn, string text)
 		{
-			if (btn != null)
-			{
-				btn.Text = text;
-				base.Invalidate();
-			}
+			if (btn == null) return;
+			btn.Text = text;
+			Invalidate();
 		}
 
 		internal bool ShouldSerializeBackButtonText() => BackButtonText != Properties.Resources.WizardBackText;

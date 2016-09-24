@@ -1,151 +1,263 @@
-﻿using Microsoft.Win32;
+﻿using System.CodeDom;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using Vanara.Interop;
+using static Vanara.Interop.NativeMethods;
 
 namespace System.Windows.Forms.VisualStyles
 {
 	internal static partial class VisualStyleRendererExtension
 	{
-		private delegate void DrawWrapperMethod(IntPtr hdc);
+		private static readonly Dictionary<long, Bitmap> bmpCache = new Dictionary<long, Bitmap>();
 
-		public static void DrawGlassBackground(this VisualStyleRenderer rnd, IDeviceContext dc, Rectangle bounds, Rectangle clipRectangle, bool rightToLeft = false)
+		private delegate void DrawWrapperMethod(SafeDCHandle hdc);
+
+		/// <summary>
+		/// Draws the background image of the current visual style element within the specified bounding rectangle and optionally clipped to the specified clipping rectangle.
+		/// </summary>
+		/// <param name="rnd">The <see cref="VisualStyleRenderer"/> instance.</param>
+		/// <param name="dc">The <see cref="IDeviceContext"/> used to draw the background image.</param>
+		/// <param name="bounds">A <see cref="Rectangle"/> in which the background image is drawn.</param>
+		/// <param name="clipRectangle">A <see cref="Rectangle"/> that defines a clipping rectangle for the drawing operation.</param>
+		/// <param name="rightToLeft">If set to <c>true</c> flip the image for right to left layout.</param>
+		public static void DrawBackground(this VisualStyleRenderer rnd, Graphics dc, Rectangle bounds, Rectangle? clipRectangle = null, bool rightToLeft = false)
 		{
-			const uint GDI_ERROR = 0xFFFFFFFF;
-			//const uint LAYOUT_LRT = 0;
-			const uint LAYOUT_RTL = 1;
-			DrawWrapper(rnd, dc, bounds,
-				delegate(IntPtr memoryHdc)
+			/*var h = rnd.GetHashCode();
+			Bitmap bmp;
+			if (!bmpCache.TryGetValue(h, out bmp))
+				bmpCache.Add(h, bmp = GraphicsExtension.GetTransparentBitmap(GetBackgroundBitmap(rnd, Color.White), GetBackgroundBitmap(rnd, Color.Black)));
+			if (rightToLeft)
+				bmp.RotateFlip(RotateFlipType.RotateNoneFlipX);
+			if (clipRectangle != null) dc.SetClip(clipRectangle.Value);
+			using (var attr = new ImageAttributes())
+			{
+				dc.CompositingMode = CompositingMode.SourceOver;
+				dc.CompositingQuality = CompositingQuality.HighQuality;
+				dc.InterpolationMode = InterpolationMode.HighQualityBicubic;
+				dc.PixelOffsetMode = PixelOffsetMode.HighQuality;
+				attr.SetWrapMode(WrapMode.TileFlipXY);
+				dc.DrawImage(bmp, bounds, 0, 0, bmp.Width, bmp.Height, GraphicsUnit.Pixel, attr);
+			}*/
+			rnd.DrawBackground(dc, bounds, clipRectangle ?? bounds);
+		}
+
+		/// <summary>
+		/// Draws the background image of the current visual style element onto a glass background within the specified bounding rectangle and optionally clipped to the specified clipping rectangle.
+		/// </summary>
+		/// <param name="rnd">The <see cref="VisualStyleRenderer"/> instance.</param>
+		/// <param name="dc">The <see cref="IDeviceContext"/> used to draw the background image.</param>
+		/// <param name="bounds">A <see cref="Rectangle"/> in which the background image is drawn.</param>
+		/// <param name="clipRectangle">A <see cref="Rectangle"/> that defines a clipping rectangle for the drawing operation.</param>
+		/// <param name="rightToLeft">If set to <c>true</c> flip the image for right to left layout.</param>
+		public static void DrawGlassBackground(this VisualStyleRenderer rnd, IDeviceContext dc, Rectangle bounds, Rectangle? clipRectangle = null, bool rightToLeft = false)
+		{
+			DrawWrapper(dc, bounds,
+				memoryHdc =>
 				{
-					NativeMethods.RECT rBounds = new NativeMethods.RECT(bounds);
-					NativeMethods.RECT rClip = new NativeMethods.RECT(clipRectangle);
+					var rBounds = new RECT(bounds);
+					//var opts = new DrawThemeBackgroundOptions(clipRectangle);
 					// Draw background
-					uint oldLayout = GDI_ERROR;
+					var oldLayout = DCLayout.GDI_ERROR;
 					if (rightToLeft)
-						if ((oldLayout = NativeMethods.SetLayout(memoryHdc, LAYOUT_RTL)) == GDI_ERROR)
+						if ((oldLayout = SetLayout(memoryHdc, DCLayout.LAYOUT_RTL)) == DCLayout.GDI_ERROR)
 							throw new NotSupportedException("Unable to change graphics layout to RTL.");
-					NativeMethods.DrawThemeBackground(rnd.Handle, memoryHdc, rnd.Part, rnd.State, ref rBounds, ref rClip);
-					if (oldLayout != GDI_ERROR)
-						NativeMethods.SetLayout(memoryHdc, oldLayout);
+					DrawThemeBackground(rnd, memoryHdc, rnd.Part, rnd.State, ref rBounds, clipRectangle);
+					if (oldLayout != DCLayout.GDI_ERROR)
+						SetLayout(memoryHdc, oldLayout);
 				}
-			);
+				);
 		}
 
-		public static void DrawGlassIcon(this VisualStyleRenderer rnd, Graphics g, Rectangle bounds, ImageList imgList, int imgIndex)
+		/// <summary>
+		/// Draws the image from the specified <paramref name="imageList"/> within the specified bounds on a glass background.
+		/// </summary>
+		/// <param name="rnd">The <see cref="VisualStyleRenderer"/> instance.</param>
+		/// <param name="g">The <see cref="Graphics"/> used to draw the image.</param>
+		/// <param name="bounds">A <see cref="Rectangle"/> in which the image is drawn.</param>
+		/// <param name="imageList">An <see cref="ImageList"/> that contains the <see cref="Image"/> to draw.</param>
+		/// <param name="imageIndex">The index of the <see cref="Image"/> within <paramref name="imageList"/> to draw.</param>
+		public static void DrawGlassImage(this VisualStyleRenderer rnd, Graphics g, Rectangle bounds, ImageList imageList, int imageIndex)
 		{
-			DrawWrapper(rnd, g, bounds,
-				delegate(IntPtr memoryHdc)
+			DrawWrapper(g, bounds,
+				memoryHdc =>
 				{
-					NativeMethods.RECT rBounds = new NativeMethods.RECT(bounds);
-					NativeMethods.DrawThemeIcon(rnd.Handle, memoryHdc, rnd.Part, rnd.State, ref rBounds, imgList.Handle, imgIndex);
+					var rBounds = new RECT(bounds);
+					DrawThemeIcon(rnd, memoryHdc, rnd.Part, rnd.State, ref rBounds, imageList.Handle, imageIndex);
 				}
-			);
+				);
 		}
 
-		public static void DrawGlassImage(this VisualStyleRenderer rnd, Graphics g, Rectangle bounds, Image img, bool disabled = false)
+		/// <summary>
+		/// Draws the specified image within the specified bounds on a glass background.
+		/// </summary>
+		/// <param name="rnd">The <see cref="VisualStyleRenderer" /> instance.</param>
+		/// <param name="g">The <see cref="Graphics" /> used to draw the image.</param>
+		/// <param name="bounds">A <see cref="Rectangle" /> in which the image is drawn.</param>
+		/// <param name="image">An <see cref="ImageList" /> that contains the <see cref="Image" /> to draw.</param>
+		/// <param name="disabled">if set to <c>true</c> draws the image in a disabled state using the <see cref="ControlPaint.DrawImageDisabled"/> method.</param>
+		public static void DrawGlassImage(this VisualStyleRenderer rnd, Graphics g, Rectangle bounds, Image image, bool disabled = false)
 		{
-			DrawWrapper(rnd, g, bounds,
-				delegate(IntPtr memoryHdc)
+			DrawWrapper(g, bounds,
+				memoryHdc =>
 				{
-					using (Graphics mg = Graphics.FromHdc(memoryHdc))
+					using (var mg = Graphics.FromHdc(memoryHdc.DangerousGetHandle()))
 					{
 						if (disabled)
-							ControlPaint.DrawImageDisabled(mg, img, bounds.X, bounds.Y, Color.Transparent);
+							ControlPaint.DrawImageDisabled(mg, image, bounds.X, bounds.Y, Color.Transparent);
 						else
-							mg.DrawImage(img, bounds);
+							mg.DrawImage(image, bounds);
 					}
 				}
-			);
+				);
 		}
 
-		public static void DrawGlowingText(this VisualStyleRenderer rnd, IDeviceContext dc, Rectangle bounds, string text, Font font, Color color, System.Windows.Forms.TextFormatFlags flags)
+		/// <summary>
+		/// Draws glowing text in the specified bounding rectangle with the option of overriding text color and applying other text formatting.
+		/// </summary>
+		/// <param name="rnd">The <see cref="VisualStyleRenderer" /> instance.</param>
+		/// <param name="dc">The <see cref="IDeviceContext" /> used to draw the text.</param>
+		/// <param name="bounds">A <see cref="Rectangle" /> in which the text is drawn.</param>
+		/// <param name="text">The text to draw.</param>
+		/// <param name="font">Optional font override.</param>
+		/// <param name="color">Optionally, the color to draw text in overriding the default color for the theme.</param>
+		/// <param name="flags">A bitwise combination of the <see cref="TextFormatFlags" /> values.</param>
+		/// <param name="glowSize">The size of the glow.</param>
+		public static void DrawGlowingText(this VisualStyleRenderer rnd, IDeviceContext dc, Rectangle bounds, string text, Font font, Color? color, TextFormatFlags flags = TextFormatFlags.Default, int glowSize = 10)
 		{
-			DrawWrapper(rnd, dc, bounds,
-				delegate(IntPtr memoryHdc) {
+			DrawWrapper(dc, bounds,
+				memoryHdc =>
+				{
 					// Create and select font
-					using (NativeMethods.SafeDCObjectHandle fontHandle = new NativeMethods.SafeDCObjectHandle(memoryHdc, font.ToHfont()))
+					using (var fontHandle = new SafeDCObjectHandle(memoryHdc, font?.ToHfont() ?? IntPtr.Zero))
 					{
 						// Draw glowing text
-						NativeMethods.DrawThemeTextOptions dttOpts = new NativeMethods.DrawThemeTextOptions(true);
-						dttOpts.TextColor = color;
-						dttOpts.GlowSize = 10;
-						dttOpts.AntiAliasedAlpha = true;
-						NativeMethods.RECT textBounds = new NativeMethods.RECT(4, 0, bounds.Right - bounds.Left, bounds.Bottom - bounds.Top);
-						NativeMethods.DrawThemeTextEx(rnd.Handle, memoryHdc, rnd.Part, rnd.State, text, text.Length, (int)flags, ref textBounds, ref dttOpts);
+						var dttOpts = new DrawThemeTextOptions(true) {GlowSize = glowSize, AntiAliasedAlpha = true};
+						if (color != null) dttOpts.TextColor = color.Value;
+						var textBounds = new RECT(4, 0, bounds.Right - bounds.Left, bounds.Bottom - bounds.Top);
+						DrawThemeTextEx(rnd, memoryHdc, rnd.Part, rnd.State, text, text.Length, flags, ref textBounds, ref dttOpts);
 					}
 				}
-			);
+				);
 		}
 
-		/*public static void DrawGlowingText(this VisualStyleRenderer rnd, IDeviceContext dc, Rectangle bounds, string text, Font font, Color color, System.Windows.Forms.TextFormatFlags flags)
+		/// <summary>
+		/// Draws text in the specified bounding rectangle with the option of applying other text formatting.
+		/// </summary>
+		/// <param name="rnd">The <see cref="VisualStyleRenderer" /> instance.</param>
+		/// <param name="dc">The <see cref="IDeviceContext" /> used to draw the text.</param>
+		/// <param name="bounds">A <see cref="Rectangle" /> in which the text is drawn.</param>
+		/// <param name="text">The text to draw.</param>
+		/// <param name="flags">A bitwise combination of the <see cref="TextFormatFlags"/> values.</param>
+		/// <param name="options">The <see cref="DrawThemeTextOptions"/> .</param>
+		public static void DrawText(this VisualStyleRenderer rnd, IDeviceContext dc, ref Rectangle bounds, string text, TextFormatFlags flags, ref DrawThemeTextOptions options)
 		{
-			using (SafeGDIHandle primaryHdc = new SafeGDIHandle(dc))
-			{
-				// Create a memory DC so we can work offscreen
-				using (SafeCompatibleDCHandle memoryHdc = new SafeCompatibleDCHandle(primaryHdc))
-				{
-					// Create a device-independent bitmap and select it into our DC
-					BITMAPINFO info = new BITMAPINFO(bounds.Width, -bounds.Height);
-					using (SafeDCObjectHandle dib = new SafeDCObjectHandle(memoryHdc, GDI.CreateDIBSection(primaryHdc, ref info, 0, 0, IntPtr.Zero, 0)))
-					{
-						// Create and select font
-						using (SafeDCObjectHandle fontHandle = new SafeDCObjectHandle(memoryHdc, font.ToHfont()))
-						{
-							// Draw glowing text
-							DrawThemeTextOptions dttOpts = new DrawThemeTextOptions(true);
-							dttOpts.TextColor = color;
-							dttOpts.GlowSize = 10;
-							dttOpts.AntiAliasedAlpha = true;
-							NativeMethods.RECT textBounds = new NativeMethods.RECT(4, 0, bounds.Right - bounds.Left, bounds.Bottom - bounds.Top);
-							DrawThemeTextEx(rnd.Handle, memoryHdc, rnd.Part, rnd.State, text, text.Length, (int)flags, ref textBounds, ref dttOpts);
-
-							// Copy to foreground
-							const int SRCCOPY = 0x00CC0020;
-							GDI.BitBlt(primaryHdc, bounds.Left, bounds.Top, bounds.Width, bounds.Height, memoryHdc, 0, 0, SRCCOPY);
-						}
-					}
-				}
-			}
-		}*/
-
-		public static void DrawText(this VisualStyleRenderer rnd, IDeviceContext dc, ref Rectangle bounds, string text, System.Windows.Forms.TextFormatFlags flags, NativeMethods.DrawThemeTextOptions options)
-		{
-			NativeMethods.RECT rc = new NativeMethods.RECT(bounds);
-			using (SafeGDIHandle hdc = new SafeGDIHandle(dc))
-				NativeMethods.DrawThemeTextEx(rnd.Handle, hdc, rnd.Part, rnd.State, text, text.Length, (int)flags, ref rc, ref options);
+			var rc = new RECT(bounds);
+			using (var hdc = new SafeDCHandle(dc))
+				DrawThemeTextEx(rnd, hdc, rnd.Part, rnd.State, text, text.Length, flags, ref rc, ref options);
 			bounds = rc;
 		}
 
-		public static System.Drawing.Font GetFont2(this VisualStyleRenderer rnd, IDeviceContext dc = null)
+		/// <summary>
+		/// Gets the background image of the current visual style element within the specified background color. If <paramref name="states"/> is set, the resulting image will contain each of the state images side by side.
+		/// </summary>
+		/// <param name="rnd">The <see cref="VisualStyleRenderer"/> instance.</param>
+		/// <param name="clr">The background color. This color cannot have an alpha channel.</param>
+		/// <param name="states">The optional list of states to render side by side.</param>
+		/// <returns>The background image.</returns>
+		public static Bitmap GetBackgroundBitmap(this VisualStyleRenderer rnd, Color clr, int[] states = null)
 		{
-			using (SafeGDIHandle hdc = new SafeGDIHandle(dc))
+			const int wh = 200;
+			if (rnd == null) throw new ArgumentNullException(nameof(rnd));
+			rnd.SetParameters(rnd.Class, rnd.Part, 0);
+			if (states == null) states = new[] { rnd.State };
+			var i = states.Length;
+
+			// Get image size
+			Size imgSz;
+			using (var sg = Graphics.FromHwnd(IntPtr.Zero))
+				imgSz = rnd.GetPartSize(sg, new Rectangle(0, 0, wh, wh), ThemeSizeType.Draw);
+			if (imgSz.Width == 0 || imgSz.Height == 0)
+				imgSz = new Size(rnd.GetInteger(IntegerProperty.Width), rnd.GetInteger(IntegerProperty.Height));
+
+			var bounds = new Rectangle(0, 0, imgSz.Width * i, imgSz.Height);
+
+			// Draw each background linearly down the bitmap
+			using (var memoryHdc = SafeDCHandle.ScreenCompatibleDCHandle)
 			{
-				Microsoft.Win32.NativeMethods.LOGFONT f;
-				int hres = NativeMethods.GetThemeFont(rnd.Handle, hdc, rnd.Part, rnd.State, 210, out f);
+				// Create a device-independent bitmap and select it into our DC
+				var info = new BITMAPINFO(bounds.Width, -bounds.Height);
+				IntPtr ppv;
+				using (new SafeDCObjectHandle(memoryHdc, CreateDIBSection(SafeDCHandle.Null, ref info, DIBColorMode.DIB_RGB_COLORS, out ppv, IntPtr.Zero, 0)))
+				{
+					using (var memoryGraphics = Graphics.FromHdc(memoryHdc.DangerousGetHandle()))
+					{
+						// Setup graphics
+						memoryGraphics.CompositingMode = CompositingMode.SourceOver;
+						memoryGraphics.CompositingQuality = CompositingQuality.HighQuality;
+						memoryGraphics.SmoothingMode = SmoothingMode.HighQuality;
+						memoryGraphics.Clear(clr);
+
+						// Draw each background linearly down the bitmap
+						var rect = new Rectangle(0, 0, imgSz.Width, imgSz.Height);
+						foreach (var state in states)
+						{
+							rnd.SetParameters(rnd.Class, rnd.Part, state);
+							rnd.DrawBackground(memoryGraphics, rect);
+							rect.X += imgSz.Width;
+						}
+					}
+
+					// Copy DIB to Bitmap
+					var bmp = new Bitmap(bounds.Width, bounds.Height, PixelFormat.Format32bppArgb);
+					using (var primaryHdc = new SafeDCHandle(Graphics.FromImage(bmp)))
+						BitBlt(primaryHdc, bounds.Left, bounds.Top, bounds.Width, bounds.Height, memoryHdc, 0, 0, RasterOperationMode.SRCCOPY);
+					return bmp;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Returns the value of the specified font property for the current visual style element.
+		/// </summary>
+		/// <param name="rnd">The <see cref="VisualStyleRenderer" /> instance.</param>
+		/// <param name="dc">The <see cref="IDeviceContext" /> used to draw the text.</param>
+		/// <returns>A <see cref="Font"/> that contains the value of the property specified by the prop parameter for the current visual style element.</returns>
+		public static Font GetFont2(this VisualStyleRenderer rnd, IDeviceContext dc = null)
+		{
+			using (var hdc = new SafeDCHandle(dc))
+			{
+				LOGFONT f;
+				var hres = GetThemeFont(rnd, hdc, rnd.Part, rnd.State, 210, out f);
 				if (hres != 0)
 					throw new System.ComponentModel.Win32Exception(hres);
 				return f.ToFont();
 			}
 		}
 
-		private static void DrawWrapper(VisualStyleRenderer rnd, IDeviceContext dc, Rectangle bounds, DrawWrapperMethod func)
+		private static void DrawWrapper(IDeviceContext dc, Rectangle bounds, DrawWrapperMethod func)
 		{
-			using (SafeGDIHandle primaryHdc = new SafeGDIHandle(dc))
+			using (var sdc = new SafeDCHandle(dc))
 			{
-				// Create a memory DC so we can work offscreen
-				using (NativeMethods.SafeCompatibleDCHandle memoryHdc = new NativeMethods.SafeCompatibleDCHandle(primaryHdc))
+				// Create a memory DC so we can work off screen
+				using (var memoryHdc = sdc.GetCompatibleDCHandle())
 				{
 					// Create a device-independent bitmap and select it into our DC
-					NativeMethods.BITMAPINFO info = new NativeMethods.BITMAPINFO(bounds.Width, -bounds.Height);
-					using (NativeMethods.SafeDCObjectHandle dib = new NativeMethods.SafeDCObjectHandle(memoryHdc, NativeMethods.CreateDIBSection(primaryHdc, ref info, 0, IntPtr.Zero, IntPtr.Zero, 0)))
+					var info = new BITMAPINFO(bounds.Width, -bounds.Height);
+					IntPtr pBits;
+					using (new SafeDCObjectHandle(memoryHdc, CreateDIBSection(sdc, ref info, 0, out pBits, IntPtr.Zero, 0)))
 					{
 						// Call method
 						func(memoryHdc);
 
 						// Copy to foreground
-						const int SRCCOPY = 0x00CC0020;
-						NativeMethods.BitBlt(primaryHdc, bounds.Left, bounds.Top, bounds.Width, bounds.Height, memoryHdc, 0, 0, SRCCOPY);
+						BitBlt(sdc, bounds.Left, bounds.Top, bounds.Width, bounds.Height, memoryHdc, 0, 0, RasterOperationMode.SRCCOPY);
 					}
 				}
 			}
 		}
+
+		private static long GetHashCode(this VisualStyleRenderer r) => (long)r.Class.GetHashCode() << 32 | ((uint)r.Part << 16 | (ushort)r.State);
 	}
 }

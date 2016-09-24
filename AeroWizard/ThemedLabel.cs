@@ -1,9 +1,9 @@
-﻿using Microsoft.Win32.DesktopWindowManager;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using Vanara.Interop.DesktopWindowManager;
 
 namespace AeroWizard
 {
@@ -118,7 +118,7 @@ namespace AeroWizard
 					if (ImageList != null && ImageIndex == 0)
 					{
 						if (vs != null && !this.IsDesignMode() && DesktopWindowManager.IsCompositionEnabled())
-							vs.DrawGlassIcon(e.Graphics, r, ImageList, ImageIndex);
+							vs.DrawGlassImage(e.Graphics, r, ImageList, ImageIndex);
 						else
 							ImageList.Draw(e.Graphics, r.X, r.Y, r.Width, r.Height, ImageIndex);
 					}

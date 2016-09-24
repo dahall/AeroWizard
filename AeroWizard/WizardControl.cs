@@ -1,10 +1,11 @@
 ﻿using AeroWizard.VisualStyles;
-using Microsoft.Win32.DesktopWindowManager;
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using Vanara.Interop;
+using Vanara.Interop.DesktopWindowManager;
 
 namespace AeroWizard
 {
@@ -566,7 +567,7 @@ namespace AeroWizard
 					//if (!parentForm.GetWindowAttribute<bool>(DesktopWindowManager.GetWindowAttr.NonClientRenderingEnabled))
 					//	parentForm.SetWindowAttribute(DesktopWindowManager.SetWindowAttr.NonClientRenderingPolicy, DesktopWindowManager.NonClientRenderingPolicy.Enabled);
 					//parentForm.ExtendFrameIntoClientArea(new Padding(0));
-					//Microsoft.Win32.NativeMethods.SetWindowPos(this.Handle, IntPtr.Zero, this.Location.X, this.Location.Y, this.Width, this.Height, Microsoft.Win32.NativeMethods.SetWindowPosFlags.FrameChanged);
+					//NativeMethods.SetWindowPos(this.Handle, IntPtr.Zero, this.Location.X, this.Location.Y, this.Width, this.Height, NativeMethods.SetWindowPosFlags.FrameChanged);
 					parentForm?.ExtendFrameIntoClientArea(new Padding(0) {Top = titleBar.Visible ? titleBar.Height : 0});
 				}
 				catch
@@ -590,7 +591,7 @@ namespace AeroWizard
 			parentForm.CancelButton = cancelButton;
 			parentForm.AcceptButton = nextButton;
 			parentForm.AutoScaleMode = AutoScaleMode.Font;
-			parentForm.SetWindowThemeAttribute(Microsoft.Win32.NativeMethods.WindowThemeNonClientAttributes.NoDrawCaption | Microsoft.Win32.NativeMethods.WindowThemeNonClientAttributes.NoDrawIcon | Microsoft.Win32.NativeMethods.WindowThemeNonClientAttributes.NoSysMenu);
+			parentForm.SetWindowThemeAttribute(NativeMethods.WindowThemeNonClientAttributes.NoDrawCaption | NativeMethods.WindowThemeNonClientAttributes.NoDrawIcon | NativeMethods.WindowThemeNonClientAttributes.NoSysMenu);
 			parentForm.Invalidate();
 		}
 

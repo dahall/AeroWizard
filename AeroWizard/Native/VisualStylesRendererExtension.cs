@@ -1,25 +1,31 @@
-﻿using Microsoft.Win32;
-using System.Drawing;
-using System.Runtime.InteropServices;
+﻿using System.Drawing;
+using Vanara.Interop;
 
 namespace System.Windows.Forms.VisualStyles
 {
 	internal static partial class VisualStyleRendererExtension
 	{
-		public static System.Windows.Forms.Padding GetMargins2(this VisualStyleRenderer rnd, IDeviceContext dc, MarginProperty prop)
+		public static Padding GetMargins2(this VisualStyleRenderer rnd, IDeviceContext dc = null, MarginProperty prop = MarginProperty.ContentMargins)
 		{
 			NativeMethods.RECT rc;
-			using (SafeGDIHandle hdc = new SafeGDIHandle(dc))
-				NativeMethods.GetThemeMargins(rnd.Handle, hdc, rnd.Part, rnd.State, (int)prop, IntPtr.Zero, out rc);
-			return new System.Windows.Forms.Padding(rc.Left, rc.Top, rc.Right, rc.Bottom);
+			using (var hdc = new NativeMethods.SafeDCHandle(dc))
+				NativeMethods.GetThemeMargins(rnd, hdc, rnd.Part, rnd.State, (int)prop, IntPtr.Zero, out rc);
+			return new Padding(rc.Left, rc.Top, rc.Right, rc.Bottom);
 		}
 
-		public static System.UInt32 GetTransitionDuration(this VisualStyleRenderer rnd, int toState, int fromState = 0)
+		public static int GetTransitionDuration(this VisualStyleRenderer rnd, int toState, int fromState = 0)
 		{
-			System.UInt32 dwDuration = 0;
-			NativeMethods.GetThemeTransitionDuration(rnd.Handle, rnd.Part, fromState == 0 ? rnd.State : fromState, toState, (int)Microsoft.Win32.NativeMethods.IntegerListProperty.TransitionDuration, ref dwDuration);
+			int dwDuration;
+			NativeMethods.GetThemeTransitionDuration(rnd, rnd.Part, fromState == 0 ? rnd.State : fromState, toState, (int)NativeMethods.IntegerListProperty.TransitionDuration, out dwDuration);
 			return dwDuration;
 		}
+
+		/// <summary>
+		/// Sets the state of the <see cref="VisualStyleRenderer"/>.
+		/// </summary>
+		/// <param name="rnd">The <see cref="VisualStyleRenderer"/> instance.</param>
+		/// <param name="state">The state.</param>
+		public static void SetState(this VisualStyleRenderer rnd, int state) { rnd.SetParameters(rnd.Class, rnd.Part, state); }
 
 		/// <summary>
 		/// Sets attributes to control how visual styles are applied to a specified window.
@@ -29,10 +35,8 @@ namespace System.Windows.Forms.VisualStyles
 		/// <param name="enable">if set to <c>true</c> enable the attribute, otherwise disable it.</param>
 		public static void SetWindowThemeAttribute(this IWin32Window window, NativeMethods.WindowThemeNonClientAttributes attr, bool enable = true)
 		{
-			NativeMethods.WTA_OPTIONS ops = new NativeMethods.WTA_OPTIONS() { Flags = attr, Mask = enable ? (uint)attr : 0 };
-			try { NativeMethods.SetWindowThemeAttribute(window.Handle, NativeMethods.WindowThemeAttributeType.WTA_NONCLIENT, ref ops, Marshal.SizeOf(ops)); }
+			try { NativeMethods.SetWindowThemeAttribute(window, attr, enable ? (int)attr : 0); }
 			catch (EntryPointNotFoundException) { }
-			catch { throw; }
 		}
 	}
 }

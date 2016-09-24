@@ -4,9 +4,8 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
-//using Microsoft.Win32.DesktopWindowManager;
 
-namespace Microsoft.Win32.DesktopWindowManager
+namespace Vanara.Interop.DesktopWindowManager
 {
 	/// <summary>
 	/// GlassExtenderProvider extends a <see cref="System.Windows.Forms.Form"/> and provides glass margins.

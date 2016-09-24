@@ -1,12 +1,12 @@
-﻿using Microsoft.Win32.DesktopWindowManager;
+﻿using Vanara.Interop.DesktopWindowManager;
 using System.Windows.Forms;
 
 namespace TestWizard
 {
 	public partial class MyWizard : Form
 	{
-		Button extraBtn;
-		System.Text.StringBuilder events = new System.Text.StringBuilder(1024);
+		private readonly Button extraBtn;
+		private readonly System.Text.StringBuilder events = new System.Text.StringBuilder(1024);
 
 		public MyWizard()
 		{
@@ -36,7 +36,7 @@ namespace TestWizard
 				ncre = this.GetWindowAttribute<bool>(DesktopWindowManager.GetWindowAttr.NonClientRenderingEnabled);
 				efb = this.GetWindowAttribute<Padding>(DesktopWindowManager.GetWindowAttr.ExtendedFrameBounds);
 				cbb = this.GetWindowAttribute<Padding>(DesktopWindowManager.GetWindowAttr.CaptionButtonBounds);
-				clk = System.Environment.OSVersion.Version.Minor >= 2 ? this.GetWindowAttribute<bool>(DesktopWindowManager.GetWindowAttr.Cloaked) : false;
+				clk = System.Environment.OSVersion.Version.Minor >= 2 && this.GetWindowAttribute<bool>(DesktopWindowManager.GetWindowAttr.Cloaked);
 			}
 			catch { }
 			events.AppendFormat("{0:s}: Style (NCRend:{1}, Clk:{2}, CapBtn:{3}, ExtFrm:{4}\n", System.DateTime.Now, ncre, clk, cbb, efb);
@@ -45,7 +45,7 @@ namespace TestWizard
 		void MyWizard_SystemColorsChanged(object sender, System.EventArgs e)
 		{
 			bool ncre = this.GetWindowAttribute<bool>(DesktopWindowManager.GetWindowAttr.NonClientRenderingEnabled);
-			bool clk = System.Environment.OSVersion.Version.Minor >= 2 ? this.GetWindowAttribute<bool>(DesktopWindowManager.GetWindowAttr.Cloaked) : false;
+			bool clk = System.Environment.OSVersion.Version.Minor >= 2 && this.GetWindowAttribute<bool>(DesktopWindowManager.GetWindowAttr.Cloaked);
 			Padding cbb = this.GetWindowAttribute<Padding>(DesktopWindowManager.GetWindowAttr.CaptionButtonBounds);
 			Padding efb = this.GetWindowAttribute<Padding>(DesktopWindowManager.GetWindowAttr.ExtendedFrameBounds);
 			events.AppendFormat("{0:s}: System colors (NCRend:{1}, Clk:{2}, CapBtn:{3}, ExtFrm:{4}\n", System.DateTime.Now, ncre, clk, cbb, efb);

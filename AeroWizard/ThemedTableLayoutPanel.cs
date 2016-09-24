@@ -1,7 +1,7 @@
-﻿using Microsoft.Win32.DesktopWindowManager;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using Vanara.Interop.DesktopWindowManager;
 
 namespace AeroWizard
 {

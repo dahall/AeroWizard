@@ -94,10 +94,12 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Native\ButtonExtension.cs" />
-    <Compile Include="Native\GenericSafeHandle.cs" />
+    <Compile Include="Native\InteropUtil.cs" />
     <Compile Include="Native\LOGFONT.cs" />
     <Compile Include="Native\SafeDCHandles.cs" />
     <Compile Include="Native\SafeHGlobalHandle.cs" />
+    <Compile Include="Native\SHELL32.cs" />
+    <Compile Include="Native\ShObjIdl.cs" />
     <Compile Include="Native\SIZE.cs" />
     <Compile Include="Native\TaskbarList.cs" />
     <Compile Include="Native\BITMAPINFO.cs" />
@@ -105,17 +107,17 @@
     <Compile Include="Native\DWMAPI.cs" />
     <Compile Include="Native\GDI32.cs" />
     <Compile Include="Native\RECT.cs" />
-    <Compile Include="Native\SafeGDIHandle.cs" />
     <Compile Include="Native\USER32.cs" />
     <Compile Include="Native\UXTHEME.cs" />
     <Compile Include="Native\UXTHEME_GDI.cs" />
     <Compile Include="Native\VisualStylesRendererExtension.cs" />
     <Compile Include="Native\VisualStylesRendererExtensionGDI.cs" />
+    <Compile Include="Native\WIN32_FIND_DATA.cs" />
     <Compile Include="StepList.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="StepWizardControl.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="VisualStyleElementEx.cs" />
     <Compile Include="ControlExtension.cs" />
@@ -149,7 +151,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WizardControl.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="WizardControl.designer.cs">
       <DependentUpon>WizardControl.cs</DependentUpon>

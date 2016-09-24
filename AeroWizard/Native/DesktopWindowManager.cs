@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Microsoft.Win32.DesktopWindowManager
+namespace Vanara.Interop.DesktopWindowManager
 {
 	/// <summary>Main DWM class, provides glass sheet effect and blur behind.</summary>
 	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces")]

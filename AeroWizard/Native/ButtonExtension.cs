@@ -9,7 +9,7 @@ namespace System.Windows.Forms
 			{
 				const uint BCM_SETSHIELD = 0x160C;    //Elevated button
 				btn.FlatStyle = required ? FlatStyle.System : FlatStyle.Standard;
-				Microsoft.Win32.NativeMethods.SendMessage(btn.Handle, BCM_SETSHIELD, IntPtr.Zero, required ? new IntPtr(1) : IntPtr.Zero);
+				Vanara.Interop.NativeMethods.SendMessage(btn.Handle, BCM_SETSHIELD, IntPtr.Zero, required ? new IntPtr(1) : IntPtr.Zero);
 				btn.Invalidate();
 			}
 			else

@@ -1,9 +1,9 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using Vanara.Interop;
 
 namespace AeroWizard
 {
@@ -38,7 +38,7 @@ namespace AeroWizard
 		private Timer progressTimer;
 		private WizardPage selectedPage;
 		private bool showProgressInTaskbarIcon;
-		private ITaskbarList4 taskbar;
+		private NativeMethods.ITaskbarList4 taskbar;
 		private ButtonBase backButton, cancelButton, nextButton;
 
 		/// <summary>
@@ -364,15 +364,15 @@ namespace AeroWizard
 		/// Gets the task bar interface for the current form.
 		/// </summary>
 		/// <value>The task bar.</value>
-		private ITaskbarList4 TaskBar
+		private NativeMethods.ITaskbarList4 TaskBar
 		{
 			get
 			{
 				if (taskbar == null)
 				{
-					taskbar = (ITaskbarList4)new CTaskbarList();
+					taskbar = (NativeMethods.ITaskbarList4)new NativeMethods.CTaskbarList();
 					taskbar.HrInit();
-					if (ParentForm != null) taskbar.SetProgressState(ParentForm.Handle, TaskbarProgressBarStatus.Normal);
+					if (ParentForm != null) taskbar.SetProgressState(ParentForm.Handle, NativeMethods.TBPF.NORMAL);
 				}
 				return taskbar;
 			}

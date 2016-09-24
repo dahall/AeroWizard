@@ -1,121 +1,193 @@
-﻿using System;
+﻿// Requires ShlObjIdl.cs
+
+using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
-namespace Microsoft.Win32
+namespace Vanara.Interop
 {
-	internal enum HResult
+	[System.Security.SuppressUnmanagedCodeSecurity]
+	internal static partial class NativeMethods
 	{
-		AccessDenied = -2147287035,
-		Canceled = -2147023673,
-		ElementNotFound = -2147023728,
-		Fail = -2147467259,
-		False = 1,
-		InvalidArguments = -2147024809,
-		NoInterface = -2147467262,
-		NoObject = -2147221019,
-		Ok = 0,
-		OutOfMemory = -2147024882,
-		ResourceInUse = -2147024726,
-		TypeElementNotFound = -2147319765,
-		Win32ErrorCanceled = 0x4c7
-	}
+		public static class TaskbarList
+		{
+			static readonly Finalizer finalizer = new Finalizer();
+			static ITaskbarList2 taskbar2;
+			static ITaskbarList4 taskbar4;
 
-	internal enum SetTabPropertiesOption
-	{
-		None = 0,
-		UseAppPeekAlways = 4,
-		UseAppPeekWhenActive = 8,
-		UseAppThumbnailAlways = 1,
-		UseAppThumbnailWhenActive = 2
-	}
+			static TaskbarList()
+			{
+				var tb = new CTaskbarList();
+				taskbar2 = (ITaskbarList2)tb;
+				try { taskbar4 = (ITaskbarList4)tb; } catch { taskbar4 = null; }
+				taskbar2?.HrInit();
+			}
 
-	internal enum TaskbarProgressBarStatus
-	{
-		Error = 4,
-		Indeterminate = 1,
-		NoProgress = 0,
-		Normal = 2,
-		Paused = 8
-	}
+			sealed class Finalizer
+			{
+				~Finalizer()
+				{
+					if (taskbar2 != null)
+						Marshal.ReleaseComObject(taskbar2);
+					if (taskbar4 != null)
+						Marshal.ReleaseComObject(taskbar4);
+				}
+			}
 
-	internal enum ThumbButtonMask
-	{
-		Bitmap = 1,
-		Icon = 2,
-		THB_FLAGS = 8,
-		Tooltip = 4
-	}
+			public static uint TaskbarButtonCreatedWinMsgId => RegisterWindowMessage("TaskbarButtonCreated");
 
-	[Flags]
-	internal enum ThumbButtonOptions
-	{
-		Disabled = 1,
-		DismissOnClick = 2,
-		Enabled = 0,
-		Hidden = 8,
-		NoBackground = 4,
-		NonInteractive = 0x10
-	} 
+			public static void ActivateTaskbarItem(IWin32Window parent)
+			{
+				if (parent == null)
+					throw new ArgumentNullException(nameof(parent));
+				taskbar2?.ActivateTab(parent.Handle);
+			}
 
-	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-	internal struct ThumbButton
-	{
-		internal const int Clicked = 0x1800;
-		[MarshalAs(UnmanagedType.U4)]
-		internal ThumbButtonMask Mask;
-		internal uint Id;
-		internal uint Bitmap;
-		internal IntPtr Icon;
-		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
-		internal string Tip;
-		[MarshalAs(UnmanagedType.U4)]
-		internal ThumbButtonOptions Flags;
-	}
+			public static void MarkFullscreenWindow(IWin32Window parent, bool fullscreen)
+			{
+				if (parent == null)
+					throw new ArgumentNullException(nameof(parent));
+				taskbar2?.MarkFullscreenWindow(parent.Handle, fullscreen);
+			}
 
-	[ComImport, InterfaceType(ComInterfaceType.InterfaceIsIUnknown), Guid("c43dc798-95d1-4bea-9030-bb99e2983a1a")]
-	internal interface ITaskbarList4
-	{
-		[PreserveSig]
-		void HrInit();
-		[PreserveSig]
-		void AddTab(IntPtr hwnd);
-		[PreserveSig]
-		void DeleteTab(IntPtr hwnd);
-		[PreserveSig]
-		void ActivateTab(IntPtr hwnd);
-		[PreserveSig]
-		void SetActiveAlt(IntPtr hwnd);
-		[PreserveSig]
-		void MarkFullscreenWindow(IntPtr hwnd, [MarshalAs(UnmanagedType.Bool)] bool fFullscreen);
-		[PreserveSig]
-		void SetProgressValue(IntPtr hwnd, ulong ullCompleted, ulong ullTotal);
-		[PreserveSig]
-		void SetProgressState(IntPtr hwnd, TaskbarProgressBarStatus tbpFlags);
-		[PreserveSig]
-		void RegisterTab(IntPtr hwndTab, IntPtr hwndMDI);
-		[PreserveSig]
-		void UnregisterTab(IntPtr hwndTab);
-		[PreserveSig]
-		void SetTabOrder(IntPtr hwndTab, IntPtr hwndInsertBefore);
-		[PreserveSig]
-		void SetTabActive(IntPtr hwndTab, IntPtr hwndInsertBefore, uint dwReserved);
-		[PreserveSig]
-		HResult ThumbBarAddButtons(IntPtr hwnd, uint cButtons, [MarshalAs(UnmanagedType.LPArray)] ThumbButton[] pButtons);
-		[PreserveSig]
-		HResult ThumbBarUpdateButtons(IntPtr hwnd, uint cButtons, [MarshalAs(UnmanagedType.LPArray)] ThumbButton[] pButtons);
-		[PreserveSig]
-		void ThumbBarSetImageList(IntPtr hwnd, IntPtr himl);
-		[PreserveSig]
-		void SetOverlayIcon(IntPtr hwnd, IntPtr hIcon, [MarshalAs(UnmanagedType.LPWStr)] string pszDescription);
-		[PreserveSig]
-		void SetThumbnailTooltip(IntPtr hwnd, [MarshalAs(UnmanagedType.LPWStr)] string pszTip);
-		[PreserveSig]
-		void SetThumbnailClip(IntPtr hwnd, IntPtr prcClip);
-		void SetTabProperties(IntPtr hwndTab, SetTabPropertiesOption stpFlags);
-	}
+			public static void SetActiveAlt(IWin32Window parent)
+			{
+				if (parent == null)
+					throw new ArgumentNullException(nameof(parent));
+				taskbar2?.SetActiveAlt(parent.Handle);
+			}
 
-	[ComImport, Guid("56FDF344-FD6D-11d0-958A-006097C9A090"), ClassInterface(ClassInterfaceType.None)]
-	internal class CTaskbarList
-	{
+			// Thumbnail Toolbars ============================================
+
+			public static void ThumbBarAddButtons(IWin32Window parent, THUMBBUTTON[] buttons)
+			{
+				Validate7OrLater();
+				if (parent == null)
+					throw new ArgumentNullException(nameof(parent));
+				if (buttons == null)
+					throw new ArgumentNullException(nameof(buttons));
+				taskbar4?.ThumbBarAddButtons(parent.Handle, (uint)buttons.Length, buttons);
+			}
+
+			public static void ThumbBarSetImageList(IWin32Window parent, ImageList imageList)
+			{
+				Validate7OrLater();
+				if (parent == null)
+					throw new ArgumentNullException(nameof(parent));
+				if (imageList == null)
+					throw new ArgumentNullException(nameof(imageList));
+				taskbar4?.ThumbBarSetImageList(parent.Handle, imageList.Handle);
+			}
+
+			public static void ThumbBarUpdateButtons(IWin32Window parent, THUMBBUTTON[] buttons)
+			{
+				Validate7OrLater();
+				if (parent == null)
+					throw new ArgumentNullException(nameof(parent));
+				if (buttons == null)
+					throw new ArgumentNullException(nameof(buttons));
+				taskbar4?.ThumbBarUpdateButtons(parent.Handle, (uint)buttons.Length, buttons);
+			}
+
+			// Overlays ============================================
+
+			public static void SetOverlayIcon(IWin32Window parent, Icon icon, string description)
+			{
+				Validate7OrLater();
+				if (parent == null)
+					throw new ArgumentNullException(nameof(parent));
+				taskbar4?.SetOverlayIcon(parent.Handle, icon == null ? IntPtr.Zero : icon.Handle, description);
+			}
+
+			// Progress Bars ============================================
+
+			public static void SetProgressState(IWin32Window parent, TBPF status)
+			{
+				Validate7OrLater();
+				if (parent == null)
+					throw new ArgumentNullException(nameof(parent));
+				taskbar4?.SetProgressState(parent.Handle, status);
+			}
+
+			public static void SetProgressValue(IWin32Window parent, ulong completed, ulong total)
+			{
+				Validate7OrLater();
+				if (parent == null)
+					throw new ArgumentNullException(nameof(parent));
+				taskbar4?.SetProgressValue(parent.Handle, completed, total);
+			}
+
+			// Thumbnails ============================================
+
+			public static void RegisterTab(IWin32Window parent, IWin32Window childWindow)
+			{
+				Validate7OrLater();
+				if (childWindow == null)
+					throw new ArgumentNullException(nameof(childWindow));
+				if (parent == null)
+					throw new ArgumentNullException(nameof(parent));
+				taskbar4?.RegisterTab(childWindow.Handle, parent.Handle);
+			}
+
+			public static void SetTabActive(IWin32Window parent, IWin32Window childWindow)
+			{
+				Validate7OrLater();
+				if (childWindow == null)
+					throw new ArgumentNullException(nameof(childWindow));
+				if (parent == null)
+					throw new ArgumentNullException(nameof(parent));
+				taskbar4?.SetTabActive(childWindow.Handle, parent.Handle, 0);
+			}
+
+			public static void SetTabOrder(IWin32Window childWindow, IWin32Window insertBeforeChildWindow = null)
+			{
+				Validate7OrLater();
+				if (childWindow == null)
+					throw new ArgumentNullException(nameof(childWindow));
+				taskbar4?.SetTabOrder(childWindow.Handle, insertBeforeChildWindow == null ? IntPtr.Zero : insertBeforeChildWindow.Handle);
+			}
+
+			public static void SetTabProperties(IWin32Window childWindow, STPF properties)
+			{
+				Validate7OrLater();
+				if (childWindow == null)
+					throw new ArgumentNullException(nameof(childWindow));
+				taskbar4?.SetTabProperties(childWindow.Handle, properties);
+			}
+
+			public static void UnregisterTab(IWin32Window childWindow)
+			{
+				Validate7OrLater();
+				if (childWindow == null)
+					throw new ArgumentNullException(nameof(childWindow));
+				taskbar4?.UnregisterTab(childWindow.Handle);
+			}
+
+			public static void SetThumbnailClip(IWin32Window parent, Rectangle windowClipRect)
+			{
+				Validate7OrLater();
+				if (parent == null)
+					throw new ArgumentNullException(nameof(parent));
+				RECT cr = windowClipRect;
+				taskbar4?.SetThumbnailClip(parent.Handle, ref cr);
+			}
+
+			public static void SetThumbnailTooltip(IWin32Window parent, string tip)
+			{
+				Validate7OrLater();
+				if (parent == null)
+					throw new ArgumentNullException(nameof(parent));
+				taskbar4?.SetThumbnailTooltip(parent.Handle, tip);
+			}
+
+			static readonly Version Win7Ver = new Version(6, 1);
+
+			private static void Validate7OrLater()
+			{
+				if (Environment.OSVersion.Version < Win7Ver)
+					throw new InvalidOperationException("This method is only available on Windows 7 and later.");
+			}
+		}
 	}
 }

@@ -3,11 +3,14 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Microsoft.Win32
+namespace Vanara.Interop
 {
 	internal static partial class NativeMethods
 	{
 		[DllImport(UXTHEME, ExactSpelling = true, CharSet = CharSet.Unicode)]
-		public static extern Int32 GetThemeFont(IntPtr hTheme, IntPtr hdc, int iPartId, int iStateId, int iPropId, out LOGFONT pFont);
+		public static extern int GetThemeFont(SafeThemeHandle hTheme, SafeDCHandle hdc, int iPartId, int iStateId, int iPropId, out LOGFONT pFont);
+
+		[DllImport(UXTHEME, ExactSpelling = true, CharSet = CharSet.Unicode)]
+		public static extern int GetThemeSysFont(SafeThemeHandle hTheme, int iFontId, out LOGFONT pFont);
 	}
 }

@@ -611,9 +611,9 @@ namespace AeroWizard
 			{
 				pageHistory.Clear();
 				selectedPage = null;
-				if (Pages.Count > 0)
-					SelectedPage = Pages[0];
-				else
+				var firstPage = Pages.Find(p => !p.Suppress);
+				if (firstPage != null) SelectedPage = firstPage;
+				if (selectedPage == null)
 					UpdateUIDependencies();
 				if (showProgressInTaskbarIcon)
 				{

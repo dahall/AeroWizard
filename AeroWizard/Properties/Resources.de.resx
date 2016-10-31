@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,34 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="WizardBackButtonToolTip" xml:space="preserve">
-    <value>Retourne à une page précédente</value>
+  <data name="WizardPageDefaultHelpText" xml:space="preserve">
+    <value>Hilfe</value>
   </data>
   <data name="WizardBackText" xml:space="preserve">
-    <value>&amp;Précédent</value>
+    <value>&amp;Zurück</value>
   </data>
   <data name="WizardCancelText" xml:space="preserve">
-    <value>&amp;Annuler</value>
+    <value>&amp;Abbrechen</value>
   </data>
   <data name="WizardFinishText" xml:space="preserve">
-    <value>&amp;Terminer</value>
+    <value>&amp;Fertig stellen</value>
   </data>
   <data name="WizardHeader" xml:space="preserve">
-    <value>Titre de la page</value>
+    <value>Seitentitel</value>
   </data>
   <data name="WizardHelpText" xml:space="preserve">
-    <value>&amp;Aide</value>
+    <value>&amp;Hilfe</value>
   </data>
   <data name="WizardNextText" xml:space="preserve">
-    <value>&amp;Suivant</value>
-  </data>
-  <data name="WizardNoPagesNotice" xml:space="preserve">
-    <value>Pas de pages de l'assistant ont été ajoutés.</value>
+    <value>&amp;Weiter</value>
   </data>
   <data name="WizardTitle" xml:space="preserve">
-    <value>Assistant Titre</value>
+    <value>Assistententitel</value>
   </data>
-  <data name="WizardPageDefaultHelpText" xml:space="preserve">
-    <value>Aide</value>
+  <data name="WizardBackButtonToolTip" xml:space="preserve">
+    <value>Kehrt zurück zur vorherigen Seite!</value>
+  </data>
+  <data name="WizardNoPagesNotice" xml:space="preserve">
+    <value>Keine Assistentenseiten hinzugekommen!</value>
   </data>
 </root>

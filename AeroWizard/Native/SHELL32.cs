@@ -142,13 +142,13 @@ namespace Vanara.Interop
 		[DllImport(SHELL32, CharSet = CharSet.Auto)]
 		public extern static int ExtractIconEx([MarshalAs(UnmanagedType.LPTStr)] string lpszFile, int nIconIndex, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] IntPtr[] phIconLarge, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] IntPtr[] phIconSmall, int nIcons);
 
-		/// <summary> Retrieves the User Model AppID that has been explicitly set for the current process via
-		/// SetCurrentProcessExplicitAppUserModelID </summary> <param name="AppID">
+		/// <summary> Retrieves the User Model AppID that has been explicitly set for the current process via SetCurrentProcessExplicitAppUserModelID</summary>
+		/// <param name="AppID">The application ID</param>
 		[DllImport(SHELL32)]
 		public static extern HRESULT GetCurrentProcessExplicitAppUserModelID([MarshalAs(UnmanagedType.LPWStr)] out string AppID);
 
 		/// <summary> Sets the User Model AppID for the current process, enabling Windows to retrieve this ID </summary>
-		/// <param name="AppID">
+		/// <param name="AppID">The application ID</param>
 		[DllImport(SHELL32, PreserveSig = false)]
 		public static extern void SetCurrentProcessExplicitAppUserModelID([MarshalAs(UnmanagedType.LPWStr)] string AppID);
 

@@ -11,24 +11,57 @@ using FILETIME = System.Runtime.InteropServices.ComTypes.FILETIME;
 
 namespace Vanara.Interop
 {
+	/// <summary>
+	/// A representation of a shell item property key.
+	/// </summary>
 	[StructLayout(LayoutKind.Sequential, Pack = 4)]
 	public struct ShellItemPropertyKey : IComparable<ShellItemPropertyKey>
 	{
 		private readonly Guid fmtid;
 		private readonly int pid;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ShellItemPropertyKey"/> struct.
+		/// </summary>
+		/// <param name="key">The key.</param>
+		/// <param name="id">The identifier.</param>
 		public ShellItemPropertyKey(Guid key, int id = 2)
 		{
 			fmtid = key;
 			pid = id;
 		}
 
+		/// <summary>
+		/// Gets the key.
+		/// </summary>
+		/// <value>
+		/// The key.
+		/// </value>
 		public Guid Key => fmtid;
 
+		/// <summary>
+		/// Gets the identifier.
+		/// </summary>
+		/// <value>
+		/// The identifier.
+		/// </value>
 		public int Id => pid;
 
+		/// <summary>
+		/// Returns a <see cref="System.String" /> that represents this instance.
+		/// </summary>
+		/// <returns>
+		/// A <see cref="System.String" /> that represents this instance.
+		/// </returns>
 		public override string ToString() => KnownShellItemPropertyKeys.ReverseLookup(this) ?? $"{fmtid:B} {pid}";
 
+		/// <summary>
+		/// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+		/// </summary>
+		/// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+		/// <returns>
+		///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+		/// </returns>
 		public override bool Equals(object obj)
 		{
 			if (obj != null && obj is ShellItemPropertyKey)
@@ -36,6 +69,12 @@ namespace Vanara.Interop
 			return false;
 		}
 
+		/// <summary>
+		/// Returns a hash code for this instance.
+		/// </summary>
+		/// <returns>
+		/// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+		/// </returns>
 		public override int GetHashCode() => new { fmtid, pid }.GetHashCode();
 
 		int IComparable<ShellItemPropertyKey>.CompareTo(ShellItemPropertyKey other)
@@ -47,6 +86,9 @@ namespace Vanara.Interop
 		}
 	}
 
+	/// <summary>
+	/// Listing of known shell item property keys.
+	/// </summary>
 	public static class KnownShellItemPropertyKeys
 	{
 		private static Dictionary<ShellItemPropertyKey, string> revIndex = null;
@@ -7375,20 +7417,20 @@ namespace Vanara.Interop
 			/// <summary>This function must be called first to validate use of other members.</summary>
 			void HrInit();
 
-			/// <summary> This function adds a tab for hwnd to the taskbar. </summary> <param name="hwnd">The HWND for
-			/// which to add the tab.
+			/// <summary> This function adds a tab for hwnd to the taskbar.</summary>
+			/// <param name="hwnd">The HWND for which to add the tab.</param>
 			void AddTab(IntPtr hwnd);
 
-			/// <summary> This function deletes a tab for hwnd from the taskbar. </summary> <param name="hwnd">The HWND
-			/// for which the tab is to be deleted.
+			/// <summary> This function deletes a tab for hwnd from the taskbar.</summary>
+			/// <param name="hwnd">The HWND for which the tab is to be deleted.</param>
 			void DeleteTab(IntPtr hwnd);
 
-			/// <summary> This function activates the tab associated with hwnd on the taskbar. </summary> <param
-			/// name="hwnd">The HWND for which the tab is to be activated.
+			/// <summary> This function activates the tab associated with hwnd on the taskbar.</summary>
+			/// <param name="hwnd">The HWND for which the tab is to be activated.</param>
 			void ActivateTab(IntPtr hwnd);
 
-			/// <summary> This function marks hwnd in the taskbar as the active tab. </summary> <param name="hwnd">The
-			/// HWND to activate.
+			/// <summary> This function marks hwnd in the taskbar as the active tab.</summary>
+			/// <param name="hwnd">The HWND to activate.</param>
 			void SetActiveAlt(IntPtr hwnd);
 		}
 
@@ -7411,14 +7453,15 @@ namespace Vanara.Interop
 
 			new void SetActiveAlt(IntPtr hwnd);
 
-			/// <summary> Marks a window as full-screen. </summary> <param name="hwnd">The handle of the window to be
-			/// marked. <param name="fFullscreen">A Boolean value marking the desired full-screen status of the window.
-			/// <remarks> Setting the value of fFullscreen to true, the Shell treats this window as a full-screen window,
-			/// and the taskbar is moved to the bottom of the z-order when this window is active. Setting the value of
-			/// fFullscreen to false removes the full-screen marking, but <i>does not</i> cause the Shell to treat the
-			/// window as though it were definitely not full-screen. With a false fFullscreen value, the Shell depends on
-			/// its automatic detection facility to specify how the window should be treated, possibly still flagging the
-			/// window as full-screen. </remarks>
+			/// <summary>Marks a window as full-screen.</summary>
+			/// <param name="hwnd">The handle of the window to be marked.</param>
+			/// <param name="fFullscreen">A Boolean value marking the desired full-screen status of the window.</param>
+			/// <remarks>
+			/// Setting the value of fFullscreen to true, the Shell treats this window as a full-screen window, and the taskbar is moved to the bottom of the
+			/// z-order when this window is active. Setting the value of fFullscreen to false removes the full-screen marking, but <i>does not</i> cause the
+			/// Shell to treat the window as though it were definitely not full-screen. With a false fFullscreen value, the Shell depends on its automatic
+			/// detection facility to specify how the window should be treated, possibly still flagging the window as full-screen.
+			/// </remarks>
 			void MarkFullscreenWindow(IntPtr hwnd, [MarshalAs(UnmanagedType.Bool)] bool fFullscreen);
 		}
 

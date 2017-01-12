@@ -127,7 +127,7 @@
     <value>&amp;Abbrechen</value>
   </data>
   <data name="WizardFinishText" xml:space="preserve">
-    <value>&amp;Fertig stellen</value>
+    <value>&amp;Fertig</value>
   </data>
   <data name="WizardHeader" xml:space="preserve">
     <value>Seitentitel</value>
@@ -142,9 +142,9 @@
     <value>Assistententitel</value>
   </data>
   <data name="WizardBackButtonToolTip" xml:space="preserve">
-    <value>Kehrt zurück zur vorherigen Seite!</value>
+    <value>Zu der vorherigen Seite zurückkehren</value>
   </data>
   <data name="WizardNoPagesNotice" xml:space="preserve">
-    <value>Keine Assistentenseiten hinzugekommen!</value>
+    <value>Bisher sind keine Seiten des Assistenten hinzugefügt worden.</value>
   </data>
 </root>

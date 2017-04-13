@@ -11,7 +11,8 @@
 		<SortOrder>100</SortOrder>
 		<Icon>__TemplateIcon.ico</Icon>
 		<PreviewImage>__PreviewImage.PNG</PreviewImage>
-	</TemplateData>
+    <TemplateID>79CB9E7F-B925-42CF-A231-27B4E2C6BA88</TemplateID>
+  </TemplateData>
 	<TemplateContent>
 		<References>
 			<Reference>
@@ -40,7 +41,7 @@
 	</WizardExtension>
 	<WizardData>
 		<packages repository="extension" repositoryId="AeroWizardTemplates..134dde00-8c48-450a-926c-63377b215799" >
-			<package id="AeroWizard" version="2.1.9" />
+			<package id="AeroWizard" version="2.1.10" />
 		</packages>
 	</WizardData>
 </VSTemplate>

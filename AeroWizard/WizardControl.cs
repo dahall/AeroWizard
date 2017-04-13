@@ -369,11 +369,11 @@ namespace AeroWizard
 		}
 
 		/// <summary>
-		/// Raises the <see cref="WizardControl.Cancelling"/> event.
+		/// Raises the <see cref="WizardControl.Cancelling" /> event.
 		/// </summary>
-		protected virtual void OnCancelling()
+		/// <param name="arg">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
+		protected virtual void OnCancelling(CancelEventArgs arg)
 		{
-			var arg = new CancelEventArgs(true);
 			Cancelling?.Invoke(this, arg);
 
 			if (arg.Cancel)
@@ -647,7 +647,7 @@ namespace AeroWizard
 
 		private void pageContainer_Cancelling(object sender, CancelEventArgs e)
 		{
-			OnCancelling();
+			OnCancelling(e);
 		}
 
 		private void pageContainer_Finished(object sender, EventArgs e)

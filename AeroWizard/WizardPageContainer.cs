@@ -481,11 +481,11 @@ namespace AeroWizard
 		}
 
 		/// <summary>
-		/// Raises the <see cref="WizardControl.Cancelling"/> event.
+		/// Raises the <see cref="WizardControl.Cancelling" /> event.
 		/// </summary>
-		protected virtual void OnCancelling()
+		/// <param name="arg">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
+		protected virtual void OnCancelling(CancelEventArgs arg)
 		{
-			var arg = new CancelEventArgs(true);
 			Cancelling?.Invoke(this, arg);
 		}
 
@@ -568,7 +568,8 @@ namespace AeroWizard
 
 		private void cancelButton_Click(object sender, EventArgs e)
 		{
-			OnCancelling();
+			var arg = new CancelEventArgs(true);
+			OnCancelling(arg);
 		}
 
 		internal WizardCommandButtonState GetCmdButtonState(ButtonBase btn)

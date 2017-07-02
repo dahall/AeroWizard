@@ -1,0 +1,93 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AeroWizard", "AeroWizard.csproj", "{199C12C4-3EEF-4D08-BAC3-F2A62BCF969C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWizard", "TestWizard\TestWizard.csproj", "{EAA3C12F-D499-476C-9500-524EAEE3373A}"
+EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "AeroWizardHelp", "AeroWizardHelp\AeroWizardHelp.shfbproj", "{D62D015E-12BE-42D0-A62C-997AAE54D654}"
+	ProjectSection(ProjectDependencies) = postProject
+		{199C12C4-3EEF-4D08-BAC3-F2A62BCF969C} = {199C12C4-3EEF-4D08-BAC3-F2A62BCF969C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AeroWizardTemplates", "AeroWizardTemplates\AeroWizardTemplates.csproj", "{438228D8-C9EB-41DC-A7C9-9A0C3D8EEAAA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{199C12C4-3EEF-4D08-BAC3-F2A62BCF969C} = {199C12C4-3EEF-4D08-BAC3-F2A62BCF969C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AeroWizardItemTemplate", "AeroWizardItemTemplate\AeroWizardItemTemplate.csproj", "{BE2F5D91-AB68-432F-A94D-E68F05071324}"
+	ProjectSection(ProjectDependencies) = postProject
+		{199C12C4-3EEF-4D08-BAC3-F2A62BCF969C} = {199C12C4-3EEF-4D08-BAC3-F2A62BCF969C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomWizardItemTemplate", "CustomWizardItemTemplate\CustomWizardItemTemplate.csproj", "{D8029003-7A3F-4840-B441-E15D6E2BAFC2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{199C12C4-3EEF-4D08-BAC3-F2A62BCF969C} = {199C12C4-3EEF-4D08-BAC3-F2A62BCF969C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wizard97ItemTemplate", "Wizard97ItemTemplate\Wizard97ItemTemplate.csproj", "{D127643F-69AA-4C4C-A624-7754289E798C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{199C12C4-3EEF-4D08-BAC3-F2A62BCF969C} = {199C12C4-3EEF-4D08-BAC3-F2A62BCF969C}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{199C12C4-3EEF-4D08-BAC3-F2A62BCF969C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{199C12C4-3EEF-4D08-BAC3-F2A62BCF969C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{199C12C4-3EEF-4D08-BAC3-F2A62BCF969C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{199C12C4-3EEF-4D08-BAC3-F2A62BCF969C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAA3C12F-D499-476C-9500-524EAEE3373A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAA3C12F-D499-476C-9500-524EAEE3373A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAA3C12F-D499-476C-9500-524EAEE3373A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAA3C12F-D499-476C-9500-524EAEE3373A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D62D015E-12BE-42D0-A62C-997AAE54D654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D62D015E-12BE-42D0-A62C-997AAE54D654}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{438228D8-C9EB-41DC-A7C9-9A0C3D8EEAAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{438228D8-C9EB-41DC-A7C9-9A0C3D8EEAAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{438228D8-C9EB-41DC-A7C9-9A0C3D8EEAAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE2F5D91-AB68-432F-A94D-E68F05071324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE2F5D91-AB68-432F-A94D-E68F05071324}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE2F5D91-AB68-432F-A94D-E68F05071324}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8029003-7A3F-4840-B441-E15D6E2BAFC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8029003-7A3F-4840-B441-E15D6E2BAFC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8029003-7A3F-4840-B441-E15D6E2BAFC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D127643F-69AA-4C4C-A624-7754289E798C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D127643F-69AA-4C4C-A624-7754289E798C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D127643F-69AA-4C4C-A624-7754289E798C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 8
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs06
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = AeroWizard.csproj
+		SccLocalPath1 = .
+		SccProjectUniqueName2 = TestWizard\\TestWizard.csproj
+		SccProjectName2 = TestWizard
+		SccLocalPath2 = TestWizard
+		SccProjectUniqueName3 = AeroWizardHelp\\AeroWizardHelp.shfbproj
+		SccProjectName3 = AeroWizardHelp
+		SccLocalPath3 = AeroWizardHelp
+		SccProjectUniqueName4 = AeroWizardTemplates\\AeroWizardTemplates.csproj
+		SccProjectName4 = AeroWizardTemplates
+		SccLocalPath4 = AeroWizardTemplates
+		SccProjectUniqueName5 = AeroWizardItemTemplate\\AeroWizardItemTemplate.csproj
+		SccProjectName5 = AeroWizardItemTemplate
+		SccLocalPath5 = AeroWizardItemTemplate
+		SccProjectUniqueName6 = CustomWizardItemTemplate\\CustomWizardItemTemplate.csproj
+		SccProjectName6 = CustomWizardItemTemplate
+		SccLocalPath6 = CustomWizardItemTemplate
+		SccProjectUniqueName7 = Wizard97ItemTemplate\\Wizard97ItemTemplate.csproj
+		SccProjectName7 = Wizard97ItemTemplate
+		SccLocalPath7 = Wizard97ItemTemplate
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
+	<TemplateData>
+		<DefaultName>Wizard97ItemTemplate.cs</DefaultName>
+		<Name>Wizard97 Control</Name>
+		<Description>Windows Form hosting controls that allow it to behave as a Wizard97 look alike.</Description>
+		<ProjectType>CSharp</ProjectType>
+		<CreateNewFolder>true</CreateNewFolder>
+		<NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+		<RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+		<SortOrder>100</SortOrder>
+		<Icon>__TemplateIcon.ico</Icon>
+		<PreviewImage>__PreviewImage.PNG</PreviewImage>
+    <TemplateID>79CB9E7F-B925-42CF-A231-27B4E2C6BA88</TemplateID>
+  </TemplateData>
+	<TemplateContent>
+		<References>
+			<Reference>
+				<Assembly>System</Assembly>
+			</Reference>
+			<Reference>
+				<Assembly>System.Design</Assembly>
+			</Reference>
+			<Reference>
+				<Assembly>System.Drawing</Assembly>
+			</Reference>
+			<Reference>
+				<Assembly>System.Windows.Forms</Assembly>
+			</Reference>
+			<Reference>
+				<Assembly>AeroWizard</Assembly>
+			</Reference>
+		</References>
+		<ProjectItem SubType="Form" TargetFileName="$fileinputname$.cs" ReplaceParameters="true" OpenInEditor="true">OldStyleWizard.cs</ProjectItem>
+		<ProjectItem SubType="" TargetFileName="$fileinputname$.Designer.cs" ReplaceParameters="true">OldStyleWizard.Designer.cs</ProjectItem>
+		<ProjectItem SubType="" TargetFileName="$fileinputname$.resx" ReplaceParameters="true">OldStyleWizard.resx</ProjectItem>
+	</TemplateContent>
+	<WizardExtension>
+		<Assembly>NuGet.VisualStudio.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</Assembly>
+		<FullClassName>NuGet.VisualStudio.TemplateWizard</FullClassName>
+	</WizardExtension>
+	<WizardData>
+		<packages repository="extension" repositoryId="AeroWizardTemplates..134dde00-8c48-450a-926c-63377b215799" >
+			<package id="AeroWizard" version="2.1.10" />
+		</packages>
+	</WizardData>
+</VSTemplate>

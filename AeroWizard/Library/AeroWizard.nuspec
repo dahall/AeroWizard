@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+	<metadata>
+		<id>AeroWizard</id>
+		<version>2.1.10</version>
+		<title>Windows Forms Aero-Wizard Control</title>
+		<authors>David Hall</authors>
+		<licenseUrl>http://aerowizard.codeplex.com/license</licenseUrl>
+		<projectUrl>http://aerowizard.codeplex.com/</projectUrl>
+		<iconUrl>http://download-codeplex.sec.s-msft.com/Download?ProjectName=aerowizard&amp;DownloadId=1440232</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Library for easy creation of custom and Aero Wizards. Aero Wizard strictly follows Microsoft guidelines and uses Visual Styles to get visual theming.</description>
+		<summary>Wizard controls for Windows Forms.</summary>
+		<releaseNotes>https://aerowizard.codeplex.com/SourceControl/list/changesets</releaseNotes>
+		<language>en-US</language>
+		<tags>aero wizard control</tags>
+	</metadata>
+	<files>
+		<file src="bin\Release\v2.0\AeroWizard.dll" target="lib\net20\AeroWizard.dll" />
+		<file src="bin\Release\v2.0\AeroWizard.pdb" target="lib\net20\AeroWizard.pdb" />
+		<file src="bin\Release\v2.0\AeroWizard.XML" target="lib\net20\AeroWizard.XML" />
+		<file src="bin\Release\v3.5\AeroWizard.dll" target="lib\net35\AeroWizard.dll" />
+		<file src="bin\Release\v3.5\AeroWizard.pdb" target="lib\net35\AeroWizard.pdb" />
+		<file src="bin\Release\v3.5\AeroWizard.XML" target="lib\net35\AeroWizard.XML" />
+		<file src="bin\Release\v4.0\AeroWizard.dll" target="lib\net40\AeroWizard.dll" />
+		<file src="bin\Release\v4.0\AeroWizard.pdb" target="lib\net40\AeroWizard.pdb" />
+		<file src="bin\Release\v4.0\AeroWizard.XML" target="lib\net40\AeroWizard.XML" />
+		<file src="bin\Release\v4.5.2\AeroWizard.dll" target="lib\net452\AeroWizard.dll" />
+		<file src="bin\Release\v4.5.2\AeroWizard.pdb" target="lib\net452\AeroWizard.pdb" />
+		<file src="bin\Release\v4.5.2\AeroWizard.XML" target="lib\net452\AeroWizard.XML" />
+		<file src="*.cs" target="src" />
+		<file src="Native\*.cs" target="src\Native" />
+		<file src="Properties\*.cs" target="src\Properties" />
+	</files>
+</package>

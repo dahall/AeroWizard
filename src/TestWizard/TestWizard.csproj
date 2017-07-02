@@ -186,13 +186,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AeroWizard.csproj">
+    <None Include="Resources\WizardHat-48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Library\AeroWizard.csproj">
       <Project>{199c12c4-3eef-4d08-bac3-f2a62bcf969c}</Project>
       <Name>AeroWizard</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\WizardHat-48.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

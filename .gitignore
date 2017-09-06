@@ -259,3 +259,12 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+
+# Local build files
+*.cmd
+*.zip
+
+# Built help files
+docs/*.bat
+docs/*.exe
+docs/*.msh?

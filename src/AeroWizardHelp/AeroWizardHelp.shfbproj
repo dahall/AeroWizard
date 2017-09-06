@@ -15,15 +15,15 @@
     <RootNamespace>AeroWizardHelp</RootNamespace>
     <Name>AeroWizardHelp</Name>
     <!-- SHFB properties -->
-    <OutputPath>.\Help\</OutputPath>
+    <OutputPath>..\..\docs\</OutputPath>
     <HtmlHelpName>AeroWizard</HtmlHelpName>
     <Language>en-US</Language>
     <ApiFilter>
       <Filter entryType="Namespace" fullName="System.Collections.Generic" isExposed="False">
-        <Filter entryType="Structure" fullName="System.Collections.Generic.EventedList`1.Enumerator" filterName="EventedList`1.Enumerator" isExposed="True" />
-        <Filter entryType="Class" fullName="System.Collections.Generic.EventedList`1" filterName="EventedList`1" isExposed="True" />
-        <Filter entryType="Class" fullName="System.Collections.Generic.EventedList`1.ListChangedEventArgs`1" filterName="EventedList`1.ListChangedEventArgs`1" isExposed="True" />
-      </Filter>
+  <Filter entryType="Structure" fullName="System.Collections.Generic.EventedList`1.Enumerator" filterName="EventedList`1.Enumerator" isExposed="True" />
+  <Filter entryType="Class" fullName="System.Collections.Generic.EventedList`1" filterName="EventedList`1" isExposed="True" />
+  <Filter entryType="Class" fullName="System.Collections.Generic.EventedList`1.ListChangedEventArgs`1" filterName="EventedList`1.ListChangedEventArgs`1" isExposed="True" />
+</Filter>
     </ApiFilter>
     <ComponentConfigurations>
       <ComponentConfig id="API Token Resolution" enabled="True">
@@ -60,16 +60,19 @@
       </ComponentConfig>
     </ComponentConfigurations>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\bin\Release\v4.0\AeroWizard.dll" />
-      <DocumentationSource sourceFile="..\bin\Release\v4.0\AeroWizard.xml" />
+      <DocumentationSource sourceFile="..\Library\bin\Release\v4.0\AeroWizard.dll" />
+      <DocumentationSource sourceFile="..\Library\bin\Release\v4.0\AeroWizard.xml" />
     </DocumentationSources>
     <HelpAttributes />
     <NamespaceSummaries>
-      <NamespaceSummaryItem name="Microsoft.Win32.DesktopWindowManager" isDocumented="True">The Microsoft.Win32.DesktopWindowManager namespace includes the DesktopWindowManager class and an extender control which allows the manipulation of the Desktop Window Manager and encapsulates API calls to that end. The DWM controls the glass effect on windows and painting on those affected surfaces.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="AeroWizard" isDocumented="True">The AeroWizard namespace provides the classes and components necessary for the creation of wizards.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="System.Collections.Generic" isDocumented="False" />
-      <NamespaceSummaryItem name="AeroWizard.VisualStyles" isDocumented="True">Extensions to the VisualStyles classes native to .NET that accomodate the AEROWIZARD tag.</NamespaceSummaryItem>
-    </NamespaceSummaries>
+      <NamespaceSummaryItem name="Microsoft.Win32.DesktopWindowManager" isDocumented="False">The Microsoft.Win32.DesktopWindowManager namespace includes the DesktopWindowManager class and an extender control which allows the manipulation of the Desktop Window Manager and encapsulates API calls to that end. The DWM controls the glass effect on windows and painting on those affected surfaces.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="AeroWizard" isDocumented="True">The AeroWizard namespace provides the classes and components necessary for the creation of wizards.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="System.Collections.Generic" isDocumented="False" />
+<NamespaceSummaryItem name="AeroWizard.VisualStyles" isDocumented="True">Extensions to the VisualStyles classes native to .NET that accomodate the AEROWIZARD tag.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="AeroWizard (Group)" isGroup="True" isDocumented="False" />
+<NamespaceSummaryItem name="Vanara (Group)" isGroup="True" isDocumented="False" />
+<NamespaceSummaryItem name="Vanara.Interop" isDocumented="False" />
+<NamespaceSummaryItem name="Vanara.Interop.DesktopWindowManager" isDocumented="False" /></NamespaceSummaries>
     <PlugInConfigurations>
     </PlugInConfigurations>
     <BuildLogFile />
@@ -78,7 +81,7 @@
     <SandcastlePath />
     <WorkingPath />
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
-    <HelpFileFormat>MSHelpViewer</HelpFileFormat>
+    <HelpFileFormat>MSHelpViewer, Website</HelpFileFormat>
     <IndentHtml>False</IndentHtml>
     <FrameworkVersion>.NET Framework 4.0</FrameworkVersion>
     <KeepLogFile>True</KeepLogFile>
@@ -91,10 +94,10 @@
     <RootNamespaceContainer>True</RootNamespaceContainer>
     <PresentationStyle>VS2013</PresentationStyle>
     <Preliminary>False</Preliminary>
-    <NamingMethod>Guid</NamingMethod>
+    <NamingMethod>MemberName</NamingMethod>
     <HelpTitle>Wizard .NET Library</HelpTitle>
-    <CopyrightText>&amp;#169%3b 2015 Codeplex Community. All rights reserved.</CopyrightText>
-    <CopyrightHref>http://aerowizard.codeplex.com/license</CopyrightHref>
+    <CopyrightText>&amp;#169%3b 2017 Open Source Community. All rights reserved.</CopyrightText>
+    <CopyrightHref>https://github.com/dahall/AeroWizard/blob/master/license.md</CopyrightHref>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <CatalogName>VisualStudio12</CatalogName>
     <TocParentId>-1</TocParentId>
@@ -117,6 +120,23 @@
     <ComponentPath />
     <MaximumGroupParts>2</MaximumGroupParts>
     <NamespaceGrouping>True</NamespaceGrouping>
+    <HelpFileVersion>2.1.10</HelpFileVersion>
+    <WarnOnMissingSourceContext>False</WarnOnMissingSourceContext>
+    <SourceCodeBasePath>..\</SourceCodeBasePath>
+    <TransformComponentArguments>
+      <Argument Key="logoFile" Value="WizardControlIcon48.gif" xmlns="" />
+      <Argument Key="logoHeight" Value="48" xmlns="" />
+      <Argument Key="logoWidth" Value="48" xmlns="" />
+      <Argument Key="logoAltText" Value="Wizard .NET Library" xmlns="" />
+      <Argument Key="logoPlacement" Value="left" xmlns="" />
+      <Argument Key="logoAlignment" Value="left" xmlns="" />
+      <Argument Key="maxVersionParts" Value="3" xmlns="" />
+      <Argument Key="defaultLanguage" Value="cs" xmlns="" />
+      <Argument Key="includeEnumValues" Value="true" xmlns="" />
+      <Argument Key="baseSourceCodeUrl" Value="https://github.com/dahall/AeroWizard/blob/master/src/" xmlns="" />
+      <Argument Key="requestExampleUrl" Value="https://github.com/dahall/AeroWizard/issues/new" xmlns="" />
+    </TransformComponentArguments>
+    <SaveComponentCacheCapacity>100</SaveComponentCacheCapacity>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in
        order for Visual Studio to perform the build.  The others are optional
@@ -137,6 +157,15 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Win32' ">
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="icons" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icons\WizardControlIcon48.gif">
+      <ImageId>WizardControlIcon48</ImageId>
+      <AlternateText>Wizard Control Icon 48</AlternateText>
+    </Content>
+  </ItemGroup>
   <!-- Import the SHFB build targets -->
   <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />
 </Project>

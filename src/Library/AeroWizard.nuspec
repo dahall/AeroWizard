@@ -5,9 +5,9 @@
 		<version>2.1.10</version>
 		<title>Windows Forms Aero-Wizard Control</title>
 		<authors>David Hall</authors>
-		<licenseUrl>http://aerowizard.codeplex.com/license</licenseUrl>
-		<projectUrl>http://aerowizard.codeplex.com/</projectUrl>
-		<iconUrl>http://download-codeplex.sec.s-msft.com/Download?ProjectName=aerowizard&amp;DownloadId=1440232</iconUrl>
+		<licenseUrl>https://github.com/dahall/AeroWizard/blob/master/license.md</licenseUrl>
+		<projectUrl>https://github.com/dahall/AeroWizard</projectUrl>
+		<iconUrl>https://raw.githubusercontent.com/dahall/AeroWizard/master/src/AeroWizardHelp/icons/WizardControlIcon48.gif</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Library for easy creation of custom and Aero Wizards. Aero Wizard strictly follows Microsoft guidelines and uses Visual Styles to get visual theming.</description>
 		<summary>Wizard controls for Windows Forms.</summary>

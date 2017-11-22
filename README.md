@@ -2,12 +2,24 @@
 
 > Library for easy creation of custom and Aero Wizards. Aero Wizard strictly follows Microsoft guidelines and uses Visual Styles to get visual theming.
 
+## Online API documentation
+
+Click [here for online documentation for all library elements](https://dahall.github.io/AeroWizard).
+
+## Project Overview
+
 This project provides three main controls:
 * **WizardPageContainer** - Allows for easy creation of a custom wizard. It manages page creation at design-time and navigation using user defined buttons.
 * **WizardControl** - Builds on the container to provide the full Aero Wizard experience. The wizard visual format pulls from the current system theme. As a result, this wizard will correctly morph on each OS. Under XP, it will provide a old, pre-Aero, look and feel. Under Vista, Win7 and Win8, it will take on the appearance defined by the OS.
 * **StepWizardControl** - Extends WizardControl to include a step list that indicates current position through the flow.
 
 The project is built on a number of great projects around the web on creating wizards for .NET using the old Wizard97 format. It also provides a good design-time experience so the developer can focus on the wizard function and not making it work.
+
+## Sample Code
+
+For sample code, see the [Documentation](wiki).
+
+## Project Extras
 
 Some other goodies in the source code area are:
 * Class that wraps DwmEnableBlurBehindWindow and DwmExtendFrameIntoClientArea capabilities exposed by the Desktop Window Manger (DWM) allow you to create the extended glass window effect. (Native\DWM.cs)
@@ -17,10 +29,6 @@ Some other goodies in the source code area are:
 
 ## Installation
 The control can be downloaded from this site, via NuGet as [Windows Forms Aero-Wizard Control](https://www.nuget.org/packages/AeroWizard/), from the [Visual Studio Gallery](https://visualstudiogallery.msdn.microsoft.com/3546e344-2807-4412-9426-09d6dc032cfb), or from within Visual Studio by adding a "New Item" to your Window Forms project, selecting Online, Templates, and searching for "Windows Forms Wizard Templates".
-
-## Documentation
-
-For sample code, see the [Documentation](wiki).
 
 ## Visual Samples
 ### Design-time Experience

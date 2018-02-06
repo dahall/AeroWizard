@@ -73,6 +73,7 @@
     <HelpKINode Title="WizardControl.CancelButtonText Property " Url="html/P_AeroWizard_WizardControl_CancelButtonText.htm" />
     <HelpKINode Title="WizardPageContainer.CancelButtonText Property " Url="html/P_AeroWizard_WizardPageContainer_CancelButtonText.htm" />
   </HelpKINode>
+  <HelpKINode Title="CancelCausesValidation property" Url="html/P_AeroWizard_WizardControl_CancelCausesValidation.htm" />
   <HelpKINode Title="Cancelling event">
     <HelpKINode Title="WizardControl.Cancelling Event" Url="html/E_AeroWizard_WizardControl_Cancelling.htm" />
     <HelpKINode Title="WizardPageContainer.Cancelling Event" Url="html/E_AeroWizard_WizardPageContainer_Cancelling.htm" />
@@ -688,6 +689,7 @@
   <HelpKINode Title="WizardControl.BeginInit method" Url="html/M_AeroWizard_WizardControl_BeginInit.htm" />
   <HelpKINode Title="WizardControl.CancelButtonState property" Url="html/P_AeroWizard_WizardControl_CancelButtonState.htm" />
   <HelpKINode Title="WizardControl.CancelButtonText property" Url="html/P_AeroWizard_WizardControl_CancelButtonText.htm" />
+  <HelpKINode Title="WizardControl.CancelCausesValidation property" Url="html/P_AeroWizard_WizardControl_CancelCausesValidation.htm" />
   <HelpKINode Title="WizardControl.Cancelling event" Url="html/E_AeroWizard_WizardControl_Cancelling.htm" />
   <HelpKINode Title="WizardControl.ClassicStyle property" Url="html/P_AeroWizard_WizardControl_ClassicStyle.htm" />
   <HelpKINode Title="WizardControl.Dispose method" Url="html/Overload_AeroWizard_WizardControl_Dispose.htm" />

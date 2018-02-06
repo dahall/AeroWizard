@@ -384,9 +384,7 @@
             </summary>
     </member>
     <member name="T:AeroWizard.WizardClassicStyle">
-      <summary>
-            Styles that can be applied to the body of a <see cref="T:AeroWizard.WizardControl" /> when on XP or earlier or when a Basic theme is applied.
-            </summary>
+      <summary>Styles that can be applied to the body of a <see cref="T:AeroWizard.WizardControl" /> when on XP or earlier or when a Basic theme is applied.</summary>
     </member>
     <member name="F:AeroWizard.WizardClassicStyle.AeroStyle">
       <summary>Windows Vista style theme with large fonts and white background.</summary>
@@ -398,9 +396,7 @@
       <summary>Use <see cref="F:AeroWizard.WizardClassicStyle.BasicStyle" /> on Windows XP and <see cref="F:AeroWizard.WizardClassicStyle.AeroStyle" /> for later versions.</summary>
     </member>
     <member name="T:AeroWizard.WizardCommandButtonState">
-      <summary>
-            Button state for buttons controlling the wizard.
-            </summary>
+      <summary>Button state for buttons controlling the wizard.</summary>
     </member>
     <member name="F:AeroWizard.WizardCommandButtonState.Enabled">
       <summary>Button is enabled and can be clicked.</summary>
@@ -412,55 +408,38 @@
       <summary>Button is hidden from the user.</summary>
     </member>
     <member name="T:AeroWizard.WizardControl">
-      <summary>
-            Control providing an "Aero Wizard" style interface.
-            </summary>
+      <summary>Control providing an "Aero Wizard" style interface.</summary>
     </member>
     <member name="M:AeroWizard.WizardControl.#ctor">
-      <summary>
-            Initializes a new instance of the <see cref="T:AeroWizard.WizardControl" /> class.
-            </summary>
+      <summary>Initializes a new instance of the <see cref="T:AeroWizard.WizardControl" /> class.</summary>
     </member>
     <member name="M:AeroWizard.WizardControl.AddCommandControl(System.Windows.Forms.Control)">
-      <summary>
-            Adds a new control to the command bar.
-            </summary>
+      <summary>Adds a new control to the command bar.</summary>
       <param name="ctrl">The control to add.</param>
     </member>
     <member name="P:AeroWizard.WizardControl.BackButtonState">
-      <summary>
-            Gets or sets the state of the back button.
-            </summary>
+      <summary>Gets or sets the state of the back button.</summary>
     </member>
     <member name="P:AeroWizard.WizardControl.BackButtonToolTipText">
-      <summary>
-            Gets or sets the back button tool tip text.
-            </summary>
+      <summary>Gets or sets the back button tool tip text.</summary>
     </member>
     <member name="M:AeroWizard.WizardControl.BeginInit">
-      <summary>
-            Signals the object that initialization is starting.
-            </summary>
+      <summary>Signals the object that initialization is starting.</summary>
     </member>
     <member name="P:AeroWizard.WizardControl.CancelButtonState">
-      <summary>
-            Gets the state of the cancel button.
-            </summary>
+      <summary>Gets the state of the cancel button.</summary>
     </member>
     <member name="P:AeroWizard.WizardControl.CancelButtonText">
-      <summary>
-            Gets or sets the cancel button text.
-            </summary>
+      <summary>Gets or sets the cancel button text.</summary>
+    </member>
+    <member name="P:AeroWizard.WizardControl.CancelCausesValidation">
+      <summary>Gets or sets the value of the Cancel button's <see cref="P:System.Windows.Forms.Control.CausesValidation" /> property.</summary>
     </member>
     <member name="E:AeroWizard.WizardControl.Cancelling">
-      <summary>
-            Occurs when the user clicks the Cancel button and allows for programmatic cancellation.
-            </summary>
+      <summary>Occurs when the user clicks the Cancel button and allows for programmatic cancellation.</summary>
     </member>
     <member name="P:AeroWizard.WizardControl.ClassicStyle">
-      <summary>
-            Gets or sets the style applied to the body of a <see cref="T:AeroWizard.WizardControl" /> when on XP or earlier or when a Basic theme is applied.
-            </summary>
+      <summary>Gets or sets the style applied to the body of a <see cref="T:AeroWizard.WizardControl" /> when on XP or earlier or when a Basic theme is applied.</summary>
     </member>
     <member name="M:AeroWizard.WizardControl.Dispose(System.Boolean)">
       <summary> 
@@ -469,170 +448,113 @@
       <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
     </member>
     <member name="M:AeroWizard.WizardControl.EndInit">
-      <summary>
-            Signals the object that initialization is complete.
-            </summary>
+      <summary>Signals the object that initialization is complete.</summary>
     </member>
     <member name="P:AeroWizard.WizardControl.FinishButtonText">
-      <summary>
-            Gets or sets the finish button text.
-            </summary>
+      <summary>Gets or sets the finish button text.</summary>
     </member>
     <member name="E:AeroWizard.WizardControl.Finished">
       <summary>
-            Occurs when the user clicks the Next/Finish button and the page is set to <see cref="P:AeroWizard.WizardPage.IsFinishPage" /> or this is the last page in the <see cref="P:AeroWizard.WizardControl.Pages" /> collection.
+            Occurs when the user clicks the Next/Finish button and the page is set to <see cref="P:AeroWizard.WizardPage.IsFinishPage" /> or this is the last page in the
+            <see cref="P:AeroWizard.WizardControl.Pages" /> collection.
             </summary>
     </member>
     <member name="M:AeroWizard.WizardControl.GetUnthemedBackButtonImage">
-      <summary>
-            Gets the unthemed back button image.
-            </summary>
+      <summary>Gets the unthemed back button image.</summary>
       <returns>
         <see cref="T:System.Drawing.Bitmap" /> with the four state images stacked on top of each other.</returns>
     </member>
     <member name="P:AeroWizard.WizardControl.HeaderText">
-      <summary>
-            Gets or sets the page header text.
-            </summary>
+      <summary>Gets or sets the page header text.</summary>
     </member>
     <member name="P:AeroWizard.WizardControl.NextButtonShieldEnabled">
-      <summary>
-            Gets or sets the shield icon on the next button.
-            </summary>
+      <summary>Gets or sets the shield icon on the next button.</summary>
       <exception cref="T:System.PlatformNotSupportedException">Setting a UAF shield on a button only works on Vista and later versions of Windows.</exception>
     </member>
     <member name="P:AeroWizard.WizardControl.NextButtonState">
-      <summary>
-            Gets the state of the next button.
-            </summary>
+      <summary>Gets the state of the next button.</summary>
     </member>
     <member name="P:AeroWizard.WizardControl.NextButtonText">
-      <summary>
-            Gets or sets the next button text.
-            </summary>
+      <summary>Gets or sets the next button text.</summary>
     </member>
     <member name="M:AeroWizard.WizardControl.NextPage(AeroWizard.WizardPage,System.Boolean)">
-      <summary>
-            Advances to the specified page.
-            </summary>
+      <summary>Advances to the specified page.</summary>
       <param name="nextPage">The wizard page to go to next.</param>
       <param name="skipCommit">if set to <c>true</c> skip <see cref="E:AeroWizard.WizardPage.Commit" /> event.</param>
       <exception cref="T:System.ArgumentException">When specifying a value for nextPage, it must already be in the Pages collection.</exception>
     </member>
     <member name="M:AeroWizard.WizardControl.OnCancelling(System.ComponentModel.CancelEventArgs)">
-      <summary>
-            Raises the <see cref="E:AeroWizard.WizardControl.Cancelling" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:AeroWizard.WizardControl.Cancelling" /> event.</summary>
       <param name="arg">The <see cref="T:System.ComponentModel.CancelEventArgs" /> instance containing the event data.</param>
     </member>
     <member name="M:AeroWizard.WizardControl.OnControlAdded(System.Windows.Forms.ControlEventArgs)">
-      <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.ControlAdded" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Windows.Forms.Control.ControlAdded" /> event.</summary>
       <param name="e">A <see cref="T:System.Windows.Forms.ControlEventArgs" /> that contains the event data.</param>
     </member>
     <member name="M:AeroWizard.WizardControl.OnFinished">
-      <summary>
-            Raises the <see cref="E:AeroWizard.WizardControl.Finished" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:AeroWizard.WizardControl.Finished" /> event.</summary>
     </member>
     <member name="M:AeroWizard.WizardControl.OnGotFocus(System.EventArgs)">
-      <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.GotFocus" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Windows.Forms.Control.GotFocus" /> event.</summary>
       <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
     </member>
     <member name="M:AeroWizard.WizardControl.OnHandleCreated(System.EventArgs)">
-      <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.HandleCreated" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Windows.Forms.Control.HandleCreated" /> event.</summary>
       <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
     </member>
     <member name="M:AeroWizard.WizardControl.OnHandleDestroyed(System.EventArgs)">
-      <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.HandleDestroyed" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Windows.Forms.Control.HandleDestroyed" /> event.</summary>
       <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
     </member>
     <member name="M:AeroWizard.WizardControl.OnParentChanged(System.EventArgs)">
-      <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.ParentChanged" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Windows.Forms.Control.ParentChanged" /> event.</summary>
       <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
     </member>
     <member name="M:AeroWizard.WizardControl.OnRightToLeftChanged(System.EventArgs)">
-      <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.RightToLeftChanged" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Windows.Forms.Control.RightToLeftChanged" /> event.</summary>
       <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
     </member>
     <member name="M:AeroWizard.WizardControl.OnSelectedPageChanged">
-      <summary>
-            Raises the <see cref="E:AeroWizard.WizardControl.SelectedPageChanged" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:AeroWizard.WizardControl.SelectedPageChanged" /> event.</summary>
     </member>
     <member name="M:AeroWizard.WizardControl.OverrideThemeFonts(System.Drawing.Font,System.Drawing.Font,System.Drawing.Font)">
-      <summary>
-            Overrides the theme fonts provided by the system.
-            </summary>
+      <summary>Overrides the theme fonts provided by the system.</summary>
       <param name="titleFont">The title font.</param>
       <param name="headerFont">The header font.</param>
       <param name="buttonFont">The command buttons font.</param>
     </member>
     <member name="P:AeroWizard.WizardControl.Pages">
-      <summary>
-            Gets the collection of wizard pages in this wizard control.
-            </summary>
+      <summary>Gets the collection of wizard pages in this wizard control.</summary>
     </member>
     <member name="P:AeroWizard.WizardControl.PercentComplete">
-      <summary>
-            Gets how far the wizard has progressed, as a percentage.
-            </summary>
+      <summary>Gets how far the wizard has progressed, as a percentage.</summary>
     </member>
     <member name="M:AeroWizard.WizardControl.PreviousPage">
-      <summary>
-            Returns to the previous page.
-            </summary>
+      <summary>Returns to the previous page.</summary>
     </member>
     <member name="M:AeroWizard.WizardControl.RestartPages">
-      <summary>
-            Restarts the wizard pages from the first page.
-            </summary>
+      <summary>Restarts the wizard pages from the first page.</summary>
     </member>
     <member name="P:AeroWizard.WizardControl.SelectedPage">
-      <summary>
-            Gets the currently selected wizard page.
-            </summary>
+      <summary>Gets the currently selected wizard page.</summary>
     </member>
     <member name="E:AeroWizard.WizardControl.SelectedPageChanged">
-      <summary>
-            Occurs when the <see cref="P:AeroWizard.WizardControl.SelectedPage" /> property has changed.
-            </summary>
+      <summary>Occurs when the <see cref="P:AeroWizard.WizardControl.SelectedPage" /> property has changed.</summary>
     </member>
     <member name="P:AeroWizard.WizardControl.ShowProgressInTaskbarIcon">
-      <summary>
-            Gets or sets a value indicating whether to show progress in form's taskbar icon.
-            </summary>
+      <summary>Gets or sets a value indicating whether to show progress in form's taskbar icon.</summary>
     </member>
     <member name="P:AeroWizard.WizardControl.SuppressParentFormCaptionSync">
-      <summary>
-            Gets or sets a value indicating whether to suppress changing the parent form's caption to match the wizard's <see cref="P:AeroWizard.WizardControl.Title" />.
-            </summary>
+      <summary>Gets or sets a value indicating whether to suppress changing the parent form's caption to match the wizard's <see cref="P:AeroWizard.WizardControl.Title" />.</summary>
     </member>
     <member name="P:AeroWizard.WizardControl.SuppressParentFormIconSync">
-      <summary>
-            Gets or sets a value indicating whether to suppress changing the parent form's icon to match the wizard's <see cref="P:AeroWizard.WizardControl.TitleIcon" />.
-            </summary>
+      <summary>Gets or sets a value indicating whether to suppress changing the parent form's icon to match the wizard's <see cref="P:AeroWizard.WizardControl.TitleIcon" />.</summary>
     </member>
     <member name="P:AeroWizard.WizardControl.Title">
-      <summary>
-            Gets or sets the title for the wizard.
-            </summary>
+      <summary>Gets or sets the title for the wizard.</summary>
     </member>
     <member name="P:AeroWizard.WizardControl.TitleIcon">
-      <summary>
-            Gets or sets the optionally displayed icon next to the wizard title.
-            </summary>
+      <summary>Gets or sets the optionally displayed icon next to the wizard title.</summary>
     </member>
     <member name="T:AeroWizard.WizardPage">
       <summary>
@@ -799,171 +721,110 @@
             </summary>
     </member>
     <member name="T:AeroWizard.WizardPageContainer">
-      <summary>
-            Control providing a collection of wizard style navigable pages.
-            </summary>
+      <summary>Control providing a collection of wizard style navigable pages.</summary>
     </member>
     <member name="M:AeroWizard.WizardPageContainer.#ctor">
-      <summary>
-            Initializes a new instance of the <see cref="T:System.Windows.Forms.Control" /> class.
-            </summary>
+      <summary>Initializes a new instance of the <see cref="T:System.Windows.Forms.Control" /> class.</summary>
     </member>
     <member name="P:AeroWizard.WizardPageContainer.BackButton">
-      <summary>
-            Gets or sets the button assigned to control backing up through the pages.
-            </summary>
+      <summary>Gets or sets the button assigned to control backing up through the pages.</summary>
     </member>
     <member name="P:AeroWizard.WizardPageContainer.BackButtonState">
-      <summary>
-            Gets or sets the state of the back button.
-            </summary>
+      <summary>Gets or sets the state of the back button.</summary>
     </member>
     <member name="P:AeroWizard.WizardPageContainer.BackButtonText">
-      <summary>
-            Gets or sets the back button text.
-            </summary>
+      <summary>Gets or sets the back button text.</summary>
     </member>
     <member name="M:AeroWizard.WizardPageContainer.BeginInit">
-      <summary>
-            Signals the object that initialization is starting.
-            </summary>
+      <summary>Signals the object that initialization is starting.</summary>
     </member>
     <member name="E:AeroWizard.WizardPageContainer.ButtonStateChanged">
-      <summary>
-            Occurs when the button's state has changed.
-            </summary>
+      <summary>Occurs when the button's state has changed.</summary>
     </member>
     <member name="P:AeroWizard.WizardPageContainer.CancelButton">
-      <summary>
-            Gets or sets the button assigned to canceling the page flow.
-            </summary>
+      <summary>Gets or sets the button assigned to canceling the page flow.</summary>
     </member>
     <member name="P:AeroWizard.WizardPageContainer.CancelButtonState">
-      <summary>
-            Gets the state of the cancel button.
-            </summary>
+      <summary>Gets the state of the cancel button.</summary>
     </member>
     <member name="P:AeroWizard.WizardPageContainer.CancelButtonText">
-      <summary>
-            Gets or sets the cancel button text.
-            </summary>
+      <summary>Gets or sets the cancel button text.</summary>
     </member>
     <member name="E:AeroWizard.WizardPageContainer.Cancelling">
-      <summary>
-            Occurs when the user clicks the Cancel button and allows for programmatic cancellation.
-            </summary>
+      <summary>Occurs when the user clicks the Cancel button and allows for programmatic cancellation.</summary>
     </member>
     <member name="M:AeroWizard.WizardPageContainer.EndInit">
-      <summary>
-            Signals the object that initialization is complete.
-            </summary>
+      <summary>Signals the object that initialization is complete.</summary>
     </member>
     <member name="P:AeroWizard.WizardPageContainer.FinishButtonText">
-      <summary>
-            Gets or sets the finish button text.
-            </summary>
+      <summary>Gets or sets the finish button text.</summary>
     </member>
     <member name="E:AeroWizard.WizardPageContainer.Finished">
       <summary>
-            Occurs when the user clicks the Next/Finish button and the page is set to <see cref="P:AeroWizard.WizardPage.IsFinishPage" /> or this is the last page in the <see cref="P:AeroWizard.WizardPageContainer.Pages" /> collection.
+            Occurs when the user clicks the Next/Finish button and the page is set to <see cref="P:AeroWizard.WizardPage.IsFinishPage" /> or this is the last page in the
+            <see cref="P:AeroWizard.WizardPageContainer.Pages" /> collection.
             </summary>
     </member>
     <member name="P:AeroWizard.WizardPageContainer.NextButton">
-      <summary>
-            Gets or sets the button assigned to control moving forward through the pages.
-            </summary>
+      <summary>Gets or sets the button assigned to control moving forward through the pages.</summary>
     </member>
     <member name="P:AeroWizard.WizardPageContainer.NextButtonShieldEnabled">
-      <summary>
-            Gets or sets the shield icon on the next button.
-            </summary>
+      <summary>Gets or sets the shield icon on the next button.</summary>
       <exception cref="T:System.PlatformNotSupportedException">Setting a UAF shield on a button only works on Vista and later versions of Windows.</exception>
     </member>
     <member name="P:AeroWizard.WizardPageContainer.NextButtonState">
-      <summary>
-            Gets the state of the next button.
-            </summary>
+      <summary>Gets the state of the next button.</summary>
     </member>
     <member name="P:AeroWizard.WizardPageContainer.NextButtonText">
-      <summary>
-            Gets or sets the next button text.
-            </summary>
+      <summary>Gets or sets the next button text.</summary>
     </member>
     <member name="M:AeroWizard.WizardPageContainer.NextPage(AeroWizard.WizardPage,System.Boolean)">
-      <summary>
-            Advances to the specified page.
-            </summary>
+      <summary>Advances to the specified page.</summary>
       <param name="nextPage">The wizard page to go to next.</param>
-      <param name="skipCommit">if set to <c>true</c> skip <see cref="E:AeroWizard.WizardPage.Commit" /> event.</param>
+      <param name="skipCommit">if set to <c>true</c> prevent the <see cref="E:AeroWizard.WizardPage.Commit" /> event from firing for the current page.</param>
       <exception cref="T:System.ArgumentException">When specifying a value for nextPage, it must already be in the Pages collection.</exception>
     </member>
     <member name="M:AeroWizard.WizardPageContainer.OnCancelling(System.ComponentModel.CancelEventArgs)">
-      <summary>
-            Raises the <see cref="E:AeroWizard.WizardControl.Cancelling" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:AeroWizard.WizardControl.Cancelling" /> event.</summary>
       <param name="arg">The <see cref="T:System.ComponentModel.CancelEventArgs" /> instance containing the event data.</param>
     </member>
     <member name="M:AeroWizard.WizardPageContainer.OnFinished">
-      <summary>
-            Raises the <see cref="E:AeroWizard.WizardControl.Finished" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:AeroWizard.WizardControl.Finished" /> event.</summary>
     </member>
     <member name="M:AeroWizard.WizardPageContainer.OnGotFocus(System.EventArgs)">
-      <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.GotFocus" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Windows.Forms.Control.GotFocus" /> event.</summary>
       <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
     </member>
     <member name="M:AeroWizard.WizardPageContainer.OnHandleCreated(System.EventArgs)">
-      <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.HandleCreated" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Windows.Forms.Control.HandleCreated" /> event.</summary>
       <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
     </member>
     <member name="M:AeroWizard.WizardPageContainer.OnSelectedPageChanged">
-      <summary>
-            Raises the <see cref="E:AeroWizard.WizardControl.SelectedPageChanged" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:AeroWizard.WizardControl.SelectedPageChanged" /> event.</summary>
     </member>
     <member name="P:AeroWizard.WizardPageContainer.Pages">
-      <summary>
-            Gets the collection of wizard pages in this wizard control.
-            </summary>
+      <summary>Gets the collection of wizard pages in this wizard control.</summary>
     </member>
     <member name="P:AeroWizard.WizardPageContainer.PercentComplete">
-      <summary>
-            Gets how far the wizard has progressed, as a percentage.
-            </summary>
+      <summary>Gets how far the wizard has progressed, as a percentage.</summary>
     </member>
     <member name="M:AeroWizard.WizardPageContainer.PreviousPage">
-      <summary>
-            Returns to the previous page.
-            </summary>
+      <summary>Returns to the previous page.</summary>
     </member>
     <member name="M:AeroWizard.WizardPageContainer.RestartPages">
-      <summary>
-            Restarts the wizard pages from the first page.
-            </summary>
+      <summary>Restarts the wizard pages from the first page.</summary>
     </member>
     <member name="P:AeroWizard.WizardPageContainer.SelectedPage">
-      <summary>
-            Gets the currently selected wizard page.
-            </summary>
+      <summary>Gets the currently selected wizard page.</summary>
     </member>
     <member name="E:AeroWizard.WizardPageContainer.SelectedPageChanged">
-      <summary>
-            Occurs when the <see cref="P:AeroWizard.WizardControl.SelectedPage" /> property has changed.
-            </summary>
+      <summary>Occurs when the <see cref="P:AeroWizard.WizardPageContainer.SelectedPage" /> property has changed. Use this to effectively be notified after a new wizard page is displayed.</summary>
     </member>
     <member name="P:AeroWizard.WizardPageContainer.ShowProgressInTaskbarIcon">
-      <summary>
-            Gets or sets a value indicating whether to show progress in form's taskbar icon.
-            </summary>
+      <summary>Gets or sets a value indicating whether to show progress in form's taskbar icon.</summary>
     </member>
     <member name="M:AeroWizard.WizardPageContainer.UpdateUIDependencies">
-      <summary>
-            Updates the buttons and taskbar according to current sequence and history.
-            </summary>
+      <summary>Updates the buttons and taskbar according to current sequence and history.</summary>
     </member>
     <member name="T:AeroWizard.WizardPageInitEventArgs">
       <summary>

@@ -15,6 +15,9 @@ This project provides three main controls:
 
 The project is built on a number of great projects around the web on creating wizards for .NET using the old Wizard97 format. It also provides a good design-time experience so the developer can focus on the wizard function and not making it work.
 
+## Installation
+The control can be downloaded as a VSIX from [this site](https://github.com/dahall/AeroWizard/blob/master/img/AeroWizardTemplates.vsix?raw=true), as the NuGet package [Windows Forms Aero-Wizard Control](https://www.nuget.org/packages/AeroWizard/), from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=dahall.WindowsFormsWizardTemplates), or from within Visual Studio by adding a "New Item" to your Window Forms project, selecting Online, Templates, and searching for "Windows Forms Wizard Templates".
+
 ## Sample Code
 
 For sample code, see the [Documentation](wiki).
@@ -26,9 +29,6 @@ Some other goodies in the source code area are:
 * Entension class for the VisualStyleRenderer class that includes a method to fix the broken GetMargins method and the ability to paint glowing text or paint theme backgrounds on glass. (Native\VisualStylesRendererExtender.cs)
 * Controls for a label and button that paint correctly on glass. (ThemedLabel.cs & ThemeImageButton.cs)
 * A fully evented generic list. (EventedList.cs)
-
-## Installation
-The control can be downloaded from this site, via NuGet as [Windows Forms Aero-Wizard Control](https://www.nuget.org/packages/AeroWizard/), from the [Visual Studio Gallery](https://visualstudiogallery.msdn.microsoft.com/3546e344-2807-4412-9426-09d6dc032cfb), or from within Visual Studio by adding a "New Item" to your Window Forms project, selecting Online, Templates, and searching for "Windows Forms Wizard Templates".
 
 ## Visual Samples
 ### Design-time Experience
@@ -51,7 +51,7 @@ The control can be downloaded from this site, via NuGet as [Windows Forms Aero-W
 
 ## Release History
 
-See the [Version History](wiki/Version-History) page in the Wiki for a full history.
+See the [Version History](https://github.com/dahall/AeroWizard/wiki/Version-History) page in the Wiki for a full history.
 
 ## Meta
 

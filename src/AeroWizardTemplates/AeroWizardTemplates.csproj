@@ -13,8 +13,8 @@
     <ProjectGuid>{438228D8-C9EB-41DC-A7C9-9A0C3D8EEAAA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VSIXProject1</RootNamespace>
-    <AssemblyName>VSIXProject1</AssemblyName>
+    <RootNamespace>AeroWizardTemplates</RootNamespace>
+    <AssemblyName>AeroWizardTemplates</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <GeneratePkgDefFile>false</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>false</IncludeAssemblyInVSIXContainer>

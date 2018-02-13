@@ -8,7 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{d62d015e-12be-42d0-a62c-997aae54d654}</ProjectGuid>
-    <SHFBSchemaVersion>2015.6.5.0</SHFBSchemaVersion>
+    <SHFBSchemaVersion>2017.9.26.0</SHFBSchemaVersion>
     <!-- AssemblyName, Name, and RootNamespace are not used by SHFB but Visual
          Studio adds them anyway -->
     <AssemblyName>AeroWizardHelp</AssemblyName>
@@ -20,10 +20,10 @@
     <Language>en-US</Language>
     <ApiFilter>
       <Filter entryType="Namespace" fullName="System.Collections.Generic" isExposed="False">
-  <Filter entryType="Structure" fullName="System.Collections.Generic.EventedList`1.Enumerator" filterName="EventedList`1.Enumerator" isExposed="True" />
-  <Filter entryType="Class" fullName="System.Collections.Generic.EventedList`1" filterName="EventedList`1" isExposed="True" />
-  <Filter entryType="Class" fullName="System.Collections.Generic.EventedList`1.ListChangedEventArgs`1" filterName="EventedList`1.ListChangedEventArgs`1" isExposed="True" />
-</Filter>
+        <Filter entryType="Structure" fullName="System.Collections.Generic.EventedList`1.Enumerator" filterName="EventedList`1.Enumerator" isExposed="True" />
+        <Filter entryType="Class" fullName="System.Collections.Generic.EventedList`1" filterName="EventedList`1" isExposed="True" />
+        <Filter entryType="Class" fullName="System.Collections.Generic.EventedList`1.ListChangedEventArgs`1" filterName="EventedList`1.ListChangedEventArgs`1" isExposed="True" />
+      </Filter>
     </ApiFilter>
     <ComponentConfigurations>
       <ComponentConfig id="API Token Resolution" enabled="True">
@@ -66,13 +66,14 @@
     <HelpAttributes />
     <NamespaceSummaries>
       <NamespaceSummaryItem name="Microsoft.Win32.DesktopWindowManager" isDocumented="False">The Microsoft.Win32.DesktopWindowManager namespace includes the DesktopWindowManager class and an extender control which allows the manipulation of the Desktop Window Manager and encapsulates API calls to that end. The DWM controls the glass effect on windows and painting on those affected surfaces.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="AeroWizard" isDocumented="True">The AeroWizard namespace provides the classes and components necessary for the creation of wizards.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="System.Collections.Generic" isDocumented="False" />
-<NamespaceSummaryItem name="AeroWizard.VisualStyles" isDocumented="True">Extensions to the VisualStyles classes native to .NET that accomodate the AEROWIZARD tag.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="AeroWizard (Group)" isGroup="True" isDocumented="False" />
-<NamespaceSummaryItem name="Vanara (Group)" isGroup="True" isDocumented="False" />
-<NamespaceSummaryItem name="Vanara.Interop" isDocumented="False" />
-<NamespaceSummaryItem name="Vanara.Interop.DesktopWindowManager" isDocumented="False" /></NamespaceSummaries>
+      <NamespaceSummaryItem name="AeroWizard" isDocumented="True">The AeroWizard namespace provides the classes and components necessary for the creation of wizards.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="System.Collections.Generic" isDocumented="False" />
+      <NamespaceSummaryItem name="AeroWizard.VisualStyles" isDocumented="True">Extensions to the VisualStyles classes native to .NET that accomodate the AEROWIZARD tag.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="AeroWizard (Group)" isGroup="True" isDocumented="False" />
+      <NamespaceSummaryItem name="Vanara (Group)" isGroup="True" isDocumented="False" />
+      <NamespaceSummaryItem name="Vanara.Interop" isDocumented="False" />
+      <NamespaceSummaryItem name="Vanara.Interop.DesktopWindowManager" isDocumented="False" />
+    </NamespaceSummaries>
     <PlugInConfigurations>
     </PlugInConfigurations>
     <BuildLogFile />
@@ -114,7 +115,7 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
     <ProjectSummary>The Wizard project provides components allowing for the simple creation of Aero Wizards %28new wizard format in Vista and later%29 and other wizards which strictly follow Microsoft guidelines and use Visual Styles to pull specific settings from the system.</ProjectSummary>
-    <VisibleItems>Attributes, InheritedMembers, InheritedFrameworkMembers, Protected, SealedProtected</VisibleItems>
+    <VisibleItems>Attributes, InheritedMembers, InheritedFrameworkMembers, Protected, SealedProtected, EditorBrowsableNever, NonBrowsable</VisibleItems>
     <FooterText>
     </FooterText>
     <ComponentPath />

@@ -97,7 +97,7 @@
     <Preliminary>False</Preliminary>
     <NamingMethod>MemberName</NamingMethod>
     <HelpTitle>Wizard .NET Library</HelpTitle>
-    <CopyrightText>&amp;#169%3b 2017 Open Source Community. All rights reserved.</CopyrightText>
+    <CopyrightText>&amp;#169%3b 2018 GitHub Community. All rights reserved.</CopyrightText>
     <CopyrightHref>https://github.com/dahall/AeroWizard/blob/master/license.md</CopyrightHref>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <CatalogName>VisualStudio12</CatalogName>
@@ -121,7 +121,7 @@
     <ComponentPath />
     <MaximumGroupParts>2</MaximumGroupParts>
     <NamespaceGrouping>True</NamespaceGrouping>
-    <HelpFileVersion>2.1.11</HelpFileVersion>
+    <HelpFileVersion>2.1.12</HelpFileVersion>
     <WarnOnMissingSourceContext>False</WarnOnMissingSourceContext>
     <SourceCodeBasePath>..\</SourceCodeBasePath>
     <TransformComponentArguments>

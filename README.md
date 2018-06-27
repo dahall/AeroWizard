@@ -20,7 +20,7 @@ The control can be downloaded as a VSIX from [this site](https://github.com/daha
 
 ## Sample Code
 
-For sample code, see the [Documentation](https://dahall.github.io/AeroWizard).
+For sample code, see the [Documentation](https://github.com/dahall/AeroWizard/wiki/Documentation).
 
 ## Project Extras
 

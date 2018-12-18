@@ -1,5 +1,4 @@
-﻿
-namespace System.Windows.Forms
+﻿namespace System.Windows.Forms
 {
 	internal static class TextBoxExtension
 	{

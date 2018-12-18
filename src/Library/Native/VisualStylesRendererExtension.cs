@@ -15,21 +15,16 @@ namespace System.Windows.Forms.VisualStyles
 
 		public static int GetTransitionDuration(this VisualStyleRenderer rnd, int toState, int fromState = 0)
 		{
-			int dwDuration;
-			NativeMethods.GetThemeTransitionDuration(rnd, rnd.Part, fromState == 0 ? rnd.State : fromState, toState, (int)NativeMethods.IntegerListProperty.TransitionDuration, out dwDuration);
+			NativeMethods.GetThemeTransitionDuration(rnd, rnd.Part, fromState == 0 ? rnd.State : fromState, toState, (int)NativeMethods.IntegerListProperty.TransitionDuration, out var dwDuration);
 			return dwDuration;
 		}
 
-		/// <summary>
-		/// Sets the state of the <see cref="VisualStyleRenderer"/>.
-		/// </summary>
+		/// <summary>Sets the state of the <see cref="VisualStyleRenderer"/>.</summary>
 		/// <param name="rnd">The <see cref="VisualStyleRenderer"/> instance.</param>
 		/// <param name="state">The state.</param>
-		public static void SetState(this VisualStyleRenderer rnd, int state) { rnd.SetParameters(rnd.Class, rnd.Part, state); }
+		public static void SetState(this VisualStyleRenderer rnd, int state) => rnd.SetParameters(rnd.Class, rnd.Part, state);
 
-		/// <summary>
-		/// Sets attributes to control how visual styles are applied to a specified window.
-		/// </summary>
+		/// <summary>Sets attributes to control how visual styles are applied to a specified window.</summary>
 		/// <param name="window">The window.</param>
 		/// <param name="attr">The attributes to apply or disable.</param>
 		/// <param name="enable">if set to <c>true</c> enable the attribute, otherwise disable it.</param>

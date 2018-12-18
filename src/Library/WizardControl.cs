@@ -1,15 +1,17 @@
-﻿using System;
+﻿using AeroWizard.VisualStyles;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
-using AeroWizard.VisualStyles;
 using Vanara.Interop;
 using Vanara.Interop.DesktopWindowManager;
 
 namespace AeroWizard
 {
-	/// <summary>Styles that can be applied to the body of a <see cref="WizardControl"/> when on XP or earlier or when a Basic theme is applied.</summary>
+	/// <summary>
+	/// Styles that can be applied to the body of a <see cref="WizardControl"/> when on XP or earlier or when a Basic theme is applied.
+	/// </summary>
 	public enum WizardClassicStyle
 	{
 		/// <summary>Windows Vista style theme with large fonts and white background.</summary>
@@ -69,8 +71,8 @@ namespace AeroWizard
 		public event CancelEventHandler Cancelling;
 
 		/// <summary>
-		/// Occurs when the user clicks the Next/Finish button and the page is set to <see cref="WizardPage.IsFinishPage"/> or this is the last page in the
-		/// <see cref="Pages"/> collection.
+		/// Occurs when the user clicks the Next/Finish button and the page is set to <see cref="WizardPage.IsFinishPage"/> or this is the
+		/// last page in the <see cref="Pages"/> collection.
 		/// </summary>
 		[Category("Behavior"), Description("Occurs when the user clicks the Next/Finish button on last page.")]
 		public event EventHandler Finished;
@@ -118,7 +120,9 @@ namespace AeroWizard
 			set => cancelButton.CausesValidation = value;
 		}
 
-		/// <summary>Gets or sets the style applied to the body of a <see cref="WizardControl"/> when on XP or earlier or when a Basic theme is applied.</summary>
+		/// <summary>
+		/// Gets or sets the style applied to the body of a <see cref="WizardControl"/> when on XP or earlier or when a Basic theme is applied.
+		/// </summary>
 		/// <value>A <see cref="WizardClassicStyle"/> value which determines the style.</value>
 		[Category("Wizard"), DefaultValue(typeof(WizardClassicStyle), "AeroStyle"), Description("The style used in Windows Classic mode or on Windows XP")]
 		public WizardClassicStyle ClassicStyle
@@ -148,7 +152,9 @@ namespace AeroWizard
 
 		/// <summary>Gets or sets the shield icon on the next button.</summary>
 		/// <value><c>true</c> if Next button should display a shield; otherwise, <c>false</c>.</value>
-		/// <exception cref="PlatformNotSupportedException">Setting a UAF shield on a button only works on Vista and later versions of Windows.</exception>
+		/// <exception cref="PlatformNotSupportedException">
+		/// Setting a UAF shield on a button only works on Vista and later versions of Windows.
+		/// </exception>
 		[DefaultValue(false), Category("Wizard"), Description("Show a shield icon on the next button")]
 		public bool NextButtonShieldEnabled
 		{
@@ -192,7 +198,9 @@ namespace AeroWizard
 		}
 
 		/// <summary>Gets or sets a value indicating whether to show progress in form's taskbar icon.</summary>
-		/// <remarks>This will only work on Windows 7 or later and the parent form must be showing its icon in the taskbar. No exception is thrown on failure.</remarks>
+		/// <remarks>
+		/// This will only work on Windows 7 or later and the parent form must be showing its icon in the taskbar. No exception is thrown on failure.
+		/// </remarks>
 		/// <value><c>true</c> to show progress in taskbar icon; otherwise, <c>false</c>.</value>
 		[Category("Wizard"), DefaultValue(false), Description("Indicates whether to show progress in form's taskbar icon")]
 		public bool ShowProgressInTaskbarIcon
@@ -206,7 +214,9 @@ namespace AeroWizard
 		[Category("Wizard"), DefaultValue(false), Description("Indicates whether to suppress changing the parent form's icon to match the wizard's")]
 		public bool SuppressParentFormIconSync { get; set; }
 
-		/// <summary>Gets or sets a value indicating whether to suppress changing the parent form's caption to match the wizard's <see cref="Title"/>.</summary>
+		/// <summary>
+		/// Gets or sets a value indicating whether to suppress changing the parent form's caption to match the wizard's <see cref="Title"/>.
+		/// </summary>
 		/// <value><c>true</c> to not change the parent form's caption (Text) to match this wizard's title; otherwise, <c>false</c>.</value>
 		[Category("Wizard"), DefaultValue(false), Description("Indicates whether to suppress changing the parent form's caption to match the wizard's")]
 		public bool SuppressParentFormCaptionSync { get; set; }
@@ -232,8 +242,8 @@ namespace AeroWizard
 				titleImageList.Images.Clear();
 				if (titleImageIcon != null)
 				{
-					// Resolve for different DPI settings and ensure that if icon is not a standard size, such as 20x20, that the larger one (24x24) is downsized
-					// and not the smaller up-sized. (thanks demidov)
+					// Resolve for different DPI settings and ensure that if icon is not a standard size, such as 20x20, that the larger one
+					// (24x24) is downsized and not the smaller up-sized. (thanks demidov)
 					titleImage.Size = titleImageList.ImageSize = SystemInformation.SmallIconSize;
 					titleImageList.Images.Add(new Icon(value, SystemInformation.SmallIconSize + new Size(1, 1)));
 					titleImage.ImageIndex = 0;
@@ -249,40 +259,29 @@ namespace AeroWizard
 
 		/// <summary>Adds a new control to the command bar.</summary>
 		/// <remarks>
-		/// This will cause your wizard to deviate from the Windows UI guidelines. All controls will display right to left in the order added and will cause the
-		/// command bar to remain visible as long as the control is visible. The developer must fully manage the state of this added control.
+		/// This will cause your wizard to deviate from the Windows UI guidelines. All controls will display right to left in the order added
+		/// and will cause the command bar to remain visible as long as the control is visible. The developer must fully manage the state of
+		/// this added control.
 		/// </remarks>
 		/// <param name="ctrl">The control to add.</param>
-		public void AddCommandControl(Control ctrl)
-		{
-			commandAreaButtonFlowLayout.Controls.Add(ctrl);
-		}
+		public void AddCommandControl(Control ctrl) => commandAreaButtonFlowLayout.Controls.Add(ctrl);
 
 		/// <summary>Signals the object that initialization is starting.</summary>
-		public void BeginInit()
-		{
-			pageContainer.BeginInit();
-		}
+		public void BeginInit() => pageContainer.BeginInit();
 
 		/// <summary>Signals the object that initialization is complete.</summary>
-		public void EndInit()
-		{
-			pageContainer.EndInit();
-		}
+		public void EndInit() => pageContainer.EndInit();
 
 		/// <summary>Advances to the specified page.</summary>
 		/// <param name="nextPage">The wizard page to go to next.</param>
 		/// <param name="skipCommit">if set to <c>true</c> skip <see cref="WizardPage.Commit"/> event.</param>
 		/// <exception cref="ArgumentException">When specifying a value for nextPage, it must already be in the Pages collection.</exception>
-		public virtual void NextPage(WizardPage nextPage = null, bool skipCommit = false)
-		{
-			pageContainer.NextPage(nextPage, skipCommit);
-		}
+		public virtual void NextPage(WizardPage nextPage = null, bool skipCommit = false) => pageContainer.NextPage(nextPage, skipCommit);
 
 		/// <summary>Overrides the theme fonts provided by the system.</summary>
 		/// <remarks>
-		/// This is NOT recommended as it will cause the wizard to not match those provided by the system. This should be called only after the handle has been
-		/// created or it will be overridden with the system theme values.
+		/// This is NOT recommended as it will cause the wizard to not match those provided by the system. This should be called only after
+		/// the handle has been created or it will be overridden with the system theme values.
 		/// </remarks>
 		/// <param name="titleFont">The title font.</param>
 		/// <param name="headerFont">The header font.</param>
@@ -298,16 +297,10 @@ namespace AeroWizard
 		}
 
 		/// <summary>Returns to the previous page.</summary>
-		public virtual void PreviousPage()
-		{
-			pageContainer.PreviousPage();
-		}
+		public virtual void PreviousPage() => pageContainer.PreviousPage();
 
 		/// <summary>Restarts the wizard pages from the first page.</summary>
-		public void RestartPages()
-		{
-			pageContainer.RestartPages();
-		}
+		public void RestartPages() => pageContainer.RestartPages();
 
 		/// <summary>Gets the unthemed back button image.</summary>
 		/// <returns><see cref="Bitmap"/> with the four state images stacked on top of each other.</returns>
@@ -417,10 +410,7 @@ namespace AeroWizard
 		}
 
 		/// <summary>Raises the <see cref="WizardControl.SelectedPageChanged"/> event.</summary>
-		protected void OnSelectedPageChanged()
-		{
-			SelectedPageChanged?.Invoke(this, EventArgs.Empty);
-		}
+		protected void OnSelectedPageChanged() => SelectedPageChanged?.Invoke(this, EventArgs.Empty);
 
 		private void CloseForm(DialogResult dlgResult)
 		{
@@ -555,15 +545,9 @@ namespace AeroWizard
 			commandArea.Visible = vis;
 		}
 
-		private void pageContainer_Cancelling(object sender, CancelEventArgs e)
-		{
-			OnCancelling(e);
-		}
+		private void pageContainer_Cancelling(object sender, CancelEventArgs e) => OnCancelling(e);
 
-		private void pageContainer_Finished(object sender, EventArgs e)
-		{
-			OnFinished();
-		}
+		private void pageContainer_Finished(object sender, EventArgs e) => OnFinished();
 
 		private void pageContainer_SelectedPageChanged(object sender, EventArgs e)
 		{
@@ -572,55 +556,25 @@ namespace AeroWizard
 			OnSelectedPageChanged();
 		}
 
-		private void Pages_ItemAdded(object sender, System.Collections.Generic.EventedList<WizardPage>.ListChangedEventArgs<WizardPage> e)
-		{
-			e.Item.TextChanged += Page_TextChanged;
-		}
+		private void Pages_ItemAdded(object sender, System.Collections.Generic.EventedList<WizardPage>.ListChangedEventArgs<WizardPage> e) => e.Item.TextChanged += Page_TextChanged;
 
-		private void Pages_ItemDeleted(object sender, System.Collections.Generic.EventedList<WizardPage>.ListChangedEventArgs<WizardPage> e)
-		{
-			e.Item.TextChanged -= Page_TextChanged;
-		}
+		private void Pages_ItemDeleted(object sender, System.Collections.Generic.EventedList<WizardPage>.ListChangedEventArgs<WizardPage> e) => e.Item.TextChanged -= Page_TextChanged;
 
-		private void Page_TextChanged(object sender, EventArgs e)
-		{
-			HeaderText = ((WizardPage)sender).Text;
-		}
+		private void Page_TextChanged(object sender, EventArgs e) => HeaderText = ((WizardPage)sender).Text;
 
-		private void parentForm_Load(object sender, EventArgs e)
-		{
-			ConfigureWindowFrame();
-		}
+		private void parentForm_Load(object sender, EventArgs e) => ConfigureWindowFrame();
 
-		private void ResetBackButtonToolTipText()
-		{
-			BackButtonToolTipText = Properties.Resources.WizardBackButtonToolTip;
-		}
+		private void ResetBackButtonToolTipText() => BackButtonToolTipText = Properties.Resources.WizardBackButtonToolTip;
 
-		private void ResetBackButtonText()
-		{
-			pageContainer.ResetBackButtonText();
-		}
+		private void ResetBackButtonText() => pageContainer.ResetBackButtonText();
 
-		private void ResetCancelButtonText()
-		{
-			pageContainer.ResetCancelButtonText();
-		}
+		private void ResetCancelButtonText() => pageContainer.ResetCancelButtonText();
 
-		private void ResetFinishButtonText()
-		{
-			pageContainer.ResetFinishButtonText();
-		}
+		private void ResetFinishButtonText() => pageContainer.ResetFinishButtonText();
 
-		private void ResetNextButtonText()
-		{
-			pageContainer.ResetNextButtonText();
-		}
+		private void ResetNextButtonText() => pageContainer.ResetNextButtonText();
 
-		private void ResetTitle()
-		{
-			Title = Properties.Resources.WizardTitle;
-		}
+		private void ResetTitle() => Title = Properties.Resources.WizardTitle;
 
 		private void ResetTitleIcon()
 		{

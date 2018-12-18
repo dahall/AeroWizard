@@ -1,21 +1,10 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace System.Runtime.InteropServices
 {
 	internal static class InteropUtil
 	{
 		internal const int cbBuffer = 256;
-
-		[Security.Permissions.SecurityPermission(Security.Permissions.SecurityAction.LinkDemand, Flags = Security.Permissions.SecurityPermissionFlag.UnmanagedCode)]
-		public static T ToStructure<T>(this IntPtr ptr) => (T)Marshal.PtrToStructure(ptr, typeof(T));
-
-		public static IntPtr StructureToPtr<T>(this T value) where T : struct
-		{
-			var ret = Marshal.AllocHGlobal(Marshal.SizeOf(value));
-			Marshal.StructureToPtr(value, ret, false);
-			return ret;
-		}
 
 		[Security.Permissions.SecurityPermission(Security.Permissions.SecurityAction.LinkDemand, Flags = Security.Permissions.SecurityPermissionFlag.UnmanagedCode)]
 		public static void AllocString(ref IntPtr ptr, ref uint size)
@@ -37,6 +26,12 @@ namespace System.Runtime.InteropServices
 		[Security.Permissions.SecurityPermission(Security.Permissions.SecurityAction.LinkDemand, Flags = Security.Permissions.SecurityPermissionFlag.UnmanagedCode)]
 		public static string GetString(IntPtr pString) => Marshal.PtrToStringUni(pString);
 
+		/// <summary>Converts an <see cref="IntPtr"/> to a structure. If pointer has no value, <c>null</c> is returned.</summary>
+		/// <typeparam name="T">Type of the structure.</typeparam>
+		/// <param name="ptr">The <see cref="IntPtr"/> that points to allocated memory holding a structure or <see cref="IntPtr.Zero"/>.</param>
+		/// <returns>The converted structure or <c>null</c>.</returns>
+		public static T? PtrToStructure<T>(this IntPtr ptr) where T : struct => ptr != IntPtr.Zero ? ptr.ToStructure<T>() : (T?)null;
+
 		[Security.Permissions.SecurityPermission(Security.Permissions.SecurityAction.LinkDemand, Flags = Security.Permissions.SecurityPermissionFlag.UnmanagedCode)]
 		public static bool SetString(ref IntPtr ptr, ref uint size, string value = null)
 		{
@@ -50,9 +45,43 @@ namespace System.Runtime.InteropServices
 			return true;
 		}
 
+		public static IntPtr StructureToPtr<T>(this T value) where T : struct
+		{
+			var ret = Marshal.AllocHGlobal(Marshal.SizeOf(value));
+			Marshal.StructureToPtr(value, ret, false);
+			return ret;
+		}
+
 		/// <summary>
-		/// Converts an <see cref="IntPtr"/> that points to a C-style array into a CLI array.
+		/// Converts a structure or null value to an <see cref="IntPtr"/>. If memory has not been allocated for the <paramref name="ptr"/>,
+		/// it will be via a call to <see cref="Marshal.AllocHGlobal(int)"/>.
 		/// </summary>
+		/// <typeparam name="T">Type of the structure.</typeparam>
+		/// <param name="value">
+		/// The structure to convert. If this value is <c>null</c>, <paramref name="ptr"/> will be set to <see cref="IntPtr.Zero"/> and
+		/// memory will be released.
+		/// </param>
+		/// <param name="ptr">The <see cref="IntPtr"/> that will point to allocated memory holding the structure or <see cref="IntPtr.Zero"/>.</param>
+		/// <param name="isEmpty">
+		/// An optional predicate check to determine if the structure is non-essential and can be replaced with an empty pointer ( <c>null</c>).
+		/// </param>
+		public static void StructureToPtr<T>(T? value, ref IntPtr ptr, Predicate<T> isEmpty = null) where T : struct
+		{
+			if (value == null || (isEmpty != null && isEmpty(value.Value)))
+			{
+				if (ptr == IntPtr.Zero) return;
+				Marshal.FreeHGlobal(ptr);
+				ptr = IntPtr.Zero;
+			}
+			else
+			{
+				if (ptr == IntPtr.Zero)
+					ptr = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(T)));
+				Marshal.StructureToPtr(value, ptr, false);
+			}
+		}
+
+		/// <summary>Converts an <see cref="IntPtr"/> that points to a C-style array into a CLI array.</summary>
 		/// <typeparam name="TS">Type of native structure used by the C-style array.</typeparam>
 		/// <typeparam name="T">Output type for the CLI array. <typeparamref name="TS"/> must be able to convert to <typeparamref name="T"/>.</typeparam>
 		/// <param name="ptr">The <see cref="IntPtr"/> pointing to the native array.</param>
@@ -71,9 +100,7 @@ namespace System.Runtime.InteropServices
 			return ret;
 		}
 
-		/// <summary>
-		/// Converts an <see cref="IntPtr"/> that points to a C-style array into a CLI array.
-		/// </summary>
+		/// <summary>Converts an <see cref="IntPtr"/> that points to a C-style array into a CLI array.</summary>
 		/// <typeparam name="T">Type of native structure used by the C-style array.</typeparam>
 		/// <param name="ptr">The <see cref="IntPtr"/> pointing to the native array.</param>
 		/// <param name="count">The number of items in the native array.</param>
@@ -88,9 +115,7 @@ namespace System.Runtime.InteropServices
 			return ret;
 		}
 
-		/// <summary>
-		/// Converts an <see cref="IntPtr"/> that points to a C-style array into an <see cref="IEnumerable{T}"/>.
-		/// </summary>
+		/// <summary>Converts an <see cref="IntPtr"/> that points to a C-style array into an <see cref="IEnumerable{T}"/>.</summary>
 		/// <typeparam name="T">Type of native structure used by the C-style array.</typeparam>
 		/// <param name="ptr">The <see cref="IntPtr"/> pointing to the native array.</param>
 		/// <param name="count">The number of items in the native array.</param>
@@ -104,35 +129,7 @@ namespace System.Runtime.InteropServices
 				yield return ToStructure<T>(Marshal.ReadIntPtr(ptr, prefixBytes + i * stSize));
 		}
 
-		/// <summary>
-		/// Converts an <see cref="IntPtr" /> to a structure. If pointer has no value, <c>null</c> is returned.
-		/// </summary>
-		/// <typeparam name="T">Type of the structure.</typeparam>
-		/// <param name="ptr">The <see cref="IntPtr" /> that points to allocated memory holding a structure or <see cref="IntPtr.Zero"/>.</param>
-		/// <returns>The converted structure or <c>null</c>.</returns>
-		public static T? PtrToStructure<T>(this IntPtr ptr) where T : struct => ptr != IntPtr.Zero ? ptr.ToStructure<T>() : (T?)null;
-
-		/// <summary>
-		/// Converts a structure or null value to an <see cref="IntPtr" />. If memory has not been allocated for the <paramref name="ptr"/>, it will be via a call to <see cref="Marshal.AllocHGlobal(int)"/>.
-		/// </summary>
-		/// <typeparam name="T">Type of the structure.</typeparam>
-		/// <param name="value">The structure to convert. If this value is <c>null</c>, <paramref name="ptr"/> will be set to <see cref="IntPtr.Zero"/> and memory will be released.</param>
-		/// <param name="ptr">The <see cref="IntPtr" /> that will point to allocated memory holding the structure or <see cref="IntPtr.Zero"/>.</param>
-		/// <param name="isEmpty">An optional predicate check to determine if the structure is non-essential and can be replaced with an empty pointer (<c>null</c>).</param>
-		public static void StructureToPtr<T>(T? value, ref IntPtr ptr, Predicate<T> isEmpty = null) where T : struct
-		{
-			if (value == null || (isEmpty != null && isEmpty(value.Value)))
-			{
-				if (ptr == IntPtr.Zero) return;
-				Marshal.FreeHGlobal(ptr);
-				ptr = IntPtr.Zero;
-			}
-			else
-			{
-				if (ptr == IntPtr.Zero)
-					ptr = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(T)));
-				Marshal.StructureToPtr(value, ptr, false);
-			}
-		}
+		[Security.Permissions.SecurityPermission(Security.Permissions.SecurityAction.LinkDemand, Flags = Security.Permissions.SecurityPermissionFlag.UnmanagedCode)]
+		public static T ToStructure<T>(this IntPtr ptr) => (T)Marshal.PtrToStructure(ptr, typeof(T));
 	}
 }

@@ -1,10 +1,10 @@
-﻿
-namespace System.Windows.Forms
+﻿namespace System.Windows.Forms
 {
-	static class ControlExtension
+	internal static class ControlExtension
 	{
 		/// <summary>
-		/// Performs an action on a control after its handle has been created. If the control's handle has already been created, the action is executed immediately.
+		/// Performs an action on a control after its handle has been created. If the control's handle has already been created, the action
+		/// is executed immediately.
 		/// </summary>
 		/// <param name="ctrl">This control.</param>
 		/// <param name="action">The action to execute.</param>
@@ -29,31 +29,37 @@ namespace System.Windows.Forms
 			}
 		}
 
-		/// <summary>
-		/// Gets the control in the list of parents of type <c>T</c>.
-		/// </summary>
+		/// <summary>Gets the control in the list of parents of type <c>T</c>.</summary>
 		/// <typeparam name="T">The <see cref="Control"/> based <see cref="Type"/> of the parent control to retrieve.</typeparam>
 		/// <param name="ctrl">This control.</param>
 		/// <returns>The parent control matching T or null if not found.</returns>
 		[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
 		public static T GetParent<T>(this Control ctrl) where T : Control, new()
 		{
-			Control p = ctrl.Parent;
+			var p = ctrl.Parent;
 			while (p != null & !(p is T))
 				p = p.Parent;
 			return p as T;
 		}
 
-		/// <summary>
-		/// Gets the top-most control in the list of parents of type <c>T</c>.
-		/// </summary>
+		/// <summary>Gets the right to left property.</summary>
+		/// <param name="ctrl">This control.</param>
+		/// <returns>Culture defined direction of text for this control.</returns>
+		public static RightToLeft GetRightToLeftProperty(this Control ctrl)
+		{
+			if (ctrl.RightToLeft == RightToLeft.Inherit)
+				return GetRightToLeftProperty(ctrl.Parent);
+			return ctrl.RightToLeft;
+		}
+
+		/// <summary>Gets the top-most control in the list of parents of type <c>T</c>.</summary>
 		/// <typeparam name="T">The <see cref="Control"/> based <see cref="Type"/> of the parent control to retrieve.</typeparam>
 		/// <param name="ctrl">This control.</param>
 		/// <returns>The top-most parent control matching T or null if not found.</returns>
 		public static T GetTopMostParent<T>(this Control ctrl) where T : Control, new()
 		{
 			var stack = new System.Collections.Generic.Stack<Control>();
-			Control p = ctrl.Parent;
+			var p = ctrl.Parent;
 			while (p != null)
 			{
 				stack.Push(p);
@@ -65,26 +71,12 @@ namespace System.Windows.Forms
 			return null;
 		}
 
-		/// <summary>
-		/// Gets the right to left property.
-		/// </summary>
-		/// <param name="ctrl">This control.</param>
-		/// <returns>Culture defined direction of text for this control.</returns>
-		public static RightToLeft GetRightToLeftProperty(this Control ctrl)
-		{
-			if (ctrl.RightToLeft == RightToLeft.Inherit)
-				return GetRightToLeftProperty(ctrl.Parent);
-			return ctrl.RightToLeft;
-		}
-
-		/// <summary>
-		/// Determines whether this control is in design mode.
-		/// </summary>
+		/// <summary>Determines whether this control is in design mode.</summary>
 		/// <param name="ctrl">This control.</param>
 		/// <returns><c>true</c> if in design mode; otherwise, <c>false</c>.</returns>
 		public static bool IsDesignMode(this Control ctrl)
 		{
-			Control p = ctrl;
+			var p = ctrl;
 			while (p != null)
 			{
 				var site = p.Site;

@@ -65,6 +65,7 @@ namespace Vanara.Interop
 			OUT_SCREEN_OUTLINE_PRECIS = 9,
 			OUT_PS_ONLY_PRECIS = 10
 		}
+
 		public enum LogFontOutputQuality : byte
 		{
 			DEFAULT_QUALITY = 0,
@@ -82,13 +83,15 @@ namespace Vanara.Interop
 			FIXED_PITCH = 1,
 			VARIABLE_PITCH = 2
 		}
+
 		/// <summary>The LOGFONT structure defines the attributes of a font.</summary>
 		[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
 		public struct LOGFONT
 		{
 			/// <summary>
-			/// The height, in logical units, of the font's character cell or character. The character height value (also known as the em height) is the
-			/// character cell height value minus the internal-leading value. The font mapper interprets the value specified in lfHeight in the following manner.
+			/// The height, in logical units, of the font's character cell or character. The character height value (also known as the em
+			/// height) is the character cell height value minus the internal-leading value. The font mapper interprets the value specified
+			/// in lfHeight in the following manner.
 			/// <list type="table">
 			/// <listheader>
 			/// <term>Value</term>
@@ -104,31 +107,35 @@ namespace Vanara.Interop
 			/// </item>
 			/// <item>
 			/// <term>&lt; 0</term>
-			/// <definition>The font mapper transforms this value into device units and matches its absolute value against the character height of the available fonts.</definition>
+			/// <definition>The font mapper transforms this value into device units and matches its absolute value against the character
+			/// height of the available fonts.</definition>
 			/// </item>
 			/// </list>
 			/// <para>For all height comparisons, the font mapper looks for the largest font that does not exceed the requested size.</para>
 			/// <para>This mapping occurs when the font is used for the first time.</para>
-			/// <para>For the MM_TEXT mapping mode, you can use the following formula to specify a height for a font with a specified point size:</para>
+			/// <para>
+			/// For the MM_TEXT mapping mode, you can use the following formula to specify a height for a font with a specified point size:
+			/// </para>
 			/// </summary>
 			public int lfHeight;
 
 			/// <summary>
-			/// The average width, in logical units, of characters in the font. If lfWidth is zero, the aspect ratio of the device is matched against the
-			/// digitization aspect ratio of the available fonts to find the closest match, determined by the absolute value of the difference.
+			/// The average width, in logical units, of characters in the font. If lfWidth is zero, the aspect ratio of the device is matched
+			/// against the digitization aspect ratio of the available fonts to find the closest match, determined by the absolute value of
+			/// the difference.
 			/// </summary>
 			public int lfWidth;
 
 			/// <summary>
-			/// The angle, in tenths of degrees, between the escapement vector and the x-axis of the device. The escapement vector is parallel to the base line
-			/// of a row of text.
+			/// The angle, in tenths of degrees, between the escapement vector and the x-axis of the device. The escapement vector is
+			/// parallel to the base line of a row of text.
 			/// <para>
-			/// When the graphics mode is set to GM_ADVANCED, you can specify the escapement angle of the string independently of the orientation angle of the
-			/// string's characters.
+			/// When the graphics mode is set to GM_ADVANCED, you can specify the escapement angle of the string independently of the
+			/// orientation angle of the string's characters.
 			/// </para>
 			/// <para>
-			/// When the graphics mode is set to GM_COMPATIBLE, lfEscapement specifies both the escapement and orientation. You should set lfEscapement and
-			/// lfOrientation to the same value.
+			/// When the graphics mode is set to GM_COMPATIBLE, lfEscapement specifies both the escapement and orientation. You should set
+			/// lfEscapement and lfOrientation to the same value.
 			/// </para>
 			/// </summary>
 			public int lfEscapement;
@@ -137,7 +144,8 @@ namespace Vanara.Interop
 			public int lfOrientation;
 
 			/// <summary>
-			/// The weight of the font in the range 0 through 1000. For example, 400 is normal and 700 is bold. If this value is zero, a default weight is used.
+			/// The weight of the font in the range 0 through 1000. For example, 400 is normal and 700 is bold. If this value is zero, a
+			/// default weight is used.
 			/// </summary>
 			public int lfWeight;
 
@@ -154,17 +162,19 @@ namespace Vanara.Interop
 			public LogFontCharSet lfCharSet;
 
 			/// <summary>
-			/// The output precision. The output precision defines how closely the output must match the requested font's height, width, character orientation,
-			/// escapement, pitch, and font type.
+			/// The output precision. The output precision defines how closely the output must match the requested font's height, width,
+			/// character orientation, escapement, pitch, and font type.
 			/// </summary>
 			public LogFontOutputPrecision lfOutPrecision;
 
-			/// <summary>The clipping precision. The clipping precision defines how to clip characters that are partially outside the clipping region.</summary>
+			/// <summary>
+			/// The clipping precision. The clipping precision defines how to clip characters that are partially outside the clipping region.
+			/// </summary>
 			public LogFontClippingPrecision lfClipPrecision;
 
 			/// <summary>
-			/// The output quality. The output quality defines how carefully the graphics device interface (GDI) must attempt to match the logical-font
-			/// attributes to those of an actual physical font.
+			/// The output quality. The output quality defines how carefully the graphics device interface (GDI) must attempt to match the
+			/// logical-font attributes to those of an actual physical font.
 			/// </summary>
 			public LogFontOutputQuality lfQuality;
 
@@ -172,41 +182,41 @@ namespace Vanara.Interop
 			public byte lfPitchAndFamily;
 
 			/// <summary>
-			/// A null-terminated string that specifies the typeface name of the font. The length of this string must not exceed 32 TCHAR values, including the
-			/// terminating NULL. The EnumFontFamiliesEx function can be used to enumerate the typeface names of all currently available fonts. If lfFaceName is
-			/// an empty string, GDI uses the first font that matches the other specified attributes.
+			/// A null-terminated string that specifies the typeface name of the font. The length of this string must not exceed 32 TCHAR
+			/// values, including the terminating NULL. The EnumFontFamiliesEx function can be used to enumerate the typeface names of all
+			/// currently available fonts. If lfFaceName is an empty string, GDI uses the first font that matches the other specified attributes.
 			/// </summary>
 			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
 			public string lfFaceName;
 
 			public bool Italic
 			{
-				get { return lfItalic == 1; }
-				set { lfItalic = System.Convert.ToByte(value); }
+				get => lfItalic == 1;
+				set => lfItalic = System.Convert.ToByte(value);
 			}
 
 			public bool Underline
 			{
-				get { return lfUnderline == 1; }
-				set { lfUnderline = System.Convert.ToByte(value); }
+				get => lfUnderline == 1;
+				set => lfUnderline = System.Convert.ToByte(value);
 			}
 
 			public bool StrikeOut
 			{
-				get { return lfStrikeOut == 1; }
-				set { lfStrikeOut = System.Convert.ToByte(value); }
+				get => lfStrikeOut == 1;
+				set => lfStrikeOut = System.Convert.ToByte(value);
 			}
 
 			public LogFontPitch Pitch
 			{
-				get { return (LogFontPitch)(lfPitchAndFamily & 0x0F); }
-				set { lfPitchAndFamily = (byte)((lfPitchAndFamily & 0xF0) | (byte)value); }
+				get => (LogFontPitch)(lfPitchAndFamily & 0x0F);
+				set => lfPitchAndFamily = (byte)((lfPitchAndFamily & 0xF0) | (byte)value);
 			}
 
 			public LogFontFontFamily FontFamily
 			{
-				get { return (LogFontFontFamily)(lfPitchAndFamily & 0xF0); }
-				set { lfPitchAndFamily = (byte)((lfPitchAndFamily & 0x0F) | (byte)value); }
+				get => (LogFontFontFamily)(lfPitchAndFamily & 0xF0);
+				set => lfPitchAndFamily = (byte)((lfPitchAndFamily & 0x0F) | (byte)value);
 			}
 
 			public static LOGFONT FromFont(Font font)

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Vanara.Interop;
+
 // ReSharper disable MemberCanBePrivate.Global
 
 namespace AeroWizard
@@ -13,8 +14,10 @@ namespace AeroWizard
 	{
 		/// <summary>Button is enabled and can be clicked.</summary>
 		Enabled,
+
 		/// <summary>Button is disabled and cannot be clicked.</summary>
 		Disabled,
+
 		/// <summary>Button is hidden from the user.</summary>
 		Hidden
 	}
@@ -26,17 +29,17 @@ namespace AeroWizard
 	[DefaultProperty("Pages"), DefaultEvent("SelectedPageChanged")]
 	public class WizardPageContainer : ContainerControl, ISupportInitialize
 	{
+		private readonly Stack<WizardPage> pageHistory;
+		private ButtonBase backButton, cancelButton, nextButton;
 		private string finishBtnText;
 		private bool initialized;
 		private bool initializing;
-		private bool nextButtonShieldEnabled;
 		private string nextBtnText;
-		private readonly Stack<WizardPage> pageHistory;
+		private bool nextButtonShieldEnabled;
 		private Timer progressTimer;
 		private WizardPage selectedPage;
 		private bool showProgressInTaskbarIcon;
 		private NativeMethods.ITaskbarList4 taskbar;
-		private ButtonBase backButton, cancelButton, nextButton;
 
 		/// <summary>Initializes a new instance of the <see cref="Control"/> class.</summary>
 		public WizardPageContainer()
@@ -66,13 +69,15 @@ namespace AeroWizard
 		public event CancelEventHandler Cancelling;
 
 		/// <summary>
-		/// Occurs when the user clicks the Next/Finish button and the page is set to <see cref="WizardPage.IsFinishPage"/> or this is the last page in the
-		/// <see cref="Pages"/> collection.
+		/// Occurs when the user clicks the Next/Finish button and the page is set to <see cref="WizardPage.IsFinishPage"/> or this is the
+		/// last page in the <see cref="Pages"/> collection.
 		/// </summary>
 		[Category("Behavior"), Description("Occurs when the user clicks the Next/Finish button on last page.")]
 		public event EventHandler Finished;
 
-		/// <summary>Occurs when the <see cref="SelectedPage"/> property has changed. Use this to effectively be notified after a new wizard page is displayed.</summary>
+		/// <summary>
+		/// Occurs when the <see cref="SelectedPage"/> property has changed. Use this to effectively be notified after a new wizard page is displayed.
+		/// </summary>
 		[Category("Property Changed"), Description("Occurs when the SelectedPage property has changed.")]
 		public event EventHandler SelectedPageChanged;
 
@@ -180,9 +185,11 @@ namespace AeroWizard
 
 		/// <summary>Gets or sets the shield icon on the next button.</summary>
 		/// <value><c>true</c> if Next button should display a shield; otherwise, <c>false</c>.</value>
-		/// <exception cref="PlatformNotSupportedException">Setting a UAF shield on a button only works on Vista and later versions of Windows.</exception>
+		/// <exception cref="PlatformNotSupportedException">
+		/// Setting a UAF shield on a button only works on Vista and later versions of Windows.
+		/// </exception>
 		[DefaultValue(false), Category("Wizard"), Description("Show a shield icon on the next button")]
-		public Boolean NextButtonShieldEnabled
+		public bool NextButtonShieldEnabled
 		{
 			get => nextButtonShieldEnabled;
 			set
@@ -237,7 +244,7 @@ namespace AeroWizard
 					return 0;
 				return IsLastPage(pg) ? (short)100 : Convert.ToInt16(Math.Ceiling(((double)Pages.IndexOf(SelectedPage) + 1) * 100f / Pages.Count));
 			}
-		}	
+		}
 
 		/// <summary>Gets the currently selected wizard page.</summary>
 		/// <value>The selected wizard page. <c>null</c> if no page is active.</value>
@@ -277,7 +284,9 @@ namespace AeroWizard
 		}
 
 		/// <summary>Gets or sets a value indicating whether to show progress in form's taskbar icon.</summary>
-		/// <remarks>This will only work on Windows 7 or later and the parent form must be showing its icon in the taskbar. No exception is thrown on failure.</remarks>
+		/// <remarks>
+		/// This will only work on Windows 7 or later and the parent form must be showing its icon in the taskbar. No exception is thrown on failure.
+		/// </remarks>
 		/// <value><c>true</c> to show progress in taskbar icon; otherwise, <c>false</c>.</value>
 		[Category("Wizard"), DefaultValue(false), Description("Indicates whether to show progress in form's taskbar icon")]
 		public bool ShowProgressInTaskbarIcon
@@ -290,6 +299,13 @@ namespace AeroWizard
 				UpdateTaskbarProgress();
 			}
 		}
+
+		[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+		internal bool DesignerSelected { get; set; }
+
+		/// <summary>Gets the index of the currently selected page.</summary>
+		/// <value>The index of the selected page.</value>
+		internal int SelectedPageIndex => selectedPage == null ? -1 : Pages.IndexOf(selectedPage);
 
 		/// <summary>Gets a value indicating whether running on win7.</summary>
 		/// <value><c>true</c> if [running on win7]; otherwise, <c>false</c>.</value>
@@ -309,28 +325,17 @@ namespace AeroWizard
 			}
 		}
 
-		[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		internal bool DesignerSelected { get; set; }
-
-		/// <summary>Gets the index of the currently selected page.</summary>
-		/// <value>The index of the selected page.</value>
-		internal int SelectedPageIndex => selectedPage == null ? -1 : Pages.IndexOf(selectedPage);
-
 		/// <summary>Signals the object that initialization is starting.</summary>
-		public void BeginInit()
-		{
-			initializing = true;
-		}
+		public void BeginInit() => initializing = true;
 
 		/// <summary>Signals the object that initialization is complete.</summary>
-		public void EndInit()
-		{
-			initializing = false;
-		}
+		public void EndInit() => initializing = false;
 
 		/// <summary>Advances to the specified page.</summary>
 		/// <param name="nextPage">The wizard page to go to next.</param>
-		/// <param name="skipCommit">if set to <c>true</c> prevent the <see cref="WizardPage.Commit"/> event from firing for the current page.</param>
+		/// <param name="skipCommit">
+		/// if set to <c>true</c> prevent the <see cref="WizardPage.Commit"/> event from firing for the current page.
+		/// </param>
 		/// <exception cref="ArgumentException">When specifying a value for nextPage, it must already be in the Pages collection.</exception>
 		public virtual void NextPage(WizardPage nextPage = null, bool skipCommit = false)
 		{
@@ -389,40 +394,34 @@ namespace AeroWizard
 			InitialSetup();
 		}
 
-		/// <summary>Raises the <see cref="WizardControl.Cancelling"/> event.</summary>
-		/// <param name="arg">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
-		protected virtual void OnCancelling(CancelEventArgs arg)
+		internal WizardCommandButtonState GetCmdButtonState(ButtonBase btn)
 		{
-			Cancelling?.Invoke(this, arg);
+			if (btn?.Tag == null)
+				return WizardCommandButtonState.Hidden;
+			if (btn.Tag is WizardCommandButtonState buttonState)
+				return buttonState;
+			if (btn.Enabled)
+				return WizardCommandButtonState.Enabled;
+			if (!btn.Visible)
+				return WizardCommandButtonState.Hidden;
+			return WizardCommandButtonState.Disabled;
 		}
 
-		/// <summary>Raises the <see cref="WizardControl.Finished"/> event.</summary>
-		protected virtual void OnFinished()
-		{
-			Finished?.Invoke(this, EventArgs.Empty);
-		}
+		internal void ResetBackButtonText() => BackButtonText = Properties.Resources.WizardBackText;
 
-		/// <summary>Raises the <see cref="E:System.Windows.Forms.Control.GotFocus"/> event.</summary>
-		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
-		protected override void OnGotFocus(EventArgs e)
-		{
-			base.OnGotFocus(e);
-			selectedPage?.Focus();
-		}
+		internal void ResetCancelButtonText() => CancelButtonText = Properties.Resources.WizardCancelText;
 
-		/// <summary>Raises the <see cref="E:System.Windows.Forms.Control.HandleCreated"/> event.</summary>
-		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
-		protected override void OnHandleCreated(EventArgs e)
-		{
-			base.OnHandleCreated(e);
-			InitialSetup();
-		}
+		internal void ResetFinishButtonText() => FinishButtonText = Properties.Resources.WizardFinishText;
 
-		/// <summary>Raises the <see cref="WizardControl.SelectedPageChanged"/> event.</summary>
-		protected void OnSelectedPageChanged()
-		{
-			SelectedPageChanged?.Invoke(this, EventArgs.Empty);
-		}
+		internal void ResetNextButtonText() => NextButtonText = Properties.Resources.WizardNextText;
+
+		internal bool ShouldSerializeBackButtonText() => BackButtonText != Properties.Resources.WizardBackText;
+
+		internal bool ShouldSerializeCancelButtonText() => CancelButtonText != Properties.Resources.WizardCancelText;
+
+		internal bool ShouldSerializeFinishButtonText() => FinishButtonText != Properties.Resources.WizardFinishText;
+
+		internal bool ShouldSerializeNextButtonText() => NextButtonText != Properties.Resources.WizardNextText;
 
 		/// <summary>Updates the buttons and taskbar according to current sequence and history.</summary>
 		protected internal void UpdateUIDependencies()
@@ -458,28 +457,38 @@ namespace AeroWizard
 				Controls["stepList"].Refresh();
 		}
 
-		private void backButton_Click(object sender, EventArgs e)
+		/// <summary>Raises the <see cref="WizardControl.Cancelling"/> event.</summary>
+		/// <param name="arg">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
+		protected virtual void OnCancelling(CancelEventArgs arg) => Cancelling?.Invoke(this, arg);
+
+		/// <summary>Raises the <see cref="WizardControl.Finished"/> event.</summary>
+		protected virtual void OnFinished() => Finished?.Invoke(this, EventArgs.Empty);
+
+		/// <summary>Raises the <see cref="E:System.Windows.Forms.Control.GotFocus"/> event.</summary>
+		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
+		protected override void OnGotFocus(EventArgs e)
 		{
-			PreviousPage();
+			base.OnGotFocus(e);
+			selectedPage?.Focus();
 		}
+
+		/// <summary>Raises the <see cref="E:System.Windows.Forms.Control.HandleCreated"/> event.</summary>
+		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
+		protected override void OnHandleCreated(EventArgs e)
+		{
+			base.OnHandleCreated(e);
+			InitialSetup();
+		}
+
+		/// <summary>Raises the <see cref="WizardControl.SelectedPageChanged"/> event.</summary>
+		protected void OnSelectedPageChanged() => SelectedPageChanged?.Invoke(this, EventArgs.Empty);
+
+		private void backButton_Click(object sender, EventArgs e) => PreviousPage();
 
 		private void cancelButton_Click(object sender, EventArgs e)
 		{
 			var arg = new CancelEventArgs(true);
 			OnCancelling(arg);
-		}
-
-		internal WizardCommandButtonState GetCmdButtonState(ButtonBase btn)
-		{
-			if (btn?.Tag == null)
-				return WizardCommandButtonState.Hidden;
-			if (btn.Tag is WizardCommandButtonState buttonState)
-				return buttonState;
-			if (btn.Enabled)
-				return WizardCommandButtonState.Enabled;
-			if (!btn.Visible)
-				return WizardCommandButtonState.Hidden;
-			return WizardCommandButtonState.Disabled;
 		}
 
 		private string GetCmdButtonText(ButtonBase btn) => btn == null ? string.Empty : btn.Text;
@@ -522,15 +531,9 @@ namespace AeroWizard
 
 		private bool IsLastPage(WizardPage page) => GetNextPage(page) == null;
 
-		private void nextButton_Click(object sender, EventArgs e)
-		{
-			NextPage();
-		}
+		private void nextButton_Click(object sender, EventArgs e) => NextPage();
 
-		private void Pages_AddItem(object sender, EventedList<WizardPage>.ListChangedEventArgs<WizardPage> e)
-		{
-			Pages_AddItemHandler(e.Item, !initializing);
-		}
+		private void Pages_AddItem(object sender, EventedList<WizardPage>.ListChangedEventArgs<WizardPage> e) => Pages_AddItemHandler(e.Item, !initializing);
 
 		private void Pages_AddItemHandler(WizardPage item, bool selectAfterAdd)
 		{
@@ -571,32 +574,6 @@ namespace AeroWizard
 			UpdateTaskbarProgress();
 		}
 
-		private void UpdateTaskbarProgress()
-		{
-			if (showProgressInTaskbarIcon && selectedPage != null && Pages.Count > 0 && !this.IsDesignMode() && ParentForm != null && ParentForm.ShowInTaskbar)
-				TaskBar.SetProgressValue(ParentForm.Handle, Convert.ToUInt64(PercentComplete), 100ul);
-		}
-
-		internal void ResetBackButtonText()
-		{
-			BackButtonText = Properties.Resources.WizardBackText;
-		}
-
-		internal void ResetCancelButtonText()
-		{
-			CancelButtonText = Properties.Resources.WizardCancelText;
-		}
-
-		internal void ResetFinishButtonText()
-		{
-			FinishButtonText = Properties.Resources.WizardFinishText;
-		}
-
-		internal void ResetNextButtonText()
-		{
-			NextButtonText = Properties.Resources.WizardNextText;
-		}
-
 		private void SetCmdButtonState(ButtonBase btn, WizardCommandButtonState value)
 		{
 			if (btn == null)
@@ -609,15 +586,18 @@ namespace AeroWizard
 					btn.Enabled = false;
 					btn.Visible = true;
 					break;
+
 				case WizardCommandButtonState.Hidden:
 					btn.Enabled = false;
 					if (btn != BackButton)
 						btn.Visible = false;
 					break;
+
 				case WizardCommandButtonState.Enabled:
 					btn.Enabled = true;
 					btn.Visible = true;
 					break;
+
 				default:
 					throw new ArgumentOutOfRangeException(nameof(value), value, null);
 			}
@@ -638,12 +618,10 @@ namespace AeroWizard
 			Invalidate();
 		}
 
-		internal bool ShouldSerializeBackButtonText() => BackButtonText != Properties.Resources.WizardBackText;
-
-		internal bool ShouldSerializeCancelButtonText() => CancelButtonText != Properties.Resources.WizardCancelText;
-
-		internal bool ShouldSerializeFinishButtonText() => FinishButtonText != Properties.Resources.WizardFinishText;
-
-		internal bool ShouldSerializeNextButtonText() => NextButtonText != Properties.Resources.WizardNextText;
+		private void UpdateTaskbarProgress()
+		{
+			if (showProgressInTaskbarIcon && selectedPage != null && Pages.Count > 0 && !this.IsDesignMode() && ParentForm != null && ParentForm.ShowInTaskbar)
+				TaskBar.SetProgressValue(ParentForm.Handle, Convert.ToUInt64(PercentComplete), 100ul);
+		}
 	}
 }

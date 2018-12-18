@@ -11,14 +11,6 @@ namespace Vanara.Interop
 	{
 		private const string UXTHEME = "uxtheme.dll";
 
-		public class SafeThemeHandle : SafeHandle
-		{
-			public SafeThemeHandle(IntPtr hTheme, bool ownsHandle = true) : base(IntPtr.Zero, ownsHandle) { SetHandle(hTheme); }
-			protected override bool ReleaseHandle() => CloseThemeData(handle) == 0;
-			public override bool IsInvalid => handle == IntPtr.Zero;
-			public static implicit operator SafeThemeHandle(VisualStyleRenderer r) => new SafeThemeHandle(r.Handle, false);
-		}
-
 		[UnmanagedFunctionPointer(CallingConvention.Winapi, CharSet = CharSet.Unicode)]
 		public delegate int DrawThemeTextCallback(SafeDCHandle hdc, string text, int textLen, ref RECT rc, int flags, IntPtr lParam);
 
@@ -26,17 +18,25 @@ namespace Vanara.Interop
 		public enum DrawThemeParentBackgroundFlags
 		{
 			None = 0,
+
 			/// <summary>If set, hdc is assumed to be a window DC, not a client DC.</summary>
 			/// <remarks>DTPB_WINDOWDC</remarks>
 			WindowDC = 1,
-			/// <summary>If set, this function sends a WM_CTLCOLORSTATIC message to the parent and uses the brush if one is provided. Otherwise, it uses COLOR_BTNFACE.</summary>
+
+			/// <summary>
+			/// If set, this function sends a WM_CTLCOLORSTATIC message to the parent and uses the brush if one is provided. Otherwise, it
+			/// uses COLOR_BTNFACE.
+			/// </summary>
 			/// <remarks>DTPB_USECTLCOLORSTATIC</remarks>
 			UseCtlColorStaticMsg = 2,
-			/// <summary>If set, this function returns S_OK without sending a WM_CTLCOLORSTATIC message if the parent actually painted on WM_ERASEBKGND.</summary>
+
+			/// <summary>
+			/// If set, this function returns S_OK without sending a WM_CTLCOLORSTATIC message if the parent actually painted on WM_ERASEBKGND.
+			/// </summary>
 			/// <remarks>DTPB_USEERASEBKGND</remarks>
 			UseEraseBkgndMsg = 4
 		}
-		
+
 		public enum DrawThemeTextSystemFonts
 		{
 			Caption = 801,
@@ -55,31 +55,14 @@ namespace Vanara.Interop
 		public enum OpenThemeDataOptions
 		{
 			None = 0,
+
 			/// <summary>Forces drawn images from this theme to stretch to fit the rectangles specified by drawing functions.</summary>
 			/// <remarks>OTD_FORCE_RECT_SIZING</remarks>
 			ForceRectSizing = 1,
+
 			/// <summary>Allows theme elements to be drawn in the non-client area of the window.</summary>
 			/// <remarks>OTD_NONCLIENT</remarks>
 			NonClient = 2
-		}
-
-		public enum ThemePropertyOrigin
-		{
-			/// <summary>Property was found in the state section.</summary>
-			/// <remarks>PO_STATE</remarks>
-			State = 0,
-			/// <summary>Property was found in the part section.</summary>
-			/// <remarks>PO_PART</remarks>
-			Part = 1,
-			/// <summary>Property was found in the class section.</summary>
-			/// <remarks>PO_CLASS</remarks>
-			Class = 2,
-			/// <summary>Property was found in the list of global variables.</summary>
-			/// <remarks>PO_GLOBAL</remarks>
-			Global = 3,
-			/// <summary>Property was not found.</summary>
-			/// <remarks>PO_NOTFOUND</remarks>
-			NotFound = 4
 		}
 
 		public enum TextShadowType
@@ -87,12 +70,37 @@ namespace Vanara.Interop
 			/// <summary>No shadow will be drawn.</summary>
 			/// <remarks>TST_NONE</remarks>
 			None = 0,
+
 			/// <summary>The shadow will be drawn to appear detailed underneath text.</summary>
 			/// <remarks>TST_SINGLE</remarks>
 			Single = 1,
+
 			/// <summary>The shadow will be drawn to appear blurred underneath text.</summary>
 			/// <remarks>TST_CONTINUOUS</remarks>
 			Continuous = 2
+		}
+
+		public enum ThemePropertyOrigin
+		{
+			/// <summary>Property was found in the state section.</summary>
+			/// <remarks>PO_STATE</remarks>
+			State = 0,
+
+			/// <summary>Property was found in the part section.</summary>
+			/// <remarks>PO_PART</remarks>
+			Part = 1,
+
+			/// <summary>Property was found in the class section.</summary>
+			/// <remarks>PO_CLASS</remarks>
+			Class = 2,
+
+			/// <summary>Property was found in the list of global variables.</summary>
+			/// <remarks>PO_GLOBAL</remarks>
+			Global = 3,
+
+			/// <summary>Property was not found.</summary>
+			/// <remarks>PO_NOTFOUND</remarks>
+			NotFound = 4
 		}
 
 		public enum ThemeSize
@@ -100,9 +108,11 @@ namespace Vanara.Interop
 			/// <summary>Receives the minimum size of a visual style part.</summary>
 			/// <remarks>TS_MIN</remarks>
 			Min,
+
 			/// <summary>Receives the size of the visual style part that will best fit the available space.</summary>
 			/// <remarks>TS_TRUE</remarks>
 			True,
+
 			/// <summary>Receives the size that the theme manager uses to draw a part.</summary>
 			/// <remarks>TS_DRAW</remarks>
 			Draw
@@ -113,10 +123,13 @@ namespace Vanara.Interop
 		{
 			/// <summary>Do Not Draw The Caption (Text)</summary>
 			NoDrawCaption = 0x00000001,
+
 			/// <summary>Do Not Draw the Icon</summary>
 			NoDrawIcon = 0x00000002,
+
 			/// <summary>Do Not Show the System Menu</summary>
 			NoSysMenu = 0x00000004,
+
 			/// <summary>Do Not Mirror the Question mark Symbol</summary>
 			NoMirrorHelp = 0x00000008
 		}
@@ -200,8 +213,7 @@ namespace Vanara.Interop
 		{
 			if (Environment.OSVersion.Version.Major < 6)
 			{
-				INTLIST_OLD l;
-				if (0 != GetThemeIntListPreVista(hTheme, partId, stateId, propId, out l))
+				if (0 != GetThemeIntListPreVista(hTheme, partId, stateId, propId, out var l))
 					return null;
 				var outlist = new int[l.iValueCount];
 				Array.Copy(l.iValues, outlist, l.iValueCount);
@@ -209,8 +221,7 @@ namespace Vanara.Interop
 			}
 			else
 			{
-				INTLIST l;
-				if (0 != GetThemeIntList(hTheme, partId, stateId, propId, out l))
+				if (0 != GetThemeIntList(hTheme, partId, stateId, propId, out var l))
 					return null;
 				var outlist = new int[l.iValueCount];
 				Array.Copy(l.iValues, outlist, l.iValueCount);
@@ -273,7 +284,7 @@ namespace Vanara.Interop
 
 		public static int SetWindowThemeAttribute(IWin32Window wnd, WindowThemeNonClientAttributes ncAttrs, int ncAttrMasks = int.MaxValue)
 		{
-			var opt = new WTA_OPTIONS {Flags = ncAttrs, Mask = ncAttrMasks == int.MaxValue ? (int)ncAttrs : ncAttrMasks};
+			var opt = new WTA_OPTIONS { Flags = ncAttrs, Mask = ncAttrMasks == int.MaxValue ? (int)ncAttrs : ncAttrMasks };
 			return SetWindowThemeAttribute(wnd?.Handle ?? IntPtr.Zero, WindowThemeAttributeType.NonClient, ref opt, Marshal.SizeOf(opt));
 		}
 
@@ -287,13 +298,11 @@ namespace Vanara.Interop
 		[System.Security.SecurityCritical]
 		private static extern int SetWindowThemeAttribute(IntPtr hWnd, WindowThemeAttributeType wtype, ref WTA_OPTIONS attributes, int size);
 
-		/// <summary>
-		/// Defines the options for the <see cref="DrawThemeTextEx"/> function.
-		/// </summary>
+		/// <summary>Defines the options for the <see cref="DrawThemeTextEx"/> function.</summary>
 		[StructLayout(LayoutKind.Sequential)]
 		public struct DrawThemeTextOptions
 		{
-			private int dwSize;
+			private readonly int dwSize;
 			private DrawThemeTextOptionsMasks dwMasks;
 			private int crText;
 			private int crBorder;
@@ -303,26 +312,27 @@ namespace Vanara.Interop
 			private int iBorderSize;
 			private int iFontPropId;
 			private int iColorPropId;
-			private int iStateId;
+			private readonly int iStateId;
+
 			[MarshalAs(UnmanagedType.Bool)]
 			private bool fApplyOverlay;
+
 			private int iGlowSize;
+
 			[MarshalAs(UnmanagedType.FunctionPtr)]
 			private DrawThemeTextCallback pfnDrawTextCallback;
+
 			private IntPtr lParam;
 
 			/// <summary>Initializes a new instance of the <see cref="DrawThemeTextOptions"/> struct.</summary>
 			/// <param name="init">This value must be specified to initialize.</param>
-			public DrawThemeTextOptions(bool init) : this()
-			{
-				dwSize = Marshal.SizeOf(typeof(DrawThemeTextOptions));
-			}
+			public DrawThemeTextOptions(bool init) : this() => dwSize = Marshal.SizeOf(typeof(DrawThemeTextOptions));
 
 			/// <summary>Gets or sets a value that specifies an alternate color property to use when drawing text.</summary>
 			/// <value>The alternate color of the text.</value>
 			public Color AlternateColor
 			{
-				get { return ColorTranslator.FromWin32(iColorPropId); }
+				get => ColorTranslator.FromWin32(iColorPropId);
 				set
 				{
 					iColorPropId = ColorTranslator.ToWin32(value);
@@ -334,7 +344,7 @@ namespace Vanara.Interop
 			/// <value>The alternate font.</value>
 			public DrawThemeTextSystemFonts AlternateFont
 			{
-				get { return (DrawThemeTextSystemFonts)iFontPropId; }
+				get => (DrawThemeTextSystemFonts)iFontPropId;
 				set
 				{
 					iFontPropId = (int)value;
@@ -343,25 +353,25 @@ namespace Vanara.Interop
 			}
 
 			/// <summary>
-			/// Gets or sets a value indicating whether to draw text with antialiased alpha. Use of this flag requires a
-			/// top-down DIB section. This flag works only if the HDC passed to function DrawThemeTextEx has a top-down
-			/// DIB section currently selected in it. For more information, see Device-Independent Bitmaps.
+			/// Gets or sets a value indicating whether to draw text with antialiased alpha. Use of this flag requires a top-down DIB
+			/// section. This flag works only if the HDC passed to function DrawThemeTextEx has a top-down DIB section currently selected in
+			/// it. For more information, see Device-Independent Bitmaps.
 			/// </summary>
 			/// <value><c>true</c> if antialiased alpha; otherwise, <c>false</c>.</value>
 			public bool AntiAliasedAlpha
 			{
-				get { return (dwMasks & DrawThemeTextOptionsMasks.Composited) == DrawThemeTextOptionsMasks.Composited; }
-				set { SetFlag(DrawThemeTextOptionsMasks.Composited, value); }
+				get => (dwMasks & DrawThemeTextOptionsMasks.Composited) == DrawThemeTextOptionsMasks.Composited;
+				set => SetFlag(DrawThemeTextOptionsMasks.Composited, value);
 			}
 
 			/// <summary>
-			/// Gets or sets a value indicating whether text will be drawn on top of the shadow and outline effects
-			/// (<c>true</c>) or if just the shadow and outline effects will be drawn (<c>false</c>).
+			/// Gets or sets a value indicating whether text will be drawn on top of the shadow and outline effects ( <c>true</c>) or if just
+			/// the shadow and outline effects will be drawn ( <c>false</c>).
 			/// </summary>
 			/// <value><c>true</c> if drawn on top; otherwise, <c>false</c>.</value>
 			public bool ApplyOverlay
 			{
-				get { return fApplyOverlay; }
+				get => fApplyOverlay;
 				set
 				{
 					fApplyOverlay = value;
@@ -373,7 +383,7 @@ namespace Vanara.Interop
 			/// <value>The color of the border.</value>
 			public Color BorderColor
 			{
-				get { return ColorTranslator.FromWin32(crBorder); }
+				get => ColorTranslator.FromWin32(crBorder);
 				set
 				{
 					crBorder = ColorTranslator.ToWin32(value);
@@ -385,7 +395,7 @@ namespace Vanara.Interop
 			/// <value>The size of the border.</value>
 			public int BorderSize
 			{
-				get { return iBorderSize; }
+				get => iBorderSize;
 				set
 				{
 					iBorderSize = value;
@@ -397,7 +407,7 @@ namespace Vanara.Interop
 			/// <value>The callback function.</value>
 			public DrawThemeTextCallback Callback
 			{
-				get { return pfnDrawTextCallback; }
+				get => pfnDrawTextCallback;
 				set
 				{
 					pfnDrawTextCallback = value;
@@ -409,7 +419,7 @@ namespace Vanara.Interop
 			/// <value>The size of the glow.</value>
 			public int GlowSize
 			{
-				get { return iGlowSize; }
+				get => iGlowSize;
 				set
 				{
 					iGlowSize = value;
@@ -421,27 +431,27 @@ namespace Vanara.Interop
 			/// <value>The parameter.</value>
 			public IntPtr LParam
 			{
-				get { return lParam; }
-				set { lParam = value; }
+				get => lParam;
+				set => lParam = value;
 			}
 
 			/// <summary>
-			/// Gets or sets a value indicating whether the pRect parameter of the <see cref="DrawThemeTextEx"/> function
-			/// that uses this structure will be used as both an in and an out parameter. After the function returns, the
-			/// pRect parameter will contain the rectangle that corresponds to the region calculated to be drawn.
+			/// Gets or sets a value indicating whether the pRect parameter of the <see cref="DrawThemeTextEx"/> function that uses this
+			/// structure will be used as both an in and an out parameter. After the function returns, the pRect parameter will contain the
+			/// rectangle that corresponds to the region calculated to be drawn.
 			/// </summary>
 			/// <value><c>true</c> if returning the calculated rectangle; otherwise, <c>false</c>.</value>
 			public bool ReturnCalculatedRectangle
 			{
-				get { return (dwMasks & DrawThemeTextOptionsMasks.CalcRect) == DrawThemeTextOptionsMasks.CalcRect; }
-				set { SetFlag(DrawThemeTextOptionsMasks.CalcRect, value); }
+				get => (dwMasks & DrawThemeTextOptionsMasks.CalcRect) == DrawThemeTextOptionsMasks.CalcRect;
+				set => SetFlag(DrawThemeTextOptionsMasks.CalcRect, value);
 			}
 
 			/// <summary>Gets or sets the color of the shadow drawn behind the text.</summary>
 			/// <value>The color of the shadow.</value>
 			public Color ShadowColor
 			{
-				get { return ColorTranslator.FromWin32(crShadow); }
+				get => ColorTranslator.FromWin32(crShadow);
 				set
 				{
 					crShadow = ColorTranslator.ToWin32(value);
@@ -453,7 +463,7 @@ namespace Vanara.Interop
 			/// <value>The shadow offset.</value>
 			public Point ShadowOffset
 			{
-				get { return new Point(ptShadowOffset.X, ptShadowOffset.Y); }
+				get => new Point(ptShadowOffset.X, ptShadowOffset.Y);
 				set
 				{
 					ptShadowOffset = value;
@@ -465,7 +475,7 @@ namespace Vanara.Interop
 			/// <value>The type of the shadow.</value>
 			public TextShadowType ShadowType
 			{
-				get { return iTextShadowType; }
+				get => iTextShadowType;
 				set
 				{
 					iTextShadowType = value;
@@ -477,7 +487,7 @@ namespace Vanara.Interop
 			/// <value>The color of the text.</value>
 			public Color TextColor
 			{
-				get { return ColorTranslator.FromWin32(crText); }
+				get => ColorTranslator.FromWin32(crText);
 				set
 				{
 					crText = ColorTranslator.ToWin32(value);
@@ -488,23 +498,17 @@ namespace Vanara.Interop
 			/// <summary>Gets an instance with default values set.</summary>
 			public static DrawThemeTextOptions Default => new DrawThemeTextOptions(true);
 
-			private void SetFlag(DrawThemeTextOptionsMasks f, bool value) { if (value) dwMasks |= f; else dwMasks &= ~f; }
-		}
-
-		/// <summary>
-		/// The Options of What Attributes to Add/Remove
-		/// </summary>
-		[StructLayout(LayoutKind.Sequential)]
-		private struct WTA_OPTIONS
-		{
-			public WindowThemeNonClientAttributes Flags;
-			public int Mask;
+			private void SetFlag(DrawThemeTextOptionsMasks f, bool value)
+			{
+				if (value) dwMasks |= f; else dwMasks &= ~f;
+			}
 		}
 
 		[StructLayout(LayoutKind.Sequential)]
 		private struct INTLIST
 		{
 			public int iValueCount;
+
 			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 402)]
 			public int[] iValues;
 		}
@@ -513,17 +517,24 @@ namespace Vanara.Interop
 		private struct INTLIST_OLD
 		{
 			public int iValueCount;
+
 			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
 			public int[] iValues;
 		}
 
-		/// <summary>
-		/// Defines the options for the DrawThemeBackgroundEx function.
-		/// </summary>
+		/// <summary>The Options of What Attributes to Add/Remove</summary>
+		[StructLayout(LayoutKind.Sequential)]
+		private struct WTA_OPTIONS
+		{
+			public WindowThemeNonClientAttributes Flags;
+			public int Mask;
+		}
+
+		/// <summary>Defines the options for the DrawThemeBackgroundEx function.</summary>
 		[StructLayout(LayoutKind.Sequential)]
 		public class DrawThemeBackgroundOptions
 		{
-			private int dwSize;
+			private readonly int dwSize;
 			private DrawThemeBackgroundFlags dwFlags;
 			private RECT rcClip;
 
@@ -531,25 +542,30 @@ namespace Vanara.Interop
 			private enum DrawThemeBackgroundFlags
 			{
 				None = 0,
+
 				/// <summary>The ClipRectangle value is defined.</summary>
 				ClipRect = 1,
+
 				/// <summary>Deprecated. Draw transparent and alpha images as solid.</summary>
 				DrawSolid = 2,
+
 				/// <summary>Do not draw the border of the part (currently this value is only supported for bgtype=borderfill).</summary>
 				OmitBorder = 4,
+
 				/// <summary>Do not draw the content area of the part (currently this value is only supported for bgtype=borderfill).</summary>
 				OmitContent = 8,
+
 				/// <summary>Deprecated.</summary>
 				ComputingRegion = 16,
+
 				/// <summary>Assume the hdc is mirrored and flip images as appropriate (currently this value is only supported for bgtype=imagefile).</summary>
 				HasMirroredDC = 32,
+
 				/// <summary>Do not mirror the output; even in right-to-left (RTL) layout.</summary>
 				DoNotMirror = 64
 			}
 
-			/// <summary>
-			/// Initializes a new instance of the <see cref="DrawThemeBackgroundOptions"/> class.
-			/// </summary>
+			/// <summary>Initializes a new instance of the <see cref="DrawThemeBackgroundOptions"/> class.</summary>
 			/// <param name="clipRect">The rectangle to which drawing is clipped.</param>
 			public DrawThemeBackgroundOptions(Rectangle? clipRect)
 			{
@@ -575,19 +591,19 @@ namespace Vanara.Interop
 
 			/// <summary>Gets or sets a value indicating whether omit drawing the border.</summary>
 			/// <value><c>true</c> if omit border; otherwise, <c>false</c>.</value>
-			public bool OmitBorder { get { return GetFlag(DrawThemeBackgroundFlags.OmitBorder); } set { SetFlag(DrawThemeBackgroundFlags.OmitBorder, value); } }
+			public bool OmitBorder { get => GetFlag(DrawThemeBackgroundFlags.OmitBorder); set => SetFlag(DrawThemeBackgroundFlags.OmitBorder, value); }
 
 			/// <summary>Gets or sets a value indicating whether omit drawing the content area of the part.</summary>
 			/// <value><c>true</c> if omit content area of the part; otherwise, <c>false</c>.</value>
-			public bool OmitContent { get { return GetFlag(DrawThemeBackgroundFlags.OmitContent); } set { SetFlag(DrawThemeBackgroundFlags.OmitContent, value); } }
+			public bool OmitContent { get => GetFlag(DrawThemeBackgroundFlags.OmitContent); set => SetFlag(DrawThemeBackgroundFlags.OmitContent, value); }
 
 			/// <summary>Gets or sets a value indicating the hdc is mirrored and flip images as appropriate.</summary>
 			/// <value><c>true</c> if mirrored; otherwise, <c>false</c>.</value>
-			public bool HasMirroredDC { get { return GetFlag(DrawThemeBackgroundFlags.HasMirroredDC); } set { SetFlag(DrawThemeBackgroundFlags.HasMirroredDC, value); } }
+			public bool HasMirroredDC { get => GetFlag(DrawThemeBackgroundFlags.HasMirroredDC); set => SetFlag(DrawThemeBackgroundFlags.HasMirroredDC, value); }
 
 			/// <summary>Gets or sets a value indicating whether to mirror the output; even in right-to-left (RTL) layout.</summary>
 			/// <value><c>true</c> if not mirroring; otherwise, <c>false</c>.</value>
-			public bool DoNotMirror { get { return GetFlag(DrawThemeBackgroundFlags.DoNotMirror); } set { SetFlag(DrawThemeBackgroundFlags.DoNotMirror, value); } }
+			public bool DoNotMirror { get => GetFlag(DrawThemeBackgroundFlags.DoNotMirror); set => SetFlag(DrawThemeBackgroundFlags.DoNotMirror, value); }
 
 			/// <summary>Performs an implicit conversion from <see cref="Rectangle"/> to <see cref="DrawThemeBackgroundOptions"/>.</summary>
 			/// <param name="clipRectangle">The clipping rectangle.</param>
@@ -596,7 +612,21 @@ namespace Vanara.Interop
 
 			private bool GetFlag(DrawThemeBackgroundFlags f) => (dwFlags & f) == f;
 
-			private void SetFlag(DrawThemeBackgroundFlags f, bool value) { if (value) dwFlags |= f; else dwFlags &= ~f; }
+			private void SetFlag(DrawThemeBackgroundFlags f, bool value)
+			{
+				if (value) dwFlags |= f; else dwFlags &= ~f;
+			}
+		}
+
+		public class SafeThemeHandle : SafeHandle
+		{
+			public SafeThemeHandle(IntPtr hTheme, bool ownsHandle = true) : base(IntPtr.Zero, ownsHandle) => SetHandle(hTheme);
+
+			public override bool IsInvalid => handle == IntPtr.Zero;
+
+			public static implicit operator SafeThemeHandle(VisualStyleRenderer r) => new SafeThemeHandle(r.Handle, false);
+
+			protected override bool ReleaseHandle() => CloseThemeData(handle) == 0;
 		}
 	}
 }

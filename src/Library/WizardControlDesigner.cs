@@ -12,17 +12,15 @@ namespace AeroWizard.Design
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	internal class WizardControlDesigner : RichParentControlDesigner<WizardControl, WizardControlDesignerActionList>, IToolboxUser
 	{
-		private static string[] propsToRemove = new string[] { "Anchor", "AutoScrollOffset", "AutoSize", "BackColor",
+		private static readonly string[] propsToRemove = new string[] { "Anchor", "AutoScrollOffset", "AutoSize", "BackColor",
 			"BackgroundImage", "BackgroundImageLayout", "ContextMenuStrip", "Cursor", "Dock", "Enabled", "Font",
 			"ForeColor", /*"Location",*/ "Margin", "MaximumSize", "MinimumSize", "Padding", /*"Size",*/ "TabStop",
 			"Text", "UseWaitCursor" };
 
 		private bool forwardOnDrag;
 
-		public override System.Collections.ICollection AssociatedComponents => Control?.Pages ?? base.AssociatedComponents;
-
 		public override SelectionRules SelectionRules => SelectionRules.Visible | SelectionRules.Locked;
-
+		public override System.Collections.ICollection AssociatedComponents => Control?.Pages ?? base.AssociatedComponents;
 		protected IDesignerHost DesignerHost => GetService<IDesignerHost>();
 
 		protected override bool EnableDragRect => false;
@@ -159,6 +157,8 @@ namespace AeroWizard.Design
 			return Control.backButton.ClientRectangle.Contains(Control.backButton.PointToClient(point));
 		}
 
+		protected override void OnComponentChanged(object sender, ComponentChangedEventArgs e) => CheckStatus();
+
 		protected override void OnDragDrop(DragEventArgs de)
 		{
 			if (forwardOnDrag)
@@ -229,6 +229,22 @@ namespace AeroWizard.Design
 			}
 		}
 
+		protected override void OnSelectionChanged(object sender, EventArgs e)
+		{
+			if (!(SelectionService.PrimarySelection is WizardControl))
+			{
+				var p = SelectionService.PrimarySelection as WizardPage;
+				if (p == null && SelectionService.PrimarySelection is Control)
+					p = ((Control)SelectionService.PrimarySelection).GetParent<WizardPage>();
+				if (p != null && Control.SelectedPage != p)
+				{
+					Control.SelectedPage = p;
+				}
+			}
+
+			RefreshDesigner();
+		}
+
 		private void AddControlToActivePage(string typeName)
 		{
 			var dt = DesignerHost?.CreateTransaction("Add Control");
@@ -263,10 +279,7 @@ namespace AeroWizard.Design
 		}
 
 		[DesignerVerb("Insert Page")]
-		private void HandleInsertPage(object sender, EventArgs e)
-		{
-			InsertPageIntoWizard(false);
-		}
+		private void HandleInsertPage(object sender, EventArgs e) => InsertPageIntoWizard(false);
 
 		[DesignerVerb("Remove Page")]
 		private void HandleRemovePage(object sender, EventArgs e)
@@ -274,27 +287,6 @@ namespace AeroWizard.Design
 			if (Control?.SelectedPage == null) return;
 			RemovePageFromWizard(Control.SelectedPage);
 			OnSelectionChanged(sender, e);
-		}
-
-		protected override void OnComponentChanged(object sender, ComponentChangedEventArgs e)
-		{
-			CheckStatus();
-		}
-
-		protected override void OnSelectionChanged(object sender, EventArgs e)
-		{
-			if (!(SelectionService.PrimarySelection is WizardControl))
-			{
-				var p = SelectionService.PrimarySelection as WizardPage;
-				if (p == null && SelectionService.PrimarySelection is Control)
-					p = ((Control)SelectionService.PrimarySelection).GetParent<WizardPage>();
-				if (p != null && Control.SelectedPage != p)
-				{
-					Control.SelectedPage = p;
-				}
-			}
-
-			RefreshDesigner();
 		}
 
 		private void SelectComponent(Component p)
@@ -327,10 +319,7 @@ namespace AeroWizard.Design
 			}*/
 		}
 
-		private void WizardControl_SelectedPageChanged(object sender, EventArgs e)
-		{
-			SelectComponent(Control.SelectedPage);
-		}
+		private void WizardControl_SelectedPageChanged(object sender, EventArgs e) => SelectComponent(Control.SelectedPage);
 	}
 
 	internal class WizardControlDesignerActionList : RichDesignerActionList<WizardControlDesigner, WizardControl>
@@ -343,7 +332,7 @@ namespace AeroWizard.Design
 		[DesignerActionProperty("Go to page", 4, Condition = "HasPages")]
 		public WizardPage GoToPage
 		{
-			get { return Component.SelectedPage; }
+			get => Component.SelectedPage;
 			set { if (value != null) Component.SelectedPage = value; }
 		}
 
@@ -353,15 +342,9 @@ namespace AeroWizard.Design
 		private bool HasPages => Pages != null && Pages.Count > 0;
 
 		[DesignerActionMethod("Add page", 1)]
-		private void AddPage()
-		{
-			ParentDesigner.InsertPageIntoWizard(true);
-		}
+		private void AddPage() => ParentDesigner.InsertPageIntoWizard(true);
 
 		[DesignerActionMethod("Insert page", 2, Condition = "HasPages")]
-		private void InsertPage()
-		{
-			ParentDesigner.InsertPageIntoWizard(false);
-		}
+		private void InsertPage() => ParentDesigner.InsertPageIntoWizard(false);
 	}
 }

@@ -7,9 +7,7 @@ using System.Windows.Forms;
 
 namespace Vanara.Interop.DesktopWindowManager
 {
-	/// <summary>
-	/// GlassExtenderProvider extends a <see cref="System.Windows.Forms.Form"/> and provides glass margins.
-	/// </summary>
+	/// <summary>GlassExtenderProvider extends a <see cref="System.Windows.Forms.Form"/> and provides glass margins.</summary>
 	[ProvideProperty("GlassEnabled", typeof(Form))]
 	[ProvideProperty("GlassMarginMovesForm", typeof(Form))]
 	[ProvideProperty("GlassMargins", typeof(Form))]
@@ -19,22 +17,7 @@ namespace Vanara.Interop.DesktopWindowManager
 	{
 		private readonly Dictionary<Control, GlassFormProperties> formProps = new Dictionary<Control, GlassFormProperties>();
 
-		/// <summary>
-		/// Properties for each form that is extended.
-		/// </summary>
-		[SuppressMessage("ReSharper", "InconsistentNaming")]
-		private class GlassFormProperties
-		{
-			public Point FormMoveLastMousePos = Point.Empty;
-			public bool FormMoveTracking;
-			public bool GlassEnabled = true;
-			public Padding GlassMargins = Padding.Empty;
-			public bool GlassMarginMovesForm = true;
-		}
-
-		/// <summary>
-		/// Gets whether glass should be extended into the client space.
-		/// </summary>
+		/// <summary>Gets whether glass should be extended into the client space.</summary>
 		/// <param name="form">The <see cref="System.Windows.Forms.Form"/> to be extended.</param>
 		/// <returns><c>true</c> if the glass is enabled; otherwise <c>false</c>.</returns>
 		[DisplayName(@"GlassEnabled")]
@@ -43,15 +26,12 @@ namespace Vanara.Interop.DesktopWindowManager
 		[Description("Indicates whether extending glass into the client area is enabled.")]
 		public bool GetGlassEnabled(Form form)
 		{
-			GlassFormProperties prop;
-			if (formProps.TryGetValue(form, out prop))
+			if (formProps.TryGetValue(form, out var prop))
 				return prop.GlassEnabled;
 			return true;
 		}
 
-		/// <summary>
-		/// Gets a value indicating whether clicking and dragging within the top margin will move the form.
-		/// </summary>
+		/// <summary>Gets a value indicating whether clicking and dragging within the top margin will move the form.</summary>
 		/// <param name="form">The <see cref="System.Windows.Forms.Form"/> to be extended.</param>
 		/// <returns><c>true</c> if clicking and dragging on the top margin moves the form; otherwise, <c>false</c>.</returns>
 		[DisplayName(@"GlassMarginMovesForm")]
@@ -60,15 +40,12 @@ namespace Vanara.Interop.DesktopWindowManager
 		[Description("Specifies if clicking and dragging within the margin will move the form. ")]
 		public bool GetGlassMarginMovesForm(Form form)
 		{
-			GlassFormProperties prop;
-			if (formProps.TryGetValue(form, out prop))
+			if (formProps.TryGetValue(form, out var prop))
 				return prop.GlassMarginMovesForm;
 			return true;
 		}
 
-		/// <summary>
-		/// Gets the glass margins.
-		/// </summary>
+		/// <summary>Gets the glass margins.</summary>
 		/// <param name="form">The <see cref="System.Windows.Forms.Form"/> to be extended.</param>
 		/// <returns>The margins where the glass will be extended.</returns>
 		[DefaultValue(typeof(Padding), "0")]
@@ -77,24 +54,12 @@ namespace Vanara.Interop.DesktopWindowManager
 		[Category("Layout")]
 		public Padding GetGlassMargins(Form form)
 		{
-			GlassFormProperties prop;
-			if (formProps.TryGetValue(form, out prop))
+			if (formProps.TryGetValue(form, out var prop))
 				return prop.GlassMargins;
 			return Padding.Empty;
 		}
 
-		/// <summary>
-		/// Specifies whether this object can provide its extender properties to the specified object.
-		/// </summary>
-		/// <param name="form">The <see cref="T:System.Object"/> to receive the extender properties.</param>
-		/// <returns>
-		/// true if this object can provide extender properties to the specified object; otherwise, false.
-		/// </returns>
-		bool IExtenderProvider.CanExtend(object form) => (form != this) && (form is Form);
-
-		/// <summary>
-		/// Set whether the glass should be extended into the client space.
-		/// </summary>
+		/// <summary>Set whether the glass should be extended into the client space.</summary>
 		/// <param name="form">The <see cref="System.Windows.Forms.Form"/> to be extended.</param>
 		/// <param name="value">The enabled value.</param>
 		public void SetGlassEnabled(Form form, bool value)
@@ -104,9 +69,7 @@ namespace Vanara.Interop.DesktopWindowManager
 			GlassifyForm(form);
 		}
 
-		/// <summary>
-		/// Sets a value indicating whether clicking and dragging within the margin will move the form.
-		/// </summary>
+		/// <summary>Sets a value indicating whether clicking and dragging within the margin will move the form.</summary>
 		/// <param name="form">The <see cref="System.Windows.Forms.Form"/> to be extended.</param>
 		/// <param name="value"><c>true</c> if clicking and dragging within the margin moves the form; otherwise, <c>false</c>.</param>
 		public void SetGlassMarginMovesForm(Form form, bool value)
@@ -115,9 +78,7 @@ namespace Vanara.Interop.DesktopWindowManager
 			prop.GlassMarginMovesForm = value;
 		}
 
-		/// <summary>
-		/// Sets the glass margins.
-		/// </summary>
+		/// <summary>Sets the glass margins.</summary>
 		/// <param name="form">The <see cref="System.Windows.Forms.Form"/> to be extended.</param>
 		/// <param name="value">The margins where the glass will be extended.</param>
 		public void SetGlassMargins(Form form, Padding value)
@@ -147,6 +108,11 @@ namespace Vanara.Interop.DesktopWindowManager
 			form.Invalidate();
 		}
 
+		/// <summary>Specifies whether this object can provide its extender properties to the specified object.</summary>
+		/// <param name="form">The <see cref="T:System.Object"/> to receive the extender properties.</param>
+		/// <returns>true if this object can provide extender properties to the specified object; otherwise, false.</returns>
+		bool IExtenderProvider.CanExtend(object form) => (form != this) && (form is Form);
+
 		/// <summary>
 		/// Releases the unmanaged resources used by the <see cref="T:System.ComponentModel.Component"/> and optionally releases the managed resources.
 		/// </summary>
@@ -163,6 +129,14 @@ namespace Vanara.Interop.DesktopWindowManager
 				}
 			}
 			base.Dispose(disposing);
+		}
+
+		private static Rectangle GetNonGlassArea(Form form, GlassFormProperties prop)
+		{
+			if (prop == null)
+				return form.ClientRectangle;
+			return new Rectangle(form.ClientRectangle.Left + prop.GlassMargins.Left, form.ClientRectangle.Top + prop.GlassMargins.Top,
+				form.ClientRectangle.Width - prop.GlassMargins.Horizontal, form.ClientRectangle.Height - prop.GlassMargins.Vertical);
 		}
 
 		private void form_MouseDown(object sender, MouseEventArgs e)
@@ -195,10 +169,7 @@ namespace Vanara.Interop.DesktopWindowManager
 			prop.FormMoveTracking = false;
 		}
 
-		private void form_Paint(object sender, PaintEventArgs e)
-		{
-			GlassifyForm(sender as Form, e.Graphics);
-		}
+		private void form_Paint(object sender, PaintEventArgs e) => GlassifyForm(sender as Form, e.Graphics);
 
 		private void form_Resize(object sender, EventArgs e)
 		{
@@ -207,25 +178,13 @@ namespace Vanara.Interop.DesktopWindowManager
 				InvalidateNonGlassClientArea(form);
 		}
 
-		private void form_Shown(object sender, EventArgs e)
-		{
-			GlassifyForm(sender as Form);
-		}
+		private void form_Shown(object sender, EventArgs e) => GlassifyForm(sender as Form);
 
 		private GlassFormProperties GetFormProperties(Form form)
 		{
-			GlassFormProperties prop;
-			if (!formProps.TryGetValue(form, out prop))
+			if (!formProps.TryGetValue(form, out var prop))
 				formProps.Add(form, prop = new GlassFormProperties());
 			return prop;
-		}
-
-		private static Rectangle GetNonGlassArea(Form form, GlassFormProperties prop)
-		{
-			if (prop == null)
-				return form.ClientRectangle;
-			return new Rectangle(form.ClientRectangle.Left + prop.GlassMargins.Left, form.ClientRectangle.Top + prop.GlassMargins.Top,
-				form.ClientRectangle.Width - prop.GlassMargins.Horizontal, form.ClientRectangle.Height - prop.GlassMargins.Vertical);
 		}
 
 		private void GlassifyForm(Form form, Graphics g = null)
@@ -235,8 +194,7 @@ namespace Vanara.Interop.DesktopWindowManager
 
 			if (g == null) g = form.CreateGraphics();
 
-			GlassFormProperties prop;
-			if (!formProps.TryGetValue(form, out prop))
+			if (!formProps.TryGetValue(form, out var prop))
 				return;
 
 			// Paint the glass effect.
@@ -272,6 +230,17 @@ namespace Vanara.Interop.DesktopWindowManager
 			form.Shown -= form_Shown;
 			form.Resize -= form_Resize;
 			form.Paint -= form_Paint;
+		}
+
+		/// <summary>Properties for each form that is extended.</summary>
+		[SuppressMessage("ReSharper", "InconsistentNaming")]
+		private class GlassFormProperties
+		{
+			public Point FormMoveLastMousePos = Point.Empty;
+			public bool FormMoveTracking;
+			public bool GlassEnabled = true;
+			public bool GlassMarginMovesForm = true;
+			public Padding GlassMargins = Padding.Empty;
 		}
 	}
 }

@@ -46,9 +46,9 @@ namespace Vanara.Interop
 		public enum SetWindowPosFlags : uint
 		{
 			/// <summary>
-			/// If the calling thread and the thread that owns the window are attached to different input queues, the
-			/// system posts the request to the thread that owns the window. This prevents the calling thread from
-			/// blocking its execution while other threads process the request.
+			/// If the calling thread and the thread that owns the window are attached to different input queues, the system posts the
+			/// request to the thread that owns the window. This prevents the calling thread from blocking its execution while other threads
+			/// process the request.
 			/// </summary>
 			/// <remarks>SWP_ASYNCWINDOWPOS</remarks>
 			AsynchronousWindowPosition = 0x4000,
@@ -62,9 +62,8 @@ namespace Vanara.Interop
 			DrawFrame = 0x0020,
 
 			/// <summary>
-			/// Applies new frame styles set using the SetWindowLong function. Sends a WM_NCCALCSIZE message to the
-			/// window, even if the window's size is not being changed. If this flag is not specified, WM_NCCALCSIZE is
-			/// sent only when the window's size is being changed.
+			/// Applies new frame styles set using the SetWindowLong function. Sends a WM_NCCALCSIZE message to the window, even if the
+			/// window's size is not being changed. If this flag is not specified, WM_NCCALCSIZE is sent only when the window's size is being changed.
 			/// </summary>
 			/// <remarks>SWP_FRAMECHANGED</remarks>
 			FrameChanged = 0x0020,
@@ -74,15 +73,15 @@ namespace Vanara.Interop
 			HideWindow = 0x0080,
 
 			/// <summary>
-			/// Does not activate the window. If this flag is not set, the window is activated and moved to the top of
-			/// either the topmost or non-topmost group (depending on the setting of the hWndInsertAfter parameter).
+			/// Does not activate the window. If this flag is not set, the window is activated and moved to the top of either the topmost or
+			/// non-topmost group (depending on the setting of the hWndInsertAfter parameter).
 			/// </summary>
 			/// <remarks>SWP_NOACTIVATE</remarks>
 			DoNotActivate = 0x0010,
 
 			/// <summary>
-			/// Discards the entire contents of the client area. If this flag is not specified, the valid contents of the
-			/// client area are saved and copied back into the client area after the window is sized or repositioned.
+			/// Discards the entire contents of the client area. If this flag is not specified, the valid contents of the client area are
+			/// saved and copied back into the client area after the window is sized or repositioned.
 			/// </summary>
 			/// <remarks>SWP_NOCOPYBITS</remarks>
 			DoNotCopyBits = 0x0100,
@@ -96,10 +95,10 @@ namespace Vanara.Interop
 			DoNotChangeOwnerZOrder = 0x0200,
 
 			/// <summary>
-			/// Does not redraw changes. If this flag is set, no repainting of any kind occurs. This applies to the
-			/// client area, the nonclient area (including the title bar and scroll bars), and any part of the parent
-			/// window uncovered as a result of the window being moved. When this flag is set, the application must
-			/// explicitly invalidate or redraw any parts of the window and parent window that need redrawing.
+			/// Does not redraw changes. If this flag is set, no repainting of any kind occurs. This applies to the client area, the
+			/// nonclient area (including the title bar and scroll bars), and any part of the parent window uncovered as a result of the
+			/// window being moved. When this flag is set, the application must explicitly invalidate or redraw any parts of the window and
+			/// parent window that need redrawing.
 			/// </summary>
 			/// <remarks>SWP_NOREDRAW</remarks>
 			DoNotRedraw = 0x0008,
@@ -125,37 +124,49 @@ namespace Vanara.Interop
 			ShowWindow = 0x0040,
 		}
 
-		/// <summary>Flags used for <see cref="NativeMethods.GetWindowLong"/> and <see cref="NativeMethods.SetWindowLong"/> methods to retrieve information about a window.</summary>
+		/// <summary>
+		/// Flags used for <see cref="NativeMethods.GetWindowLong"/> and <see cref="NativeMethods.SetWindowLong"/> methods to retrieve
+		/// information about a window.
+		/// </summary>
 		[Flags]
 		public enum WindowLongFlags : int
 		{
 			/// <summary>The extended window styles</summary>
 			/// <remarks>GWL_EXSTYLE</remarks>
 			ExtendedWindowStyles = -20,
+
 			/// <summary>The application instance handle</summary>
 			/// <remarks>GWL_HINSTANCE</remarks>
 			InstanceHandle = -6,
+
 			/// <summary>The parent window handle</summary>
 			/// <remarks>GWL_HWNDPARENT</remarks>
 			ParentWindowHandle = -8,
+
 			/// <summary>The window identifier</summary>
 			/// <remarks>GWL_ID</remarks>
 			WindowIdentifier = -12,
+
 			/// <summary>The window styles</summary>
 			/// <remarks>GWL_STYLE</remarks>
 			WindowStyles = -16,
+
 			/// <summary>The window user data</summary>
 			/// <remarks>GWL_USERDATA</remarks>
 			WindowUserData = -21,
+
 			/// <summary>The window procedure address or handle</summary>
 			/// <remarks>GWL_WNDPROC</remarks>
 			WindowProcedure = -4,
+
 			/// <summary>The dialog user data</summary>
 			/// <remarks>DWLP_USER</remarks>
 			DialogUserData = 0x8,
+
 			/// <summary>The dialog procedure message result</summary>
 			/// <remarks>DWLP_MSGRESULT</remarks>
 			DialogMessageResult = 0x0,
+
 			/// <summary>The dialog procedure address or handle</summary>
 			/// <remarks>DWLP_DLGPROC</remarks>
 			DialogProcedure = 0x4
@@ -184,7 +195,7 @@ namespace Vanara.Interop
 
 		public static IntPtr GetWindowLong(IntPtr hWnd, int nIndex)
 		{
-			IntPtr ret = IntPtr.Zero;
+			var ret = IntPtr.Zero;
 			if (IntPtr.Size == 4)
 				ret = (IntPtr)GetWindowLong32(hWnd, nIndex);
 			else
@@ -261,9 +272,9 @@ namespace Vanara.Interop
 		[System.Security.SecurityCritical]
 		public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, ref int wParam, [In, Out] System.Text.StringBuilder lParam);
 
-		public static IntPtr SetWindowLong(IntPtr hWnd, Int32 nIndex, IntPtr dwNewLong)
+		public static IntPtr SetWindowLong(IntPtr hWnd, int nIndex, IntPtr dwNewLong)
 		{
-			IntPtr ret = IntPtr.Zero;
+			var ret = IntPtr.Zero;
 			if (IntPtr.Size == 4)
 				ret = SetWindowLongPtr32(hWnd, nIndex, dwNewLong);
 			else
@@ -286,11 +297,11 @@ namespace Vanara.Interop
 		[DllImport(USER32, SetLastError = true, EntryPoint = "SetWindowLong")]
 		[SuppressMessage("Microsoft.Portability", "CA1901:PInvokeDeclarationsShouldBePortable", MessageId = "return", Justification = "This declaration is not used on 64-bit Windows.")]
 		[SuppressMessage("Microsoft.Portability", "CA1901:PInvokeDeclarationsShouldBePortable", MessageId = "2", Justification = "This declaration is not used on 64-bit Windows.")]
-		private static extern IntPtr SetWindowLongPtr32(IntPtr hWnd, Int32 nIndex, IntPtr dwNewLong);
+		private static extern IntPtr SetWindowLongPtr32(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
 
 		[DllImport(USER32, SetLastError = true, EntryPoint = "SetWindowLongPtr")]
 		[SuppressMessage("Microsoft.Interoperability", "CA1400:PInvokeEntryPointsShouldExist", Justification = "Entry point does exist on 64-bit Windows.")]
-		private static extern IntPtr SetWindowLongPtr64(IntPtr hWnd, Int32 nIndex, IntPtr dwNewLong);
+		private static extern IntPtr SetWindowLongPtr64(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
 
 		[StructLayout(LayoutKind.Sequential)]
 		public struct NMHDR
@@ -316,15 +327,15 @@ namespace Vanara.Interop
 		public static class SpecialWindowHandles
 		{
 			/// <summary>
-			/// Places the window at the bottom of the Z order. If the hWnd parameter identifies a topmost window, the
-			/// window loses its topmost status and is placed at the bottom of all other windows.
+			/// Places the window at the bottom of the Z order. If the hWnd parameter identifies a topmost window, the window loses its
+			/// topmost status and is placed at the bottom of all other windows.
 			/// </summary>
 			/// <remarks>HWND_BOTTOM</remarks>
 			public static IntPtr HwndBottom = new IntPtr(1);
 
 			/// <summary>
-			/// Places the window above all non-topmost windows (that is, behind all topmost windows). This flag has no
-			/// effect if the window is already a non-topmost window.
+			/// Places the window above all non-topmost windows (that is, behind all topmost windows). This flag has no effect if the window
+			/// is already a non-topmost window.
 			/// </summary>
 			/// <remarks>HWND_NOTOPMOST</remarks>
 			public static IntPtr HwndNoTopMost = new IntPtr(-2);
@@ -333,10 +344,7 @@ namespace Vanara.Interop
 			/// <remarks>HWND_TOP</remarks>
 			public static IntPtr HwndTop = new IntPtr(0);
 
-			/// <summary>
-			/// Places the window above all non-topmost windows. The window maintains its topmost position even when it
-			/// is deactivated.
-			/// </summary>
+			/// <summary>Places the window above all non-topmost windows. The window maintains its topmost position even when it is deactivated.</summary>
 			/// <remarks>HWND_TOPMOST</remarks>
 			public static IntPtr HwndTopMost = new IntPtr(-1);
 		}

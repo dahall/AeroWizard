@@ -11,18 +11,14 @@ using FILETIME = System.Runtime.InteropServices.ComTypes.FILETIME;
 
 namespace Vanara.Interop
 {
-	/// <summary>
-	/// A representation of a shell item property key.
-	/// </summary>
+	/// <summary>A representation of a shell item property key.</summary>
 	[StructLayout(LayoutKind.Sequential, Pack = 4)]
 	public struct ShellItemPropertyKey : IComparable<ShellItemPropertyKey>
 	{
 		private readonly Guid fmtid;
 		private readonly int pid;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ShellItemPropertyKey"/> struct.
-		/// </summary>
+		/// <summary>Initializes a new instance of the <see cref="ShellItemPropertyKey"/> struct.</summary>
 		/// <param name="key">The key.</param>
 		/// <param name="id">The identifier.</param>
 		public ShellItemPropertyKey(Guid key, int id = 2)
@@ -31,37 +27,21 @@ namespace Vanara.Interop
 			pid = id;
 		}
 
-		/// <summary>
-		/// Gets the key.
-		/// </summary>
-		/// <value>
-		/// The key.
-		/// </value>
+		/// <summary>Gets the key.</summary>
+		/// <value>The key.</value>
 		public Guid Key => fmtid;
 
-		/// <summary>
-		/// Gets the identifier.
-		/// </summary>
-		/// <value>
-		/// The identifier.
-		/// </value>
+		/// <summary>Gets the identifier.</summary>
+		/// <value>The identifier.</value>
 		public int Id => pid;
 
-		/// <summary>
-		/// Returns a <see cref="System.String" /> that represents this instance.
-		/// </summary>
-		/// <returns>
-		/// A <see cref="System.String" /> that represents this instance.
-		/// </returns>
+		/// <summary>Returns a <see cref="System.String"/> that represents this instance.</summary>
+		/// <returns>A <see cref="System.String"/> that represents this instance.</returns>
 		public override string ToString() => KnownShellItemPropertyKeys.ReverseLookup(this) ?? $"{fmtid:B} {pid}";
 
-		/// <summary>
-		/// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
-		/// </summary>
-		/// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
-		/// <returns>
-		///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
-		/// </returns>
+		/// <summary>Determines whether the specified <see cref="System.Object"/>, is equal to this instance.</summary>
+		/// <param name="obj">The <see cref="System.Object"/> to compare with this instance.</param>
+		/// <returns><c>true</c> if the specified <see cref="System.Object"/> is equal to this instance; otherwise, <c>false</c>.</returns>
 		public override bool Equals(object obj)
 		{
 			if (obj != null && obj is ShellItemPropertyKey)
@@ -69,26 +49,20 @@ namespace Vanara.Interop
 			return false;
 		}
 
-		/// <summary>
-		/// Returns a hash code for this instance.
-		/// </summary>
-		/// <returns>
-		/// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
-		/// </returns>
+		/// <summary>Returns a hash code for this instance.</summary>
+		/// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
 		public override int GetHashCode() => new { fmtid, pid }.GetHashCode();
 
 		int IComparable<ShellItemPropertyKey>.CompareTo(ShellItemPropertyKey other)
 		{
-			int ret = fmtid.GetHashCode() - other.fmtid.GetHashCode();
+			var ret = fmtid.GetHashCode() - other.fmtid.GetHashCode();
 			if (ret == 0)
 				ret = pid - other.pid;
 			return ret;
 		}
 	}
 
-	/// <summary>
-	/// Listing of known shell item property keys.
-	/// </summary>
+	/// <summary>Listing of known shell item property keys.</summary>
 	public static class KnownShellItemPropertyKeys
 	{
 		private static Dictionary<ShellItemPropertyKey, string> revIndex = null;
@@ -1394,20 +1368,19 @@ namespace Vanara.Interop
 				revIndex = new Dictionary<ShellItemPropertyKey, string>();
 				AddMembersToIndex(typeof(KnownShellItemPropertyKeys));
 			}
-			string ret = null;
-			revIndex.TryGetValue(key, out ret);
+			revIndex.TryGetValue(key, out var ret);
 			return ret;
 		}
 
 		private static void AddMembersToIndex(Type type, int level = 0)
 		{
-			foreach (PropertyInfo pi in type.GetProperties(BindingFlags.Public | BindingFlags.Static))
+			foreach (var pi in type.GetProperties(BindingFlags.Public | BindingFlags.Static))
 			{
 				if (pi.PropertyType == typeof(ShellItemPropertyKey))
 				{
-					Type pType = type;
-					StringBuilder name = new StringBuilder(pi.Name);
-					for (int i = 0; i < level; i++)
+					var pType = type;
+					var name = new StringBuilder(pi.Name);
+					for (var i = 0; i < level; i++)
 					{
 						name.Insert(0, pType.Name + ".");
 						pType = pType.DeclaringType;
@@ -1415,7 +1388,7 @@ namespace Vanara.Interop
 					try { revIndex.Add((ShellItemPropertyKey)pi.GetValue(null, null), name.ToString()); } catch { }
 				}
 			}
-			foreach (Type ti in type.GetNestedTypes(BindingFlags.Public))
+			foreach (var ti in type.GetNestedTypes(BindingFlags.Public))
 				AddMembersToIndex(ti, level + 1);
 		}
 
@@ -6778,16 +6751,15 @@ namespace Vanara.Interop
 			NONINTERACTIVE = 0x10
 		}
 
-		// Used to remove items from the automatic destination lists created when apps or the system call
-		// SHAddToRecentDocs to report usage of a document.
+		// Used to remove items from the automatic destination lists created when apps or the system call SHAddToRecentDocs to report usage
+		// of a document.
 		/// <securitynote>Critical: Suppresses unmanaged code security.</securitynote>
 		[SuppressUnmanagedCodeSecurity]
 		[ComImport, Guid("12337d35-94c6-48a0-bce7-6a9c69d4d600"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 		internal interface IApplicationDestinations
 		{
-			// Set the App User Model ID for the application removing destinations from its list. If an AppID is not
-			// provided via this method, the system will use a heuristically determined ID. This method must be called
-			// before RemoveDestination or RemoveAllDestinations.
+			// Set the App User Model ID for the application removing destinations from its list. If an AppID is not provided via this
+			// method, the system will use a heuristically determined ID. This method must be called before RemoveDestination or RemoveAllDestinations.
 			void SetAppID([MarshalAs(UnmanagedType.LPWStr)] string pszAppID);
 
 			// Remove an IShellItem or an IShellLink from the automatic destination list
@@ -6797,24 +6769,21 @@ namespace Vanara.Interop
 			void RemoveAllDestinations();
 		}
 
-		/// <summary>
-		/// Allows an application to retrieve the most recent and frequent documents opened in that app, as reported via SHAddToRecentDocs
-		/// </summary>
+		/// <summary>Allows an application to retrieve the most recent and frequent documents opened in that app, as reported via SHAddToRecentDocs</summary>
 		/// <securitynote>Critical: Suppresses unmanaged code security.</securitynote>
 		[SuppressUnmanagedCodeSecurity]
 		[ComImport, InterfaceType(ComInterfaceType.InterfaceIsIUnknown), Guid("3c594f9f-9f30-47a1-979a-c9e83d3d0a06")]
 		internal interface IApplicationDocumentLists
 		{
 			/// <summary>
-			/// Set the App User Model ID for the application retrieving this list. If an AppID is not provided via this
-			/// method, the system will use a heuristically determined ID. This method must be called before GetList.
+			/// Set the App User Model ID for the application retrieving this list. If an AppID is not provided via this method, the system
+			/// will use a heuristically determined ID. This method must be called before GetList.
 			/// </summary>
 			/// <param name="pszAppID">App Id.</param>
 			void SetAppID([MarshalAs(UnmanagedType.LPWStr)] string pszAppID);
 
 			/// <summary>
-			/// Retrieve an IEnumObjects or IObjectArray for IShellItems and/or IShellLinks. Items may appear in both the
-			/// frequent and recent lists.
+			/// Retrieve an IEnumObjects or IObjectArray for IShellItems and/or IShellLinks. Items may appear in both the frequent and recent lists.
 			/// </summary>
 			/// <param name="listtype">Which of the known list types to retrieve</param>
 			/// <param name="cItemsDesired">The number of items desired.</param>
@@ -6836,8 +6805,8 @@ namespace Vanara.Interop
 			[return: MarshalAs(UnmanagedType.Interface)]
 			object BeginList(out uint pcMaxSlots, [In] ref Guid riid);
 
-			// PreserveSig because this will return custom errors when attempting to add unregistered ShellItems. Can't
-			// readily detect that case without just trying to append it.
+			// PreserveSig because this will return custom errors when attempting to add unregistered ShellItems. Can't readily detect that
+			// case without just trying to append it.
 			[PreserveSig]
 			HRESULT AppendCategory([MarshalAs(UnmanagedType.LPWStr)] string pszCategory, IObjectArray poa);
 
@@ -7192,32 +7161,30 @@ namespace Vanara.Interop
 			[return: MarshalAs(UnmanagedType.Interface)]
 			object BindToStorage(IntPtr pidl, IBindCtx pbc, [In] ref Guid riid);
 
-			// compares two IDLists and returns the result. The shell explorer always passes 0 as lParam, which indicates
-			// 'sort by name'. It should return 0 (as CODE of the scode), if two id indicates the same object; negative
-			// value if pidl1 should be placed before pidl2; positive value if pidl2 should be placed before pidl1. use
-			// the macro ResultFromShort() to extract the result comparison it deals with the casting and type conversion
-			// issues for you
+			// compares two IDLists and returns the result. The shell explorer always passes 0 as lParam, which indicates 'sort by name'. It
+			// should return 0 (as CODE of the scode), if two id indicates the same object; negative value if pidl1 should be placed before
+			// pidl2; positive value if pidl2 should be placed before pidl1. use the macro ResultFromShort() to extract the result comparison
+			// it deals with the casting and type conversion issues for you
 			[PreserveSig]
 			HRESULT CompareIDs(IntPtr lParam, IntPtr pidl1, IntPtr pidl2);
 
-			// creates a view object of the folder itself. The view object is a difference instance from the shell folder
-			// object. 'hwndOwner' can be used as the owner window of its dialog box or menu during the lifetime of the
-			// view object. This member function should always create a new instance which has only one reference count.
-			// The explorer may create more than one instances of view object from one shell folder object and treat them
-			// as separate instances. returns IShellView derived interface
+			// creates a view object of the folder itself. The view object is a difference instance from the shell folder object. 'hwndOwner'
+			// can be used as the owner window of its dialog box or menu during the lifetime of the view object. This member function should
+			// always create a new instance which has only one reference count. The explorer may create more than one instances of view
+			// object from one shell folder object and treat them as separate instances. returns IShellView derived interface
 			[return: MarshalAs(UnmanagedType.Interface)]
 			object CreateViewObject(IntPtr hwndOwner, [In] ref Guid riid);
 
-			// returns the attributes of specified objects in that folder. 'cidl' and 'apidl' specifies objects. 'apidl'
-			// contains only simple IDLists. The explorer initializes *prgfInOut with a set of flags to be evaluated. The
-			// shell folder may optimize the operation by not returning unspecified flags.
+			// returns the attributes of specified objects in that folder. 'cidl' and 'apidl' specifies objects. 'apidl' contains only simple
+			// IDLists. The explorer initializes *prgfInOut with a set of flags to be evaluated. The shell folder may optimize the operation
+			// by not returning unspecified flags.
 			void GetAttributesOf(
 				uint cidl,
 				IntPtr apidl,
 				[In, Out] ref SFGAO rgfInOut);
 
-			// creates a UI object to be used for specified objects. The shell explorer passes either IID_IDataObject
-			// (for transfer operation) or IID_IContextMenu (for context menu operation) as riid and many other interfaces
+			// creates a UI object to be used for specified objects. The shell explorer passes either IID_IDataObject (for transfer
+			// operation) or IID_IContextMenu (for context menu operation) as riid and many other interfaces
 			[return: MarshalAs(UnmanagedType.Interface)]
 			object GetUIObjectOf(
 				IntPtr hwndOwner,
@@ -7226,14 +7193,14 @@ namespace Vanara.Interop
 				[In] ref Guid riid,
 				[In, Out] ref uint rgfReserved);
 
-			// returns the display name of the specified object. If the ID contains the display name (in the locale
-			// character set), it returns the offset to the name. Otherwise, it returns a pointer to the display name
-			// string (UNICODE), which is allocated by the task allocator, or fills in a buffer. use the helper APIS
-			// StrRetToStr() or StrRetToBuf() to deal with the different forms of the STRRET structure
+			// returns the display name of the specified object. If the ID contains the display name (in the locale character set), it
+			// returns the offset to the name. Otherwise, it returns a pointer to the display name string (UNICODE), which is allocated by
+			// the task allocator, or fills in a buffer. use the helper APIS StrRetToStr() or StrRetToBuf() to deal with the different forms
+			// of the STRRET structure
 			void GetDisplayNameOf(IntPtr pidl, SHGDN uFlags, out IntPtr pName);
 
-			// sets the display name of the specified object. If it changes the ID as well, it returns the new ID which
-			// is alocated by the task allocator.
+			// sets the display name of the specified object. If it changes the ID as well, it returns the new ID which is alocated by the
+			// task allocator.
 			void SetNameOf(IntPtr hwnd,
 				IntPtr pidl,
 				[MarshalAs(UnmanagedType.LPWStr)] string pszName,
@@ -7308,8 +7275,8 @@ namespace Vanara.Interop
 				IntPtr keyType,
 				[In] ref Guid riid);
 
-			// Ensures any cached information in this item is up to date, or returns
-			// __HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND) if the item does not exist.
+			// Ensures any cached information in this item is up to date, or returns __HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND) if the item
+			// does not exist.
 			void Update(IBindCtx pbc);
 
 			void GetProperty([In] ref ShellItemPropertyKey key, ref PROPVARIANT pv);
@@ -7417,19 +7384,19 @@ namespace Vanara.Interop
 			/// <summary>This function must be called first to validate use of other members.</summary>
 			void HrInit();
 
-			/// <summary> This function adds a tab for hwnd to the taskbar.</summary>
+			/// <summary>This function adds a tab for hwnd to the taskbar.</summary>
 			/// <param name="hwnd">The HWND for which to add the tab.</param>
 			void AddTab(IntPtr hwnd);
 
-			/// <summary> This function deletes a tab for hwnd from the taskbar.</summary>
+			/// <summary>This function deletes a tab for hwnd from the taskbar.</summary>
 			/// <param name="hwnd">The HWND for which the tab is to be deleted.</param>
 			void DeleteTab(IntPtr hwnd);
 
-			/// <summary> This function activates the tab associated with hwnd on the taskbar.</summary>
+			/// <summary>This function activates the tab associated with hwnd on the taskbar.</summary>
 			/// <param name="hwnd">The HWND for which the tab is to be activated.</param>
 			void ActivateTab(IntPtr hwnd);
 
-			/// <summary> This function marks hwnd in the taskbar as the active tab.</summary>
+			/// <summary>This function marks hwnd in the taskbar as the active tab.</summary>
 			/// <param name="hwnd">The HWND to activate.</param>
 			void SetActiveAlt(IntPtr hwnd);
 		}
@@ -7457,19 +7424,20 @@ namespace Vanara.Interop
 			/// <param name="hwnd">The handle of the window to be marked.</param>
 			/// <param name="fFullscreen">A Boolean value marking the desired full-screen status of the window.</param>
 			/// <remarks>
-			/// Setting the value of fFullscreen to true, the Shell treats this window as a full-screen window, and the taskbar is moved to the bottom of the
-			/// z-order when this window is active. Setting the value of fFullscreen to false removes the full-screen marking, but <i>does not</i> cause the
-			/// Shell to treat the window as though it were definitely not full-screen. With a false fFullscreen value, the Shell depends on its automatic
-			/// detection facility to specify how the window should be treated, possibly still flagging the window as full-screen.
+			/// Setting the value of fFullscreen to true, the Shell treats this window as a full-screen window, and the taskbar is moved to
+			/// the bottom of the z-order when this window is active. Setting the value of fFullscreen to false removes the full-screen
+			/// marking, but <i>does not</i> cause the Shell to treat the window as though it were definitely not full-screen. With a false
+			/// fFullscreen value, the Shell depends on its automatic detection facility to specify how the window should be treated,
+			/// possibly still flagging the window as full-screen.
 			/// </remarks>
 			void MarkFullscreenWindow(IntPtr hwnd, [MarshalAs(UnmanagedType.Bool)] bool fFullscreen);
 		}
 
 		/// <securitynote>Critical: Suppresses unmanaged code security.</securitynote>
 		/// <remarks>
-		/// Methods on this interface are marked as PreserveSig because the implementation inconsistently surfaces errors
-		/// in Explorer. Many of these methods are implemented by posting messages to the desktop window, but if explorer
-		/// is not running or currently busy then we get back error codes that must be handled by the caller.
+		/// Methods on this interface are marked as PreserveSig because the implementation inconsistently surfaces errors in Explorer. Many
+		/// of these methods are implemented by posting messages to the desktop window, but if explorer is not running or currently busy then
+		/// we get back error codes that must be handled by the caller.
 		/// </remarks>
 		[SuppressUnmanagedCodeSecurity]
 		[
@@ -7663,10 +7631,7 @@ namespace Vanara.Interop
 				WC_E_SYNTAX = new HRESULT(0xc00cee2d);
 			}
 
-			public HRESULT(uint i)
-			{
-				_value = i;
-			}
+			public HRESULT(uint i) => _value = i;
 
 			public override bool Equals(object obj)
 			{
@@ -7691,7 +7656,7 @@ namespace Vanara.Interop
 				{
 					return null;
 				}
-				Exception exceptionForHR = Marshal.GetExceptionForHR((int)_value, new IntPtr(-1));
+				var exceptionForHR = Marshal.GetExceptionForHR((int)_value, new IntPtr(-1));
 				if (exceptionForHR.GetType() == typeof(COMException))
 				{
 					if (Facility == Facility.Win32)
@@ -7706,11 +7671,11 @@ namespace Vanara.Interop
 				}
 				if (!string.IsNullOrEmpty(message))
 				{
-					Type[] types = new Type[] { typeof(string) };
-					ConstructorInfo constructor = exceptionForHR.GetType().GetConstructor(types);
+					var types = new Type[] { typeof(string) };
+					var constructor = exceptionForHR.GetType().GetConstructor(types);
 					if (null != constructor)
 					{
-						object[] parameters = new object[] { message };
+						var parameters = new object[] { message };
 						exceptionForHR = constructor.Invoke(parameters) as Exception;
 					}
 				}
@@ -7727,15 +7692,12 @@ namespace Vanara.Interop
 
 			public static bool operator !=(HRESULT hrLeft, HRESULT hrRight) => !(hrLeft == hrRight);
 
-			public void ThrowIfFailed()
-			{
-				ThrowIfFailed(null);
-			}
+			public void ThrowIfFailed() => ThrowIfFailed(null);
 
 			[SecurityCritical, SecuritySafeCritical]
 			public void ThrowIfFailed(string message)
 			{
-				Exception exception = GetException(message);
+				var exception = GetException(message);
 				if (exception != null)
 				{
 					throw exception;
@@ -7744,7 +7706,7 @@ namespace Vanara.Interop
 
 			public override string ToString()
 			{
-				foreach (FieldInfo info in typeof(HRESULT).GetFields(BindingFlags.Public | BindingFlags.Static))
+				foreach (var info in typeof(HRESULT).GetFields(BindingFlags.Public | BindingFlags.Static))
 				{
 					if ((info.FieldType == typeof(HRESULT)) && (((HRESULT)info.GetValue(null)) == this))
 					{
@@ -7753,7 +7715,7 @@ namespace Vanara.Interop
 				}
 				if (Facility == Facility.Win32)
 				{
-					foreach (FieldInfo info2 in typeof(Win32Error).GetFields(BindingFlags.Public | BindingFlags.Static))
+					foreach (var info2 in typeof(Win32Error).GetFields(BindingFlags.Public | BindingFlags.Static))
 					{
 						if ((info2.FieldType == typeof(Win32Error)) && (((HRESULT)((Win32Error)info2.GetValue(null))) == this))
 						{
@@ -7761,7 +7723,7 @@ namespace Vanara.Interop
 						}
 					}
 				}
-				object[] args = new object[] { _value };
+				var args = new object[] { _value };
 				return string.Format(CultureInfo.InvariantCulture, "0x{0:X8}", args);
 			}
 
@@ -7847,10 +7809,7 @@ namespace Vanara.Interop
 				ERROR_INVALID_DATATYPE = new Win32Error(0x70c);
 			}
 
-			public Win32Error(int i)
-			{
-				_value = i;
-			}
+			public Win32Error(int i) => _value = i;
 
 			public override bool Equals(object obj)
 			{
@@ -7900,9 +7859,7 @@ namespace Vanara.Interop
 		/// <remarks>Methods in this class will only work on Vista and above.</remarks>
 		internal static class ShellUtil
 		{
-			/// <securitynote>
-			/// Critical: Resolves an opaque Guid into a path on the user's machine. Calls critical SHGetFolderPathEx
-			/// </securitynote>
+			/// <securitynote>Critical: Resolves an opaque Guid into a path on the user's machine. Calls critical SHGetFolderPathEx</securitynote>
 			[SecurityCritical]
 			public static string GetPathForKnownFolder(Guid knownFolder)
 			{
@@ -7910,7 +7867,7 @@ namespace Vanara.Interop
 					return null;
 
 				var pathBuilder = new StringBuilder(260);
-				HRESULT hr = SHGetFolderPathEx(ref knownFolder, 0, IntPtr.Zero, pathBuilder, (uint)pathBuilder.Capacity);
+				var hr = SHGetFolderPathEx(ref knownFolder, 0, IntPtr.Zero, pathBuilder, (uint)pathBuilder.Capacity);
 				return hr.Succeeded ? pathBuilder.ToString() : null;
 			}
 
@@ -7925,8 +7882,7 @@ namespace Vanara.Interop
 				if (string.IsNullOrEmpty(path))
 					return null;
 
-				IShellItem2 unk = null;
-				SHCreateItemFromParsingName(path, null, Marshal.GenerateGuidForType(typeof(IShellItem2)), out unk);
+				SHCreateItemFromParsingName(path, null, Marshal.GenerateGuidForType(typeof(IShellItem2)), out IShellItem2 unk);
 				return unk;
 			}
 		}
@@ -7939,22 +7895,16 @@ namespace Vanara.Interop
 			private ushort wReserved2;
 			private ushort wReserved3;
 			private IntPtr valueData;
-			private Int32 valueDataExt;
+			private int valueDataExt;
 
 			public PROPVARIANT()
 			{
 			}
 
-			public PROPVARIANT(object value)
-			{
-				Value = value;
-			}
+			public PROPVARIANT(object value) => Value = value;
 
 			[SecurityCritical, SecuritySafeCritical]
-			public void Clear()
-			{
-				NativeMethods.PropVariantClear(this);
-			}
+			public void Clear() => NativeMethods.PropVariantClear(this);
 
 			[SecurityCritical, SecuritySafeCritical]
 			public void Dispose()
@@ -7964,10 +7914,7 @@ namespace Vanara.Interop
 			}
 
 			[SecurityCritical, SecuritySafeCritical]
-			private void Dispose(bool disposing)
-			{
-				Clear();
-			}
+			private void Dispose(bool disposing) => Clear();
 
 			[SecurityCritical, SecuritySafeCritical]
 			~PROPVARIANT()
@@ -7979,7 +7926,7 @@ namespace Vanara.Interop
 			{
 				get
 				{
-					byte[] ret = new byte[IntPtr.Size + sizeof(int)];
+					var ret = new byte[IntPtr.Size + sizeof(int)];
 					if (IntPtr.Size == 4)
 						BitConverter.GetBytes(valueData.ToInt32()).CopyTo(ret, 0);
 					else if (IntPtr.Size == 8)
@@ -8127,7 +8074,7 @@ namespace Vanara.Interop
 					else if (value is decimal || value is float)
 					{
 						vt = (ushort)VarEnum.VT_DECIMAL;
-						int[] bits = decimal.GetBits((decimal)value);
+						var bits = decimal.GetBits((decimal)value);
 						valueData = (IntPtr)bits[0];
 						valueDataExt = bits[1];
 						wReserved3 = (ushort)(bits[2] >> 16);
@@ -8142,11 +8089,10 @@ namespace Vanara.Interop
 							ft = (FILETIME)value;
 						else
 						{
-							long lft = ((DateTime)value).ToFileTime();
+							var lft = ((DateTime)value).ToFileTime();
 							ft = new FILETIME { dwHighDateTime = (int)(lft >> 32), dwLowDateTime = (int)(lft & 0xFFFFFFFF) };
 						}
-						PROPVARIANT pv;
-						NativeMethods.InitPropVariantFromFileTime(ref ft, out pv);
+						NativeMethods.InitPropVariantFromFileTime(ref ft, out var pv);
 						valueData = pv.valueData;
 						valueDataExt = pv.valueDataExt;
 					}

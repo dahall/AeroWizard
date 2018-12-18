@@ -6,9 +6,7 @@ using System.Windows.Forms;
 
 namespace AeroWizard
 {
-	/// <summary>
-	/// Shows a list of all the pages in the WizardControl
-	/// </summary>
+	/// <summary>Shows a list of all the pages in the WizardControl</summary>
 	[ProvideProperty("StepText", typeof(WizardPage))]
 	[ProvideProperty("StepTextIndentLevel", typeof(WizardPage))]
 	internal class StepList : ScrollableControl, IExtenderProvider
@@ -16,74 +14,54 @@ namespace AeroWizard
 		private const TextFormatFlags defBulletTextFormat = TextFormatFlags.SingleLine | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPadding;
 		private const TextFormatFlags defStringTextFormat = TextFormatFlags.EndEllipsis | TextFormatFlags.SingleLine | TextFormatFlags.VerticalCenter;
 
+		private readonly Dictionary<WizardPage, int> indentLevels = new Dictionary<WizardPage, int>();
+		private readonly Dictionary<WizardPage, string> stepTexts = new Dictionary<WizardPage, string>();
 		private Font boldFont;
 		private int bulletWidth;
 		private int defItemHeight;
-		private readonly Dictionary<WizardPage, int> indentLevels = new Dictionary<WizardPage, int>();
 		private WizardControl myParent;
 		private Font ptrFont;
-		private readonly Dictionary<WizardPage, string> stepTexts = new Dictionary<WizardPage, string>();
 
-		/// <summary>
-		/// Occurs when a visual aspect of an owner-drawn StepList changes.
-		/// </summary>
+		/// <summary>Occurs when a visual aspect of an owner-drawn StepList changes.</summary>
 		[Category("Appearance")]
 		public event EventHandler<DrawStepListItemEventArgs> DrawItem;
 
-		/// <summary>
-		/// Occurs when an owner-drawn StepList is created and the sizes of the list items are determined.
-		/// </summary>
+		/// <summary>Occurs when an owner-drawn StepList is created and the sizes of the list items are determined.</summary>
 		[Category("Appearance")]
 		public event EventHandler<MeasureStepListItemEventArgs> MeasureItem;
 
-		/// <summary>
-		/// Gets or sets a value indicating whether the StepList is drawn by the operating system or by code that you provide.
-		/// </summary>
-		/// <value>
-		///   <c>true</c> if the StepList is drawn by code that you provide; otherwise, <c>false</c>.
-		/// </value>
+		/// <summary>Gets or sets a value indicating whether the StepList is drawn by the operating system or by code that you provide.</summary>
+		/// <value><c>true</c> if the StepList is drawn by code that you provide; otherwise, <c>false</c>.</value>
 		[DefaultValue(false), Category("Appearance"), Description("Indicates if controls is drawn by owner.")]
 		public bool OwnerDraw { get; set; }
 
-		/// <summary>
-		/// Gets the default size of the control.
-		/// </summary>
-		/// <returns>The default <see cref="T:System.Drawing.Size" /> of the control.</returns>
+		/// <summary>Gets the default size of the control.</summary>
+		/// <returns>The default <see cref="T:System.Drawing.Size"/> of the control.</returns>
 		protected override Size DefaultSize => new Size(150, 200);
 
-		/// <summary>
-		/// Gets the step text.
-		/// </summary>
+		/// <summary>Gets the step text.</summary>
 		/// <param name="page">The page.</param>
 		/// <returns>Step text for the specified wizard page.</returns>
 		[DefaultValue(null), Category("Appearance"), Description("Alternate text to provide to the StepList. Default value comes the Text property of the WizardPage.")]
 		public string GetStepText(WizardPage page)
 		{
-			string value;
-			if (stepTexts.TryGetValue(page, out value))
+			if (stepTexts.TryGetValue(page, out var value))
 				return value;
 			return page.Text;
 		}
 
-		/// <summary>
-		/// Gets the step text indent level.
-		/// </summary>
+		/// <summary>Gets the step text indent level.</summary>
 		/// <param name="page">The page.</param>
 		/// <returns>Step text indent level for the specified wizard page.</returns>
 		[DefaultValue(0), Category("Appearance"), Description("Indentation level for text provided to the StepList.")]
 		public int GetStepTextIndentLevel(WizardPage page)
 		{
-			int value;
-			if (indentLevels.TryGetValue(page, out value))
+			if (indentLevels.TryGetValue(page, out var value))
 				return value;
 			return 0;
 		}
 
-		bool IExtenderProvider.CanExtend(object extendee) => (extendee is WizardPage);
-
-		/// <summary>
-		/// Sets the step text.
-		/// </summary>
+		/// <summary>Sets the step text.</summary>
 		/// <param name="page">The page.</param>
 		/// <param name="value">The value.</param>
 		public void SetStepText(WizardPage page, string value)
@@ -95,9 +73,7 @@ namespace AeroWizard
 			Refresh();
 		}
 
-		/// <summary>
-		/// Sets the step text indent level.
-		/// </summary>
+		/// <summary>Sets the step text indent level.</summary>
 		/// <param name="page">The page.</param>
 		/// <param name="value">The indent level.</param>
 		public void SetStepTextIndentLevel(WizardPage page, int value)
@@ -110,18 +86,13 @@ namespace AeroWizard
 			Refresh();
 		}
 
-		/// <summary>
-		/// Raises the <see cref="E:DrawItem"/> event.
-		/// </summary>
-		/// <param name="e">The <see cref="DrawStepListItemEventArgs"/> instance containing the event data.</param>
-		protected virtual void OnDrawItem(DrawStepListItemEventArgs e)
-		{
-			DrawItem?.Invoke(this, e);
-		}
+		bool IExtenderProvider.CanExtend(object extendee) => (extendee is WizardPage);
 
-		/// <summary>
-		/// Raises the <see cref="E:FontChanged"/> event.
-		/// </summary>
+		/// <summary>Raises the <see cref="E:DrawItem"/> event.</summary>
+		/// <param name="e">The <see cref="DrawStepListItemEventArgs"/> instance containing the event data.</param>
+		protected virtual void OnDrawItem(DrawStepListItemEventArgs e) => DrawItem?.Invoke(this, e);
+
+		/// <summary>Raises the <see cref="E:FontChanged"/> event.</summary>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected override void OnFontChanged(EventArgs e)
 		{
@@ -135,19 +106,12 @@ namespace AeroWizard
 			}
 		}
 
-		/// <summary>
-		/// Raises the <see cref="E:MeasureItem"/> event.
-		/// </summary>
+		/// <summary>Raises the <see cref="E:MeasureItem"/> event.</summary>
 		/// <param name="e">The <see cref="MeasureStepListItemEventArgs"/> instance containing the event data.</param>
-		protected virtual void OnMeasureItem(MeasureStepListItemEventArgs e)
-		{
-			MeasureItem?.Invoke(this, e);
-		}
+		protected virtual void OnMeasureItem(MeasureStepListItemEventArgs e) => MeasureItem?.Invoke(this, e);
 
-		/// <summary>
-		/// Raises the <see cref="E:System.Windows.Forms.Control.Paint" /> event.
-		/// </summary>
-		/// <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs" /> that contains the event data.</param>
+		/// <summary>Raises the <see cref="E:System.Windows.Forms.Control.Paint"/> event.</summary>
+		/// <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs"/> that contains the event data.</param>
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			base.OnPaint(e);
@@ -181,10 +145,8 @@ namespace AeroWizard
 			}
 		}
 
-		/// <summary>
-		/// Raises the <see cref="E:System.Windows.Forms.Control.ParentChanged" /> event.
-		/// </summary>
-		/// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
+		/// <summary>Raises the <see cref="E:System.Windows.Forms.Control.ParentChanged"/> event.</summary>
+		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
 		protected override void OnParentChanged(EventArgs e)
 		{
 			base.OnParentChanged(e);
@@ -225,15 +187,9 @@ namespace AeroWizard
 			TextRenderer.DrawText(e.Graphics, GetStepText(e.Item), e.Selected ? boldFont : Font, rect, fc, defStringTextFormat | tffrtl);
 		}
 
-		private void pages_Changed(object sender, EventedList<WizardPage>.ListChangedEventArgs<WizardPage> e)
-		{
-			Refresh();
-		}
+		private void pages_Changed(object sender, EventedList<WizardPage>.ListChangedEventArgs<WizardPage> e) => Refresh();
 
-		private void ResetStepText(WizardPage page)
-		{
-			SetStepText(page, null);
-		}
+		private void ResetStepText(WizardPage page) => SetStepText(page, null);
 
 		private void SetupControl(WizardControl p)
 		{

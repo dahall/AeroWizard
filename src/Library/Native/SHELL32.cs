@@ -142,18 +142,18 @@ namespace Vanara.Interop
 		[DllImport(SHELL32, CharSet = CharSet.Auto)]
 		public extern static int ExtractIconEx([MarshalAs(UnmanagedType.LPTStr)] string lpszFile, int nIconIndex, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] IntPtr[] phIconLarge, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] IntPtr[] phIconSmall, int nIcons);
 
-		/// <summary> Retrieves the User Model AppID that has been explicitly set for the current process via SetCurrentProcessExplicitAppUserModelID</summary>
+		/// <summary>Retrieves the User Model AppID that has been explicitly set for the current process via SetCurrentProcessExplicitAppUserModelID</summary>
 		/// <param name="AppID">The application ID</param>
 		[DllImport(SHELL32)]
 		public static extern HRESULT GetCurrentProcessExplicitAppUserModelID([MarshalAs(UnmanagedType.LPWStr)] out string AppID);
 
-		/// <summary> Sets the User Model AppID for the current process, enabling Windows to retrieve this ID </summary>
+		/// <summary>Sets the User Model AppID for the current process, enabling Windows to retrieve this ID</summary>
 		/// <param name="AppID">The application ID</param>
 		[DllImport(SHELL32, PreserveSig = false)]
 		public static extern void SetCurrentProcessExplicitAppUserModelID([MarshalAs(UnmanagedType.LPWStr)] string AppID);
 
-		// This overload is required. There's a cast in the Shell code that causes the wrong vtbl to be used if we let
-		// the marshaller convert the parameter to an IUnknown.
+		// This overload is required. There's a cast in the Shell code that causes the wrong vtbl to be used if we let the marshaller convert
+		// the parameter to an IUnknown.
 		///<securitynote>
 		///     Critical - elevates via a SUC.
 		///</securitynote>
@@ -193,8 +193,8 @@ namespace Vanara.Interop
 		[DllImport(SHELL32, CharSet = CharSet.Auto, SetLastError = false)]
 		public static extern int SHGetFileInfo(IntPtr itemIdList, System.IO.FileAttributes dwFileAttributes, ref SHFILEINFO psfi, uint cbFileInfo, SHGFI uFlags);
 
-		// Vista only. Also inconsistently documented on MSDN. It was available in some versions of the SDK, and it
-		// mentioned on several pages, but isn't specifically documented.
+		// Vista only. Also inconsistently documented on MSDN. It was available in some versions of the SDK, and it mentioned on several
+		// pages, but isn't specifically documented.
 		///<securitynote>
 		///     Critical - elevates via a SUC.
 		///</securitynote>
@@ -205,8 +205,8 @@ namespace Vanara.Interop
 		[DllImport(SHELL32, CharSet = CharSet.Unicode, PreserveSig = false, SetLastError = true)]
 		public static extern void SHGetIDListFromObject(IntPtr iUnknown, out IntPtr ppidl);
 
-		// Note that the BROWSEINFO object's pszDisplayName only gives you the name of the folder. To get the actual
-		// folderToSelect, you need to parse the returned PIDL
+		// Note that the BROWSEINFO object's pszDisplayName only gives you the name of the folder. To get the actual folderToSelect, you need
+		// to parse the returned PIDL
 		[DllImport(SHELL32, CharSet = CharSet.Unicode)]
 		public static extern uint SHGetPathFromIDList(IntPtr pidl, [MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszPath);
 

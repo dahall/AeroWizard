@@ -1,9 +1,7 @@
-﻿using System.CodeDom;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using Vanara.Interop;
 using static Vanara.Interop.NativeMethods;
 
 namespace System.Windows.Forms.VisualStyles
@@ -15,7 +13,8 @@ namespace System.Windows.Forms.VisualStyles
 		private delegate void DrawWrapperMethod(SafeDCHandle hdc);
 
 		/// <summary>
-		/// Draws the background image of the current visual style element within the specified bounding rectangle and optionally clipped to the specified clipping rectangle.
+		/// Draws the background image of the current visual style element within the specified bounding rectangle and optionally clipped to
+		/// the specified clipping rectangle.
 		/// </summary>
 		/// <param name="rnd">The <see cref="VisualStyleRenderer"/> instance.</param>
 		/// <param name="dc">The <see cref="IDeviceContext"/> used to draw the background image.</param>
@@ -44,7 +43,8 @@ namespace System.Windows.Forms.VisualStyles
 		}
 
 		/// <summary>
-		/// Draws the background image of the current visual style element onto a glass background within the specified bounding rectangle and optionally clipped to the specified clipping rectangle.
+		/// Draws the background image of the current visual style element onto a glass background within the specified bounding rectangle
+		/// and optionally clipped to the specified clipping rectangle.
 		/// </summary>
 		/// <param name="rnd">The <see cref="VisualStyleRenderer"/> instance.</param>
 		/// <param name="dc">The <see cref="IDeviceContext"/> used to draw the background image.</param>
@@ -70,9 +70,7 @@ namespace System.Windows.Forms.VisualStyles
 				);
 		}
 
-		/// <summary>
-		/// Draws the image from the specified <paramref name="imageList"/> within the specified bounds on a glass background.
-		/// </summary>
+		/// <summary>Draws the image from the specified <paramref name="imageList"/> within the specified bounds on a glass background.</summary>
 		/// <param name="rnd">The <see cref="VisualStyleRenderer"/> instance.</param>
 		/// <param name="g">The <see cref="Graphics"/> used to draw the image.</param>
 		/// <param name="bounds">A <see cref="Rectangle"/> in which the image is drawn.</param>
@@ -89,14 +87,14 @@ namespace System.Windows.Forms.VisualStyles
 				);
 		}
 
-		/// <summary>
-		/// Draws the specified image within the specified bounds on a glass background.
-		/// </summary>
-		/// <param name="rnd">The <see cref="VisualStyleRenderer" /> instance.</param>
-		/// <param name="g">The <see cref="Graphics" /> used to draw the image.</param>
-		/// <param name="bounds">A <see cref="Rectangle" /> in which the image is drawn.</param>
-		/// <param name="image">An <see cref="ImageList" /> that contains the <see cref="Image" /> to draw.</param>
-		/// <param name="disabled">if set to <c>true</c> draws the image in a disabled state using the <see cref="ControlPaint.DrawImageDisabled"/> method.</param>
+		/// <summary>Draws the specified image within the specified bounds on a glass background.</summary>
+		/// <param name="rnd">The <see cref="VisualStyleRenderer"/> instance.</param>
+		/// <param name="g">The <see cref="Graphics"/> used to draw the image.</param>
+		/// <param name="bounds">A <see cref="Rectangle"/> in which the image is drawn.</param>
+		/// <param name="image">An <see cref="ImageList"/> that contains the <see cref="Image"/> to draw.</param>
+		/// <param name="disabled">
+		/// if set to <c>true</c> draws the image in a disabled state using the <see cref="ControlPaint.DrawImageDisabled"/> method.
+		/// </param>
 		public static void DrawGlassImage(this VisualStyleRenderer rnd, Graphics g, Rectangle bounds, Image image, bool disabled = false)
 		{
 			DrawWrapper(g, bounds,
@@ -116,13 +114,13 @@ namespace System.Windows.Forms.VisualStyles
 		/// <summary>
 		/// Draws glowing text in the specified bounding rectangle with the option of overriding text color and applying other text formatting.
 		/// </summary>
-		/// <param name="rnd">The <see cref="VisualStyleRenderer" /> instance.</param>
-		/// <param name="dc">The <see cref="IDeviceContext" /> used to draw the text.</param>
-		/// <param name="bounds">A <see cref="Rectangle" /> in which the text is drawn.</param>
+		/// <param name="rnd">The <see cref="VisualStyleRenderer"/> instance.</param>
+		/// <param name="dc">The <see cref="IDeviceContext"/> used to draw the text.</param>
+		/// <param name="bounds">A <see cref="Rectangle"/> in which the text is drawn.</param>
 		/// <param name="text">The text to draw.</param>
 		/// <param name="font">Optional font override.</param>
 		/// <param name="color">Optionally, the color to draw text in overriding the default color for the theme.</param>
-		/// <param name="flags">A bitwise combination of the <see cref="TextFormatFlags" /> values.</param>
+		/// <param name="flags">A bitwise combination of the <see cref="TextFormatFlags"/> values.</param>
 		/// <param name="glowSize">The size of the glow.</param>
 		public static void DrawGlowingText(this VisualStyleRenderer rnd, IDeviceContext dc, Rectangle bounds, string text, Font font, Color? color, TextFormatFlags flags = TextFormatFlags.Default, int glowSize = 10)
 		{
@@ -133,7 +131,7 @@ namespace System.Windows.Forms.VisualStyles
 					using (var fontHandle = new SafeDCObjectHandle(memoryHdc, font?.ToHfont() ?? IntPtr.Zero))
 					{
 						// Draw glowing text
-						var dttOpts = new DrawThemeTextOptions(true) {GlowSize = glowSize, AntiAliasedAlpha = true};
+						var dttOpts = new DrawThemeTextOptions(true) { GlowSize = glowSize, AntiAliasedAlpha = true };
 						if (color != null) dttOpts.TextColor = color.Value;
 						var textBounds = new RECT(4, 0, bounds.Right - bounds.Left, bounds.Bottom - bounds.Top);
 						DrawThemeTextEx(rnd, memoryHdc, rnd.Part, rnd.State, text, text.Length, flags, ref textBounds, ref dttOpts);
@@ -142,12 +140,10 @@ namespace System.Windows.Forms.VisualStyles
 				);
 		}
 
-		/// <summary>
-		/// Draws text in the specified bounding rectangle with the option of applying other text formatting.
-		/// </summary>
-		/// <param name="rnd">The <see cref="VisualStyleRenderer" /> instance.</param>
-		/// <param name="dc">The <see cref="IDeviceContext" /> used to draw the text.</param>
-		/// <param name="bounds">A <see cref="Rectangle" /> in which the text is drawn.</param>
+		/// <summary>Draws text in the specified bounding rectangle with the option of applying other text formatting.</summary>
+		/// <param name="rnd">The <see cref="VisualStyleRenderer"/> instance.</param>
+		/// <param name="dc">The <see cref="IDeviceContext"/> used to draw the text.</param>
+		/// <param name="bounds">A <see cref="Rectangle"/> in which the text is drawn.</param>
 		/// <param name="text">The text to draw.</param>
 		/// <param name="flags">A bitwise combination of the <see cref="TextFormatFlags"/> values.</param>
 		/// <param name="options">The <see cref="DrawThemeTextOptions"/> .</param>
@@ -160,7 +156,8 @@ namespace System.Windows.Forms.VisualStyles
 		}
 
 		/// <summary>
-		/// Gets the background image of the current visual style element within the specified background color. If <paramref name="states"/> is set, the resulting image will contain each of the state images side by side.
+		/// Gets the background image of the current visual style element within the specified background color. If <paramref name="states"/>
+		/// is set, the resulting image will contain each of the state images side by side.
 		/// </summary>
 		/// <param name="rnd">The <see cref="VisualStyleRenderer"/> instance.</param>
 		/// <param name="clr">The background color. This color cannot have an alpha channel.</param>
@@ -188,8 +185,7 @@ namespace System.Windows.Forms.VisualStyles
 			{
 				// Create a device-independent bitmap and select it into our DC
 				var info = new BITMAPINFO(bounds.Width, -bounds.Height);
-				IntPtr ppv;
-				using (new SafeDCObjectHandle(memoryHdc, CreateDIBSection(SafeDCHandle.Null, ref info, DIBColorMode.DIB_RGB_COLORS, out ppv, IntPtr.Zero, 0)))
+				using (new SafeDCObjectHandle(memoryHdc, CreateDIBSection(SafeDCHandle.Null, ref info, DIBColorMode.DIB_RGB_COLORS, out var ppv, IntPtr.Zero, 0)))
 				{
 					using (var memoryGraphics = Graphics.FromHdc(memoryHdc.DangerousGetHandle()))
 					{
@@ -218,18 +214,17 @@ namespace System.Windows.Forms.VisualStyles
 			}
 		}
 
-		/// <summary>
-		/// Returns the value of the specified font property for the current visual style element.
-		/// </summary>
-		/// <param name="rnd">The <see cref="VisualStyleRenderer" /> instance.</param>
-		/// <param name="dc">The <see cref="IDeviceContext" /> used to draw the text.</param>
-		/// <returns>A <see cref="Font"/> that contains the value of the property specified by the prop parameter for the current visual style element.</returns>
+		/// <summary>Returns the value of the specified font property for the current visual style element.</summary>
+		/// <param name="rnd">The <see cref="VisualStyleRenderer"/> instance.</param>
+		/// <param name="dc">The <see cref="IDeviceContext"/> used to draw the text.</param>
+		/// <returns>
+		/// A <see cref="Font"/> that contains the value of the property specified by the prop parameter for the current visual style element.
+		/// </returns>
 		public static Font GetFont2(this VisualStyleRenderer rnd, IDeviceContext dc = null)
 		{
 			using (var hdc = new SafeDCHandle(dc))
 			{
-				LOGFONT f;
-				var hres = GetThemeFont(rnd, hdc, rnd.Part, rnd.State, 210, out f);
+				var hres = GetThemeFont(rnd, hdc, rnd.Part, rnd.State, 210, out var f);
 				if (hres != 0)
 					throw new System.ComponentModel.Win32Exception(hres);
 				return f.ToFont();
@@ -245,8 +240,7 @@ namespace System.Windows.Forms.VisualStyles
 				{
 					// Create a device-independent bitmap and select it into our DC
 					var info = new BITMAPINFO(bounds.Width, -bounds.Height);
-					IntPtr pBits;
-					using (new SafeDCObjectHandle(memoryHdc, CreateDIBSection(sdc, ref info, 0, out pBits, IntPtr.Zero, 0)))
+					using (new SafeDCObjectHandle(memoryHdc, CreateDIBSection(sdc, ref info, 0, out var pBits, IntPtr.Zero, 0)))
 					{
 						// Call method
 						func(memoryHdc);

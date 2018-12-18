@@ -14,11 +14,12 @@ namespace AeroWizard.Design
 
 		public override SelectionRules SelectionRules => SelectionRules.Visible | SelectionRules.Locked;
 
+		internal WizardBaseDesigner ContainerDesigner => GetService<IDesignerHost>()?.GetDesigner(Control.Owner) as WizardBaseDesigner;
 		protected override bool EnableDragRect => false;
 
-		public override bool CanBeParentedTo(IDesigner parentDesigner) => parentDesigner?.Component is WizardPageContainer;
+		protected override System.Collections.Generic.IEnumerable<string> PropertiesToRemove => propsToRemove;
 
-		internal WizardBaseDesigner ContainerDesigner => GetService<IDesignerHost>()?.GetDesigner(Control.Owner) as WizardBaseDesigner;
+		public override bool CanBeParentedTo(IDesigner parentDesigner) => parentDesigner?.Component is WizardPageContainer;
 
 		public override void Initialize(System.ComponentModel.IComponent component)
 		{
@@ -27,30 +28,15 @@ namespace AeroWizard.Design
 			GetService<DesignerActionService>()?.Remove(component);
 		}
 
-		internal void OnDragDropInternal(DragEventArgs de)
-		{
-			OnDragDrop(de);
-		}
+		internal void OnDragDropInternal(DragEventArgs de) => OnDragDrop(de);
 
-		internal void OnDragEnterInternal(DragEventArgs de)
-		{
-			OnDragEnter(de);
-		}
+		internal void OnDragEnterInternal(DragEventArgs de) => OnDragEnter(de);
 
-		internal void OnDragLeaveInternal(EventArgs e)
-		{
-			OnDragLeave(e);
-		}
+		internal void OnDragLeaveInternal(EventArgs e) => OnDragLeave(e);
 
-		internal void OnDragOverInternal(DragEventArgs e)
-		{
-			OnDragOver(e);
-		}
+		internal void OnDragOverInternal(DragEventArgs e) => OnDragOver(e);
 
-		internal void OnGiveFeedbackInternal(GiveFeedbackEventArgs e)
-		{
-			OnGiveFeedback(e);
-		}
+		internal void OnGiveFeedbackInternal(GiveFeedbackEventArgs e) => OnGiveFeedback(e);
 
 		protected override void OnPaintAdornments(PaintEventArgs pe)
 		{
@@ -60,8 +46,6 @@ namespace AeroWizard.Design
 			ControlPaint.DrawFocusRectangle(pe.Graphics, clientRectangle);
 			base.OnPaintAdornments(pe);
 		}
-
-		protected override System.Collections.Generic.IEnumerable<string> PropertiesToRemove => propsToRemove;
 
 		internal class WizardPageDesignerActionList : RichDesignerActionList<WizardPageDesigner, WizardPage>
 		{
@@ -73,61 +57,59 @@ namespace AeroWizard.Design
 			[DesignerActionProperty("Back Button Enabled", 0, Category = "Buttons", Description = "Enables the Back button when this page is shown.")]
 			public bool AllowBack
 			{
-				get { return Component.AllowBack; }
-				set { Component.AllowBack = value; }
+				get => Component.AllowBack;
+				set => Component.AllowBack = value;
 			}
 
 			[DesignerActionProperty("Cancel Button Enabled", 1, Category = "Buttons", Description = "Enables the Cancel button when this page is shown.")]
 			public bool AllowCancel
 			{
-				get { return Component.AllowCancel; }
-				set { Component.AllowCancel = value; }
+				get => Component.AllowCancel;
+				set => Component.AllowCancel = value;
 			}
 
 			[DesignerActionProperty("Next Button Enabled", 3, Category = "Buttons")]
 			public bool AllowNext
 			{
-				get { return Component.AllowNext; }
-				set { Component.AllowNext = value; }
+				get => Component.AllowNext;
+				set => Component.AllowNext = value;
 			}
 
 			[DesignerActionProperty("Mark As Finish Page", 5, Category = "Behavior")]
 			public bool IsFinishPage
 			{
-				get { return Component.IsFinishPage; }
-				set { Component.IsFinishPage = value; }
+				get => Component.IsFinishPage;
+				set => Component.IsFinishPage = value;
 			}
 
 			[DesignerActionProperty("Set Next Page", 6, Category = "Behavior")]
 			public WizardPage NextPage
 			{
-				get { return Component.NextPage; }
-				set { Component.NextPage = value; }
+				get => Component.NextPage;
+				set => Component.NextPage = value;
 			}
 
 			[DesignerActionProperty("Cancel Button Visible", 2, Category = "Buttons")]
 			public bool ShowCancel
 			{
-				get { return Component.ShowCancel; }
-				set { Component.ShowCancel = value; }
+				get => Component.ShowCancel;
+				set => Component.ShowCancel = value;
 			}
 
 			[DesignerActionProperty("Next Button Visible", 4, Category = "Behavior")]
 			public bool ShowNext
 			{
-				get { return Component.ShowNext; }
-				set { Component.ShowNext = value; }
+				get => Component.ShowNext;
+				set => Component.ShowNext = value;
 			}
 		}
 	}
-
 
 	internal class WizardPageDesignerBehavior : RichBehavior<WizardPageDesigner>
 	{
 		public WizardPageDesignerBehavior(WizardPageDesigner designer)
 			: base(designer)
 		{
-
 		}
 
 		public override bool OnMouseDown(System.Windows.Forms.Design.Behavior.Glyph g, MouseButtons button, Point mouseLoc)
@@ -139,17 +121,22 @@ namespace AeroWizard.Design
 					case WizardPageDesignerGlyph.ClickState.FirstBtn:
 						Designer.Control.Owner.SelectedPage = Designer.Control.Owner.Pages[0];
 						break;
+
 					case WizardPageDesignerGlyph.ClickState.PrevBtn:
 						Designer.Control.Owner.PreviousPage();
 						break;
+
 					case WizardPageDesignerGlyph.ClickState.NextBtn:
 						Designer.Control.Owner.NextPage();
 						break;
+
 					case WizardPageDesignerGlyph.ClickState.LastBtn:
 						Designer.Control.Owner.SelectedPage = Designer.Control.Owner.Pages[Designer.Control.Owner.Pages.Count - 1];
 						break;
+
 					case WizardPageDesignerGlyph.ClickState.Control:
 						break;
+
 					default:
 						throw new ArgumentOutOfRangeException();
 				}
@@ -160,7 +147,7 @@ namespace AeroWizard.Design
 
 	internal class WizardPageDesignerGlyph : RichGlyph<WizardPageDesigner>
 	{
-		private const int btnCount = 4, btnSize = 16, navBoxWidth = btnSize*btnCount + (btnCount - 1)*2 + 4, navBoxHeight = btnSize + 4;
+		private const int btnCount = 4, btnSize = 16, navBoxWidth = btnSize * btnCount + (btnCount - 1) * 2 + 4, navBoxHeight = btnSize + 4;
 		private Rectangle navBox;
 
 		public WizardPageDesignerGlyph(WizardPageDesigner designer) : base(designer, new WizardPageDesignerBehavior(designer))
@@ -211,16 +198,16 @@ namespace AeroWizard.Design
 		{
 			var isMin7 = Environment.OSVersion.Version >= new Version(6, 1);
 			var fn = isMin7 ? "Webdings" : "Arial Narrow";
-			var btnText = isMin7 ? new[] {"9", "3", "4", ":"} : new[] {"«", "<", ">", "»"};
+			var btnText = isMin7 ? new[] { "9", "3", "4", ":" } : new[] { "«", "<", ">", "»" };
 			using (var f = new Font(fn, btnSize - 2, isMin7 ? FontStyle.Regular : FontStyle.Bold, GraphicsUnit.Pixel))
 			{
 				pe.Graphics.FillRectangle(SystemBrushes.Control, new Rectangle(navBox.X, navBox.Y, navBox.Width + 1, navBox.Height + 1));
-				using (var pen = new Pen(SystemBrushes.ControlDark, 1f) {DashStyle = System.Drawing.Drawing2D.DashStyle.Dot})
+				using (var pen = new Pen(SystemBrushes.ControlDark, 1f) { DashStyle = System.Drawing.Drawing2D.DashStyle.Dot })
 				{
 					pe.Graphics.DrawRectangle(pen, navBox);
 					var r1 = new Rectangle(navBox.X + 2, navBox.Y + 2, btnSize, btnSize);
 					pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-					var sf = new StringFormat() {Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center};
+					var sf = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
 					for (var i = 0; i < btnCount; i++)
 					{
 						pe.Graphics.DrawRectangle(pen, r1);

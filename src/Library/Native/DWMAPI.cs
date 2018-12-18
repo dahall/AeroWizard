@@ -7,6 +7,13 @@ namespace Vanara.Interop
 	{
 		internal const string DWMAPI = "dwmapi.dll";
 
+		public enum BlurBehindFlags : int
+		{
+			Enable = 0x00000001,
+			BlurRegion = 0x00000002,
+			TransitionOnMaximized = 0x00000004
+		}
+
 		public enum DWMWINDOWATTRIBUTE : uint
 		{
 			NCRenderingEnabled = 1,
@@ -26,20 +33,47 @@ namespace Vanara.Interop
 			FreezeRepresentation
 		}
 
-		public enum BlurBehindFlags : int
-		{
-			Enable = 0x00000001,
-			BlurRegion = 0x00000002,
-			TransitionOnMaximized = 0x00000004
-		}
+		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
+		[System.Security.SecurityCritical]
+		public static extern void DwmEnableBlurBehindWindow(IntPtr hWnd, ref BlurBehind pBlurBehind);
+
+		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
+		[System.Security.SecurityCritical]
+		public static extern void DwmEnableComposition(int compositionAction);
+
+		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
+		[System.Security.SecurityCritical]
+		public static extern void DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins pMarInset);
+
+		[DllImport(DWMAPI, EntryPoint = "#127", PreserveSig = false)]
+		[System.Security.SecurityCritical]
+		public static extern void DwmGetColorizationParameters(ref ColorizationParams parameters);
+
+		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
+		[System.Security.SecurityCritical]
+		public static extern void DwmGetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE dwAttribute, IntPtr pvAttribute, int cbAttribute);
+
+		//[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
+		//public static extern void DwmGetColorizationColor(out uint ColorizationColor, [MarshalAs(UnmanagedType.Bool)]out bool ColorizationOpaqueBlend);
+		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
+		[System.Security.SecurityCritical]
+		public static extern void DwmIsCompositionEnabled(ref int pfEnabled);
+
+		[DllImport(DWMAPI, EntryPoint = "#131", PreserveSig = false)]
+		[System.Security.SecurityCritical]
+		public static extern void DwmSetColorizationParameters(ref ColorizationParams parameters, uint unk);
+
+		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
+		[System.Security.SecurityCritical]
+		public static extern void DwmSetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE dwAttribute, [In] IntPtr pvAttribute, int cbAttribute);
 
 		[StructLayout(LayoutKind.Sequential)]
 		public struct BlurBehind
 		{
-			BlurBehindFlags dwFlags;
-			int fEnable;
-			IntPtr hRgnBlur;
-			int fTransitionOnMaximized;
+			private BlurBehindFlags dwFlags;
+			private readonly int fEnable;
+			private IntPtr hRgnBlur;
+			private int fTransitionOnMaximized;
 
 			public BlurBehind(bool enabled)
 			{
@@ -53,7 +87,7 @@ namespace Vanara.Interop
 
 			public bool TransitionOnMaximized
 			{
-				get { return fTransitionOnMaximized > 0; }
+				get => fTransitionOnMaximized > 0;
 				set
 				{
 					fTransitionOnMaximized = value ? 1 : 0;
@@ -94,10 +128,7 @@ namespace Vanara.Interop
 				Bottom = bottom;
 			}
 
-			public Margins(int allMargins)
-			{
-				Left = Right = Top = Bottom = allMargins;
-			}
+			public Margins(int allMargins) => Left = Right = Top = Bottom = allMargins;
 
 			public Margins(System.Windows.Forms.Padding padding)
 				: this(padding.Left, padding.Right, padding.Top, padding.Bottom)
@@ -112,7 +143,7 @@ namespace Vanara.Interop
 			{
 				if (obj is Margins)
 				{
-					Margins m2 = (Margins)obj;
+					var m2 = (Margins)obj;
 					return Left == m2.Left && Right == m2.Right && Top == m2.Top && Bottom == m2.Bottom;
 				}
 				return base.Equals(obj);
@@ -128,40 +159,5 @@ namespace Vanara.Interop
 				return ((value << nBits) | (value >> (0x20 - nBits)));
 			}
 		}
-
-		[DllImport(DWMAPI, EntryPoint = "#127", PreserveSig = false)]
-		[System.Security.SecurityCritical]
-		public static extern void DwmGetColorizationParameters(ref ColorizationParams parameters);
-
-		[DllImport(DWMAPI, EntryPoint = "#131", PreserveSig = false)]
-		[System.Security.SecurityCritical]
-		public static extern void DwmSetColorizationParameters(ref ColorizationParams parameters, uint unk);
-
-		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
-		[System.Security.SecurityCritical]
-		public static extern void DwmEnableBlurBehindWindow(IntPtr hWnd, ref BlurBehind pBlurBehind);
-
-		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
-		[System.Security.SecurityCritical]
-		public static extern void DwmEnableComposition(int compositionAction);
-
-		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
-		[System.Security.SecurityCritical]
-		public static extern void DwmExtendFrameIntoClientArea(IntPtr hWnd, ref Margins pMarInset);
-
-		//[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
-		//public static extern void DwmGetColorizationColor(out uint ColorizationColor, [MarshalAs(UnmanagedType.Bool)]out bool ColorizationOpaqueBlend);
-
-		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
-		[System.Security.SecurityCritical]
-		public static extern void DwmGetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE dwAttribute, IntPtr pvAttribute, int cbAttribute);
-
-		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
-		[System.Security.SecurityCritical]
-		public static extern void DwmIsCompositionEnabled(ref int pfEnabled);
-
-		[DllImport(DWMAPI, ExactSpelling = true, PreserveSig = false)]
-		[System.Security.SecurityCritical]
-		public static extern void DwmSetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE dwAttribute, [In] IntPtr pvAttribute, int cbAttribute);
 	}
 }

@@ -24,37 +24,37 @@ namespace Vanara.Interop
 
 			public int X
 			{
-				get { return Left; }
+				get => Left;
 				set { Right -= (Left - value); Left = value; }
 			}
 
 			public int Y
 			{
-				get { return Top; }
+				get => Top;
 				set { Bottom -= (Top - value); Top = value; }
 			}
 
 			public int Height
 			{
-				get { return Bottom - Top; }
-				set { Bottom = value + Top; }
+				get => Bottom - Top;
+				set => Bottom = value + Top;
 			}
 
 			public int Width
 			{
-				get { return Right - Left; }
-				set { Right = value + Left; }
+				get => Right - Left;
+				set => Right = value + Left;
 			}
 
 			public System.Drawing.Point Location
 			{
-				get { return new System.Drawing.Point(Left, Top); }
+				get => new System.Drawing.Point(Left, Top);
 				set { X = value.X; Y = value.Y; }
 			}
 
 			public System.Drawing.Size Size
 			{
-				get { return new System.Drawing.Size(Width, Height); }
+				get => new System.Drawing.Size(Width, Height);
 				set { Width = value.Width; Height = value.Height; }
 			}
 
@@ -102,37 +102,37 @@ namespace Vanara.Interop
 
 			public int X
 			{
-				get { return Left; }
+				get => Left;
 				set { Right -= (Left - value); Left = value; }
 			}
 
 			public int Y
 			{
-				get { return Top; }
+				get => Top;
 				set { Bottom -= (Top - value); Top = value; }
 			}
 
 			public int Height
 			{
-				get { return Bottom - Top; }
-				set { Bottom = value + Top; }
+				get => Bottom - Top;
+				set => Bottom = value + Top;
 			}
 
 			public int Width
 			{
-				get { return Right - Left; }
-				set { Right = value + Left; }
+				get => Right - Left;
+				set => Right = value + Left;
 			}
 
 			public System.Drawing.Point Location
 			{
-				get { return new System.Drawing.Point(Left, Top); }
+				get => new System.Drawing.Point(Left, Top);
 				set { X = value.X; Y = value.Y; }
 			}
 
 			public System.Drawing.Size Size
 			{
-				get { return new System.Drawing.Size(Width, Height); }
+				get => new System.Drawing.Size(Width, Height);
 				set { Width = value.Width; Height = value.Height; }
 			}
 

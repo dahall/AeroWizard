@@ -1,6 +1,4 @@
-﻿// Requires UXTHEME\UXTHEME.cs
-// Requires Gdi\LOGFONT.cs
-using System;
+﻿// Requires UXTHEME\UXTHEME.cs Requires Gdi\LOGFONT.cs
 using System.Runtime.InteropServices;
 
 namespace Vanara.Interop

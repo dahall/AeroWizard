@@ -5,33 +5,29 @@ using Vanara.Interop.DesktopWindowManager;
 
 namespace AeroWizard
 {
-	/// <summary>
-	/// A table layout panel that supports a glass overlay.
-	/// </summary>
+	/// <summary>A table layout panel that supports a glass overlay.</summary>
 	[ToolboxItem(true), System.Drawing.ToolboxBitmap(typeof(ThemedTableLayoutPanel), "ThemedTableLayoutPanel.bmp")]
 	public class ThemedTableLayoutPanel : TableLayoutPanel
 	{
 		private VisualStyleRenderer rnd;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ThemedTableLayoutPanel"/> class.
-		/// </summary>
-		public ThemedTableLayoutPanel()
-		{
-			SetTheme(VisualStyleElement.Window.Dialog.Normal);
-		}
+		/// <summary>Initializes a new instance of the <see cref="ThemedTableLayoutPanel"/> class.</summary>
+		public ThemedTableLayoutPanel() => SetTheme(VisualStyleElement.Window.Dialog.Normal);
 
-		/// <summary>
-		/// Clears the theme and defaults to TableLayoutPanel painting.
-		/// </summary>
-		public void ClearTheme()
-		{
-			rnd = null;
-		}
+		/// <summary>Gets or sets a value indicating whether this table supports glass (can be enclosed in the glass margin).</summary>
+		/// <value><c>true</c> if supports glass; otherwise, <c>false</c>.</value>
+		[DefaultValue(false), Category("Appearance")]
+		public bool SupportGlass { get; set; }
 
-		/// <summary>
-		/// Sets the theme using a defined <see cref="VisualStyleElement"/>.
-		/// </summary>
+		/// <summary>Gets or sets a value indicating whether to watch getting and losing focus.</summary>
+		/// <value><c>true</c> if watching focus events; otherwise, <c>false</c>.</value>
+		[DefaultValue(false), Category("Behavior")]
+		public bool WatchFocus { get; set; }
+
+		/// <summary>Clears the theme and defaults to TableLayoutPanel painting.</summary>
+		public void ClearTheme() => rnd = null;
+
+		/// <summary>Sets the theme using a defined <see cref="VisualStyleElement"/>.</summary>
 		/// <param name="element">The visual element.</param>
 		public void SetTheme(VisualStyleElement element)
 		{
@@ -41,9 +37,7 @@ namespace AeroWizard
 				rnd = null;
 		}
 
-		/// <summary>
-		/// Sets the theme using theme class information.
-		/// </summary>
+		/// <summary>Sets the theme using theme class information.</summary>
 		/// <param name="className">Name of the theme class.</param>
 		/// <param name="part">The theme part.</param>
 		/// <param name="state">The theme state.</param>
@@ -61,38 +55,16 @@ namespace AeroWizard
 			rnd = null;
 		}
 
-		/// <summary>
-		/// Gets or sets a value indicating whether to watch getting and losing focus.
-		/// </summary>
-		/// <value>
-		///   <c>true</c> if watching focus events; otherwise, <c>false</c>.
-		/// </value>
-		[DefaultValue(false), Category("Behavior")]
-		public bool WatchFocus { get; set; }
-
-		/// <summary>
-		/// Gets or sets a value indicating whether this table supports glass (can be enclosed in the glass margin).
-		/// </summary>
-		/// <value>
-		///   <c>true</c> if supports glass; otherwise, <c>false</c>.
-		/// </value>
-		[DefaultValue(false), Category("Appearance")]
-		public bool SupportGlass { get; set; }
-
-		/// <summary>
-		/// Raises the <see cref="E:System.Windows.Forms.Control.HandleCreated" /> event.
-		/// </summary>
-		/// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
+		/// <summary>Raises the <see cref="E:System.Windows.Forms.Control.HandleCreated"/> event.</summary>
+		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
 		protected override void OnHandleCreated(System.EventArgs e)
 		{
 			base.OnHandleCreated(e);
 			AttachToFormEvents();
 		}
 
-		/// <summary>
-		/// Raises the <see cref="E:System.Windows.Forms.Control.Paint" /> event.
-		/// </summary>
-		/// <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs" /> that contains the event data.</param>
+		/// <summary>Raises the <see cref="E:System.Windows.Forms.Control.Paint"/> event.</summary>
+		/// <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs"/> that contains the event data.</param>
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			if (!this.IsDesignMode() && SupportGlass && DesktopWindowManager.IsCompositionEnabled())
@@ -109,7 +81,7 @@ namespace AeroWizard
 
 		private void AttachToFormEvents()
 		{
-			Form pForm = FindForm();
+			var pForm = FindForm();
 			if (pForm != null && WatchFocus)
 			{
 				pForm.Activated += new System.EventHandler(Form_GotFocus);

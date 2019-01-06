@@ -96,7 +96,7 @@ namespace AeroWizard
 			if (Visible)
 			{
 				VisualStyleRenderer vs = null;
-				if (Application.RenderWithVisualStyles || DesktopWindowManager.IsCompositionEnabled())
+				if (VisualStyleRenderer.IsSupported)
 				{
 					vs = new VisualStyleRenderer(VisualStyleElement.Window.Caption.Active);
 					vs.DrawParentBackground(e.Graphics, base.ClientRectangle, this);

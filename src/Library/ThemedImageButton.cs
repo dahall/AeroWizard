@@ -5,6 +5,8 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using Vanara.Interop.DesktopWindowManager;
+using static Vanara.Interop.NativeMethods;
+using static System.Windows.Forms.VisualStyles.VisualStyleRendererExtension;
 
 namespace AeroWizard
 {
@@ -15,7 +17,7 @@ namespace AeroWizard
 		private const string defaultText = "";
 		private const string defaultToolTip = "Returns to a previous page";
 
-		private VisualStyleRenderer rnd = null;
+		private SafeThemeHandle hTheme;
 		private ToolTip toolTip;
 
 		/// <summary>Initializes a new instance of the <see cref="ThemedImageButton"/> class.</summary>
@@ -222,12 +224,16 @@ namespace AeroWizard
 			{
 				if (OnGlass)
 				{
-					rnd.DrawGlassBackground(graphics, bounds, bounds);
+					DrawWrapper(graphics, bounds, hdc => DrawGlassBackground(hTheme, hdc, StylePart, (int)ButtonState, bounds, false, bounds));
 				}
 				else
 				{
-					rnd.DrawParentBackground(graphics, bounds, this);
-					rnd.DrawBackground(graphics, bounds);
+					using (var hdc = new SafeDCHandle(graphics))
+					{
+						DrawThemeParentBackground(Handle, hdc, bounds);
+						RECT rr = bounds;
+						DrawThemeBackground(hTheme, hdc, StylePart, (int)ButtonState, ref rr, null);
+					}
 				}
 			}
 			else
@@ -299,14 +305,11 @@ namespace AeroWizard
 
 		private bool InitializeRenderer()
 		{
-			if (Application.RenderWithVisualStyles)
+			if (Application.RenderWithVisualStyles || DesktopWindowManager.IsCompositionEnabled())
 			{
 				try
 				{
-					if (rnd == null)
-						rnd = new VisualStyleRenderer(StyleClass, StylePart, (int)ButtonState);
-					else
-						rnd.SetParameters(StyleClass, StylePart, (int)ButtonState);
+					hTheme = new SafeThemeHandle(OpenThemeData(Handle, StyleClass));
 					return true;
 				}
 				catch { }

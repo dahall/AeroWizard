@@ -52,7 +52,10 @@
 			// 
 			// wizardControl1
 			// 
+			this.wizardControl1.BackColor = System.Drawing.Color.White;
 			this.wizardControl1.ClassicStyle = AeroWizard.WizardClassicStyle.Automatic;
+			this.wizardControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.wizardControl1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.wizardControl1.Location = new System.Drawing.Point(0, 0);
 			this.wizardControl1.Name = "wizardControl1";
 			this.wizardControl1.Pages.Add(this.introPage);
@@ -72,7 +75,7 @@
 			this.introPage.Controls.Add(this.button1);
 			this.introPage.HelpText = "Do you hate this?";
 			this.introPage.Name = "introPage";
-			this.introPage.Size = new System.Drawing.Size(527, 263);
+			this.introPage.Size = new System.Drawing.Size(527, 261);
 			this.introPage.TabIndex = 0;
 			this.introPage.Text = "Choose an activity";
 			this.introPage.HelpClicked += new System.EventHandler(this.introPage_HelpClicked);
@@ -102,7 +105,7 @@
 			// 
 			this.suppressedPage.Controls.Add(this.label2);
 			this.suppressedPage.Name = "suppressedPage";
-			this.suppressedPage.Size = new System.Drawing.Size(527, 263);
+			this.suppressedPage.Size = new System.Drawing.Size(527, 261);
 			this.suppressedPage.Suppress = true;
 			this.suppressedPage.TabIndex = 3;
 			this.suppressedPage.Text = "Suppressed";
@@ -114,7 +117,7 @@
 			this.label2.AutoSize = true;
 			this.label2.Location = new System.Drawing.Point(188, 113);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(139, 15);
+			this.label2.Size = new System.Drawing.Size(138, 15);
 			this.label2.TabIndex = 0;
 			this.label2.Text = "You should never see me";
 			// 
@@ -123,7 +126,7 @@
 			this.questionPage.AllowNext = false;
 			this.questionPage.Controls.Add(this.checkBox2);
 			this.questionPage.Name = "questionPage";
-			this.questionPage.Size = new System.Drawing.Size(552, 258);
+			this.questionPage.Size = new System.Drawing.Size(527, 261);
 			this.questionPage.TabIndex = 4;
 			this.questionPage.Text = "Are you sure?";
 			// 
@@ -132,7 +135,7 @@
 			this.checkBox2.AutoSize = true;
 			this.checkBox2.Location = new System.Drawing.Point(3, 0);
 			this.checkBox2.Name = "checkBox2";
-			this.checkBox2.Size = new System.Drawing.Size(44, 19);
+			this.checkBox2.Size = new System.Drawing.Size(43, 19);
 			this.checkBox2.TabIndex = 0;
 			this.checkBox2.Text = "Yes";
 			this.checkBox2.UseVisualStyleBackColor = true;
@@ -146,7 +149,7 @@
 			this.middlePage.Name = "middlePage";
 			this.middlePage.ShowCancel = false;
 			this.middlePage.ShowNext = false;
-			this.middlePage.Size = new System.Drawing.Size(552, 258);
+			this.middlePage.Size = new System.Drawing.Size(527, 261);
 			this.middlePage.TabIndex = 1;
 			this.middlePage.Text = "Launch System Cleanup";
 			this.middlePage.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.middlePage_Initialize);
@@ -171,6 +174,7 @@
 			this.linkLabel1.TabIndex = 0;
 			this.linkLabel1.TabStop = true;
 			this.linkLabel1.Text = "Launch SysClean.exe";
+			this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
 			// 
 			// endPage
 			// 

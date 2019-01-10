@@ -10,7 +10,7 @@ namespace System.Windows.Forms.VisualStyles
 	{
 		private static readonly Dictionary<long, Bitmap> bmpCache = new Dictionary<long, Bitmap>();
 
-		private delegate void DrawWrapperMethod(SafeDCHandle hdc);
+		internal delegate void DrawWrapperMethod(SafeDCHandle hdc);
 
 		/// <summary>
 		/// Draws the background image of the current visual style element within the specified bounding rectangle and optionally clipped to
@@ -53,21 +53,21 @@ namespace System.Windows.Forms.VisualStyles
 		/// <param name="rightToLeft">If set to <c>true</c> flip the image for right to left layout.</param>
 		public static void DrawGlassBackground(this VisualStyleRenderer rnd, IDeviceContext dc, Rectangle bounds, Rectangle? clipRectangle = null, bool rightToLeft = false)
 		{
-			DrawWrapper(dc, bounds,
-				memoryHdc =>
-				{
-					var rBounds = new RECT(bounds);
-					//var opts = new DrawThemeBackgroundOptions(clipRectangle);
-					// Draw background
-					var oldLayout = DCLayout.GDI_ERROR;
-					if (rightToLeft)
-						if ((oldLayout = SetLayout(memoryHdc, DCLayout.LAYOUT_RTL)) == DCLayout.GDI_ERROR)
-							throw new NotSupportedException("Unable to change graphics layout to RTL.");
-					DrawThemeBackground(rnd, memoryHdc, rnd.Part, rnd.State, ref rBounds, clipRectangle);
-					if (oldLayout != DCLayout.GDI_ERROR)
-						SetLayout(memoryHdc, oldLayout);
-				}
-				);
+			DrawWrapper(dc, bounds, memoryHdc => DrawGlassBackground(rnd, memoryHdc, rnd.Part, rnd.State, bounds, rightToLeft, clipRectangle));
+		}
+
+		internal static void DrawGlassBackground(SafeThemeHandle hTheme, SafeDCHandle memoryHdc, int part, int state, Rectangle bounds, bool rightToLeft, Rectangle? clipRectangle)
+		{
+			var rBounds = new RECT(bounds);
+			//var opts = new DrawThemeBackgroundOptions(clipRectangle);
+			// Draw background
+			var oldLayout = DCLayout.GDI_ERROR;
+			if (rightToLeft)
+				if ((oldLayout = SetLayout(memoryHdc, DCLayout.LAYOUT_RTL)) == DCLayout.GDI_ERROR)
+					throw new NotSupportedException("Unable to change graphics layout to RTL.");
+			DrawThemeBackground(hTheme, memoryHdc, part, state, ref rBounds, clipRectangle);
+			if (oldLayout != DCLayout.GDI_ERROR)
+				SetLayout(memoryHdc, oldLayout);
 		}
 
 		/// <summary>Draws the image from the specified <paramref name="imageList"/> within the specified bounds on a glass background.</summary>
@@ -231,7 +231,7 @@ namespace System.Windows.Forms.VisualStyles
 			}
 		}
 
-		private static void DrawWrapper(IDeviceContext dc, Rectangle bounds, DrawWrapperMethod func)
+		internal static void DrawWrapper(IDeviceContext dc, Rectangle bounds, DrawWrapperMethod func)
 		{
 			using (var sdc = new SafeDCHandle(dc))
 			{

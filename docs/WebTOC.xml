@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <HelpTOC>
 
-  <HelpTOCNode Id="10bb02f1-fa82-4a79-a0d7-896c24558421" Title="Wizard .NET Library Help" Url="html/R_Project_AeroWizard.htm">
-    <HelpTOCNode Id="406890c0-2d35-4888-854b-68763ae51e6b" Title="AeroWizard Namespaces" Url="html/G_AeroWizard.htm">
-      <HelpTOCNode Id="495a9fa9-1e25-48c2-af33-ca7397fb2bf6" Title="AeroWizard" Url="html/N_AeroWizard.htm">
-        <HelpTOCNode Id="764e7008-99e8-4ccf-befc-4d5f130b765c" Title="DrawStepListItemEventArgs Class" Url="html/T_AeroWizard_DrawStepListItemEventArgs.htm">
-          <HelpTOCNode Id="75c66325-f2e2-4376-b789-06042ad646f3" Title="DrawStepListItemEventArgs Properties" Url="html/Properties_T_AeroWizard_DrawStepListItemEventArgs.htm">
+  <HelpTOCNode Id="d2da3495-ccef-4b8f-a2ec-442fed139c10" Title="Wizard .NET Library Help" Url="html/R_Project_AeroWizard.htm">
+    <HelpTOCNode Id="5659aba5-2c21-412f-ae7d-f37c33304909" Title="AeroWizard Namespaces" Url="html/G_AeroWizard.htm">
+      <HelpTOCNode Id="c7fe52a5-b876-46ab-8f1a-28d964e07229" Title="AeroWizard" Url="html/N_AeroWizard.htm">
+        <HelpTOCNode Id="86b841a0-34ec-41fd-b413-4adaf0533228" Title="DrawStepListItemEventArgs Class" Url="html/T_AeroWizard_DrawStepListItemEventArgs.htm">
+          <HelpTOCNode Id="230d7b5c-06d7-4838-9794-8c11c2b89282" Title="DrawStepListItemEventArgs Properties" Url="html/Properties_T_AeroWizard_DrawStepListItemEventArgs.htm">
             <HelpTOCNode Title="Bounds Property " Url="html/P_AeroWizard_DrawStepListItemEventArgs_Bounds.htm" />
             <HelpTOCNode Title="Completed Property " Url="html/P_AeroWizard_DrawStepListItemEventArgs_Completed.htm" />
             <HelpTOCNode Title="Font Property " Url="html/P_AeroWizard_DrawStepListItemEventArgs_Font.htm" />
@@ -15,8 +15,8 @@
           </HelpTOCNode>
           <HelpTOCNode Title="DrawStepListItemEventArgs Methods" Url="html/Methods_T_AeroWizard_DrawStepListItemEventArgs.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="e509ff86-69b0-404a-932b-de5c39e23845" Title="MeasureStepListItemEventArgs Class" Url="html/T_AeroWizard_MeasureStepListItemEventArgs.htm">
-          <HelpTOCNode Id="df0b8b53-b037-4d55-9c73-da6bed11738c" Title="MeasureStepListItemEventArgs Properties" Url="html/Properties_T_AeroWizard_MeasureStepListItemEventArgs.htm">
+        <HelpTOCNode Id="d439dcde-cd2b-491a-b70b-aade5dec51d0" Title="MeasureStepListItemEventArgs Class" Url="html/T_AeroWizard_MeasureStepListItemEventArgs.htm">
+          <HelpTOCNode Id="0d223832-02ca-405a-a091-becc0bccea4d" Title="MeasureStepListItemEventArgs Properties" Url="html/Properties_T_AeroWizard_MeasureStepListItemEventArgs.htm">
             <HelpTOCNode Title="Font Property " Url="html/P_AeroWizard_MeasureStepListItemEventArgs_Font.htm" />
             <HelpTOCNode Title="Graphics Property " Url="html/P_AeroWizard_MeasureStepListItemEventArgs_Graphics.htm" />
             <HelpTOCNode Title="Item Property " Url="html/P_AeroWizard_MeasureStepListItemEventArgs_Item.htm" />
@@ -24,14 +24,14 @@
           </HelpTOCNode>
           <HelpTOCNode Title="MeasureStepListItemEventArgs Methods" Url="html/Methods_T_AeroWizard_MeasureStepListItemEventArgs.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="17df99c6-e9ef-4efc-80f6-ca6e4b8c4e8f" Title="StepWizardControl Class" Url="html/T_AeroWizard_StepWizardControl.htm">
+        <HelpTOCNode Id="ae19a31b-ac17-4daa-b61b-10af0bf4e817" Title="StepWizardControl Class" Url="html/T_AeroWizard_StepWizardControl.htm">
           <HelpTOCNode Title="StepWizardControl Constructor " Url="html/M_AeroWizard_StepWizardControl__ctor.htm" />
-          <HelpTOCNode Id="121cd1b3-8ab9-4671-831b-98d8b3b30150" Title="StepWizardControl Properties" Url="html/Properties_T_AeroWizard_StepWizardControl.htm">
+          <HelpTOCNode Id="a3d917d1-1308-4729-a947-3386c56c1cbc" Title="StepWizardControl Properties" Url="html/Properties_T_AeroWizard_StepWizardControl.htm">
             <HelpTOCNode Title="OwnerDrawStepList Property " Url="html/P_AeroWizard_StepWizardControl_OwnerDrawStepList.htm" />
             <HelpTOCNode Title="StepListFont Property " Url="html/P_AeroWizard_StepWizardControl_StepListFont.htm" />
             <HelpTOCNode Title="StepListWidth Property " Url="html/P_AeroWizard_StepWizardControl_StepListWidth.htm" />
           </HelpTOCNode>
-          <HelpTOCNode Id="f50eee84-15fd-4fde-bf23-49523bf84015" Title="StepWizardControl Methods" Url="html/Methods_T_AeroWizard_StepWizardControl.htm">
+          <HelpTOCNode Id="7ca1843b-7f30-43c1-8baa-9e935172026c" Title="StepWizardControl Methods" Url="html/Methods_T_AeroWizard_StepWizardControl.htm">
             <HelpTOCNode Title="GetStepText Method " Url="html/M_AeroWizard_StepWizardControl_GetStepText.htm" />
             <HelpTOCNode Title="GetStepTextIndentLevel Method " Url="html/M_AeroWizard_StepWizardControl_GetStepTextIndentLevel.htm" />
             <HelpTOCNode Title="OnDrawStepListItem Method " Url="html/M_AeroWizard_StepWizardControl_OnDrawStepListItem.htm" />
@@ -40,14 +40,14 @@
             <HelpTOCNode Title="SetStepText Method " Url="html/M_AeroWizard_StepWizardControl_SetStepText.htm" />
             <HelpTOCNode Title="SetStepTextIndentLevel Method " Url="html/M_AeroWizard_StepWizardControl_SetStepTextIndentLevel.htm" />
           </HelpTOCNode>
-          <HelpTOCNode Id="94fbb3a4-478e-4e44-93bb-936938e403fb" Title="StepWizardControl Events" Url="html/Events_T_AeroWizard_StepWizardControl.htm">
+          <HelpTOCNode Id="19684601-4d74-4ecb-9723-a0357262aa14" Title="StepWizardControl Events" Url="html/Events_T_AeroWizard_StepWizardControl.htm">
             <HelpTOCNode Title="DrawStepListItem Event" Url="html/E_AeroWizard_StepWizardControl_DrawStepListItem.htm" />
             <HelpTOCNode Title="MeasureStepListItem Event" Url="html/E_AeroWizard_StepWizardControl_MeasureStepListItem.htm" />
           </HelpTOCNode>
         </HelpTOCNode>
-        <HelpTOCNode Id="f02b8c71-bd0e-4047-9df8-354e874a64d7" Title="ThemedImageButton Class" Url="html/T_AeroWizard_ThemedImageButton.htm">
+        <HelpTOCNode Id="104c518e-6272-47a2-a448-070c83c2e575" Title="ThemedImageButton Class" Url="html/T_AeroWizard_ThemedImageButton.htm">
           <HelpTOCNode Title="ThemedImageButton Constructor " Url="html/M_AeroWizard_ThemedImageButton__ctor.htm" />
-          <HelpTOCNode Id="aa7de252-0c33-417e-936a-9d0d198495c4" Title="ThemedImageButton Properties" Url="html/Properties_T_AeroWizard_ThemedImageButton.htm">
+          <HelpTOCNode Id="be1a1302-41ac-4c0c-a20a-e020ed0aebff" Title="ThemedImageButton Properties" Url="html/Properties_T_AeroWizard_ThemedImageButton.htm">
             <HelpTOCNode Title="BackColor Property " Url="html/P_AeroWizard_ThemedImageButton_BackColor.htm" />
             <HelpTOCNode Title="ButtonState Property " Url="html/P_AeroWizard_ThemedImageButton_ButtonState.htm" />
             <HelpTOCNode Title="DefaultSize Property " Url="html/P_AeroWizard_ThemedImageButton_DefaultSize.htm" />
@@ -57,7 +57,7 @@
             <HelpTOCNode Title="Text Property " Url="html/P_AeroWizard_ThemedImageButton_Text.htm" />
             <HelpTOCNode Title="ToolTipText Property " Url="html/P_AeroWizard_ThemedImageButton_ToolTipText.htm" />
           </HelpTOCNode>
-          <HelpTOCNode Id="0376ed03-6242-4edb-b317-2d318723d47e" Title="ThemedImageButton Methods" Url="html/Methods_T_AeroWizard_ThemedImageButton.htm">
+          <HelpTOCNode Id="f766b010-42ac-41c6-a908-0db5b196f9d8" Title="ThemedImageButton Methods" Url="html/Methods_T_AeroWizard_ThemedImageButton.htm">
             <HelpTOCNode Title="GetPreferredSize Method " Url="html/M_AeroWizard_ThemedImageButton_GetPreferredSize.htm" />
             <HelpTOCNode Title="OnEnabledChanged Method " Url="html/M_AeroWizard_ThemedImageButton_OnEnabledChanged.htm" />
             <HelpTOCNode Title="OnGotFocus Method " Url="html/M_AeroWizard_ThemedImageButton_OnGotFocus.htm" />
@@ -74,30 +74,30 @@
           </HelpTOCNode>
           <HelpTOCNode Title="ThemedImageButton Events" Url="html/Events_T_AeroWizard_ThemedImageButton.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="0da154b0-1e0a-4084-bf4d-cb8678461421" Title="ThemedLabel Class" Url="html/T_AeroWizard_ThemedLabel.htm">
+        <HelpTOCNode Id="c8041c5e-acfb-4edb-be44-2df3d8320d91" Title="ThemedLabel Class" Url="html/T_AeroWizard_ThemedLabel.htm">
           <HelpTOCNode Title="ThemedLabel Constructor " Url="html/M_AeroWizard_ThemedLabel__ctor.htm" />
-          <HelpTOCNode Id="5eca9119-b711-4a70-924f-c0fa73563950" Title="ThemedLabel Properties" Url="html/Properties_T_AeroWizard_ThemedLabel.htm">
+          <HelpTOCNode Id="14dfffaf-e246-4553-891e-690048bb091e" Title="ThemedLabel Properties" Url="html/Properties_T_AeroWizard_ThemedLabel.htm">
             <HelpTOCNode Title="BackColor Property " Url="html/P_AeroWizard_ThemedLabel_BackColor.htm" />
             <HelpTOCNode Title="Image Property " Url="html/P_AeroWizard_ThemedLabel_Image.htm" />
           </HelpTOCNode>
-          <HelpTOCNode Id="12222a66-4cf9-46ae-9566-3d6ed6f14560" Title="ThemedLabel Methods" Url="html/Methods_T_AeroWizard_ThemedLabel.htm">
+          <HelpTOCNode Id="ef9e98dd-b02c-47f2-aa88-c82aa7044ad7" Title="ThemedLabel Methods" Url="html/Methods_T_AeroWizard_ThemedLabel.htm">
             <HelpTOCNode Title="GetPreferredSize Method " Url="html/M_AeroWizard_ThemedLabel_GetPreferredSize.htm" />
             <HelpTOCNode Title="OnPaint Method " Url="html/M_AeroWizard_ThemedLabel_OnPaint.htm" />
             <HelpTOCNode Title="WndProc Method " Url="html/M_AeroWizard_ThemedLabel_WndProc.htm" />
           </HelpTOCNode>
           <HelpTOCNode Title="ThemedLabel Events" Url="html/Events_T_AeroWizard_ThemedLabel.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="3c873e58-f0ae-4c48-a695-b71b8909b9f5" Title="ThemedTableLayoutPanel Class" Url="html/T_AeroWizard_ThemedTableLayoutPanel.htm">
+        <HelpTOCNode Id="7ad9a538-618c-4b37-8d46-c505189d6ab8" Title="ThemedTableLayoutPanel Class" Url="html/T_AeroWizard_ThemedTableLayoutPanel.htm">
           <HelpTOCNode Title="ThemedTableLayoutPanel Constructor " Url="html/M_AeroWizard_ThemedTableLayoutPanel__ctor.htm" />
-          <HelpTOCNode Id="58696cfd-c73d-4f52-95bd-6176e0d8bb4a" Title="ThemedTableLayoutPanel Properties" Url="html/Properties_T_AeroWizard_ThemedTableLayoutPanel.htm">
+          <HelpTOCNode Id="1d35da6e-70be-4d86-a1bd-7c11a6ed0596" Title="ThemedTableLayoutPanel Properties" Url="html/Properties_T_AeroWizard_ThemedTableLayoutPanel.htm">
             <HelpTOCNode Title="SupportGlass Property " Url="html/P_AeroWizard_ThemedTableLayoutPanel_SupportGlass.htm" />
             <HelpTOCNode Title="WatchFocus Property " Url="html/P_AeroWizard_ThemedTableLayoutPanel_WatchFocus.htm" />
           </HelpTOCNode>
-          <HelpTOCNode Id="09829c57-fab4-40ba-aa57-58f4b04618a2" Title="ThemedTableLayoutPanel Methods" Url="html/Methods_T_AeroWizard_ThemedTableLayoutPanel.htm">
+          <HelpTOCNode Id="5f839ad5-7ede-4ba7-aa87-aa97373cb3f3" Title="ThemedTableLayoutPanel Methods" Url="html/Methods_T_AeroWizard_ThemedTableLayoutPanel.htm">
             <HelpTOCNode Title="ClearTheme Method " Url="html/M_AeroWizard_ThemedTableLayoutPanel_ClearTheme.htm" />
             <HelpTOCNode Title="OnHandleCreated Method " Url="html/M_AeroWizard_ThemedTableLayoutPanel_OnHandleCreated.htm" />
             <HelpTOCNode Title="OnPaint Method " Url="html/M_AeroWizard_ThemedTableLayoutPanel_OnPaint.htm" />
-            <HelpTOCNode Id="08ccc633-b527-40a3-997d-afc0b785f11e" Title="SetTheme Method " Url="html/Overload_AeroWizard_ThemedTableLayoutPanel_SetTheme.htm">
+            <HelpTOCNode Id="c4677918-93a9-4aba-a91f-0a27654546dd" Title="SetTheme Method " Url="html/Overload_AeroWizard_ThemedTableLayoutPanel_SetTheme.htm">
               <HelpTOCNode Title="SetTheme Method (VisualStyleElement)" Url="html/M_AeroWizard_ThemedTableLayoutPanel_SetTheme_1.htm" />
               <HelpTOCNode Title="SetTheme Method (String, Int32, Int32)" Url="html/M_AeroWizard_ThemedTableLayoutPanel_SetTheme.htm" />
             </HelpTOCNode>
@@ -106,9 +106,9 @@
         </HelpTOCNode>
         <HelpTOCNode Title="WizardClassicStyle Enumeration" Url="html/T_AeroWizard_WizardClassicStyle.htm" />
         <HelpTOCNode Title="WizardCommandButtonState Enumeration" Url="html/T_AeroWizard_WizardCommandButtonState.htm" />
-        <HelpTOCNode Id="77adf43e-4c67-428d-b479-92b32d53e223" Title="WizardControl Class" Url="html/T_AeroWizard_WizardControl.htm">
+        <HelpTOCNode Id="130c04e2-962d-4b7c-b4f0-485f7c76b9ac" Title="WizardControl Class" Url="html/T_AeroWizard_WizardControl.htm">
           <HelpTOCNode Title="WizardControl Constructor " Url="html/M_AeroWizard_WizardControl__ctor.htm" />
-          <HelpTOCNode Id="4e92b36b-8570-4490-9fcb-f301c114f2ff" Title="WizardControl Properties" Url="html/Properties_T_AeroWizard_WizardControl.htm">
+          <HelpTOCNode Id="2d70102a-0264-4c87-ba90-096f038874ce" Title="WizardControl Properties" Url="html/Properties_T_AeroWizard_WizardControl.htm">
             <HelpTOCNode Title="BackButtonState Property " Url="html/P_AeroWizard_WizardControl_BackButtonState.htm" />
             <HelpTOCNode Title="BackButtonToolTipText Property " Url="html/P_AeroWizard_WizardControl_BackButtonToolTipText.htm" />
             <HelpTOCNode Title="CancelButtonState Property " Url="html/P_AeroWizard_WizardControl_CancelButtonState.htm" />
@@ -129,10 +129,10 @@
             <HelpTOCNode Title="Title Property " Url="html/P_AeroWizard_WizardControl_Title.htm" />
             <HelpTOCNode Title="TitleIcon Property " Url="html/P_AeroWizard_WizardControl_TitleIcon.htm" />
           </HelpTOCNode>
-          <HelpTOCNode Id="00635b23-7376-41d1-8064-cfe4261ee8ee" Title="WizardControl Methods" Url="html/Methods_T_AeroWizard_WizardControl.htm">
+          <HelpTOCNode Id="3878bbdb-7532-433b-9b8e-82b2a65ba295" Title="WizardControl Methods" Url="html/Methods_T_AeroWizard_WizardControl.htm">
             <HelpTOCNode Title="AddCommandControl Method " Url="html/M_AeroWizard_WizardControl_AddCommandControl.htm" />
             <HelpTOCNode Title="BeginInit Method " Url="html/M_AeroWizard_WizardControl_BeginInit.htm" />
-            <HelpTOCNode Id="dd632cdb-4e01-442d-8c39-8bb16679408d" Title="Dispose Method " Url="html/Overload_AeroWizard_WizardControl_Dispose.htm">
+            <HelpTOCNode Id="ba74b57f-ff18-4cb4-88a3-3d85123c3ae2" Title="Dispose Method " Url="html/Overload_AeroWizard_WizardControl_Dispose.htm">
               <HelpTOCNode Title="Dispose Method (Boolean)" Url="html/M_AeroWizard_WizardControl_Dispose.htm" />
             </HelpTOCNode>
             <HelpTOCNode Title="EndInit Method " Url="html/M_AeroWizard_WizardControl_EndInit.htm" />
@@ -151,15 +151,15 @@
             <HelpTOCNode Title="PreviousPage Method " Url="html/M_AeroWizard_WizardControl_PreviousPage.htm" />
             <HelpTOCNode Title="RestartPages Method " Url="html/M_AeroWizard_WizardControl_RestartPages.htm" />
           </HelpTOCNode>
-          <HelpTOCNode Id="e772dd9c-cdaf-4408-8fa8-4b13eb92e6b4" Title="WizardControl Events" Url="html/Events_T_AeroWizard_WizardControl.htm">
+          <HelpTOCNode Id="7b6814c5-b8c1-4464-9f0f-9b526232faf5" Title="WizardControl Events" Url="html/Events_T_AeroWizard_WizardControl.htm">
             <HelpTOCNode Title="Cancelling Event" Url="html/E_AeroWizard_WizardControl_Cancelling.htm" />
             <HelpTOCNode Title="Finished Event" Url="html/E_AeroWizard_WizardControl_Finished.htm" />
             <HelpTOCNode Title="SelectedPageChanged Event" Url="html/E_AeroWizard_WizardControl_SelectedPageChanged.htm" />
           </HelpTOCNode>
         </HelpTOCNode>
-        <HelpTOCNode Id="d0eef4fd-f4a4-42bd-bd65-310fa4535f51" Title="WizardPage Class" Url="html/T_AeroWizard_WizardPage.htm">
+        <HelpTOCNode Id="cc17f845-3127-4cbe-a4df-7a047716a8dc" Title="WizardPage Class" Url="html/T_AeroWizard_WizardPage.htm">
           <HelpTOCNode Title="WizardPage Constructor " Url="html/M_AeroWizard_WizardPage__ctor.htm" />
-          <HelpTOCNode Id="a5368435-daf2-452f-863b-f3589d2e1cb7" Title="WizardPage Properties" Url="html/Properties_T_AeroWizard_WizardPage.htm">
+          <HelpTOCNode Id="3b6c1224-8e5e-4bb6-bf6a-71c9bd8d8255" Title="WizardPage Properties" Url="html/Properties_T_AeroWizard_WizardPage.htm">
             <HelpTOCNode Title="AllowBack Property " Url="html/P_AeroWizard_WizardPage_AllowBack.htm" />
             <HelpTOCNode Title="AllowCancel Property " Url="html/P_AeroWizard_WizardPage_AllowCancel.htm" />
             <HelpTOCNode Title="AllowNext Property " Url="html/P_AeroWizard_WizardPage_AllowNext.htm" />
@@ -173,8 +173,8 @@
             <HelpTOCNode Title="Size Property " Url="html/P_AeroWizard_WizardPage_Size.htm" />
             <HelpTOCNode Title="Suppress Property " Url="html/P_AeroWizard_WizardPage_Suppress.htm" />
           </HelpTOCNode>
-          <HelpTOCNode Id="4b661e7f-169d-45e9-ab10-fc76e2efaeaa" Title="WizardPage Methods" Url="html/Methods_T_AeroWizard_WizardPage.htm">
-            <HelpTOCNode Id="8aa412ed-8fbc-4321-bd16-114d3b26eb51" Title="Dispose Method " Url="html/Overload_AeroWizard_WizardPage_Dispose.htm">
+          <HelpTOCNode Id="552c9eea-50b0-46a3-bc48-7fb8d0e995b2" Title="WizardPage Methods" Url="html/Methods_T_AeroWizard_WizardPage.htm">
+            <HelpTOCNode Id="60e7a9f9-404a-48a8-9c09-4a2e65bb2552" Title="Dispose Method " Url="html/Overload_AeroWizard_WizardPage_Dispose.htm">
               <HelpTOCNode Title="Dispose Method (Boolean)" Url="html/M_AeroWizard_WizardPage_Dispose.htm" />
             </HelpTOCNode>
             <HelpTOCNode Title="OnCommit Method " Url="html/M_AeroWizard_WizardPage_OnCommit.htm" />
@@ -184,30 +184,30 @@
             <HelpTOCNode Title="OnRollback Method " Url="html/M_AeroWizard_WizardPage_OnRollback.htm" />
             <HelpTOCNode Title="ToString Method " Url="html/M_AeroWizard_WizardPage_ToString.htm" />
           </HelpTOCNode>
-          <HelpTOCNode Id="ec568f56-f30e-4667-933a-11895a28eb96" Title="WizardPage Events" Url="html/Events_T_AeroWizard_WizardPage.htm">
+          <HelpTOCNode Id="63574654-b804-4b13-b5eb-002c04a31cfd" Title="WizardPage Events" Url="html/Events_T_AeroWizard_WizardPage.htm">
             <HelpTOCNode Title="Commit Event" Url="html/E_AeroWizard_WizardPage_Commit.htm" />
             <HelpTOCNode Title="HelpClicked Event" Url="html/E_AeroWizard_WizardPage_HelpClicked.htm" />
             <HelpTOCNode Title="Initialize Event" Url="html/E_AeroWizard_WizardPage_Initialize.htm" />
             <HelpTOCNode Title="Rollback Event" Url="html/E_AeroWizard_WizardPage_Rollback.htm" />
           </HelpTOCNode>
         </HelpTOCNode>
-        <HelpTOCNode Id="0dc0f3ff-f920-4ec1-a2ae-5044d808d07c" Title="WizardPageCollection Class" Url="html/T_AeroWizard_WizardPageCollection.htm">
-          <HelpTOCNode Id="090d4b88-52eb-453f-ac50-cd7d9ba496b9" Title="WizardPageCollection Properties" Url="html/Properties_T_AeroWizard_WizardPageCollection.htm">
+        <HelpTOCNode Id="ab7afe77-39b1-4ba5-b1ff-558e1b3d03f9" Title="WizardPageCollection Class" Url="html/T_AeroWizard_WizardPageCollection.htm">
+          <HelpTOCNode Id="959710a2-3be8-45cf-a691-de6ac193d817" Title="WizardPageCollection Properties" Url="html/Properties_T_AeroWizard_WizardPageCollection.htm">
             <HelpTOCNode Title="Owner Property " Url="html/P_AeroWizard_WizardPageCollection_Owner.htm" />
           </HelpTOCNode>
           <HelpTOCNode Title="WizardPageCollection Methods" Url="html/Methods_T_AeroWizard_WizardPageCollection.htm" />
           <HelpTOCNode Title="WizardPageCollection Events" Url="html/Events_T_AeroWizard_WizardPageCollection.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="4c005ee6-6119-4ed9-bb41-60fa57544ccc" Title="WizardPageConfirmEventArgs Class" Url="html/T_AeroWizard_WizardPageConfirmEventArgs.htm">
-          <HelpTOCNode Id="896b5613-a3cc-4b52-9580-e13c57ea35e9" Title="WizardPageConfirmEventArgs Properties" Url="html/Properties_T_AeroWizard_WizardPageConfirmEventArgs.htm">
+        <HelpTOCNode Id="a18f3d03-9c8b-4988-aaff-d2231b274e4f" Title="WizardPageConfirmEventArgs Class" Url="html/T_AeroWizard_WizardPageConfirmEventArgs.htm">
+          <HelpTOCNode Id="027e03d7-7bac-4cb8-9c84-dbe75037ccfc" Title="WizardPageConfirmEventArgs Properties" Url="html/Properties_T_AeroWizard_WizardPageConfirmEventArgs.htm">
             <HelpTOCNode Title="Cancel Property " Url="html/P_AeroWizard_WizardPageConfirmEventArgs_Cancel.htm" />
             <HelpTOCNode Title="Page Property " Url="html/P_AeroWizard_WizardPageConfirmEventArgs_Page.htm" />
           </HelpTOCNode>
           <HelpTOCNode Title="WizardPageConfirmEventArgs Methods" Url="html/Methods_T_AeroWizard_WizardPageConfirmEventArgs.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="d323fd8a-0121-49dc-a3e1-b065451bf75b" Title="WizardPageContainer Class" Url="html/T_AeroWizard_WizardPageContainer.htm">
+        <HelpTOCNode Id="6cb7b447-c13d-4969-8bab-ea80aa403d77" Title="WizardPageContainer Class" Url="html/T_AeroWizard_WizardPageContainer.htm">
           <HelpTOCNode Title="WizardPageContainer Constructor " Url="html/M_AeroWizard_WizardPageContainer__ctor.htm" />
-          <HelpTOCNode Id="882c1dbf-b00e-4207-8159-2f70d0e8d618" Title="WizardPageContainer Properties" Url="html/Properties_T_AeroWizard_WizardPageContainer.htm">
+          <HelpTOCNode Id="f8cfa0bb-8ac5-4e2a-91b9-775bc70051ed" Title="WizardPageContainer Properties" Url="html/Properties_T_AeroWizard_WizardPageContainer.htm">
             <HelpTOCNode Title="BackButton Property " Url="html/P_AeroWizard_WizardPageContainer_BackButton.htm" />
             <HelpTOCNode Title="BackButtonState Property " Url="html/P_AeroWizard_WizardPageContainer_BackButtonState.htm" />
             <HelpTOCNode Title="BackButtonText Property " Url="html/P_AeroWizard_WizardPageContainer_BackButtonText.htm" />
@@ -224,7 +224,7 @@
             <HelpTOCNode Title="SelectedPage Property " Url="html/P_AeroWizard_WizardPageContainer_SelectedPage.htm" />
             <HelpTOCNode Title="ShowProgressInTaskbarIcon Property " Url="html/P_AeroWizard_WizardPageContainer_ShowProgressInTaskbarIcon.htm" />
           </HelpTOCNode>
-          <HelpTOCNode Id="9d449114-6e69-43f6-913b-86ad63d9a5b5" Title="WizardPageContainer Methods" Url="html/Methods_T_AeroWizard_WizardPageContainer.htm">
+          <HelpTOCNode Id="6beaa598-dedf-4318-9c1f-18add2411440" Title="WizardPageContainer Methods" Url="html/Methods_T_AeroWizard_WizardPageContainer.htm">
             <HelpTOCNode Title="BeginInit Method " Url="html/M_AeroWizard_WizardPageContainer_BeginInit.htm" />
             <HelpTOCNode Title="EndInit Method " Url="html/M_AeroWizard_WizardPageContainer_EndInit.htm" />
             <HelpTOCNode Title="NextPage Method " Url="html/M_AeroWizard_WizardPageContainer_NextPage.htm" />
@@ -237,70 +237,70 @@
             <HelpTOCNode Title="RestartPages Method " Url="html/M_AeroWizard_WizardPageContainer_RestartPages.htm" />
             <HelpTOCNode Title="UpdateUIDependencies Method " Url="html/M_AeroWizard_WizardPageContainer_UpdateUIDependencies.htm" />
           </HelpTOCNode>
-          <HelpTOCNode Id="9e74fcef-cd46-4670-a4eb-f79e84dd356b" Title="WizardPageContainer Events" Url="html/Events_T_AeroWizard_WizardPageContainer.htm">
+          <HelpTOCNode Id="a0d790a9-90a6-4ddc-abcd-f81b337ab4e1" Title="WizardPageContainer Events" Url="html/Events_T_AeroWizard_WizardPageContainer.htm">
             <HelpTOCNode Title="ButtonStateChanged Event" Url="html/E_AeroWizard_WizardPageContainer_ButtonStateChanged.htm" />
             <HelpTOCNode Title="Cancelling Event" Url="html/E_AeroWizard_WizardPageContainer_Cancelling.htm" />
             <HelpTOCNode Title="Finished Event" Url="html/E_AeroWizard_WizardPageContainer_Finished.htm" />
             <HelpTOCNode Title="SelectedPageChanged Event" Url="html/E_AeroWizard_WizardPageContainer_SelectedPageChanged.htm" />
           </HelpTOCNode>
         </HelpTOCNode>
-        <HelpTOCNode Id="33c070f4-af06-40cc-87f5-ac003e3a03d8" Title="WizardPageInitEventArgs Class" Url="html/T_AeroWizard_WizardPageInitEventArgs.htm">
-          <HelpTOCNode Id="8faa62aa-2163-48ca-80e0-82a8d1344035" Title="WizardPageInitEventArgs Properties" Url="html/Properties_T_AeroWizard_WizardPageInitEventArgs.htm">
+        <HelpTOCNode Id="cfbfce77-a9cc-4134-8615-3757a1e9e77f" Title="WizardPageInitEventArgs Class" Url="html/T_AeroWizard_WizardPageInitEventArgs.htm">
+          <HelpTOCNode Id="2d877346-2d79-4316-ab82-2b22137e4d0b" Title="WizardPageInitEventArgs Properties" Url="html/Properties_T_AeroWizard_WizardPageInitEventArgs.htm">
             <HelpTOCNode Title="PreviousPage Property " Url="html/P_AeroWizard_WizardPageInitEventArgs_PreviousPage.htm" />
           </HelpTOCNode>
           <HelpTOCNode Title="WizardPageInitEventArgs Methods" Url="html/Methods_T_AeroWizard_WizardPageInitEventArgs.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
-      <HelpTOCNode Id="e372d1f5-3b9f-4360-ab28-52c79f4f14f5" Title="AeroWizard.VisualStyles" Url="html/N_AeroWizard_VisualStyles.htm">
+      <HelpTOCNode Id="569df90b-f43d-40e4-90f1-ac05f377a1a2" Title="AeroWizard.VisualStyles" Url="html/N_AeroWizard_VisualStyles.htm">
         <HelpTOCNode Title="VisualStyleElementEx Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx.htm" />
         <HelpTOCNode Title="VisualStyleElementEx.AeroWizard Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard.htm" />
-        <HelpTOCNode Id="edf36d86-ed68-4fc1-921f-c6424cc623e3" Title="VisualStyleElementEx.AeroWizard.Button Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_Button.htm">
-          <HelpTOCNode Id="fe9fd06e-eb4a-4a1e-bdca-d952f1a448b5" Title="Button Properties" Url="html/Properties_T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_Button.htm">
+        <HelpTOCNode Id="13d57846-5ab6-4018-9890-19fb72f04887" Title="VisualStyleElementEx.AeroWizard.Button Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_Button.htm">
+          <HelpTOCNode Id="b4497687-06eb-4a5e-838e-68edb8416fc8" Title="Button Properties" Url="html/Properties_T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_Button.htm">
             <HelpTOCNode Title="Normal Property " Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_Button_Normal.htm" />
           </HelpTOCNode>
         </HelpTOCNode>
-        <HelpTOCNode Id="90e7c8d2-b368-4d99-ad7f-e7644b840e87" Title="VisualStyleElementEx.AeroWizard.CommandArea Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_CommandArea.htm">
-          <HelpTOCNode Id="a211456e-2a28-43c4-9bd5-676cf1eaa2a6" Title="CommandArea Properties" Url="html/Properties_T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_CommandArea.htm">
+        <HelpTOCNode Id="328c7c03-9d69-426f-bc5e-8da20cd44dcc" Title="VisualStyleElementEx.AeroWizard.CommandArea Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_CommandArea.htm">
+          <HelpTOCNode Id="ead822f4-7e0c-46e8-b8cc-d8e7fc0a1f0f" Title="CommandArea Properties" Url="html/Properties_T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_CommandArea.htm">
             <HelpTOCNode Title="Normal Property " Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_CommandArea_Normal.htm" />
           </HelpTOCNode>
         </HelpTOCNode>
-        <HelpTOCNode Id="f6bea268-f0b7-487a-b785-62510eee6e2c" Title="VisualStyleElementEx.AeroWizard.ContentArea Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_ContentArea.htm">
-          <HelpTOCNode Id="3ed35cef-53c8-4fb7-9a09-b6bd8ca324fe" Title="ContentArea Properties" Url="html/Properties_T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_ContentArea.htm">
+        <HelpTOCNode Id="9d08143d-2b9f-4dbb-a153-7c0873357c4e" Title="VisualStyleElementEx.AeroWizard.ContentArea Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_ContentArea.htm">
+          <HelpTOCNode Id="2df996c0-1a2b-45ed-8980-d3bd0bc87af8" Title="ContentArea Properties" Url="html/Properties_T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_ContentArea.htm">
             <HelpTOCNode Title="NoMargin Property " Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_ContentArea_NoMargin.htm" />
             <HelpTOCNode Title="Normal Property " Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_ContentArea_Normal.htm" />
           </HelpTOCNode>
         </HelpTOCNode>
-        <HelpTOCNode Id="e9a83c80-22b7-448a-ad5a-914fc0c90b73" Title="VisualStyleElementEx.AeroWizard.HeaderArea Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_HeaderArea.htm">
-          <HelpTOCNode Id="a62f9ff7-be31-428c-9695-6c9f98828433" Title="HeaderArea Properties" Url="html/Properties_T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_HeaderArea.htm">
+        <HelpTOCNode Id="5ff5aa38-8c98-4921-916c-c729cce0d57b" Title="VisualStyleElementEx.AeroWizard.HeaderArea Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_HeaderArea.htm">
+          <HelpTOCNode Id="7540e1ba-df7c-4c8b-ae7e-5281ece44e2d" Title="HeaderArea Properties" Url="html/Properties_T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_HeaderArea.htm">
             <HelpTOCNode Title="NoMargin Property " Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_HeaderArea_NoMargin.htm" />
             <HelpTOCNode Title="Normal Property " Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_HeaderArea_Normal.htm" />
           </HelpTOCNode>
         </HelpTOCNode>
-        <HelpTOCNode Id="2b75aa76-1d17-4daf-83c3-9ac1fbb521c4" Title="VisualStyleElementEx.AeroWizard.TitleBar Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_TitleBar.htm">
-          <HelpTOCNode Id="9bb9863b-86e5-4e80-b914-2c62f5681d99" Title="TitleBar Properties" Url="html/Properties_T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_TitleBar.htm">
+        <HelpTOCNode Id="c3f29c74-3f43-4c20-b7f8-13086a262f8d" Title="VisualStyleElementEx.AeroWizard.TitleBar Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_TitleBar.htm">
+          <HelpTOCNode Id="e7912d19-0dec-489c-8fa7-bbc5e64342b2" Title="TitleBar Properties" Url="html/Properties_T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_TitleBar.htm">
             <HelpTOCNode Title="Active Property " Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_TitleBar_Active.htm" />
             <HelpTOCNode Title="Inactive Property " Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_TitleBar_Inactive.htm" />
           </HelpTOCNode>
         </HelpTOCNode>
         <HelpTOCNode Title="VisualStyleElementEx.Navigation Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation.htm" />
-        <HelpTOCNode Id="3a643b08-1089-4949-8bc9-1d61e4f64c8f" Title="VisualStyleElementEx.Navigation.BackButton Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_BackButton.htm">
-          <HelpTOCNode Id="d898b8b8-c9e2-476b-8d91-68de892f804d" Title="BackButton Properties" Url="html/Properties_T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_BackButton.htm">
+        <HelpTOCNode Id="4ea57954-bdc8-48d2-a6f7-cdde7a0d6e9d" Title="VisualStyleElementEx.Navigation.BackButton Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_BackButton.htm">
+          <HelpTOCNode Id="eca6cec8-7c27-4c18-94f8-2be2cd1de0a3" Title="BackButton Properties" Url="html/Properties_T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_BackButton.htm">
             <HelpTOCNode Title="Disabled Property " Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_BackButton_Disabled.htm" />
             <HelpTOCNode Title="Hot Property " Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_BackButton_Hot.htm" />
             <HelpTOCNode Title="Normal Property " Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_BackButton_Normal.htm" />
             <HelpTOCNode Title="Pressed Property " Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_BackButton_Pressed.htm" />
           </HelpTOCNode>
         </HelpTOCNode>
-        <HelpTOCNode Id="c5f6fd90-809e-4e04-91f8-a6aaccc7c16c" Title="VisualStyleElementEx.Navigation.ForwardButton Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_ForwardButton.htm">
-          <HelpTOCNode Id="bc4d5c66-2c25-4bcd-8dff-0929eaac3d63" Title="ForwardButton Properties" Url="html/Properties_T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_ForwardButton.htm">
+        <HelpTOCNode Id="65a31fdd-b808-41a3-886d-3369b88cb4ce" Title="VisualStyleElementEx.Navigation.ForwardButton Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_ForwardButton.htm">
+          <HelpTOCNode Id="986d6df7-24bf-468e-846b-b30a7b76a873" Title="ForwardButton Properties" Url="html/Properties_T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_ForwardButton.htm">
             <HelpTOCNode Title="Disabled Property " Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_ForwardButton_Disabled.htm" />
             <HelpTOCNode Title="Hot Property " Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_ForwardButton_Hot.htm" />
             <HelpTOCNode Title="Normal Property " Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_ForwardButton_Normal.htm" />
             <HelpTOCNode Title="Pressed Property " Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_ForwardButton_Pressed.htm" />
           </HelpTOCNode>
         </HelpTOCNode>
-        <HelpTOCNode Id="35db61f8-fddf-4ac5-b94d-3e89ca0d2d2c" Title="VisualStyleElementEx.Navigation.MenuButton Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_MenuButton.htm">
-          <HelpTOCNode Id="7e3769b5-f50b-4bfc-97cc-3e6b3077cecd" Title="MenuButton Properties" Url="html/Properties_T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_MenuButton.htm">
+        <HelpTOCNode Id="92cd1fe9-04a5-4aab-bfe7-6c2845217e0a" Title="VisualStyleElementEx.Navigation.MenuButton Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_MenuButton.htm">
+          <HelpTOCNode Id="24f9344f-778a-4c1e-8859-f00803f361af" Title="MenuButton Properties" Url="html/Properties_T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_MenuButton.htm">
             <HelpTOCNode Title="Disabled Property " Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_MenuButton_Disabled.htm" />
             <HelpTOCNode Title="Hot Property " Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_MenuButton_Hot.htm" />
             <HelpTOCNode Title="Normal Property " Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_MenuButton_Normal.htm" />
@@ -309,23 +309,23 @@
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="870639fc-12ff-4e00-b884-732c5fdfb523" Title="System.Collections.Generic" Url="html/N_System_Collections_Generic.htm">
-      <HelpTOCNode Id="3f279729-36cf-47e8-b4bf-f5314b38e1ff" Title="EventedList(T) Class" Url="html/T_System_Collections_Generic_EventedList_1.htm">
-        <HelpTOCNode Id="0e14a513-cee5-446f-ba33-433ab2425a9c" Title="EventedList(T) Constructor " Url="html/Overload_System_Collections_Generic_EventedList_1__ctor.htm">
+    <HelpTOCNode Id="35aefd7a-9ec5-43e8-afb3-89af3b06ba30" Title="System.Collections.Generic" Url="html/N_System_Collections_Generic.htm">
+      <HelpTOCNode Id="281f8a1a-99cf-4bb2-ae50-4bb542e24d55" Title="EventedList(T) Class" Url="html/T_System_Collections_Generic_EventedList_1.htm">
+        <HelpTOCNode Id="18b50606-538e-4ae6-babe-5563a3566b67" Title="EventedList(T) Constructor " Url="html/Overload_System_Collections_Generic_EventedList_1__ctor.htm">
           <HelpTOCNode Title="EventedList(T) Constructor " Url="html/M_System_Collections_Generic_EventedList_1__ctor.htm" />
           <HelpTOCNode Title="EventedList(T) Constructor (IEnumerable(T))" Url="html/M_System_Collections_Generic_EventedList_1__ctor_1.htm" />
           <HelpTOCNode Title="EventedList(T) Constructor (Int32)" Url="html/M_System_Collections_Generic_EventedList_1__ctor_2.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="efe0e619-4b4d-4e8c-b2eb-89a3616d2f1d" Title="EventedList(T) Properties" Url="html/Properties_T_System_Collections_Generic_EventedList_1.htm">
+        <HelpTOCNode Id="1e1568cd-1996-4210-a529-a103b453412d" Title="EventedList(T) Properties" Url="html/Properties_T_System_Collections_Generic_EventedList_1.htm">
           <HelpTOCNode Title="Capacity Property " Url="html/P_System_Collections_Generic_EventedList_1_Capacity.htm" />
           <HelpTOCNode Title="Count Property " Url="html/P_System_Collections_Generic_EventedList_1_Count.htm" />
           <HelpTOCNode Title="Item Property " Url="html/P_System_Collections_Generic_EventedList_1_Item.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="39d0799a-2f1a-4c2f-9fef-5b000dcf2ee5" Title="EventedList(T) Methods" Url="html/Methods_T_System_Collections_Generic_EventedList_1.htm">
+        <HelpTOCNode Id="5439d107-a9bf-464f-8d70-af2b834bae3a" Title="EventedList(T) Methods" Url="html/Methods_T_System_Collections_Generic_EventedList_1.htm">
           <HelpTOCNode Title="Add Method " Url="html/M_System_Collections_Generic_EventedList_1_Add.htm" />
           <HelpTOCNode Title="AddRange Method " Url="html/M_System_Collections_Generic_EventedList_1_AddRange.htm" />
           <HelpTOCNode Title="AsReadOnly Method " Url="html/M_System_Collections_Generic_EventedList_1_AsReadOnly.htm" />
-          <HelpTOCNode Id="400cf6cf-fb92-40d6-b9da-9cb139382d69" Title="BinarySearch Method " Url="html/Overload_System_Collections_Generic_EventedList_1_BinarySearch.htm">
+          <HelpTOCNode Id="b4bc1662-e2cf-4b7b-9cda-a7e7eae231e0" Title="BinarySearch Method " Url="html/Overload_System_Collections_Generic_EventedList_1_BinarySearch.htm">
             <HelpTOCNode Title="BinarySearch Method (T)" Url="html/M_System_Collections_Generic_EventedList_1_BinarySearch_1.htm" />
             <HelpTOCNode Title="BinarySearch Method (T, IComparer(T))" Url="html/M_System_Collections_Generic_EventedList_1_BinarySearch_2.htm" />
             <HelpTOCNode Title="BinarySearch Method (Int32, Int32, T, IComparer(T))" Url="html/M_System_Collections_Generic_EventedList_1_BinarySearch.htm" />
@@ -333,7 +333,7 @@
           <HelpTOCNode Title="Clear Method " Url="html/M_System_Collections_Generic_EventedList_1_Clear.htm" />
           <HelpTOCNode Title="Contains Method " Url="html/M_System_Collections_Generic_EventedList_1_Contains.htm" />
           <HelpTOCNode Title="ConvertAll(TOutput) Method " Url="html/M_System_Collections_Generic_EventedList_1_ConvertAll__1.htm" />
-          <HelpTOCNode Id="29e9b877-265b-4ae2-8843-1f5cbe5ce2ae" Title="CopyTo Method " Url="html/Overload_System_Collections_Generic_EventedList_1_CopyTo.htm">
+          <HelpTOCNode Id="4b4b9832-bb28-46f1-9bc3-c3ef0c1b3666" Title="CopyTo Method " Url="html/Overload_System_Collections_Generic_EventedList_1_CopyTo.htm">
             <HelpTOCNode Title="CopyTo Method (T[])" Url="html/M_System_Collections_Generic_EventedList_1_CopyTo_1.htm" />
             <HelpTOCNode Title="CopyTo Method (T[], Int32)" Url="html/M_System_Collections_Generic_EventedList_1_CopyTo_2.htm" />
             <HelpTOCNode Title="CopyTo Method (Int32, T[], Int32, Int32)" Url="html/M_System_Collections_Generic_EventedList_1_CopyTo.htm" />
@@ -341,13 +341,13 @@
           <HelpTOCNode Title="Exists Method " Url="html/M_System_Collections_Generic_EventedList_1_Exists.htm" />
           <HelpTOCNode Title="Find Method " Url="html/M_System_Collections_Generic_EventedList_1_Find.htm" />
           <HelpTOCNode Title="FindAll Method " Url="html/M_System_Collections_Generic_EventedList_1_FindAll.htm" />
-          <HelpTOCNode Id="946955c6-f0d8-42a4-9f32-0b4f6c536177" Title="FindIndex Method " Url="html/Overload_System_Collections_Generic_EventedList_1_FindIndex.htm">
+          <HelpTOCNode Id="96a4c6d4-8612-4f75-b587-031bf318d0df" Title="FindIndex Method " Url="html/Overload_System_Collections_Generic_EventedList_1_FindIndex.htm">
             <HelpTOCNode Title="FindIndex Method (Predicate(T))" Url="html/M_System_Collections_Generic_EventedList_1_FindIndex_2.htm" />
             <HelpTOCNode Title="FindIndex Method (Int32, Predicate(T))" Url="html/M_System_Collections_Generic_EventedList_1_FindIndex_1.htm" />
             <HelpTOCNode Title="FindIndex Method (Int32, Int32, Predicate(T))" Url="html/M_System_Collections_Generic_EventedList_1_FindIndex.htm" />
           </HelpTOCNode>
           <HelpTOCNode Title="FindLast Method " Url="html/M_System_Collections_Generic_EventedList_1_FindLast.htm" />
-          <HelpTOCNode Id="fe4a32d4-da4f-4a89-85c7-5683694bef27" Title="FindLastIndex Method " Url="html/Overload_System_Collections_Generic_EventedList_1_FindLastIndex.htm">
+          <HelpTOCNode Id="44ade787-e025-4b05-99e9-7efa5ee13ac3" Title="FindLastIndex Method " Url="html/Overload_System_Collections_Generic_EventedList_1_FindLastIndex.htm">
             <HelpTOCNode Title="FindLastIndex Method (Predicate(T))" Url="html/M_System_Collections_Generic_EventedList_1_FindLastIndex_2.htm" />
             <HelpTOCNode Title="FindLastIndex Method (Int32, Predicate(T))" Url="html/M_System_Collections_Generic_EventedList_1_FindLastIndex_1.htm" />
             <HelpTOCNode Title="FindLastIndex Method (Int32, Int32, Predicate(T))" Url="html/M_System_Collections_Generic_EventedList_1_FindLastIndex.htm" />
@@ -355,14 +355,14 @@
           <HelpTOCNode Title="ForEach Method " Url="html/M_System_Collections_Generic_EventedList_1_ForEach.htm" />
           <HelpTOCNode Title="GetEnumerator Method " Url="html/M_System_Collections_Generic_EventedList_1_GetEnumerator.htm" />
           <HelpTOCNode Title="GetRange Method " Url="html/M_System_Collections_Generic_EventedList_1_GetRange.htm" />
-          <HelpTOCNode Id="02762cdc-bbd1-4494-a25b-11b120778b0a" Title="IndexOf Method " Url="html/Overload_System_Collections_Generic_EventedList_1_IndexOf.htm">
+          <HelpTOCNode Id="22dab5be-e528-4c2f-8d5e-880b76486cca" Title="IndexOf Method " Url="html/Overload_System_Collections_Generic_EventedList_1_IndexOf.htm">
             <HelpTOCNode Title="IndexOf Method (T)" Url="html/M_System_Collections_Generic_EventedList_1_IndexOf.htm" />
             <HelpTOCNode Title="IndexOf Method (T, Int32)" Url="html/M_System_Collections_Generic_EventedList_1_IndexOf_1.htm" />
             <HelpTOCNode Title="IndexOf Method (T, Int32, Int32)" Url="html/M_System_Collections_Generic_EventedList_1_IndexOf_2.htm" />
           </HelpTOCNode>
           <HelpTOCNode Title="Insert Method " Url="html/M_System_Collections_Generic_EventedList_1_Insert.htm" />
           <HelpTOCNode Title="InsertRange Method " Url="html/M_System_Collections_Generic_EventedList_1_InsertRange.htm" />
-          <HelpTOCNode Id="f6398f95-dd56-4ce3-acf2-1481ce941d43" Title="LastIndexOf Method " Url="html/Overload_System_Collections_Generic_EventedList_1_LastIndexOf.htm">
+          <HelpTOCNode Id="ae9b6f30-52b1-400e-83c3-2440279cff66" Title="LastIndexOf Method " Url="html/Overload_System_Collections_Generic_EventedList_1_LastIndexOf.htm">
             <HelpTOCNode Title="LastIndexOf Method (T)" Url="html/M_System_Collections_Generic_EventedList_1_LastIndexOf.htm" />
             <HelpTOCNode Title="LastIndexOf Method (T, Int32)" Url="html/M_System_Collections_Generic_EventedList_1_LastIndexOf_1.htm" />
             <HelpTOCNode Title="LastIndexOf Method (T, Int32, Int32)" Url="html/M_System_Collections_Generic_EventedList_1_LastIndexOf_2.htm" />
@@ -375,11 +375,11 @@
           <HelpTOCNode Title="RemoveAll Method " Url="html/M_System_Collections_Generic_EventedList_1_RemoveAll.htm" />
           <HelpTOCNode Title="RemoveAt Method " Url="html/M_System_Collections_Generic_EventedList_1_RemoveAt.htm" />
           <HelpTOCNode Title="RemoveRange Method " Url="html/M_System_Collections_Generic_EventedList_1_RemoveRange.htm" />
-          <HelpTOCNode Id="0de8b8b7-c0ec-4851-b814-45a878f35d9f" Title="Reverse Method " Url="html/Overload_System_Collections_Generic_EventedList_1_Reverse.htm">
+          <HelpTOCNode Id="2185ebe6-8d0a-4bf4-ad62-eb71fcb2dd49" Title="Reverse Method " Url="html/Overload_System_Collections_Generic_EventedList_1_Reverse.htm">
             <HelpTOCNode Title="Reverse Method " Url="html/M_System_Collections_Generic_EventedList_1_Reverse.htm" />
             <HelpTOCNode Title="Reverse Method (Int32, Int32)" Url="html/M_System_Collections_Generic_EventedList_1_Reverse_1.htm" />
           </HelpTOCNode>
-          <HelpTOCNode Id="7934b7b7-bed3-4aa4-84bb-0abf35a6e31c" Title="Sort Method " Url="html/Overload_System_Collections_Generic_EventedList_1_Sort.htm">
+          <HelpTOCNode Id="6c95520f-90d5-4bcb-ad0b-b8aac3b11194" Title="Sort Method " Url="html/Overload_System_Collections_Generic_EventedList_1_Sort.htm">
             <HelpTOCNode Title="Sort Method " Url="html/M_System_Collections_Generic_EventedList_1_Sort.htm" />
             <HelpTOCNode Title="Sort Method (IComparer(T))" Url="html/M_System_Collections_Generic_EventedList_1_Sort_1.htm" />
             <HelpTOCNode Title="Sort Method (Int32, Int32, IComparer(T))" Url="html/M_System_Collections_Generic_EventedList_1_Sort_2.htm" />
@@ -388,29 +388,29 @@
           <HelpTOCNode Title="TrimExcess Method " Url="html/M_System_Collections_Generic_EventedList_1_TrimExcess.htm" />
           <HelpTOCNode Title="TrueForAll Method " Url="html/M_System_Collections_Generic_EventedList_1_TrueForAll.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="a9cc6d23-3e9e-493e-acd6-b7af6632bf1d" Title="EventedList(T) Events" Url="html/Events_T_System_Collections_Generic_EventedList_1.htm">
+        <HelpTOCNode Id="962bd5e5-1c98-422b-bb21-f7bec15f08a5" Title="EventedList(T) Events" Url="html/Events_T_System_Collections_Generic_EventedList_1.htm">
           <HelpTOCNode Title="ItemAdded Event" Url="html/E_System_Collections_Generic_EventedList_1_ItemAdded.htm" />
           <HelpTOCNode Title="ItemChanged Event" Url="html/E_System_Collections_Generic_EventedList_1_ItemChanged.htm" />
           <HelpTOCNode Title="ItemDeleted Event" Url="html/E_System_Collections_Generic_EventedList_1_ItemDeleted.htm" />
           <HelpTOCNode Title="Reset Event" Url="html/E_System_Collections_Generic_EventedList_1_Reset.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
-      <HelpTOCNode Id="a0a4ad52-3d5e-457e-ae13-de113014e6b5" Title="EventedList(T).Enumerator Structure" Url="html/T_System_Collections_Generic_EventedList_1_Enumerator.htm">
-        <HelpTOCNode Id="2db8e2c3-fdb5-4dbf-a7f8-f504527bc93d" Title="Enumerator Properties" Url="html/Properties_T_System_Collections_Generic_EventedList_1_Enumerator.htm">
+      <HelpTOCNode Id="843e8998-44dc-4bcc-8639-083cf91d9462" Title="EventedList(T).Enumerator Structure" Url="html/T_System_Collections_Generic_EventedList_1_Enumerator.htm">
+        <HelpTOCNode Id="32380bf4-b665-4b23-8aa5-54c4261fc343" Title="Enumerator Properties" Url="html/Properties_T_System_Collections_Generic_EventedList_1_Enumerator.htm">
           <HelpTOCNode Title="Current Property " Url="html/P_System_Collections_Generic_EventedList_1_Enumerator_Current.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="347c830f-e8e0-4676-a558-4cf1c8364a24" Title="Enumerator Methods" Url="html/Methods_T_System_Collections_Generic_EventedList_1_Enumerator.htm">
+        <HelpTOCNode Id="a29d8a9a-97d7-406a-94e1-ea57862a44ed" Title="Enumerator Methods" Url="html/Methods_T_System_Collections_Generic_EventedList_1_Enumerator.htm">
           <HelpTOCNode Title="Dispose Method " Url="html/M_System_Collections_Generic_EventedList_1_Enumerator_Dispose.htm" />
           <HelpTOCNode Title="MoveNext Method " Url="html/M_System_Collections_Generic_EventedList_1_Enumerator_MoveNext.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
-      <HelpTOCNode Id="04e4fbf6-3aa5-44d3-a9c4-f67ad95d02c4" Title="EventedList(T).ListChangedEventArgs(T) Class" Url="html/T_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1.htm">
-        <HelpTOCNode Id="fe5c6e71-ff2a-4595-b2f0-4a5ead60c621" Title="ListChangedEventArgs(T) Constructor " Url="html/Overload_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1__ctor.htm">
+      <HelpTOCNode Id="db8e8f33-4324-4ed5-a003-0db82993956e" Title="EventedList(T).ListChangedEventArgs(T) Class" Url="html/T_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1.htm">
+        <HelpTOCNode Id="fcb8ef51-89ac-4de4-b75e-2e309c6470aa" Title="ListChangedEventArgs(T) Constructor " Url="html/Overload_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1__ctor.htm">
           <HelpTOCNode Title="EventedList(T).ListChangedEventArgs(T) Constructor (ListChangedType)" Url="html/M_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1__ctor.htm" />
           <HelpTOCNode Title="EventedList(T).ListChangedEventArgs(T) Constructor (ListChangedType, T, Int32)" Url="html/M_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1__ctor_1.htm" />
           <HelpTOCNode Title="EventedList(T).ListChangedEventArgs(T) Constructor (ListChangedType, T, Int32, T)" Url="html/M_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1__ctor_2.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="847af4c4-cfa2-470e-bec6-ea1b1b6706cc" Title="ListChangedEventArgs(T) Properties" Url="html/Properties_T_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1.htm">
+        <HelpTOCNode Id="2ba35985-391c-46ac-b9d7-81536a01b5c1" Title="ListChangedEventArgs(T) Properties" Url="html/Properties_T_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1.htm">
           <HelpTOCNode Title="Item Property " Url="html/P_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1_Item.htm" />
           <HelpTOCNode Title="ItemIndex Property " Url="html/P_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1_ItemIndex.htm" />
           <HelpTOCNode Title="ListChangedType Property " Url="html/P_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1_ListChangedType.htm" />

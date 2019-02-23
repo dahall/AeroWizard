@@ -5,115 +5,73 @@
   </assembly>
   <members>
     <member name="T:AeroWizard.DrawStepListItemEventArgs">
-      <summary>
-            Provides data for the <see cref="E:AeroWizard.StepWizardControl.DrawStepListItem" /> event.
-            </summary>
+      <summary>Provides data for the <see cref="E:AeroWizard.StepWizardControl.DrawStepListItem" /> event.</summary>
     </member>
     <member name="P:AeroWizard.DrawStepListItemEventArgs.Bounds">
-      <summary>
-            Gets the size and location of the item to draw.
-            </summary>
+      <summary>Gets the size and location of the item to draw.</summary>
     </member>
     <member name="P:AeroWizard.DrawStepListItemEventArgs.Completed">
-      <summary>
-            Gets a value indicating whether this step has already been completed.
-            </summary>
+      <summary>Gets a value indicating whether this step has already been completed.</summary>
     </member>
     <member name="P:AeroWizard.DrawStepListItemEventArgs.Font">
-      <summary>
-            Gets the <see cref="P:AeroWizard.DrawStepListItemEventArgs.Font" /> used to draw the item.
-            </summary>
+      <summary>Gets the <see cref="P:AeroWizard.DrawStepListItemEventArgs.Font" /> used to draw the item.</summary>
     </member>
     <member name="P:AeroWizard.DrawStepListItemEventArgs.Graphics">
-      <summary>
-            Gets the <see cref="P:AeroWizard.DrawStepListItemEventArgs.Graphics" /> used to draw the item.
-            </summary>
+      <summary>Gets the <see cref="P:AeroWizard.DrawStepListItemEventArgs.Graphics" /> used to draw the item.</summary>
     </member>
     <member name="P:AeroWizard.DrawStepListItemEventArgs.Item">
-      <summary>
-            Gets the <see cref="T:AeroWizard.WizardPage" /> to which this item refers.
-            </summary>
+      <summary>Gets the <see cref="T:AeroWizard.WizardPage" /> to which this item refers.</summary>
     </member>
     <member name="P:AeroWizard.DrawStepListItemEventArgs.Selected">
-      <summary>
-            Gets a value indicating whether this item is the one currently selected.
-            </summary>
+      <summary>Gets a value indicating whether this item is the one currently selected.</summary>
     </member>
     <member name="T:AeroWizard.MeasureStepListItemEventArgs">
-      <summary>
-            Provides data for the <see cref="E:AeroWizard.StepWizardControl.MeasureStepListItem" /> event.
-            </summary>
+      <summary>Provides data for the <see cref="E:AeroWizard.StepWizardControl.MeasureStepListItem" /> event.</summary>
     </member>
     <member name="P:AeroWizard.MeasureStepListItemEventArgs.Font">
-      <summary>
-            Gets the <see cref="P:AeroWizard.MeasureStepListItemEventArgs.Font" /> used to draw the item.
-            </summary>
+      <summary>Gets the <see cref="P:AeroWizard.MeasureStepListItemEventArgs.Font" /> used to draw the item.</summary>
     </member>
     <member name="P:AeroWizard.MeasureStepListItemEventArgs.Graphics">
-      <summary>
-            Gets the <see cref="P:AeroWizard.MeasureStepListItemEventArgs.Graphics" /> used to draw the item.
-            </summary>
+      <summary>Gets the <see cref="P:AeroWizard.MeasureStepListItemEventArgs.Graphics" /> used to draw the item.</summary>
     </member>
     <member name="P:AeroWizard.MeasureStepListItemEventArgs.Item">
-      <summary>
-            Gets the <see cref="T:AeroWizard.WizardPage" /> to which this item refers.
-            </summary>
+      <summary>Gets the <see cref="T:AeroWizard.WizardPage" /> to which this item refers.</summary>
     </member>
     <member name="P:AeroWizard.MeasureStepListItemEventArgs.ItemSize">
-      <summary>
-            Gets or sets the size of the item.
-            </summary>
+      <summary>Gets or sets the size of the item.</summary>
     </member>
     <member name="T:AeroWizard.StepWizardControl">
-      <summary>
-            Wizard control that shows a step summary on the left of the wizard page area.
-            </summary>
+      <summary>Wizard control that shows a step summary on the left of the wizard page area.</summary>
     </member>
     <member name="M:AeroWizard.StepWizardControl.#ctor">
-      <summary>
-            Initializes a new instance of the <see cref="T:AeroWizard.StepWizardControl" /> class.
-            </summary>
+      <summary>Initializes a new instance of the <see cref="T:AeroWizard.StepWizardControl" /> class.</summary>
     </member>
     <member name="E:AeroWizard.StepWizardControl.DrawStepListItem">
-      <summary>
-            Occurs when a visual aspect of an owner-drawn StepList changes.
-            </summary>
+      <summary>Occurs when a visual aspect of an owner-drawn StepList changes.</summary>
     </member>
     <member name="M:AeroWizard.StepWizardControl.GetStepText(AeroWizard.WizardPage)">
-      <summary>
-            Gets the step text.
-            </summary>
+      <summary>Gets the step text.</summary>
       <param name="page">The page.</param>
       <returns>Step text for the specified wizard page.</returns>
     </member>
     <member name="M:AeroWizard.StepWizardControl.GetStepTextIndentLevel(AeroWizard.WizardPage)">
-      <summary>
-            Gets the step text indent level.
-            </summary>
+      <summary>Gets the step text indent level.</summary>
       <param name="page">The page.</param>
       <returns>Step text indent level for the specified wizard page.</returns>
     </member>
     <member name="E:AeroWizard.StepWizardControl.MeasureStepListItem">
-      <summary>
-            Occurs when an owner-drawn StepList is created and the sizes of the list items are determined.
-            </summary>
+      <summary>Occurs when an owner-drawn StepList is created and the sizes of the list items are determined.</summary>
     </member>
     <member name="M:AeroWizard.StepWizardControl.OnDrawStepListItem(AeroWizard.DrawStepListItemEventArgs)">
-      <summary>
-            Raises the <see cref="E:AeroWizard.StepWizardControl.DrawStepListItem" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:AeroWizard.StepWizardControl.DrawStepListItem" /> event.</summary>
       <param name="e">The <see cref="T:AeroWizard.DrawStepListItemEventArgs" /> instance containing the event data.</param>
     </member>
     <member name="M:AeroWizard.StepWizardControl.OnMeasureStepListItem(AeroWizard.MeasureStepListItemEventArgs)">
-      <summary>
-            Raises the <see cref="E:AeroWizard.StepWizardControl.MeasureStepListItem" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:AeroWizard.StepWizardControl.MeasureStepListItem" /> event.</summary>
       <param name="e">The <see cref="T:AeroWizard.MeasureStepListItemEventArgs" /> instance containing the event data.</param>
     </member>
     <member name="M:AeroWizard.StepWizardControl.OnRightToLeftChanged(System.EventArgs)">
-      <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.RightToLeftChanged" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Windows.Forms.Control.RightToLeftChanged" /> event.</summary>
       <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
     </member>
     <member name="P:AeroWizard.StepWizardControl.OwnerDrawStepList">
@@ -122,269 +80,177 @@
             </summary>
     </member>
     <member name="M:AeroWizard.StepWizardControl.SetStepText(AeroWizard.WizardPage,System.String)">
-      <summary>
-            Sets the step text.
-            </summary>
+      <summary>Sets the step text.</summary>
       <param name="page">The page.</param>
       <param name="value">The value.</param>
     </member>
     <member name="M:AeroWizard.StepWizardControl.SetStepTextIndentLevel(AeroWizard.WizardPage,System.Int32)">
-      <summary>
-            Sets the step text indent level.
-            </summary>
+      <summary>Sets the step text indent level.</summary>
       <param name="page">The page.</param>
       <param name="value">The indent level.</param>
     </member>
     <member name="P:AeroWizard.StepWizardControl.StepListFont">
-      <summary>
-            Gets or sets the StepList font.
-            </summary>
+      <summary>Gets or sets the StepList font.</summary>
     </member>
     <member name="P:AeroWizard.StepWizardControl.StepListWidth">
-      <summary>
-            Gets or sets the width of the step list.
-            </summary>
+      <summary>Gets or sets the width of the step list.</summary>
     </member>
     <member name="T:AeroWizard.ThemedImageButton">
-      <summary>
-            A button that displays an image and no text.
-            </summary>
+      <summary>A button that displays an image and no text.</summary>
     </member>
     <member name="M:AeroWizard.ThemedImageButton.#ctor">
-      <summary>
-            Initializes a new instance of the <see cref="T:AeroWizard.ThemedImageButton" /> class.
-            </summary>
+      <summary>Initializes a new instance of the <see cref="T:AeroWizard.ThemedImageButton" /> class.</summary>
     </member>
     <member name="P:AeroWizard.ThemedImageButton.BackColor">
-      <summary>
-            Gets or sets the background color of the control.
-            </summary>
+      <summary>Gets or sets the background color of the control.</summary>
       <returns>A <see cref="T:System.Drawing.Color" /> value representing the background color.</returns>
     </member>
     <member name="P:AeroWizard.ThemedImageButton.ButtonState">
-      <summary>
-            Gets or sets the state of the button.
-            </summary>
+      <summary>Gets or sets the state of the button.</summary>
     </member>
     <member name="P:AeroWizard.ThemedImageButton.DefaultSize">
-      <summary>
-            Retrieves the default size for the control.
-            </summary>
-      <returns>
-            The default <see cref="T:System.Drawing.Size" /> of the control.
-            </returns>
+      <summary>Retrieves the default size for the control.</summary>
+      <returns>The default <see cref="T:System.Drawing.Size" /> of the control.</returns>
     </member>
     <member name="M:AeroWizard.ThemedImageButton.GetPreferredSize(System.Drawing.Size)">
-      <summary>
-            Retrieves the size of a rectangular area into which a control can be fitted.
-            </summary>
+      <summary>Retrieves the size of a rectangular area into which a control can be fitted.</summary>
       <param name="proposedSize">The custom-sized area for a control.</param>
-      <returns>
-            An ordered pair of type <see cref="T:System.Drawing.Size" /> representing the width and height of a rectangle.
-            </returns>
+      <returns>An ordered pair of type <see cref="T:System.Drawing.Size" /> representing the width and height of a rectangle.</returns>
     </member>
     <member name="P:AeroWizard.ThemedImageButton.Image">
-      <summary>
-            Gets or sets the image that is displayed on a button control.
-            </summary>
+      <summary>Gets or sets the image that is displayed on a button control.</summary>
       <returns>The <see cref="T:System.Drawing.Image" /> displayed on the button control. The default value is null.</returns>
     </member>
     <member name="M:AeroWizard.ThemedImageButton.OnEnabledChanged(System.EventArgs)">
-      <summary>
-            Process Enabled property changed
-            </summary>
+      <summary>Process Enabled property changed</summary>
       <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
     </member>
     <member name="M:AeroWizard.ThemedImageButton.OnGotFocus(System.EventArgs)">
-      <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.GotFocus" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Windows.Forms.Control.GotFocus" /> event.</summary>
       <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
     </member>
     <member name="M:AeroWizard.ThemedImageButton.OnLostFocus(System.EventArgs)">
-      <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.LostFocus" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Windows.Forms.Control.LostFocus" /> event.</summary>
       <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
     </member>
     <member name="M:AeroWizard.ThemedImageButton.OnMouseDown(System.Windows.Forms.MouseEventArgs)">
-      <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.MouseDown" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Windows.Forms.Control.MouseDown" /> event.</summary>
       <param name="e">A <see cref="T:System.Windows.Forms.MouseEventArgs" /> that contains the event data.</param>
     </member>
     <member name="M:AeroWizard.ThemedImageButton.OnMouseEnter(System.EventArgs)">
-      <summary>
-            Raises the <see cref="M:System.Windows.Forms.Control.OnMouseEnter(System.EventArgs)" /> event.
-            </summary>
+      <summary>Raises the <see cref="M:System.Windows.Forms.Control.OnMouseEnter(System.EventArgs)" /> event.</summary>
       <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
     </member>
     <member name="M:AeroWizard.ThemedImageButton.OnMouseLeave(System.EventArgs)">
-      <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.MouseLeave" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Windows.Forms.Control.MouseLeave" /> event.</summary>
       <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
     </member>
     <member name="M:AeroWizard.ThemedImageButton.OnMouseUp(System.Windows.Forms.MouseEventArgs)">
-      <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.MouseUp" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Windows.Forms.Control.MouseUp" /> event.</summary>
       <param name="e">A <see cref="T:System.Windows.Forms.MouseEventArgs" /> that contains the event data.</param>
     </member>
     <member name="M:AeroWizard.ThemedImageButton.OnPaint(System.Windows.Forms.PaintEventArgs)">
-      <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.Paint" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Windows.Forms.Control.Paint" /> event.</summary>
       <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs" /> that contains the event data.</param>
     </member>
     <member name="M:AeroWizard.ThemedImageButton.OnPaintBackground(System.Windows.Forms.PaintEventArgs)">
-      <summary>
-            Paints the background of the control.
-            </summary>
+      <summary>Paints the background of the control.</summary>
       <param name="pevent">A <see cref="T:System.Windows.Forms.PaintEventArgs" /> that contains information about the control to paint.</param>
     </member>
     <member name="M:AeroWizard.ThemedImageButton.PaintButton(System.Drawing.Graphics,System.Drawing.Rectangle)">
-      <summary>
-            Primary function for painting the button. This method should be overridden instead of OnPaint.
-            </summary>
+      <summary>Primary function for painting the button. This method should be overridden instead of OnPaint.</summary>
       <param name="graphics">The graphics.</param>
       <param name="bounds">The bounds.</param>
     </member>
     <member name="M:AeroWizard.ThemedImageButton.PerformClicked">
-      <summary>
-            For button user use to simulate a click operate.
-            </summary>
+      <summary>For button user use to simulate a click operate.</summary>
     </member>
     <member name="M:AeroWizard.ThemedImageButton.SetImageListImageStrip(System.Drawing.Image,System.Windows.Forms.Orientation)">
-      <summary>
-            Sets the image list images using an image strip.
-            </summary>
+      <summary>Sets the image list images using an image strip.</summary>
       <param name="imageStrip">The image strip.</param>
       <param name="orientation">The orientation of the strip.</param>
     </member>
     <member name="P:AeroWizard.ThemedImageButton.StyleClass">
-      <summary>
-            Gets or sets the style class.
-            </summary>
+      <summary>Gets or sets the style class.</summary>
     </member>
     <member name="P:AeroWizard.ThemedImageButton.StylePart">
-      <summary>
-            Gets or sets the style part.
-            </summary>
+      <summary>Gets or sets the style part.</summary>
     </member>
     <member name="P:AeroWizard.ThemedImageButton.Text">
-      <summary>
-            Gets or sets the text associated with this control.
-            </summary>
-      <returns>
-            The text associated with this control.
-              </returns>
+      <summary>Gets or sets the text associated with this control.</summary>
+      <returns>The text associated with this control.</returns>
     </member>
     <member name="P:AeroWizard.ThemedImageButton.ToolTipText">
-      <summary>
-            Gets or sets the tool tip text.
-            </summary>
+      <summary>Gets or sets the tool tip text.</summary>
     </member>
     <member name="T:AeroWizard.ThemedLabel">
-      <summary>
-            A Label containing some text that will be drawn with glowing border on top of the Glass Sheet effect.
-            </summary>
+      <summary>A Label containing some text that will be drawn with glowing border on top of the Glass Sheet effect.</summary>
     </member>
     <member name="M:AeroWizard.ThemedLabel.#ctor">
-      <summary>
-            Initializes a new instance of the <see cref="T:AeroWizard.ThemedLabel" /> class.
-            </summary>
+      <summary>Initializes a new instance of the <see cref="T:AeroWizard.ThemedLabel" /> class.</summary>
     </member>
     <member name="P:AeroWizard.ThemedLabel.BackColor">
-      <summary>
-            Gets or sets the background color for the control.
-            </summary>
+      <summary>Gets or sets the background color for the control.</summary>
       <returns>
             A <see cref="T:System.Drawing.Color" /> that represents the background color of the control. The default is the value of the <see cref="P:System.Windows.Forms.Control.DefaultBackColor" /> property.
             </returns>
     </member>
     <member name="M:AeroWizard.ThemedLabel.GetPreferredSize(System.Drawing.Size)">
-      <summary>
-            Retrieves the size of a rectangular area into which a control can be fitted.
-            </summary>
+      <summary>Retrieves the size of a rectangular area into which a control can be fitted.</summary>
       <param name="proposedSize">The custom-sized area for a control.</param>
-      <returns>
-            An ordered pair of type <see cref="T:System.Drawing.Size" /> representing the width and height of a rectangle.
-            </returns>
+      <returns>An ordered pair of type <see cref="T:System.Drawing.Size" /> representing the width and height of a rectangle.</returns>
     </member>
     <member name="P:AeroWizard.ThemedLabel.Image">
-      <summary>
-            Gets or sets the image that is displayed on a <see cref="T:System.Windows.Forms.Label" />.
-            </summary>
+      <summary>Gets or sets the image that is displayed on a <see cref="T:System.Windows.Forms.Label" />.</summary>
       <returns>
             An <see cref="T:System.Drawing.Image" /> displayed on the <see cref="T:System.Windows.Forms.Label" />. The default is null.
             </returns>
     </member>
     <member name="M:AeroWizard.ThemedLabel.OnPaint(System.Windows.Forms.PaintEventArgs)">
-      <summary>
-            Raises the Paint event.
-            </summary>
+      <summary>Raises the Paint event.</summary>
       <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs" /> that contains the event data.</param>
     </member>
     <member name="M:AeroWizard.ThemedLabel.WndProc(System.Windows.Forms.Message@)">
-      <summary>
-            Processes Windows messages.
-            </summary>
+      <summary>Processes Windows messages.</summary>
       <param name="m">The Windows <see cref="T:System.Windows.Forms.Message" /> to process.</param>
     </member>
     <member name="T:AeroWizard.ThemedTableLayoutPanel">
-      <summary>
-            A table layout panel that supports a glass overlay.
-            </summary>
+      <summary>A table layout panel that supports a glass overlay.</summary>
     </member>
     <member name="M:AeroWizard.ThemedTableLayoutPanel.#ctor">
-      <summary>
-            Initializes a new instance of the <see cref="T:AeroWizard.ThemedTableLayoutPanel" /> class.
-            </summary>
+      <summary>Initializes a new instance of the <see cref="T:AeroWizard.ThemedTableLayoutPanel" /> class.</summary>
     </member>
     <member name="M:AeroWizard.ThemedTableLayoutPanel.ClearTheme">
-      <summary>
-            Clears the theme and defaults to TableLayoutPanel painting.
-            </summary>
+      <summary>Clears the theme and defaults to TableLayoutPanel painting.</summary>
     </member>
     <member name="M:AeroWizard.ThemedTableLayoutPanel.OnHandleCreated(System.EventArgs)">
-      <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.HandleCreated" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Windows.Forms.Control.HandleCreated" /> event.</summary>
       <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
     </member>
     <member name="M:AeroWizard.ThemedTableLayoutPanel.OnPaint(System.Windows.Forms.PaintEventArgs)">
-      <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.Paint" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Windows.Forms.Control.Paint" /> event.</summary>
       <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs" /> that contains the event data.</param>
     </member>
     <member name="M:AeroWizard.ThemedTableLayoutPanel.SetTheme(System.String,System.Int32,System.Int32)">
-      <summary>
-            Sets the theme using theme class information.
-            </summary>
+      <summary>Sets the theme using theme class information.</summary>
       <param name="className">Name of the theme class.</param>
       <param name="part">The theme part.</param>
       <param name="state">The theme state.</param>
     </member>
     <member name="M:AeroWizard.ThemedTableLayoutPanel.SetTheme(System.Windows.Forms.VisualStyles.VisualStyleElement)">
-      <summary>
-            Sets the theme using a defined <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement" />.
-            </summary>
+      <summary>Sets the theme using a defined <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement" />.</summary>
       <param name="element">The visual element.</param>
     </member>
     <member name="P:AeroWizard.ThemedTableLayoutPanel.SupportGlass">
-      <summary>
-            Gets or sets a value indicating whether this table supports glass (can be enclosed in the glass margin).
-            </summary>
+      <summary>Gets or sets a value indicating whether this table supports glass (can be enclosed in the glass margin).</summary>
     </member>
     <member name="P:AeroWizard.ThemedTableLayoutPanel.WatchFocus">
-      <summary>
-            Gets or sets a value indicating whether to watch getting and losing focus.
-            </summary>
+      <summary>Gets or sets a value indicating whether to watch getting and losing focus.</summary>
     </member>
     <member name="T:AeroWizard.WizardClassicStyle">
-      <summary>Styles that can be applied to the body of a <see cref="T:AeroWizard.WizardControl" /> when on XP or earlier or when a Basic theme is applied.</summary>
+      <summary>
+            Styles that can be applied to the body of a <see cref="T:AeroWizard.WizardControl" /> when on XP or earlier or when a Basic theme is applied.
+            </summary>
     </member>
     <member name="F:AeroWizard.WizardClassicStyle.AeroStyle">
       <summary>Windows Vista style theme with large fonts and white background.</summary>
@@ -439,7 +305,9 @@
       <summary>Occurs when the user clicks the Cancel button and allows for programmatic cancellation.</summary>
     </member>
     <member name="P:AeroWizard.WizardControl.ClassicStyle">
-      <summary>Gets or sets the style applied to the body of a <see cref="T:AeroWizard.WizardControl" /> when on XP or earlier or when a Basic theme is applied.</summary>
+      <summary>
+            Gets or sets the style applied to the body of a <see cref="T:AeroWizard.WizardControl" /> when on XP or earlier or when a Basic theme is applied.
+            </summary>
     </member>
     <member name="M:AeroWizard.WizardControl.Dispose(System.Boolean)">
       <summary> 
@@ -455,8 +323,8 @@
     </member>
     <member name="E:AeroWizard.WizardControl.Finished">
       <summary>
-            Occurs when the user clicks the Next/Finish button and the page is set to <see cref="P:AeroWizard.WizardPage.IsFinishPage" /> or this is the last page in the
-            <see cref="P:AeroWizard.WizardControl.Pages" /> collection.
+            Occurs when the user clicks the Next/Finish button and the page is set to <see cref="P:AeroWizard.WizardPage.IsFinishPage" /> or this is the
+            last page in the <see cref="P:AeroWizard.WizardControl.Pages" /> collection.
             </summary>
     </member>
     <member name="M:AeroWizard.WizardControl.GetUnthemedBackButtonImage">
@@ -469,7 +337,9 @@
     </member>
     <member name="P:AeroWizard.WizardControl.NextButtonShieldEnabled">
       <summary>Gets or sets the shield icon on the next button.</summary>
-      <exception cref="T:System.PlatformNotSupportedException">Setting a UAF shield on a button only works on Vista and later versions of Windows.</exception>
+      <exception cref="T:System.PlatformNotSupportedException">
+            Setting a UAF shield on a button only works on Vista and later versions of Windows.
+            </exception>
     </member>
     <member name="P:AeroWizard.WizardControl.NextButtonState">
       <summary>Gets the state of the next button.</summary>
@@ -545,7 +415,9 @@
       <summary>Gets or sets a value indicating whether to show progress in form's taskbar icon.</summary>
     </member>
     <member name="P:AeroWizard.WizardControl.SuppressParentFormCaptionSync">
-      <summary>Gets or sets a value indicating whether to suppress changing the parent form's caption to match the wizard's <see cref="P:AeroWizard.WizardControl.Title" />.</summary>
+      <summary>
+            Gets or sets a value indicating whether to suppress changing the parent form's caption to match the wizard's <see cref="P:AeroWizard.WizardControl.Title" />.
+            </summary>
     </member>
     <member name="P:AeroWizard.WizardControl.SuppressParentFormIconSync">
       <summary>Gets or sets a value indicating whether to suppress changing the parent form's icon to match the wizard's <see cref="P:AeroWizard.WizardControl.TitleIcon" />.</summary>
@@ -557,40 +429,29 @@
       <summary>Gets or sets the optionally displayed icon next to the wizard title.</summary>
     </member>
     <member name="T:AeroWizard.WizardPage">
-      <summary>
-            Represents a single page in a <see cref="T:AeroWizard.WizardControl" />.
-            </summary>
+      <summary>Represents a single page in a <see cref="T:AeroWizard.WizardControl" />.</summary>
     </member>
     <member name="M:AeroWizard.WizardPage.#ctor">
-      <summary>
-            Initializes a new instance of the <see cref="T:AeroWizard.WizardPage" /> class.
-            </summary>
+      <summary>Initializes a new instance of the <see cref="T:AeroWizard.WizardPage" /> class.</summary>
     </member>
     <member name="P:AeroWizard.WizardPage.AllowBack">
-      <summary>
-            Gets or sets a value indicating whether to enable the Back button.
-            </summary>
+      <summary>Gets or sets a value indicating whether to enable the Back button.</summary>
     </member>
     <member name="P:AeroWizard.WizardPage.AllowCancel">
-      <summary>
-            Gets or sets a value indicating whether to enable the Cancel button.
-            </summary>
+      <summary>Gets or sets a value indicating whether to enable the Cancel button.</summary>
     </member>
     <member name="P:AeroWizard.WizardPage.AllowNext">
-      <summary>
-            Gets or sets a value indicating whether to enable the Next/Finish button.
-            </summary>
+      <summary>Gets or sets a value indicating whether to enable the Next/Finish button.</summary>
     </member>
     <member name="E:AeroWizard.WizardPage.Commit">
-      <summary>
-            Occurs when the user has clicked the Next/Finish button but before the page is changed.
-            </summary>
+      <summary>Occurs when the user has clicked the Next/Finish button but before the page is changed.</summary>
     </member>
     <member name="P:AeroWizard.WizardPage.CreateParams">
-      <summary>
-            Gets the required creation parameters when the control handle is created.
-            </summary>
-      <returns>A <see cref="T:System.Windows.Forms.CreateParams" /> that contains the required creation parameters when the handle to the control is created.</returns>
+      <summary>Gets the required creation parameters when the control handle is created.</summary>
+      <returns>
+            A <see cref="T:System.Windows.Forms.CreateParams" /> that contains the required creation parameters when the handle to the control
+            is created.
+            </returns>
     </member>
     <member name="M:AeroWizard.WizardPage.Dispose(System.Boolean)">
       <summary>
@@ -599,74 +460,62 @@
       <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
     </member>
     <member name="E:AeroWizard.WizardPage.HelpClicked">
-      <summary>
-            Occurs when <see cref="P:AeroWizard.WizardPage.HelpText" /> is set and the user has clicked the link at bottom of the content area.
-            </summary>
+      <summary>Occurs when <see cref="P:AeroWizard.WizardPage.HelpText" /> is set and the user has clicked the link at bottom of the content area.</summary>
     </member>
     <member name="P:AeroWizard.WizardPage.HelpText">
       <summary>
-            Gets or sets the help text. When value is not <c>null</c>, a help link will be displayed at the bottom left of the content area. When clicked, the <see cref="M:AeroWizard.WizardPage.OnHelpClicked" /> method will call the <see cref="E:AeroWizard.WizardPage.HelpClicked" /> event.
+            Gets or sets the help text. When value is not <c>null</c>, a help link will be displayed at the bottom left of the content area.
+            When clicked, the <see cref="M:AeroWizard.WizardPage.OnHelpClicked" /> method will call the <see cref="E:AeroWizard.WizardPage.HelpClicked" /> event.
             </summary>
     </member>
     <member name="E:AeroWizard.WizardPage.Initialize">
-      <summary>
-            Occurs when this page is entered.
-            </summary>
+      <summary>Occurs when this page is entered.</summary>
     </member>
     <member name="P:AeroWizard.WizardPage.IsFinishPage">
       <summary>
-            Gets or sets a value indicating whether this page is the last page in the sequence and should display the Finish text instead of the Next text on the Next/Finish button.
+            Gets or sets a value indicating whether this page is the last page in the sequence and should display the Finish text instead of
+            the Next text on the Next/Finish button.
             </summary>
     </member>
     <member name="P:AeroWizard.WizardPage.NextPage">
       <summary>
-            Gets or sets the next page that should be used when the user clicks the Next button or when the <see cref="M:AeroWizard.WizardControl.NextPage(AeroWizard.WizardPage,System.Boolean)" /> method is called. This is used to override the default behavior of going to the next page in the sequence defined within the <see cref="P:AeroWizard.WizardControl.Pages" /> collection.
+            Gets or sets the next page that should be used when the user clicks the Next button or when the <see cref="M:AeroWizard.WizardControl.NextPage(AeroWizard.WizardPage,System.Boolean)" /> method is called. This is used to override the default behavior of going to the next page in the
+            sequence defined within the <see cref="P:AeroWizard.WizardControl.Pages" /> collection.
             </summary>
     </member>
     <member name="M:AeroWizard.WizardPage.OnCommit">
-      <summary>
-            Raises the <see cref="E:AeroWizard.WizardPage.Commit" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:AeroWizard.WizardPage.Commit" /> event.</summary>
       <returns>
-        <c>true</c> if handler does not set the <see cref="P:AeroWizard.WizardPageConfirmEventArgs.Cancel" /> to <c>true</c>; otherwise, <c>false</c>.</returns>
+        <c>true</c> if handler does not set the <see cref="P:AeroWizard.WizardPageConfirmEventArgs.Cancel" /> to <c>true</c>; otherwise, <c>false</c>.
+            </returns>
     </member>
     <member name="M:AeroWizard.WizardPage.OnGotFocus(System.EventArgs)">
-      <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.GotFocus" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Windows.Forms.Control.GotFocus" /> event.</summary>
       <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
     </member>
     <member name="M:AeroWizard.WizardPage.OnHelpClicked">
-      <summary>
-            Raises the <see cref="E:AeroWizard.WizardPage.HelpClicked" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:AeroWizard.WizardPage.HelpClicked" /> event.</summary>
     </member>
     <member name="M:AeroWizard.WizardPage.OnInitialize(AeroWizard.WizardPage)">
-      <summary>
-            Raises the <see cref="E:AeroWizard.WizardPage.Initialize" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:AeroWizard.WizardPage.Initialize" /> event.</summary>
       <param name="prevPage">The page that was previously selected.</param>
     </member>
     <member name="M:AeroWizard.WizardPage.OnRollback">
-      <summary>
-            Raises the <see cref="E:AeroWizard.WizardPage.Rollback" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:AeroWizard.WizardPage.Rollback" /> event.</summary>
       <returns>
-        <c>true</c> if handler does not set the <see cref="P:AeroWizard.WizardPageConfirmEventArgs.Cancel" /> to <c>true</c>; otherwise, <c>false</c>.</returns>
+        <c>true</c> if handler does not set the <see cref="P:AeroWizard.WizardPageConfirmEventArgs.Cancel" /> to <c>true</c>; otherwise, <c>false</c>.
+            </returns>
     </member>
     <member name="P:AeroWizard.WizardPage.Owner">
-      <summary>
-            Gets the <see cref="T:AeroWizard.WizardControl" /> for this page.
-            </summary>
+      <summary>Gets the <see cref="T:AeroWizard.WizardControl" /> for this page.</summary>
     </member>
     <member name="E:AeroWizard.WizardPage.Rollback">
-      <summary>
-            Occurs when the user has clicked the Back button but before the page is changed.
-            </summary>
+      <summary>Occurs when the user has clicked the Back button but before the page is changed.</summary>
     </member>
     <member name="P:AeroWizard.WizardPage.ShowCancel">
       <summary>
-            Gets or sets a value indicating whether to show the Cancel button. If both <see cref="P:AeroWizard.WizardPage.ShowCancel" /> and <see cref="P:AeroWizard.WizardPage.ShowNext" /> are <c>false</c>, then the bottom command area will not be shown.
+            Gets or sets a value indicating whether to show the Cancel button. If both <see cref="P:AeroWizard.WizardPage.ShowCancel" /> and <see cref="P:AeroWizard.WizardPage.ShowNext" />
+            are <c>false</c>, then the bottom command area will not be shown.
             </summary>
     </member>
     <member name="P:AeroWizard.WizardPage.ShowNext">
@@ -675,12 +524,8 @@
             </summary>
     </member>
     <member name="P:AeroWizard.WizardPage.Size">
-      <summary>
-            Gets or sets the height and width of the control.
-            </summary>
-      <returns>
-            The <see cref="T:System.Drawing.Size" /> that represents the height and width of the control in pixels.
-            </returns>
+      <summary>Gets or sets the height and width of the control.</summary>
+      <returns>The <see cref="T:System.Drawing.Size" /> that represents the height and width of the control in pixels.</returns>
     </member>
     <member name="P:AeroWizard.WizardPage.Suppress">
       <summary>
@@ -688,37 +533,23 @@
             </summary>
     </member>
     <member name="M:AeroWizard.WizardPage.ToString">
-      <summary>
-            Returns a <see cref="T:System.String" /> that represents this wizard page.
-            </summary>
-      <returns>
-            A <see cref="T:System.String" /> that represents this wizard page.
-            </returns>
+      <summary>Returns a <see cref="T:System.String" /> that represents this wizard page.</summary>
+      <returns>A <see cref="T:System.String" /> that represents this wizard page.</returns>
     </member>
     <member name="T:AeroWizard.WizardPageCollection">
-      <summary>
-            A collection of <see cref="T:AeroWizard.WizardPage" /> controls.
-            </summary>
+      <summary>A collection of <see cref="T:AeroWizard.WizardPage" /> controls.</summary>
     </member>
     <member name="P:AeroWizard.WizardPageCollection.Owner">
-      <summary>
-            Gets the <see cref="T:AeroWizard.WizardControl" /> to which this collection belongs.
-            </summary>
+      <summary>Gets the <see cref="T:AeroWizard.WizardControl" /> to which this collection belongs.</summary>
     </member>
     <member name="T:AeroWizard.WizardPageConfirmEventArgs">
-      <summary>
-            Arguments supplied to the <see cref="T:AeroWizard.WizardPage" /> events.
-            </summary>
+      <summary>Arguments supplied to the <see cref="T:AeroWizard.WizardPage" /> events.</summary>
     </member>
     <member name="P:AeroWizard.WizardPageConfirmEventArgs.Cancel">
-      <summary>
-            Gets or sets a value indicating whether this action is to be canceled or allowed.
-            </summary>
+      <summary>Gets or sets a value indicating whether this action is to be canceled or allowed.</summary>
     </member>
     <member name="P:AeroWizard.WizardPageConfirmEventArgs.Page">
-      <summary>
-            Gets the <see cref="T:AeroWizard.WizardPage" /> that has raised the event.
-            </summary>
+      <summary>Gets the <see cref="T:AeroWizard.WizardPage" /> that has raised the event.</summary>
     </member>
     <member name="T:AeroWizard.WizardPageContainer">
       <summary>Control providing a collection of wizard style navigable pages.</summary>
@@ -761,8 +592,8 @@
     </member>
     <member name="E:AeroWizard.WizardPageContainer.Finished">
       <summary>
-            Occurs when the user clicks the Next/Finish button and the page is set to <see cref="P:AeroWizard.WizardPage.IsFinishPage" /> or this is the last page in the
-            <see cref="P:AeroWizard.WizardPageContainer.Pages" /> collection.
+            Occurs when the user clicks the Next/Finish button and the page is set to <see cref="P:AeroWizard.WizardPage.IsFinishPage" /> or this is the
+            last page in the <see cref="P:AeroWizard.WizardPageContainer.Pages" /> collection.
             </summary>
     </member>
     <member name="P:AeroWizard.WizardPageContainer.NextButton">
@@ -770,7 +601,9 @@
     </member>
     <member name="P:AeroWizard.WizardPageContainer.NextButtonShieldEnabled">
       <summary>Gets or sets the shield icon on the next button.</summary>
-      <exception cref="T:System.PlatformNotSupportedException">Setting a UAF shield on a button only works on Vista and later versions of Windows.</exception>
+      <exception cref="T:System.PlatformNotSupportedException">
+            Setting a UAF shield on a button only works on Vista and later versions of Windows.
+            </exception>
     </member>
     <member name="P:AeroWizard.WizardPageContainer.NextButtonState">
       <summary>Gets the state of the next button.</summary>
@@ -781,7 +614,9 @@
     <member name="M:AeroWizard.WizardPageContainer.NextPage(AeroWizard.WizardPage,System.Boolean)">
       <summary>Advances to the specified page.</summary>
       <param name="nextPage">The wizard page to go to next.</param>
-      <param name="skipCommit">if set to <c>true</c> prevent the <see cref="E:AeroWizard.WizardPage.Commit" /> event from firing for the current page.</param>
+      <param name="skipCommit">
+            if set to <c>true</c> prevent the <see cref="E:AeroWizard.WizardPage.Commit" /> event from firing for the current page.
+            </param>
       <exception cref="T:System.ArgumentException">When specifying a value for nextPage, it must already be in the Pages collection.</exception>
     </member>
     <member name="M:AeroWizard.WizardPageContainer.OnCancelling(System.ComponentModel.CancelEventArgs)">
@@ -818,7 +653,9 @@
       <summary>Gets the currently selected wizard page.</summary>
     </member>
     <member name="E:AeroWizard.WizardPageContainer.SelectedPageChanged">
-      <summary>Occurs when the <see cref="P:AeroWizard.WizardPageContainer.SelectedPage" /> property has changed. Use this to effectively be notified after a new wizard page is displayed.</summary>
+      <summary>
+            Occurs when the <see cref="P:AeroWizard.WizardPageContainer.SelectedPage" /> property has changed. Use this to effectively be notified after a new wizard page is displayed.
+            </summary>
     </member>
     <member name="P:AeroWizard.WizardPageContainer.ShowProgressInTaskbarIcon">
       <summary>Gets or sets a value indicating whether to show progress in form's taskbar icon.</summary>
@@ -827,19 +664,13 @@
       <summary>Updates the buttons and taskbar according to current sequence and history.</summary>
     </member>
     <member name="T:AeroWizard.WizardPageInitEventArgs">
-      <summary>
-            Arguments supplied to the <see cref="E:AeroWizard.WizardPage.Initialize" /> event.
-            </summary>
+      <summary>Arguments supplied to the <see cref="E:AeroWizard.WizardPage.Initialize" /> event.</summary>
     </member>
     <member name="P:AeroWizard.WizardPageInitEventArgs.PreviousPage">
-      <summary>
-            Gets the <see cref="T:AeroWizard.WizardPage" /> that was previously selected when the event was raised.
-            </summary>
+      <summary>Gets the <see cref="T:AeroWizard.WizardPage" /> that was previously selected when the event was raised.</summary>
     </member>
     <member name="T:AeroWizard.VisualStyles.VisualStyleElementEx">
-      <summary>
-            Identifies a control or user interface (UI) element that is drawn with visual styles.
-            </summary>
+      <summary>Identifies a control or user interface (UI) element that is drawn with visual styles.</summary>
     </member>
     <member name="T:AeroWizard.VisualStyles.VisualStyleElementEx.AeroWizard">
       <summary>
@@ -847,25 +678,19 @@
             </summary>
     </member>
     <member name="T:AeroWizard.VisualStyles.VisualStyleElementEx.AeroWizard.Button">
-      <summary>
-            Provides a <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement" /> for the button of a wizard. This class cannot be inherited.
-            </summary>
+      <summary>Provides a <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement" /> for the button of a wizard. This class cannot be inherited.</summary>
     </member>
     <member name="P:AeroWizard.VisualStyles.VisualStyleElementEx.AeroWizard.Button.Normal">
       <summary>Gets a visual style element that represents a button in a wizard.</summary>
     </member>
     <member name="T:AeroWizard.VisualStyles.VisualStyleElementEx.AeroWizard.CommandArea">
-      <summary>
-            Provides a <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement" /> for the command area of a wizard. This class cannot be inherited.
-            </summary>
+      <summary>Provides a <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement" /> for the command area of a wizard. This class cannot be inherited.</summary>
     </member>
     <member name="P:AeroWizard.VisualStyles.VisualStyleElementEx.AeroWizard.CommandArea.Normal">
       <summary>Gets a visual style element that represents the command area of a wizard.</summary>
     </member>
     <member name="T:AeroWizard.VisualStyles.VisualStyleElementEx.AeroWizard.ContentArea">
-      <summary>
-            Provides a <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement" /> for the content area of a wizard. This class cannot be inherited.
-            </summary>
+      <summary>Provides a <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement" /> for the content area of a wizard. This class cannot be inherited.</summary>
     </member>
     <member name="P:AeroWizard.VisualStyles.VisualStyleElementEx.AeroWizard.ContentArea.NoMargin">
       <summary>Gets a visual style element that represents the content area of a wizard without a margin.</summary>
@@ -874,9 +699,7 @@
       <summary>Gets a visual style element that represents the content area of a wizard.</summary>
     </member>
     <member name="T:AeroWizard.VisualStyles.VisualStyleElementEx.AeroWizard.HeaderArea">
-      <summary>
-            Provides a <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement" /> for the header area of a wizard. This class cannot be inherited.
-            </summary>
+      <summary>Provides a <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement" /> for the header area of a wizard. This class cannot be inherited.</summary>
     </member>
     <member name="P:AeroWizard.VisualStyles.VisualStyleElementEx.AeroWizard.HeaderArea.NoMargin">
       <summary>Gets a visual style element that represents the header area of a wizard without a margin.</summary>
@@ -902,7 +725,7 @@
     </member>
     <member name="T:AeroWizard.VisualStyles.VisualStyleElementEx.Navigation.BackButton">
       <summary>
-            Provides <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement" /> objects for the different states of the Back Button control. This class cannot be inherited. 
+            Provides <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement" /> objects for the different states of the Back Button control. This class cannot be inherited.
             </summary>
     </member>
     <member name="P:AeroWizard.VisualStyles.VisualStyleElementEx.Navigation.BackButton.Disabled">
@@ -919,7 +742,8 @@
     </member>
     <member name="T:AeroWizard.VisualStyles.VisualStyleElementEx.Navigation.ForwardButton">
       <summary>
-            Provides <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement" /> objects for the different states of the Forward Button control. This class cannot be inherited. 
+            Provides <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement" /> objects for the different states of the Forward Button control. This class cannot
+            be inherited.
             </summary>
     </member>
     <member name="P:AeroWizard.VisualStyles.VisualStyleElementEx.Navigation.ForwardButton.Disabled">
@@ -936,7 +760,7 @@
     </member>
     <member name="T:AeroWizard.VisualStyles.VisualStyleElementEx.Navigation.MenuButton">
       <summary>
-            Provides <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement" /> objects for the different states of the Menu Button control. This class cannot be inherited. 
+            Provides <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement" /> objects for the different states of the Menu Button control. This class cannot be inherited.
             </summary>
     </member>
     <member name="P:AeroWizard.VisualStyles.VisualStyleElementEx.Navigation.MenuButton.Disabled">
@@ -952,107 +776,111 @@
       <summary>Gets a visual style element that represents a menu button in the pressed state.</summary>
     </member>
     <member name="T:System.Collections.Generic.EventedList`1">
-      <summary>
-            A generic list that provides event for changes to the list.
-            </summary>
+      <summary>A generic list that provides event for changes to the list.</summary>
       <typeparam name="T">Type for the list.</typeparam>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.#ctor">
-      <summary>
-            Initializes a new instance of the <see cref="T:System.Collections.Generic.EventedList`1" /> class that is empty and has the default initial capacity.
-            </summary>
+      <summary>Initializes a new instance of the <see cref="T:System.Collections.Generic.EventedList`1" /> class that is empty and has the default initial capacity.</summary>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
       <summary>
-            Initializes a new instance of the <see cref="T:System.Collections.Generic.EventedList`1" /> class that contains elements copied from the specified collection and has sufficient capacity to accommodate the number of elements copied.
+            Initializes a new instance of the <see cref="T:System.Collections.Generic.EventedList`1" /> class that contains elements copied from the specified collection
+            and has sufficient capacity to accommodate the number of elements copied.
             </summary>
       <param name="collection">The collection whose elements are copied to the new list.</param>
       <exception cref="T:System.ArgumentNullException">
         <paramref name="collection" /> is <c>null</c>.</exception>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.#ctor(System.Int32)">
-      <summary>
-            Initializes a new instance of the <see cref="T:System.Collections.Generic.EventedList`1" /> class that is empty and has the default initial capacity.
-            </summary>
+      <summary>Initializes a new instance of the <see cref="T:System.Collections.Generic.EventedList`1" /> class that is empty and has the default initial capacity.</summary>
       <param name="capacity">The number of elements that the new list can initially store.</param>
       <exception cref="T:System.ArgumentOutOfRangeException">
         <paramref name="capacity" /> is less than 0.</exception>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.Add(`0)">
-      <summary>
-            Adds an item to the <see cref="T:System.Collections.Generic.EventedList`1" />.
-            </summary>
+      <summary>Adds an item to the <see cref="T:System.Collections.Generic.EventedList`1" />.</summary>
       <param name="item">The object to add to the <see cref="T:System.Collections.Generic.EventedList`1" />.</param>
       <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.EventedList`1" /> is read-only.</exception>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
-      <summary>
-            Adds the range.
-            </summary>
+      <summary>Adds the range.</summary>
       <param name="collection">The collection.</param>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.AsReadOnly">
-      <summary>
-            Returns a read-only <see cref="T:System.Collections.Generic.EventedList`1" /> wrapper for the current collection.
-            </summary>
+      <summary>Returns a read-only <see cref="T:System.Collections.Generic.EventedList`1" /> wrapper for the current collection.</summary>
       <returns>A <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" /> that acts as a read-only wrapper around the current <see cref="T:System.Collections.Generic.EventedList`1" />.</returns>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.BinarySearch(System.Int32,System.Int32,`0,System.Collections.Generic.IComparer{`0})">
       <summary>
-            Searches a range of elements in the sorted <see cref="T:System.Collections.Generic.EventedList`1" /> for an element using the specified comparer and returns the zero-based index of the element.
+            Searches a range of elements in the sorted <see cref="T:System.Collections.Generic.EventedList`1" /> for an element using the specified comparer and returns
+            the zero-based index of the element.
             </summary>
       <param name="index">The zero-based starting index of the range to search.</param>
       <param name="count">The length of the range to search.</param>
       <param name="item">The object to locate. The value can be <c>null</c> for reference types.</param>
-      <param name="comparer">The <see cref="T:System.Collections.Generic.IComparer`1" /> implementation to use when comparing elements, or <c>null</c> to use the default comparer <see cref="P:System.Collections.Generic.Comparer`1.Default" />.</param>
-      <returns>The zero-based index of <paramref name="item" /> in the sorted <see cref="T:System.Collections.Generic.EventedList`1" />, if <paramref name="item" /> is found; otherwise, a negative number that is the bitwise complement of the index of the next element that is larger than item or, if there is no larger element, the bitwise complement of <see cref="P:System.Collections.Generic.EventedList`1.Count" />.</returns>
+      <param name="comparer">
+            The <see cref="T:System.Collections.Generic.IComparer`1" /> implementation to use when comparing elements, or <c>null</c> to use the default comparer <see cref="P:System.Collections.Generic.Comparer`1.Default" />.
+            </param>
+      <returns>
+            The zero-based index of <paramref name="item" /> in the sorted <see cref="T:System.Collections.Generic.EventedList`1" />, if <paramref name="item" /> is found;
+            otherwise, a negative number that is the bitwise complement of the index of the next element that is larger than item or, if
+            there is no larger element, the bitwise complement of <see cref="P:System.Collections.Generic.EventedList`1.Count" />.
+            </returns>
       <exception cref="T:System.ArgumentOutOfRangeException">
-        <paramref name="index" /> is less than 0. -or- <paramref name="count" /> is less than 0.</exception>
+        <paramref name="index" /> is less than 0. -or- <paramref name="count" /> is less than 0.
+            </exception>
       <exception cref="T:System.ArgumentException">
-        <paramref name="index" /> and <paramref name="count" /> do not denote a valid range in the <see cref="T:System.Collections.Generic.EventedList`1" />.</exception>
+        <paramref name="index" /> and <paramref name="count" /> do not denote a valid range in the <see cref="T:System.Collections.Generic.EventedList`1" />.
+            </exception>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.BinarySearch(`0)">
       <summary>
-            Searches the entire sorted <see cref="T:System.Collections.Generic.EventedList`1" /> for an element using the default comparer and returns the zero-based index of the element.
+            Searches the entire sorted <see cref="T:System.Collections.Generic.EventedList`1" /> for an element using the default comparer and returns the zero-based
+            index of the element.
             </summary>
       <param name="item">The object to locate. The value can be <c>null</c> for reference types.</param>
-      <returns>The zero-based index of <paramref name="item" /> in the sorted <see cref="T:System.Collections.Generic.EventedList`1" />, if <paramref name="item" /> is found; otherwise, a negative number that is the bitwise complement of the index of the next element that is larger than item or, if there is no larger element, the bitwise complement of <see cref="P:System.Collections.Generic.EventedList`1.Count" />.</returns>
+      <returns>
+            The zero-based index of <paramref name="item" /> in the sorted <see cref="T:System.Collections.Generic.EventedList`1" />, if <paramref name="item" /> is found;
+            otherwise, a negative number that is the bitwise complement of the index of the next element that is larger than item or, if
+            there is no larger element, the bitwise complement of <see cref="P:System.Collections.Generic.EventedList`1.Count" />.
+            </returns>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.BinarySearch(`0,System.Collections.Generic.IComparer{`0})">
       <summary>
-            Searches the entire sorted <see cref="T:System.Collections.Generic.EventedList`1" /> for an element using the specified comparer and returns the zero-based index of the element.
+            Searches the entire sorted <see cref="T:System.Collections.Generic.EventedList`1" /> for an element using the specified comparer and returns the zero-based
+            index of the element.
             </summary>
       <param name="item">The object to locate. The value can be <c>null</c> for reference types.</param>
-      <param name="comparer">The <see cref="T:System.Collections.Generic.IComparer`1" /> implementation to use when comparing elements, or <c>null</c> to use the default comparer <see cref="P:System.Collections.Generic.Comparer`1.Default" />.</param>
-      <returns>The zero-based index of <paramref name="item" /> in the sorted <see cref="T:System.Collections.Generic.EventedList`1" />, if <paramref name="item" /> is found; otherwise, a negative number that is the bitwise complement of the index of the next element that is larger than item or, if there is no larger element, the bitwise complement of <see cref="P:System.Collections.Generic.EventedList`1.Count" />.</returns>
+      <param name="comparer">
+            The <see cref="T:System.Collections.Generic.IComparer`1" /> implementation to use when comparing elements, or <c>null</c> to use the default comparer <see cref="P:System.Collections.Generic.Comparer`1.Default" />.
+            </param>
+      <returns>
+            The zero-based index of <paramref name="item" /> in the sorted <see cref="T:System.Collections.Generic.EventedList`1" />, if <paramref name="item" /> is found;
+            otherwise, a negative number that is the bitwise complement of the index of the next element that is larger than item or, if
+            there is no larger element, the bitwise complement of <see cref="P:System.Collections.Generic.EventedList`1.Count" />.
+            </returns>
     </member>
     <member name="P:System.Collections.Generic.EventedList`1.Capacity">
-      <summary>
-            Gets or sets the total number of elements the internal data structure can hold without resizing.
-            </summary>
+      <summary>Gets or sets the total number of elements the internal data structure can hold without resizing.</summary>
       <exception cref="T:System.ArgumentOutOfRangeException">
         <c>Capacity</c> is set to a value that is less than <see cref="P:System.Collections.Generic.EventedList`1.Count" />.</exception>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.Clear">
-      <summary>
-            Removes all items from the <see cref="T:System.Collections.Generic.EventedList`1" />.
-            </summary>
-      <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.EventedList`1" /> is read-only. </exception>
+      <summary>Removes all items from the <see cref="T:System.Collections.Generic.EventedList`1" />.</summary>
+      <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.EventedList`1" /> is read-only.</exception>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.Contains(`0)">
-      <summary>
-            Determines whether the <see cref="T:System.Collections.Generic.EventedList`1" /> contains a specific value.
-            </summary>
+      <summary>Determines whether the <see cref="T:System.Collections.Generic.EventedList`1" /> contains a specific value.</summary>
       <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.EventedList`1" />.</param>
-      <returns>
-            true if <paramref name="item" /> is found in the <see cref="T:System.Collections.Generic.EventedList`1" />; otherwise, false.
-            </returns>
+      <returns>true if <paramref name="item" /> is found in the <see cref="T:System.Collections.Generic.EventedList`1" />; otherwise, false.</returns>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.ConvertAll``1(System.Converter{`0,``0})">
       <summary>
             Converts the elements in the current <see cref="T:System.Collections.Generic.EventedList`1" /> to another type, and returns a list containing the converted elements.
             </summary>
-      <param name="converter">A <see cref="T:System.Converter`2" /> delegate that converts each element from one type to another type.</param>
+      <param name="converter">
+            A <see cref="T:System.Converter`2" /> delegate that converts each element from one type to another type.
+            </param>
       <typeparam name="TOutput">The type of the elements of the target array.</typeparam>
       <returns>A <see cref="T:System.Collections.Generic.EventedList`1" /> of the target type containing the converted elements from the current <see cref="T:System.Collections.Generic.EventedList`1" />.</returns>
       <exception cref="T:System.ArgumentNullException">
@@ -1060,10 +888,13 @@
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.CopyTo(System.Int32,`0[],System.Int32,System.Int32)">
       <summary>
-            Copies a range of elements from the <see cref="T:System.Collections.Generic.EventedList`1" /> to an <see cref="T:System.Array" />, starting at a particular <see cref="T:System.Array" /> index.
+            Copies a range of elements from the <see cref="T:System.Collections.Generic.EventedList`1" /> to an <see cref="T:System.Array" />, starting at a particular
+            <see cref="T:System.Array" /> index.
             </summary>
       <param name="index">The zero-based index in the source <see cref="T:System.Collections.Generic.EventedList`1" /> at which copying begins.</param>
-      <param name="array">The one-dimensional <see cref="T:System.Array" /> that is the destination of the elements copied from <see cref="T:System.Collections.Generic.EventedList`1" />. The <see cref="T:System.Array" /> must have zero-based indexing.</param>
+      <param name="array">
+            The one-dimensional <see cref="T:System.Array" /> that is the destination of the elements copied from <see cref="T:System.Collections.Generic.EventedList`1" />. The <see cref="T:System.Array" /> must have zero-based indexing.
+            </param>
       <param name="arrayIndex">The zero-based index in <paramref name="array" /> at which copying begins.</param>
       <param name="count">The number of elements to copy.</param>
       <exception cref="T:System.ArgumentNullException">
@@ -1071,31 +902,39 @@
       <exception cref="T:System.ArgumentOutOfRangeException">
         <paramref name="arrayIndex" /> is less than 0.</exception>
       <exception cref="T:System.ArgumentException">
-        <paramref name="array" /> is multidimensional. -or- <paramref name="arrayIndex" /> is equal to or greater than the length of <paramref name="array" />.-or-The number of elements in the source <see cref="T:System.Collections.Generic.ICollection`1" /> is greater than the available space from <paramref name="arrayIndex" /> to the end of the destination <paramref name="array" />.-or-Type <c>T</c> cannot be cast automatically to the type of the destination <paramref name="array" />.</exception>
+        <paramref name="array" /> is multidimensional. -or- <paramref name="arrayIndex" /> is equal to or greater than the length of
+            <paramref name="array" />.-or-The number of elements in the source <see cref="T:System.Collections.Generic.ICollection`1" /> is
+            greater than the available space from <paramref name="arrayIndex" /> to the end of the destination <paramref name="array" />.-or-Type <c>T</c> cannot be cast automatically to the type of the destination <paramref name="array" />.
+            </exception>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.CopyTo(`0[])">
       <summary>
             Copies the entire <see cref="T:System.Collections.Generic.EventedList`1" /> to a compatible one-dimensional array, starting at the beginning of the target array.
             </summary>
-      <param name="array">The one-dimensional <see cref="T:System.Array" /> that is the destination of the elements copied from <see cref="T:System.Collections.Generic.EventedList`1" />. The <see cref="T:System.Array" /> must have zero-based indexing.</param>
+      <param name="array">
+            The one-dimensional <see cref="T:System.Array" /> that is the destination of the elements copied from <see cref="T:System.Collections.Generic.EventedList`1" />. The <see cref="T:System.Array" /> must have zero-based indexing.
+            </param>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.CopyTo(`0[],System.Int32)">
       <summary>
             Copies the elements of the <see cref="T:System.Collections.Generic.EventedList`1" /> to an <see cref="T:System.Array" />, starting at a particular <see cref="T:System.Array" /> index.
             </summary>
-      <param name="array">The one-dimensional <see cref="T:System.Array" /> that is the destination of the elements copied from <see cref="T:System.Collections.Generic.EventedList`1" />. The <see cref="T:System.Array" /> must have zero-based indexing.</param>
+      <param name="array">
+            The one-dimensional <see cref="T:System.Array" /> that is the destination of the elements copied from <see cref="T:System.Collections.Generic.EventedList`1" />. The <see cref="T:System.Array" /> must have zero-based indexing.
+            </param>
       <param name="arrayIndex">The zero-based index in <paramref name="array" /> at which copying begins.</param>
       <exception cref="T:System.ArgumentNullException">
         <paramref name="array" /> is null.</exception>
       <exception cref="T:System.ArgumentOutOfRangeException">
         <paramref name="arrayIndex" /> is less than 0.</exception>
       <exception cref="T:System.ArgumentException">
-        <paramref name="array" /> is multidimensional. -or- <paramref name="arrayIndex" /> is equal to or greater than the length of <paramref name="array" />.-or-The number of elements in the source <see cref="T:System.Collections.Generic.ICollection`1" /> is greater than the available space from <paramref name="arrayIndex" /> to the end of the destination <paramref name="array" />.-or-Type <c>T</c> cannot be cast automatically to the type of the destination <paramref name="array" />.</exception>
+        <paramref name="array" /> is multidimensional. -or- <paramref name="arrayIndex" /> is equal to or greater than the length of
+            <paramref name="array" />.-or-The number of elements in the source <see cref="T:System.Collections.Generic.ICollection`1" /> is
+            greater than the available space from <paramref name="arrayIndex" /> to the end of the destination <paramref name="array" />.-or-Type <c>T</c> cannot be cast automatically to the type of the destination <paramref name="array" />.
+            </exception>
     </member>
     <member name="P:System.Collections.Generic.EventedList`1.Count">
-      <summary>
-            Gets the number of elements contained in the <see cref="T:System.Collections.Generic.EventedList`1" />.
-            </summary>
+      <summary>Gets the number of elements contained in the <see cref="T:System.Collections.Generic.EventedList`1" />.</summary>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.Exists(System.Predicate{`0})">
       <summary>
@@ -1103,47 +942,62 @@
             </summary>
       <param name="match">The <see cref="T:System.Predicate`1" /> delegate that defines the conditions of the elements to search for.</param>
       <returns>
-        <c>true</c> if the <see cref="T:System.Collections.Generic.EventedList`1" /> contains one or more elements that match the conditions defined by the specified predicate; otherwise, <c>false</c>.</returns>
+        <c>true</c> if the <see cref="T:System.Collections.Generic.EventedList`1" /> contains one or more elements that match the conditions defined by the specified
+            predicate; otherwise, <c>false</c>.
+            </returns>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.Find(System.Predicate{`0})">
       <summary>
-            Searches for an element that matches the conditions defined by the specified predicate, and returns the first occurrence within the entire <see cref="T:System.Collections.Generic.EventedList`1" />.
+            Searches for an element that matches the conditions defined by the specified predicate, and returns the first occurrence within
+            the entire <see cref="T:System.Collections.Generic.EventedList`1" />.
             </summary>
       <param name="match">The <see cref="T:System.Predicate`1" /> delegate that defines the conditions of the elements to search for.</param>
-      <returns>The first element that matches the conditions defined by the specified predicate, if found; otherwise, the default value for type <typeparamref name="T" />.</returns>
+      <returns>
+            The first element that matches the conditions defined by the specified predicate, if found; otherwise, the default value for type
+            <typeparamref name="T" />.
+            </returns>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.FindAll(System.Predicate{`0})">
-      <summary>
-            Retrieves all the elements that match the conditions defined by the specified predicate.
-            </summary>
+      <summary>Retrieves all the elements that match the conditions defined by the specified predicate.</summary>
       <param name="match">The <see cref="T:System.Predicate`1" /> delegate that defines the conditions of the elements to search for.</param>
-      <returns>A <see cref="T:System.Collections.Generic.EventedList`1" /> containing all the elements that match the conditions defined by the specified predicate, if found; otherwise, an empty <see cref="T:System.Collections.Generic.EventedList`1" />.</returns>
+      <returns>
+            A <see cref="T:System.Collections.Generic.EventedList`1" /> containing all the elements that match the conditions defined by the specified predicate, if
+            found; otherwise, an empty <see cref="T:System.Collections.Generic.EventedList`1" />.
+            </returns>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.FindIndex(System.Int32,System.Int32,System.Predicate{`0})">
       <summary>
-            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the first occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at the specified index and contains the specified number of elements.
+            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the
+            first occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at the specified index and contains
+            the specified number of elements.
             </summary>
       <param name="startIndex">The zero-based starting index of the search.</param>
       <param name="count">The number of elements in the section to search.</param>
       <param name="match">The <see cref="T:System.Predicate`1" /> delegate that defines the conditions of the elements to search for.</param>
-      <returns>The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match" />, if found; otherwise, –1.</returns>
+      <returns>
+            The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match" />, if
+            found; otherwise, –1.
+            </returns>
       <exception cref="T:System.ArgumentOutOfRangeException">
         <paramref name="startIndex" /> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.EventedList`1" />.
-            -or-
-            <paramref name="count" /> is less than 0.
-            -or-
-            <paramref name="startIndex" /> and <paramref name="count" /> do not specify a valid section in the <see cref="T:System.Collections.Generic.EventedList`1" />.
+            -or- <paramref name="count" /> is less than 0.
+            -or- <paramref name="startIndex" /> and <paramref name="count" /> do not specify a valid section in the <see cref="T:System.Collections.Generic.EventedList`1" />.
             </exception>
       <exception cref="T:System.ArgumentNullException">
         <paramref name="match" /> is <c>null</c>.</exception>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.FindIndex(System.Int32,System.Predicate{`0})">
       <summary>
-            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the first occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1" /> that extends from the specified index to the last element.
+            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the
+            first occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1" /> that extends from the specified index to the
+            last element.
             </summary>
       <param name="startIndex">The zero-based starting index of the search.</param>
       <param name="match">The <see cref="T:System.Predicate`1" /> delegate that defines the conditions of the elements to search for.</param>
-      <returns>The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match" />, if found; otherwise, –1.</returns>
+      <returns>
+            The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match" />, if
+            found; otherwise, –1.
+            </returns>
       <exception cref="T:System.ArgumentOutOfRangeException">
         <paramref name="startIndex" /> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.EventedList`1" />.
             </exception>
@@ -1152,45 +1006,61 @@
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.FindIndex(System.Predicate{`0})">
       <summary>
-            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the first occurrence within the entire <see cref="T:System.Collections.Generic.EventedList`1" />.
+            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the
+            first occurrence within the entire <see cref="T:System.Collections.Generic.EventedList`1" />.
             </summary>
       <param name="match">The <see cref="T:System.Predicate`1" /> delegate that defines the conditions of the elements to search for.</param>
-      <returns>The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match" />, if found; otherwise, –1.</returns>
+      <returns>
+            The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match" />, if
+            found; otherwise, –1.
+            </returns>
       <exception cref="T:System.ArgumentNullException">
         <paramref name="match" /> is <c>null</c>.</exception>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.FindLast(System.Predicate{`0})">
       <summary>
-            Searches for an element that matches the conditions defined by the specified predicate, and returns the last occurrence within the entire <see cref="T:System.Collections.Generic.EventedList`1" />.
+            Searches for an element that matches the conditions defined by the specified predicate, and returns the last occurrence within
+            the entire <see cref="T:System.Collections.Generic.EventedList`1" />.
             </summary>
       <param name="match">The <see cref="T:System.Predicate`1" /> delegate that defines the conditions of the elements to search for.</param>
-      <returns>The last element that matches the conditions defined by the specified predicate, if found; otherwise, the default value for type <typeparamref name="T" />.</returns>
+      <returns>
+            The last element that matches the conditions defined by the specified predicate, if found; otherwise, the default value for type
+            <typeparamref name="T" />.
+            </returns>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.FindLastIndex(System.Int32,System.Int32,System.Predicate{`0})">
       <summary>
-            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the last occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at the specified index and contains the specified number of elements.
+            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the
+            last occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at the specified index and contains
+            the specified number of elements.
             </summary>
       <param name="startIndex">The zero-based starting index of the search.</param>
       <param name="count">The number of elements in the section to search.</param>
       <param name="match">The <see cref="T:System.Predicate`1" /> delegate that defines the conditions of the elements to search for.</param>
-      <returns>The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match" />, if found; otherwise, –1.</returns>
+      <returns>
+            The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match" />, if
+            found; otherwise, –1.
+            </returns>
       <exception cref="T:System.ArgumentOutOfRangeException">
         <paramref name="startIndex" /> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.EventedList`1" />.
-            -or-
-            <paramref name="count" /> is less than 0.
-            -or-
-            <paramref name="startIndex" /> and <paramref name="count" /> do not specify a valid section in the <see cref="T:System.Collections.Generic.EventedList`1" />.
+            -or- <paramref name="count" /> is less than 0.
+            -or- <paramref name="startIndex" /> and <paramref name="count" /> do not specify a valid section in the <see cref="T:System.Collections.Generic.EventedList`1" />.
             </exception>
       <exception cref="T:System.ArgumentNullException">
         <paramref name="match" /> is <c>null</c>.</exception>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.FindLastIndex(System.Int32,System.Predicate{`0})">
       <summary>
-            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the last occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1" /> that extends from the specified index to the last element.
+            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the
+            last occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1" /> that extends from the specified index to the
+            last element.
             </summary>
       <param name="startIndex">The zero-based starting index of the search.</param>
       <param name="match">The <see cref="T:System.Predicate`1" /> delegate that defines the conditions of the elements to search for.</param>
-      <returns>The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match" />, if found; otherwise, –1.</returns>
+      <returns>
+            The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match" />, if
+            found; otherwise, –1.
+            </returns>
       <exception cref="T:System.ArgumentOutOfRangeException">
         <paramref name="startIndex" /> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.EventedList`1" />.
             </exception>
@@ -1199,29 +1069,27 @@
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.FindLastIndex(System.Predicate{`0})">
       <summary>
-            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the last occurrence within the entire <see cref="T:System.Collections.Generic.EventedList`1" />.
+            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the
+            last occurrence within the entire <see cref="T:System.Collections.Generic.EventedList`1" />.
             </summary>
       <param name="match">The <see cref="T:System.Predicate`1" /> delegate that defines the conditions of the elements to search for.</param>
-      <returns>The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match" />, if found; otherwise, –1.</returns>
+      <returns>
+            The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match" />, if
+            found; otherwise, –1.
+            </returns>
       <exception cref="T:System.ArgumentNullException">
         <paramref name="match" /> is <c>null</c>.</exception>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.ForEach(System.Action{`0})">
-      <summary>
-            Performs the specified action on each element of the <see cref="T:System.Collections.Generic.EventedList`1" />.
-            </summary>
+      <summary>Performs the specified action on each element of the <see cref="T:System.Collections.Generic.EventedList`1" />.</summary>
       <param name="action">The <see cref="T:System.Action`1" /> delegate to perform on each element of the <see cref="T:System.Collections.Generic.EventedList`1" />.</param>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.GetEnumerator">
-      <summary>
-            Returns an enumerator that iterates through the <see cref="T:System.Collections.Generic.EventedList`1" />.
-            </summary>
+      <summary>Returns an enumerator that iterates through the <see cref="T:System.Collections.Generic.EventedList`1" />.</summary>
       <returns>A <see cref="T:System.Collections.Generic.EventedList`1.Enumerator" /> for the <see cref="T:System.Collections.Generic.EventedList`1" />.</returns>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.GetRange(System.Int32,System.Int32)">
-      <summary>
-            Creates a shallow copy of a range of elements in the source <see cref="T:System.Collections.Generic.EventedList`1" />.
-            </summary>
+      <summary>Creates a shallow copy of a range of elements in the source <see cref="T:System.Collections.Generic.EventedList`1" />.</summary>
       <param name="index">The zero-based <see cref="T:System.Collections.Generic.EventedList`1" /> index at which the range starts.</param>
       <param name="count">The number of elements in the range.</param>
       <returns>A shallow copy of a range of elements in the source <see cref="T:System.Collections.Generic.EventedList`1" />.</returns>
@@ -1231,41 +1099,44 @@
             Searches for the specified object and returns the zero-based index of the first occurrence within the entire <see cref="T:System.Collections.Generic.EventedList`1" />.
             </summary>
       <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.EventedList`1" />. The value can be <c>null</c> for reference types.</param>
-      <returns>
-            The index of <paramref name="item" /> if found in the list; otherwise, -1.
-            </returns>
+      <returns>The index of <paramref name="item" /> if found in the list; otherwise, -1.</returns>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.IndexOf(`0,System.Int32)">
       <summary>
-            Searches for the specified object and returns the zero-based index of the first occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at the specified index.
+            Searches for the specified object and returns the zero-based index of the first occurrence within the range of elements in the
+            <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at the specified index.
             </summary>
       <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.EventedList`1" />. The value can be <c>null</c> for reference types.</param>
       <param name="index">The zero-based starting index of the search. 0 (zero) is valid in an empty list.</param>
-      <returns>The zero-based <paramref name="index" /> of the first occurrence of <paramref name="item" /> within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at <paramref name="index" />, if found; otherwise, –1.</returns>
+      <returns>
+            The zero-based <paramref name="index" /> of the first occurrence of <paramref name="item" /> within the range of elements in the
+            <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at <paramref name="index" />, if found; otherwise, –1.
+            </returns>
       <exception cref="T:System.ArgumentOutOfRangeException">
         <paramref name="index" /> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.EventedList`1" />.
             </exception>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.IndexOf(`0,System.Int32,System.Int32)">
       <summary>
-            Searches for the specified object and returns the zero-based index of the first occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at the specified index and contains the specified number of elements.
+            Searches for the specified object and returns the zero-based index of the first occurrence within the range of elements in the
+            <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at the specified index and contains the specified number of elements.
             </summary>
       <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.EventedList`1" />. The value can be <c>null</c> for reference types.</param>
       <param name="index">The zero-based starting index of the search. 0 (zero) is valid in an empty list.</param>
       <param name="count">The number of elements in the section to search.</param>
-      <returns>The zero-based <paramref name="index" /> of the first occurrence of <paramref name="item" /> within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at <paramref name="index" /> and contains <paramref name="count" /> number of elements, if found; otherwise, –1.</returns>
+      <returns>
+            The zero-based <paramref name="index" /> of the first occurrence of <paramref name="item" /> within the range of elements in the
+            <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at <paramref name="index" /> and contains <paramref name="count" /> number of elements, if
+            found; otherwise, –1.
+            </returns>
       <exception cref="T:System.ArgumentOutOfRangeException">
         <paramref name="index" /> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.EventedList`1" />.
-            -or-
-            <paramref name="count" /> is less than 0.
-            -or-
-            <paramref name="index" /> and <paramref name="count" /> do not specify a valid section in the <see cref="T:System.Collections.Generic.EventedList`1" />.
+            -or- <paramref name="count" /> is less than 0.
+            -or- <paramref name="index" /> and <paramref name="count" /> do not specify a valid section in the <see cref="T:System.Collections.Generic.EventedList`1" />.
             </exception>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.Insert(System.Int32,`0)">
-      <summary>
-            Inserts an item to the <see cref="T:System.Collections.Generic.EventedList`1" /> at the specified index.
-            </summary>
+      <summary>Inserts an item to the <see cref="T:System.Collections.Generic.EventedList`1" /> at the specified index.</summary>
       <param name="index">The zero-based index at which <paramref name="item" /> should be inserted.</param>
       <param name="item">The object to insert into the <see cref="T:System.Collections.Generic.EventedList`1" />.</param>
       <exception cref="T:System.ArgumentOutOfRangeException">
@@ -1273,171 +1144,144 @@
       <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.EventedList`1" /> is read-only.</exception>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.InsertRange(System.Int32,System.Collections.Generic.IEnumerable{`0})">
-      <summary>
-            Inserts the elements of a collection into the <see cref="T:System.Collections.Generic.EventedList`1" /> at the specified index.
-            </summary>
+      <summary>Inserts the elements of a collection into the <see cref="T:System.Collections.Generic.EventedList`1" /> at the specified index.</summary>
       <param name="index">The zero-based index at which the new elements should be inserted.</param>
-      <param name="collection">The collection whose elements should be inserted into the <see cref="T:System.Collections.Generic.EventedList`1" />. The collection itself cannot be <c>null</c>, but it can contain elements that are <c>null</c>, if type <typeparamref name="T" /> is a reference type.</param>
+      <param name="collection">
+            The collection whose elements should be inserted into the <see cref="T:System.Collections.Generic.EventedList`1" />. The collection itself cannot be
+            <c>null</c>, but it can contain elements that are <c>null</c>, if type <typeparamref name="T" /> is a reference type.
+            </param>
     </member>
     <member name="P:System.Collections.Generic.EventedList`1.Item(System.Int32)">
-      <summary>
-            Gets or sets the element at the specified index.
-            </summary>
+      <summary>Gets or sets the element at the specified index.</summary>
       <param name="index">The zero-based index of the element to get or set.</param>
       <exception cref="T:System.ArgumentOutOfRangeException">
         <paramref name="index" /> is less than 0.</exception>
     </member>
     <member name="E:System.Collections.Generic.EventedList`1.ItemAdded">
-      <summary>
-            Occurs when an item has been added.
-            </summary>
+      <summary>Occurs when an item has been added.</summary>
     </member>
     <member name="E:System.Collections.Generic.EventedList`1.ItemChanged">
-      <summary>
-            Occurs when an item has changed.
-            </summary>
+      <summary>Occurs when an item has changed.</summary>
     </member>
     <member name="E:System.Collections.Generic.EventedList`1.ItemDeleted">
-      <summary>
-            Occurs when an item has been deleted.
-            </summary>
+      <summary>Occurs when an item has been deleted.</summary>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.LastIndexOf(`0)">
       <summary>
             Searches for the specified object and returns the zero-based index of the last occurrence within the entire <see cref="T:System.Collections.Generic.EventedList`1" />.
             </summary>
       <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.EventedList`1" />. The value can be <c>null</c> for reference types.</param>
-      <returns>
-            The index of <paramref name="item" /> if found in the list; otherwise, -1.
-            </returns>
+      <returns>The index of <paramref name="item" /> if found in the list; otherwise, -1.</returns>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.LastIndexOf(`0,System.Int32)">
       <summary>
-            Searches for the specified object and returns the zero-based index of the last occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at the specified index.
+            Searches for the specified object and returns the zero-based index of the last occurrence within the range of elements in the
+            <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at the specified index.
             </summary>
       <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.EventedList`1" />. The value can be <c>null</c> for reference types.</param>
       <param name="index">The zero-based starting index of the search. 0 (zero) is valid in an empty list.</param>
-      <returns>The zero-based <paramref name="index" /> of the last occurrence of <paramref name="item" /> within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at <paramref name="index" />, if found; otherwise, –1.</returns>
+      <returns>
+            The zero-based <paramref name="index" /> of the last occurrence of <paramref name="item" /> within the range of elements in the
+            <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at <paramref name="index" />, if found; otherwise, –1.
+            </returns>
       <exception cref="T:System.ArgumentOutOfRangeException">
         <paramref name="index" /> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.EventedList`1" />.
             </exception>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.LastIndexOf(`0,System.Int32,System.Int32)">
       <summary>
-            Searches for the specified object and returns the zero-based index of the last occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at the specified index and contains the specified number of elements.
+            Searches for the specified object and returns the zero-based index of the last occurrence within the range of elements in the
+            <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at the specified index and contains the specified number of elements.
             </summary>
       <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.EventedList`1" />. The value can be <c>null</c> for reference types.</param>
       <param name="index">The zero-based starting index of the search. 0 (zero) is valid in an empty list.</param>
       <param name="count">The number of elements in the section to search.</param>
-      <returns>The zero-based <paramref name="index" /> of the last occurrence of <paramref name="item" /> within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at <paramref name="index" /> and contains <paramref name="count" /> number of elements, if found; otherwise, –1.</returns>
+      <returns>
+            The zero-based <paramref name="index" /> of the last occurrence of <paramref name="item" /> within the range of elements in the
+            <see cref="T:System.Collections.Generic.EventedList`1" /> that starts at <paramref name="index" /> and contains <paramref name="count" /> number of elements, if
+            found; otherwise, –1.
+            </returns>
       <exception cref="T:System.ArgumentOutOfRangeException">
         <paramref name="index" /> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.EventedList`1" />.
-            -or-
-            <paramref name="count" /> is less than 0.
-            -or-
-            <paramref name="index" /> and <paramref name="count" /> do not specify a valid section in the <see cref="T:System.Collections.Generic.EventedList`1" />.
+            -or- <paramref name="count" /> is less than 0.
+            -or- <paramref name="index" /> and <paramref name="count" /> do not specify a valid section in the <see cref="T:System.Collections.Generic.EventedList`1" />.
             </exception>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.OnItemAdded(System.Int32,`0)">
-      <summary>
-            Raises the <see cref="E:System.Collections.Generic.EventedList`1.ItemAdded" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Collections.Generic.EventedList`1.ItemAdded" /> event.</summary>
       <param name="index">The index of the added item.</param>
       <param name="value">The value of the added item.</param>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.OnItemChanged(System.Int32,`0,`0)">
-      <summary>
-            Raises the <see cref="E:System.Collections.Generic.EventedList`1.ItemChanged" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Collections.Generic.EventedList`1.ItemChanged" /> event.</summary>
       <param name="index">The index of the changed item.</param>
       <param name="oldValue">The previous value of the changed item.</param>
       <param name="newValue">The new value of the changed item.</param>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.OnItemDeleted(System.Int32,`0)">
-      <summary>
-            Raises the <see cref="E:System.Collections.Generic.EventedList`1.ItemDeleted" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Collections.Generic.EventedList`1.ItemDeleted" /> event.</summary>
       <param name="index">The index of the deleted item.</param>
       <param name="value">The value of the deleted item.</param>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.OnReset">
-      <summary>
-            Raises the <see cref="E:System.Collections.Generic.EventedList`1.Reset" /> event.
-            </summary>
+      <summary>Raises the <see cref="E:System.Collections.Generic.EventedList`1.Reset" /> event.</summary>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.Remove(`0)">
-      <summary>
-            Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.EventedList`1" />.
-            </summary>
+      <summary>Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.EventedList`1" />.</summary>
       <param name="item">The object to remove from the <see cref="T:System.Collections.Generic.EventedList`1" />.</param>
       <returns>
-            true if <paramref name="item" /> was successfully removed from the <see cref="T:System.Collections.Generic.EventedList`1" />; otherwise, false. This method also returns false if <paramref name="item" /> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1" />.
+            true if <paramref name="item" /> was successfully removed from the <see cref="T:System.Collections.Generic.EventedList`1" />; otherwise, false. This method
+            also returns false if <paramref name="item" /> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1" />.
             </returns>
       <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.EventedList`1" /> is read-only.</exception>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.RemoveAll(System.Predicate{`0})">
-      <summary>
-            Removes all the elements that match the conditions defined by the specified predicate.
-            </summary>
+      <summary>Removes all the elements that match the conditions defined by the specified predicate.</summary>
       <param name="match">The <see cref="T:System.Predicate`1" /> delegate that defines the conditions of the elements to remove.</param>
       <returns>The number of elements removed from the <see cref="T:System.Collections.Generic.EventedList`1" />.</returns>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.RemoveAt(System.Int32)">
-      <summary>
-            Removes the <see cref="T:System.Collections.Generic.EventedList`1" /> item at the specified index.
-            </summary>
+      <summary>Removes the <see cref="T:System.Collections.Generic.EventedList`1" /> item at the specified index.</summary>
       <param name="index">The zero-based index of the item to remove.</param>
       <exception cref="T:System.ArgumentOutOfRangeException">
         <paramref name="index" /> is not a valid index in the <see cref="T:System.Collections.Generic.EventedList`1" />.</exception>
       <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.EventedList`1" /> is read-only.</exception>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.RemoveRange(System.Int32,System.Int32)">
-      <summary>
-            Removes a range of elements from the <see cref="T:System.Collections.Generic.EventedList`1" />.
-            </summary>
+      <summary>Removes a range of elements from the <see cref="T:System.Collections.Generic.EventedList`1" />.</summary>
       <param name="index">The zero-based starting index of the range of elements to remove.</param>
       <param name="count">The number of elements to remove.</param>
     </member>
     <member name="E:System.Collections.Generic.EventedList`1.Reset">
-      <summary>
-            Occurs when the list has been reset.
-            </summary>
+      <summary>Occurs when the list has been reset.</summary>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.Reverse">
-      <summary>
-            Reverses the order of the elements in the entire <see cref="T:System.Collections.Generic.EventedList`1" />.
-            </summary>
+      <summary>Reverses the order of the elements in the entire <see cref="T:System.Collections.Generic.EventedList`1" />.</summary>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.Reverse(System.Int32,System.Int32)">
-      <summary>
-            Reverses the order of the elements in the specified range.
-            </summary>
+      <summary>Reverses the order of the elements in the specified range.</summary>
       <param name="index">The zero-based starting index of the range of elements to reverse.</param>
       <param name="count">The number of elements to reverse.</param>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.Sort">
-      <summary>
-            Sorts the elements in the entire <see cref="T:System.Collections.Generic.EventedList`1" /> using the default comparer.
-            </summary>
+      <summary>Sorts the elements in the entire <see cref="T:System.Collections.Generic.EventedList`1" /> using the default comparer.</summary>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.Sort(System.Collections.Generic.IComparer{`0})">
-      <summary>
-            Sorts the elements in the entire <see cref="T:System.Collections.Generic.EventedList`1" /> using the specified comparer.
-            </summary>
-      <param name="comparer">The <see cref="T:System.Collections.Generic.IComparer`1" /> implementation to use when comparing elements, or <c>null</c> to use the default comparer <see cref="P:System.Collections.Generic.Comparer`1.Default" />.</param>
+      <summary>Sorts the elements in the entire <see cref="T:System.Collections.Generic.EventedList`1" /> using the specified comparer.</summary>
+      <param name="comparer">
+            The <see cref="T:System.Collections.Generic.IComparer`1" /> implementation to use when comparing elements, or <c>null</c> to use the default comparer <see cref="P:System.Collections.Generic.Comparer`1.Default" />.
+            </param>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.Sort(System.Int32,System.Int32,System.Collections.Generic.IComparer{`0})">
-      <summary>
-            Sorts the elements in a range of elements in <see cref="T:System.Collections.Generic.EventedList`1" /> using the specified comparer.
-            </summary>
+      <summary>Sorts the elements in a range of elements in <see cref="T:System.Collections.Generic.EventedList`1" /> using the specified comparer.</summary>
       <param name="index">The zero-based starting index of the range of elements to sort.</param>
       <param name="count">The number of elements to sort.</param>
-      <param name="comparer">The <see cref="T:System.Collections.Generic.IComparer`1" /> implementation to use when comparing elements, or <c>null</c> to use the default comparer <see cref="P:System.Collections.Generic.Comparer`1.Default" />.</param>
+      <param name="comparer">
+            The <see cref="T:System.Collections.Generic.IComparer`1" /> implementation to use when comparing elements, or <c>null</c> to use the default comparer <see cref="P:System.Collections.Generic.Comparer`1.Default" />.
+            </param>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.ToArray">
-      <summary>
-            Copies the elements of the <see cref="T:System.Collections.Generic.EventedList`1" /> to a new array.
-            </summary>
+      <summary>Copies the elements of the <see cref="T:System.Collections.Generic.EventedList`1" /> to a new array.</summary>
       <returns>An array containing copies of the elements of the <see cref="T:System.Collections.Generic.EventedList`1" />.</returns>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.TrimExcess">
@@ -1451,80 +1295,58 @@
             </summary>
       <param name="match">The <see cref="T:System.Predicate`1" /> delegate that defines the conditions to check against the elements.</param>
       <returns>
-        <c>true</c> if every element in the <see cref="T:System.Collections.Generic.EventedList`1" /> matches the conditions defined by the specified predicate; otherwise, <c>false</c>. If the list has no elements, the return value is <c>true</c>.</returns>
+        <c>true</c> if every element in the <see cref="T:System.Collections.Generic.EventedList`1" /> matches the conditions defined by the specified predicate;
+            otherwise, <c>false</c>. If the list has no elements, the return value is <c>true</c>.
+            </returns>
     </member>
     <member name="T:System.Collections.Generic.EventedList`1.Enumerator">
-      <summary>
-            Enumerates over the <see cref="T:System.Collections.Generic.EventedList`1" />.
-            </summary>
+      <summary>Enumerates over the <see cref="T:System.Collections.Generic.EventedList`1" />.</summary>
     </member>
     <member name="P:System.Collections.Generic.EventedList`1.Enumerator.Current">
-      <summary>
-            Gets the element at the current position of the enumerator.
-            </summary>
+      <summary>Gets the element at the current position of the enumerator.</summary>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.Enumerator.Dispose">
-      <summary>
-            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-            </summary>
+      <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.Enumerator.MoveNext">
-      <summary>
-            Advances the enumerator to the next element of the collection.
-            </summary>
+      <summary>Advances the enumerator to the next element of the collection.</summary>
       <returns>
             true if the enumerator was successfully advanced to the next element; false if the enumerator has passed the end of the collection.
             </returns>
-      <exception cref="T:System.InvalidOperationException">The collection was modified after the enumerator was created. </exception>
+      <exception cref="T:System.InvalidOperationException">The collection was modified after the enumerator was created.</exception>
     </member>
     <member name="T:System.Collections.Generic.EventedList`1.ListChangedEventArgs`1">
-      <summary>
-            An <see cref="T:System.EventArgs" /> structure passed to events generated by an <see cref="T:System.Collections.Generic.EventedList`1" />.
-            </summary>
+      <summary>An <see cref="T:System.EventArgs" /> structure passed to events generated by an <see cref="T:System.Collections.Generic.EventedList`1" />.</summary>
       <typeparam name="T"></typeparam>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.ListChangedEventArgs`1.#ctor(System.ComponentModel.ListChangedType)">
-      <summary>
-            Initializes a new instance of the <see cref="T:System.Collections.Generic.EventedList`1.ListChangedEventArgs`1" /> class.
-            </summary>
+      <summary>Initializes a new instance of the <see cref="T:System.Collections.Generic.EventedList`1.ListChangedEventArgs`1" /> class.</summary>
       <param name="type">The type of change.</param>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.ListChangedEventArgs`1.#ctor(System.ComponentModel.ListChangedType,`1,System.Int32)">
-      <summary>
-            Initializes a new instance of the <see cref="T:System.Collections.Generic.EventedList`1.ListChangedEventArgs`1" /> class.
-            </summary>
+      <summary>Initializes a new instance of the <see cref="T:System.Collections.Generic.EventedList`1.ListChangedEventArgs`1" /> class.</summary>
       <param name="type">The type of change.</param>
       <param name="item">The item that has changed.</param>
       <param name="itemIndex">Index of the changed item.</param>
     </member>
     <member name="M:System.Collections.Generic.EventedList`1.ListChangedEventArgs`1.#ctor(System.ComponentModel.ListChangedType,`1,System.Int32,`1)">
-      <summary>
-            Initializes a new instance of the <see cref="T:System.Collections.Generic.EventedList`1.ListChangedEventArgs`1" /> class.
-            </summary>
+      <summary>Initializes a new instance of the <see cref="T:System.Collections.Generic.EventedList`1.ListChangedEventArgs`1" /> class.</summary>
       <param name="type">The type of change.</param>
       <param name="item">The item that has changed.</param>
       <param name="itemIndex">Index of the changed item.</param>
       <param name="oldItem">The old item when an item has changed.</param>
     </member>
     <member name="P:System.Collections.Generic.EventedList`1.ListChangedEventArgs`1.Item">
-      <summary>
-            Gets the item that has changed.
-            </summary>
+      <summary>Gets the item that has changed.</summary>
     </member>
     <member name="P:System.Collections.Generic.EventedList`1.ListChangedEventArgs`1.ItemIndex">
-      <summary>
-            Gets the index of the item.
-            </summary>
+      <summary>Gets the index of the item.</summary>
     </member>
     <member name="P:System.Collections.Generic.EventedList`1.ListChangedEventArgs`1.ListChangedType">
-      <summary>
-            Gets the type of change for the list.
-            </summary>
+      <summary>Gets the type of change for the list.</summary>
     </member>
     <member name="P:System.Collections.Generic.EventedList`1.ListChangedEventArgs`1.OldItem">
-      <summary>
-            Gets the item's previous value.
-            </summary>
+      <summary>Gets the item's previous value.</summary>
     </member>
   </members>
 </doc>

@@ -112,7 +112,6 @@
   <HelpKINode Title="DrawStepListItem event" Url="html/E_AeroWizard_StepWizardControl_DrawStepListItem.htm" />
   <HelpKINode Title="DrawStepListItemEventArgs class">
     <HelpKINode Title="DrawStepListItemEventArgs Class" Url="html/T_AeroWizard_DrawStepListItemEventArgs.htm" />
-    <HelpKINode Title="about DrawStepListItemEventArgs class" Url="html/T_AeroWizard_DrawStepListItemEventArgs.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_AeroWizard_DrawStepListItemEventArgs.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_AeroWizard_DrawStepListItemEventArgs.htm" />
   </HelpKINode>
@@ -133,7 +132,6 @@
   </HelpKINode>
   <HelpKINode Title="EventedList(Of T) class">
     <HelpKINode Title="EventedList(T) Class" Url="html/T_System_Collections_Generic_EventedList_1.htm" />
-    <HelpKINode Title="about EventedList(Of T) class" Url="html/T_System_Collections_Generic_EventedList_1.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_System_Collections_Generic_EventedList_1__ctor.htm" />
     <HelpKINode Title="events" Url="html/Events_T_System_Collections_Generic_EventedList_1.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_System_Collections_Generic_EventedList_1.htm" />
@@ -149,10 +147,7 @@
   <HelpKINode Title="EventedList(Of T).ConvertAll(Of TOutput) method" Url="html/M_System_Collections_Generic_EventedList_1_ConvertAll__1.htm" />
   <HelpKINode Title="EventedList(Of T).CopyTo method" Url="html/Overload_System_Collections_Generic_EventedList_1_CopyTo.htm" />
   <HelpKINode Title="EventedList(Of T).Count property" Url="html/P_System_Collections_Generic_EventedList_1_Count.htm" />
-  <HelpKINode Title="EventedList(Of T).Enumerator structure">
-    <HelpKINode Title="EventedList(T).Enumerator Structure" Url="html/T_System_Collections_Generic_EventedList_1_Enumerator.htm" />
-    <HelpKINode Title="about EventedList(Of T).Enumerator structure" Url="html/T_System_Collections_Generic_EventedList_1_Enumerator.htm" />
-  </HelpKINode>
+  <HelpKINode Title="EventedList(Of T).Enumerator structure" Url="html/T_System_Collections_Generic_EventedList_1_Enumerator.htm" />
   <HelpKINode Title="EventedList(Of T).Enumerator.Current property" Url="html/P_System_Collections_Generic_EventedList_1_Enumerator_Current.htm" />
   <HelpKINode Title="EventedList(Of T).Enumerator.Dispose method" Url="html/M_System_Collections_Generic_EventedList_1_Enumerator_Dispose.htm" />
   <HelpKINode Title="EventedList(Of T).Enumerator.MoveNext method" Url="html/M_System_Collections_Generic_EventedList_1_Enumerator_MoveNext.htm" />
@@ -178,7 +173,6 @@
     <HelpKINode Title="EventedList(T).ListChangedEventArgs(T) Class" Url="html/T_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1__ctor.htm" />
   </HelpKINode>
-  <HelpKINode Title="EventedList(Of T).ListChangedEventArgs(Of T) class, about EventedList(Of T).ListChangedEventArgs(Of T) class" Url="html/T_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1.htm" />
   <HelpKINode Title="EventedList(Of T).ListChangedEventArgs(Of T).Item property" Url="html/P_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1_Item.htm" />
   <HelpKINode Title="EventedList(Of T).ListChangedEventArgs(Of T).ItemIndex property" Url="html/P_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1_ItemIndex.htm" />
   <HelpKINode Title="EventedList(Of T).ListChangedEventArgs(Of T).ListChangedEventArgs constructor" Url="html/Overload_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1__ctor.htm" />
@@ -200,7 +194,6 @@
   <HelpKINode Title="EventedList(Of T).TrueForAll method" Url="html/M_System_Collections_Generic_EventedList_1_TrueForAll.htm" />
   <HelpKINode Title="EventedList&lt;T&gt; class">
     <HelpKINode Title="EventedList(T) Class" Url="html/T_System_Collections_Generic_EventedList_1.htm" />
-    <HelpKINode Title="about EventedList&lt;T&gt; class" Url="html/T_System_Collections_Generic_EventedList_1.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_System_Collections_Generic_EventedList_1__ctor.htm" />
     <HelpKINode Title="events" Url="html/Events_T_System_Collections_Generic_EventedList_1.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_System_Collections_Generic_EventedList_1.htm" />
@@ -216,10 +209,7 @@
   <HelpKINode Title="EventedList&lt;T&gt;.ConvertAll&lt;TOutput&gt; method" Url="html/M_System_Collections_Generic_EventedList_1_ConvertAll__1.htm" />
   <HelpKINode Title="EventedList&lt;T&gt;.CopyTo method" Url="html/Overload_System_Collections_Generic_EventedList_1_CopyTo.htm" />
   <HelpKINode Title="EventedList&lt;T&gt;.Count property" Url="html/P_System_Collections_Generic_EventedList_1_Count.htm" />
-  <HelpKINode Title="EventedList&lt;T&gt;.Enumerator structure">
-    <HelpKINode Title="EventedList(T).Enumerator Structure" Url="html/T_System_Collections_Generic_EventedList_1_Enumerator.htm" />
-    <HelpKINode Title="about EventedList&lt;T&gt;.Enumerator structure" Url="html/T_System_Collections_Generic_EventedList_1_Enumerator.htm" />
-  </HelpKINode>
+  <HelpKINode Title="EventedList&lt;T&gt;.Enumerator structure" Url="html/T_System_Collections_Generic_EventedList_1_Enumerator.htm" />
   <HelpKINode Title="EventedList&lt;T&gt;.Enumerator.Current property" Url="html/P_System_Collections_Generic_EventedList_1_Enumerator_Current.htm" />
   <HelpKINode Title="EventedList&lt;T&gt;.Enumerator.Dispose method" Url="html/M_System_Collections_Generic_EventedList_1_Enumerator_Dispose.htm" />
   <HelpKINode Title="EventedList&lt;T&gt;.Enumerator.MoveNext method" Url="html/M_System_Collections_Generic_EventedList_1_Enumerator_MoveNext.htm" />
@@ -245,7 +235,6 @@
     <HelpKINode Title="EventedList(T).ListChangedEventArgs(T) Class" Url="html/T_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1__ctor.htm" />
   </HelpKINode>
-  <HelpKINode Title="EventedList&lt;T&gt;.ListChangedEventArgs&lt;T&gt; class, about EventedList&lt;T&gt;.ListChangedEventArgs&lt;T&gt; class" Url="html/T_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1.htm" />
   <HelpKINode Title="EventedList&lt;T&gt;.ListChangedEventArgs&lt;T&gt;.Item property" Url="html/P_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1_Item.htm" />
   <HelpKINode Title="EventedList&lt;T&gt;.ListChangedEventArgs&lt;T&gt;.ItemIndex property" Url="html/P_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1_ItemIndex.htm" />
   <HelpKINode Title="EventedList&lt;T&gt;.ListChangedEventArgs&lt;T&gt;.ListChangedEventArgs constructor" Url="html/Overload_System_Collections_Generic_EventedList_1_ListChangedEventArgs_1__ctor.htm" />
@@ -346,7 +335,6 @@
   <HelpKINode Title="MeasureStepListItem event" Url="html/E_AeroWizard_StepWizardControl_MeasureStepListItem.htm" />
   <HelpKINode Title="MeasureStepListItemEventArgs class">
     <HelpKINode Title="MeasureStepListItemEventArgs Class" Url="html/T_AeroWizard_MeasureStepListItemEventArgs.htm" />
-    <HelpKINode Title="about MeasureStepListItemEventArgs class" Url="html/T_AeroWizard_MeasureStepListItemEventArgs.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_AeroWizard_MeasureStepListItemEventArgs.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_AeroWizard_MeasureStepListItemEventArgs.htm" />
   </HelpKINode>
@@ -505,7 +493,6 @@
   <HelpKINode Title="StepListWidth property" Url="html/P_AeroWizard_StepWizardControl_StepListWidth.htm" />
   <HelpKINode Title="StepWizardControl class">
     <HelpKINode Title="StepWizardControl Class" Url="html/T_AeroWizard_StepWizardControl.htm" />
-    <HelpKINode Title="about StepWizardControl class" Url="html/T_AeroWizard_StepWizardControl.htm" />
     <HelpKINode Title="constructor" Url="html/M_AeroWizard_StepWizardControl__ctor.htm" />
     <HelpKINode Title="events" Url="html/Events_T_AeroWizard_StepWizardControl.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_AeroWizard_StepWizardControl.htm" />
@@ -540,7 +527,6 @@
   <HelpKINode Title="Text property" Url="html/P_AeroWizard_ThemedImageButton_Text.htm" />
   <HelpKINode Title="ThemedImageButton class">
     <HelpKINode Title="ThemedImageButton Class" Url="html/T_AeroWizard_ThemedImageButton.htm" />
-    <HelpKINode Title="about ThemedImageButton class" Url="html/T_AeroWizard_ThemedImageButton.htm" />
     <HelpKINode Title="constructor" Url="html/M_AeroWizard_ThemedImageButton__ctor.htm" />
     <HelpKINode Title="events" Url="html/Events_T_AeroWizard_ThemedImageButton.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_AeroWizard_ThemedImageButton.htm" />
@@ -570,7 +556,6 @@
   <HelpKINode Title="ThemedImageButton.ToolTipText property" Url="html/P_AeroWizard_ThemedImageButton_ToolTipText.htm" />
   <HelpKINode Title="ThemedLabel class">
     <HelpKINode Title="ThemedLabel Class" Url="html/T_AeroWizard_ThemedLabel.htm" />
-    <HelpKINode Title="about ThemedLabel class" Url="html/T_AeroWizard_ThemedLabel.htm" />
     <HelpKINode Title="constructor" Url="html/M_AeroWizard_ThemedLabel__ctor.htm" />
     <HelpKINode Title="events" Url="html/Events_T_AeroWizard_ThemedLabel.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_AeroWizard_ThemedLabel.htm" />
@@ -584,7 +569,6 @@
   <HelpKINode Title="ThemedLabel.WndProc method" Url="html/M_AeroWizard_ThemedLabel_WndProc.htm" />
   <HelpKINode Title="ThemedTableLayoutPanel class">
     <HelpKINode Title="ThemedTableLayoutPanel Class" Url="html/T_AeroWizard_ThemedTableLayoutPanel.htm" />
-    <HelpKINode Title="about ThemedTableLayoutPanel class" Url="html/T_AeroWizard_ThemedTableLayoutPanel.htm" />
     <HelpKINode Title="constructor" Url="html/M_AeroWizard_ThemedTableLayoutPanel__ctor.htm" />
     <HelpKINode Title="events" Url="html/Events_T_AeroWizard_ThemedTableLayoutPanel.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_AeroWizard_ThemedTableLayoutPanel.htm" />
@@ -608,66 +592,33 @@
   <HelpKINode Title="TrimExcess method" Url="html/M_System_Collections_Generic_EventedList_1_TrimExcess.htm" />
   <HelpKINode Title="TrueForAll method" Url="html/M_System_Collections_Generic_EventedList_1_TrueForAll.htm" />
   <HelpKINode Title="UpdateUIDependencies method" Url="html/M_AeroWizard_WizardPageContainer_UpdateUIDependencies.htm" />
-  <HelpKINode Title="VisualStyleElementEx class">
-    <HelpKINode Title="VisualStyleElementEx Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx.htm" />
-    <HelpKINode Title="about VisualStyleElementEx class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx.htm" />
-  </HelpKINode>
-  <HelpKINode Title="VisualStyleElementEx.AeroWizard class">
-    <HelpKINode Title="VisualStyleElementEx.AeroWizard Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard.htm" />
-    <HelpKINode Title="about VisualStyleElementEx.AeroWizard class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard.htm" />
-  </HelpKINode>
-  <HelpKINode Title="VisualStyleElementEx.AeroWizard.Button class">
-    <HelpKINode Title="VisualStyleElementEx.AeroWizard.Button Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_Button.htm" />
-    <HelpKINode Title="about VisualStyleElementEx.AeroWizard.Button class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_Button.htm" />
-  </HelpKINode>
+  <HelpKINode Title="VisualStyleElementEx class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx.htm" />
+  <HelpKINode Title="VisualStyleElementEx.AeroWizard class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard.htm" />
+  <HelpKINode Title="VisualStyleElementEx.AeroWizard.Button class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_Button.htm" />
   <HelpKINode Title="VisualStyleElementEx.AeroWizard.Button.Normal property" Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_Button_Normal.htm" />
-  <HelpKINode Title="VisualStyleElementEx.AeroWizard.CommandArea class">
-    <HelpKINode Title="VisualStyleElementEx.AeroWizard.CommandArea Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_CommandArea.htm" />
-    <HelpKINode Title="about VisualStyleElementEx.AeroWizard.CommandArea class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_CommandArea.htm" />
-  </HelpKINode>
+  <HelpKINode Title="VisualStyleElementEx.AeroWizard.CommandArea class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_CommandArea.htm" />
   <HelpKINode Title="VisualStyleElementEx.AeroWizard.CommandArea.Normal property" Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_CommandArea_Normal.htm" />
-  <HelpKINode Title="VisualStyleElementEx.AeroWizard.ContentArea class">
-    <HelpKINode Title="VisualStyleElementEx.AeroWizard.ContentArea Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_ContentArea.htm" />
-    <HelpKINode Title="about VisualStyleElementEx.AeroWizard.ContentArea class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_ContentArea.htm" />
-  </HelpKINode>
+  <HelpKINode Title="VisualStyleElementEx.AeroWizard.ContentArea class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_ContentArea.htm" />
   <HelpKINode Title="VisualStyleElementEx.AeroWizard.ContentArea.NoMargin property" Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_ContentArea_NoMargin.htm" />
   <HelpKINode Title="VisualStyleElementEx.AeroWizard.ContentArea.Normal property" Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_ContentArea_Normal.htm" />
-  <HelpKINode Title="VisualStyleElementEx.AeroWizard.HeaderArea class">
-    <HelpKINode Title="VisualStyleElementEx.AeroWizard.HeaderArea Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_HeaderArea.htm" />
-    <HelpKINode Title="about VisualStyleElementEx.AeroWizard.HeaderArea class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_HeaderArea.htm" />
-  </HelpKINode>
+  <HelpKINode Title="VisualStyleElementEx.AeroWizard.HeaderArea class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_HeaderArea.htm" />
   <HelpKINode Title="VisualStyleElementEx.AeroWizard.HeaderArea.NoMargin property" Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_HeaderArea_NoMargin.htm" />
   <HelpKINode Title="VisualStyleElementEx.AeroWizard.HeaderArea.Normal property" Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_HeaderArea_Normal.htm" />
-  <HelpKINode Title="VisualStyleElementEx.AeroWizard.TitleBar class">
-    <HelpKINode Title="VisualStyleElementEx.AeroWizard.TitleBar Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_TitleBar.htm" />
-    <HelpKINode Title="about VisualStyleElementEx.AeroWizard.TitleBar class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_TitleBar.htm" />
-  </HelpKINode>
+  <HelpKINode Title="VisualStyleElementEx.AeroWizard.TitleBar class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_TitleBar.htm" />
   <HelpKINode Title="VisualStyleElementEx.AeroWizard.TitleBar.Active property" Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_TitleBar_Active.htm" />
   <HelpKINode Title="VisualStyleElementEx.AeroWizard.TitleBar.Inactive property" Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_AeroWizard_TitleBar_Inactive.htm" />
-  <HelpKINode Title="VisualStyleElementEx.Navigation class">
-    <HelpKINode Title="VisualStyleElementEx.Navigation Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation.htm" />
-    <HelpKINode Title="about VisualStyleElementEx.Navigation class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation.htm" />
-  </HelpKINode>
-  <HelpKINode Title="VisualStyleElementEx.Navigation.BackButton class">
-    <HelpKINode Title="VisualStyleElementEx.Navigation.BackButton Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_BackButton.htm" />
-    <HelpKINode Title="about VisualStyleElementEx.Navigation.BackButton class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_BackButton.htm" />
-  </HelpKINode>
+  <HelpKINode Title="VisualStyleElementEx.Navigation class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation.htm" />
+  <HelpKINode Title="VisualStyleElementEx.Navigation.BackButton class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_BackButton.htm" />
   <HelpKINode Title="VisualStyleElementEx.Navigation.BackButton.Disabled property" Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_BackButton_Disabled.htm" />
   <HelpKINode Title="VisualStyleElementEx.Navigation.BackButton.Hot property" Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_BackButton_Hot.htm" />
   <HelpKINode Title="VisualStyleElementEx.Navigation.BackButton.Normal property" Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_BackButton_Normal.htm" />
   <HelpKINode Title="VisualStyleElementEx.Navigation.BackButton.Pressed property" Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_BackButton_Pressed.htm" />
-  <HelpKINode Title="VisualStyleElementEx.Navigation.ForwardButton class">
-    <HelpKINode Title="VisualStyleElementEx.Navigation.ForwardButton Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_ForwardButton.htm" />
-    <HelpKINode Title="about VisualStyleElementEx.Navigation.ForwardButton class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_ForwardButton.htm" />
-  </HelpKINode>
+  <HelpKINode Title="VisualStyleElementEx.Navigation.ForwardButton class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_ForwardButton.htm" />
   <HelpKINode Title="VisualStyleElementEx.Navigation.ForwardButton.Disabled property" Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_ForwardButton_Disabled.htm" />
   <HelpKINode Title="VisualStyleElementEx.Navigation.ForwardButton.Hot property" Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_ForwardButton_Hot.htm" />
   <HelpKINode Title="VisualStyleElementEx.Navigation.ForwardButton.Normal property" Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_ForwardButton_Normal.htm" />
   <HelpKINode Title="VisualStyleElementEx.Navigation.ForwardButton.Pressed property" Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_ForwardButton_Pressed.htm" />
-  <HelpKINode Title="VisualStyleElementEx.Navigation.MenuButton class">
-    <HelpKINode Title="VisualStyleElementEx.Navigation.MenuButton Class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_MenuButton.htm" />
-    <HelpKINode Title="about VisualStyleElementEx.Navigation.MenuButton class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_MenuButton.htm" />
-  </HelpKINode>
+  <HelpKINode Title="VisualStyleElementEx.Navigation.MenuButton class" Url="html/T_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_MenuButton.htm" />
   <HelpKINode Title="VisualStyleElementEx.Navigation.MenuButton.Disabled property" Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_MenuButton_Disabled.htm" />
   <HelpKINode Title="VisualStyleElementEx.Navigation.MenuButton.Hot property" Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_MenuButton_Hot.htm" />
   <HelpKINode Title="VisualStyleElementEx.Navigation.MenuButton.Normal property" Url="html/P_AeroWizard_VisualStyles_VisualStyleElementEx_Navigation_MenuButton_Normal.htm" />
@@ -677,7 +628,6 @@
   <HelpKINode Title="WizardCommandButtonState enumeration" Url="html/T_AeroWizard_WizardCommandButtonState.htm" />
   <HelpKINode Title="WizardControl class">
     <HelpKINode Title="WizardControl Class" Url="html/T_AeroWizard_WizardControl.htm" />
-    <HelpKINode Title="about WizardControl class" Url="html/T_AeroWizard_WizardControl.htm" />
     <HelpKINode Title="constructor" Url="html/M_AeroWizard_WizardControl__ctor.htm" />
     <HelpKINode Title="events" Url="html/Events_T_AeroWizard_WizardControl.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_AeroWizard_WizardControl.htm" />
@@ -726,7 +676,6 @@
   <HelpKINode Title="WizardControl.WizardControl constructor" Url="html/M_AeroWizard_WizardControl__ctor.htm" />
   <HelpKINode Title="WizardPage class">
     <HelpKINode Title="WizardPage Class" Url="html/T_AeroWizard_WizardPage.htm" />
-    <HelpKINode Title="about WizardPage class" Url="html/T_AeroWizard_WizardPage.htm" />
     <HelpKINode Title="constructor" Url="html/M_AeroWizard_WizardPage__ctor.htm" />
     <HelpKINode Title="events" Url="html/Events_T_AeroWizard_WizardPage.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_AeroWizard_WizardPage.htm" />
@@ -758,7 +707,6 @@
   <HelpKINode Title="WizardPage.WizardPage constructor" Url="html/M_AeroWizard_WizardPage__ctor.htm" />
   <HelpKINode Title="WizardPageCollection class">
     <HelpKINode Title="WizardPageCollection Class" Url="html/T_AeroWizard_WizardPageCollection.htm" />
-    <HelpKINode Title="about WizardPageCollection class" Url="html/T_AeroWizard_WizardPageCollection.htm" />
     <HelpKINode Title="events" Url="html/Events_T_AeroWizard_WizardPageCollection.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_AeroWizard_WizardPageCollection.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_AeroWizard_WizardPageCollection.htm" />
@@ -766,7 +714,6 @@
   <HelpKINode Title="WizardPageCollection.Owner property" Url="html/P_AeroWizard_WizardPageCollection_Owner.htm" />
   <HelpKINode Title="WizardPageConfirmEventArgs class">
     <HelpKINode Title="WizardPageConfirmEventArgs Class" Url="html/T_AeroWizard_WizardPageConfirmEventArgs.htm" />
-    <HelpKINode Title="about WizardPageConfirmEventArgs class" Url="html/T_AeroWizard_WizardPageConfirmEventArgs.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_AeroWizard_WizardPageConfirmEventArgs.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_AeroWizard_WizardPageConfirmEventArgs.htm" />
   </HelpKINode>
@@ -774,7 +721,6 @@
   <HelpKINode Title="WizardPageConfirmEventArgs.Page property" Url="html/P_AeroWizard_WizardPageConfirmEventArgs_Page.htm" />
   <HelpKINode Title="WizardPageContainer class">
     <HelpKINode Title="WizardPageContainer Class" Url="html/T_AeroWizard_WizardPageContainer.htm" />
-    <HelpKINode Title="about WizardPageContainer class" Url="html/T_AeroWizard_WizardPageContainer.htm" />
     <HelpKINode Title="constructor" Url="html/M_AeroWizard_WizardPageContainer__ctor.htm" />
     <HelpKINode Title="events" Url="html/Events_T_AeroWizard_WizardPageContainer.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_AeroWizard_WizardPageContainer.htm" />
@@ -813,7 +759,6 @@
   <HelpKINode Title="WizardPageContainer.WizardPageContainer constructor" Url="html/M_AeroWizard_WizardPageContainer__ctor.htm" />
   <HelpKINode Title="WizardPageInitEventArgs class">
     <HelpKINode Title="WizardPageInitEventArgs Class" Url="html/T_AeroWizard_WizardPageInitEventArgs.htm" />
-    <HelpKINode Title="about WizardPageInitEventArgs class" Url="html/T_AeroWizard_WizardPageInitEventArgs.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_AeroWizard_WizardPageInitEventArgs.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_AeroWizard_WizardPageInitEventArgs.htm" />
   </HelpKINode>

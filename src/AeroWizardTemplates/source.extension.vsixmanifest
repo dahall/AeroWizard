@@ -1,32 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-  <Metadata>
-    <Identity Id="AeroWizardTemplates..134dde00-8c48-450a-926c-63377b215799" Version="2.2.3" Language="en-US" Publisher="GitHub Community" />
-    <DisplayName>Windows Forms Wizard Templates</DisplayName>
-    <Description xml:space="preserve">Library for creating wizards for Windows Forms</Description>
-    <MoreInfo>https://github.com/dahall/AeroWizard</MoreInfo>
-    <License>License.txt</License>
-    <GettingStartedGuide>https://github.com/dahall/AeroWizard</GettingStartedGuide>
-    <ReleaseNotes>https://github.com/dahall/AeroWizard</ReleaseNotes>
-    <Icon>WizardControlTemplate.ico</Icon>
-    <PreviewImage>__PreviewImage.PNG</PreviewImage>
-    <Tags>winforms;wizard;aero</Tags>
-  </Metadata>
-  <Installation>
-    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[11.0,17.0)" />
-    <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[11.0,17.0)" />
-    <InstallationTarget Id="Microsoft.VisualStudio.Enterprise" Version="[11.0,17.0)" />
-  </Installation>
-  <Assets>
-    <Asset Type="AeroWizard.2.2.3.nupkg" d:Source="File" Path="Packages\AeroWizard.2.2.3.nupkg" d:VsixSubPath="Packages" />
-    <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="AeroWizardItemTemplate" d:TargetPath="|AeroWizardItemTemplate;TemplateProjectOutputGroup|" Path="ItemTemplatesA" d:VsixSubPath="ItemTemplates" />
-    <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="CustomWizardItemTemplate" d:TargetPath="|CustomWizardItemTemplate;TemplateProjectOutputGroup|" Path="ItemTemplatesB" d:VsixSubPath="ItemTemplates" />
-    <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="Wizard97ItemTemplate" d:TargetPath="|Wizard97ItemTemplate;TemplateProjectOutputGroup|" Path="ItemTemplatesC" d:VsixSubPath="ItemTemplates" />
-  </Assets>
-  <Dependencies>
-    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
-  </Dependencies>
-  <Prerequisites>
-    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,)" DisplayName="Visual Studio core editor" />
-  </Prerequisites>
+    <Metadata>
+        <Identity Id="AeroWizardTemplates..134dde00-8c48-450a-926c-63377b215799" Version="2.2.3" Language="en-US" Publisher="dahall" />
+        <DisplayName>Windows Forms Wizard Templates</DisplayName>
+        <Description xml:space="preserve">Library for creating wizards for Windows Forms</Description>
+        <MoreInfo>https://github.com/dahall/AeroWizard</MoreInfo>
+        <License>License.txt</License>
+        <GettingStartedGuide>https://github.com/dahall/AeroWizard</GettingStartedGuide>
+        <ReleaseNotes>https://github.com/dahall/AeroWizard</ReleaseNotes>
+        <Icon>WizardControlTemplate.ico</Icon>
+        <PreviewImage>__PreviewImage.PNG</PreviewImage>
+        <Tags>winforms;wizard;aero</Tags>
+    </Metadata>
+    <Installation>
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[11.0,17.0)" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[11.0,17.0)" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Enterprise" Version="[11.0,17.0)" />
+    </Installation>
+    <Assets>
+        <Asset Type="AeroWizard.2.2.3.nupkg" d:Source="File" Path="Packages\AeroWizard.2.2.3.nupkg" d:VsixSubPath="Packages" />
+        <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="AeroWizardItemTemplate" d:TargetPath="|AeroWizardItemTemplate;TemplateProjectOutputGroup|" Path="ItemTemplatesA" d:VsixSubPath="ItemTemplates" />
+        <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="CustomWizardItemTemplate" d:TargetPath="|CustomWizardItemTemplate;TemplateProjectOutputGroup|" Path="ItemTemplatesB" d:VsixSubPath="ItemTemplates" />
+        <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="Wizard97ItemTemplate" d:TargetPath="|Wizard97ItemTemplate;TemplateProjectOutputGroup|" Path="ItemTemplatesC" d:VsixSubPath="ItemTemplates" />
+    </Assets>
+    <Dependencies>
+        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+    </Dependencies>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,)" DisplayName="Visual Studio core editor" />
+    </Prerequisites>
 </PackageManifest>

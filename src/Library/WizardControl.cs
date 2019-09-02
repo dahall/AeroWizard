@@ -53,6 +53,8 @@ namespace AeroWizard
 		public WizardControl()
 		{
 			InitializeComponent();
+			nextButton.FlatStyle = FlatStyle.System;
+			cancelButton.FlatStyle = FlatStyle.System;
 
 			OnRightToLeftChanged(EventArgs.Empty);
 

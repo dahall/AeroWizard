@@ -4,8 +4,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
-using Vanara.Interop;
-using Vanara.Interop.DesktopWindowManager;
+using Vanara.Extensions;
+using Vanara.Windows.Forms;
+using static Vanara.PInvoke.UxTheme;
 
 namespace AeroWizard
 {
@@ -94,6 +95,16 @@ namespace AeroWizard
 		{
 			get => backButton.ToolTipText;
 			set { backButton.ToolTipText = value; Invalidate(); }
+		}
+
+		/// <summary>Gets or sets the flat style appearance of the command buttons.</summary>
+		/// <value>One of the <see cref="FlatStyle"/> values. The default value is <see cref="FlatStyle.Standard"/>.</value>
+		[Category("Appearance"), Description("Gets or sets the flat style appearance of the command buttons.")]
+		[DefaultValue(typeof(FlatStyle), "Standard")]
+		public FlatStyle ButtonFlatStyle
+		{
+			get => nextButton.FlatStyle;
+			set => cancelButton.FlatStyle = nextButton.FlatStyle = value;
 		}
 
 		/// <summary>Gets the state of the cancel button.</summary>
@@ -433,10 +444,10 @@ namespace AeroWizard
 			}
 			else
 			{
-				titleBar.ClearTheme();
-				header.ClearTheme();
-				contentArea.ClearTheme();
-				commandArea.ClearTheme();
+				titleBar.SetTheme(null);
+				header.SetTheme(null);
+				contentArea.SetTheme(null);
+				commandArea.SetTheme(null);
 				titleBar.BackColor = SystemColors.Control;
 			}
 
@@ -461,9 +472,9 @@ namespace AeroWizard
 
 		private void ConfigureWindowFrame()
 		{
-			System.Diagnostics.Debug.WriteLine($"ConfigureWindowFrame: compEnab={DesktopWindowManager.IsCompositionEnabled()},parentForm={(parentForm == null ? "null" : parentForm.Name)}");
+			System.Diagnostics.Debug.WriteLine($"ConfigureWindowFrame: compEnab={DesktopWindowManager.CompositionEnabled},parentForm={(parentForm == null ? "null" : parentForm.Name)}");
 			ConfigureStyles();
-			if (DesktopWindowManager.IsCompositionEnabled())
+			if (DesktopWindowManager.CompositionEnabled)
 			{
 				titleBar.BackColor = Color.Black;
 				try
@@ -495,7 +506,7 @@ namespace AeroWizard
 			parentForm.CancelButton = cancelButton;
 			parentForm.AcceptButton = nextButton;
 			parentForm.AutoScaleMode = AutoScaleMode.Font;
-			parentForm.SetWindowThemeAttribute(NativeMethods.WindowThemeNonClientAttributes.NoDrawCaption | NativeMethods.WindowThemeNonClientAttributes.NoDrawIcon | NativeMethods.WindowThemeNonClientAttributes.NoSysMenu);
+			parentForm.SetWindowThemeAttribute(WTNCA.WTNCA_NODRAWCAPTION | WTNCA.WTNCA_NODRAWICON | WTNCA.WTNCA_NOSYSMENU);
 			parentForm.Invalidate();
 		}
 

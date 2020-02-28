@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+ï»¿using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace System.Collections.Generic
@@ -451,7 +451,7 @@ namespace System.Collections.Generic
 		/// <param name="match">The <see cref="Predicate{T}"/> delegate that defines the conditions of the elements to search for.</param>
 		/// <returns>
 		/// The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match"/>, if
-		/// found; otherwise, –1.
+		/// found; otherwise, ï¿½1.
 		/// </returns>
 		/// <exception cref="System.ArgumentNullException"><paramref name="match"/> is <c>null</c>.</exception>
 		public int FindIndex(Predicate<T> match) => FindIndex(0, _size, match);
@@ -465,7 +465,7 @@ namespace System.Collections.Generic
 		/// <param name="match">The <see cref="Predicate{T}"/> delegate that defines the conditions of the elements to search for.</param>
 		/// <returns>
 		/// The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match"/>, if
-		/// found; otherwise, –1.
+		/// found; otherwise, ï¿½1.
 		/// </returns>
 		/// <exception cref="System.ArgumentOutOfRangeException">
 		/// <paramref name="startIndex"/> is outside the range of valid indexes for the <see cref="EventedList{T}"/>.
@@ -483,7 +483,7 @@ namespace System.Collections.Generic
 		/// <param name="match">The <see cref="Predicate{T}"/> delegate that defines the conditions of the elements to search for.</param>
 		/// <returns>
 		/// The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match"/>, if
-		/// found; otherwise, –1.
+		/// found; otherwise, ï¿½1.
 		/// </returns>
 		/// <exception cref="System.ArgumentOutOfRangeException">
 		/// <paramref name="startIndex"/> is outside the range of valid indexes for the <see cref="EventedList{T}"/>.
@@ -548,7 +548,7 @@ namespace System.Collections.Generic
 		/// <param name="match">The <see cref="Predicate{T}"/> delegate that defines the conditions of the elements to search for.</param>
 		/// <returns>
 		/// The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match"/>, if
-		/// found; otherwise, –1.
+		/// found; otherwise, ï¿½1.
 		/// </returns>
 		/// <exception cref="System.ArgumentNullException"><paramref name="match"/> is <c>null</c>.</exception>
 		public int FindLastIndex(Predicate<T> match) => FindLastIndex(_size - 1, _size, match);
@@ -562,7 +562,7 @@ namespace System.Collections.Generic
 		/// <param name="match">The <see cref="Predicate{T}"/> delegate that defines the conditions of the elements to search for.</param>
 		/// <returns>
 		/// The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match"/>, if
-		/// found; otherwise, –1.
+		/// found; otherwise, ï¿½1.
 		/// </returns>
 		/// <exception cref="System.ArgumentOutOfRangeException">
 		/// <paramref name="startIndex"/> is outside the range of valid indexes for the <see cref="EventedList{T}"/>.
@@ -580,7 +580,7 @@ namespace System.Collections.Generic
 		/// <param name="match">The <see cref="Predicate{T}"/> delegate that defines the conditions of the elements to search for.</param>
 		/// <returns>
 		/// The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match"/>, if
-		/// found; otherwise, –1.
+		/// found; otherwise, ï¿½1.
 		/// </returns>
 		/// <exception cref="System.ArgumentOutOfRangeException">
 		/// <paramref name="startIndex"/> is outside the range of valid indexes for the <see cref="EventedList{T}"/>.
@@ -745,7 +745,7 @@ namespace System.Collections.Generic
 		/// <param name="index">The zero-based starting index of the search. 0 (zero) is valid in an empty list.</param>
 		/// <returns>
 		/// The zero-based <paramref name="index"/> of the first occurrence of <paramref name="item"/> within the range of elements in the
-		/// <see cref="EventedList{T}"/> that starts at <paramref name="index"/>, if found; otherwise, –1.
+		/// <see cref="EventedList{T}"/> that starts at <paramref name="index"/>, if found; otherwise, ï¿½1.
 		/// </returns>
 		/// <exception cref="System.ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is outside the range of valid indexes for the <see cref="EventedList{T}"/>.
@@ -769,7 +769,7 @@ namespace System.Collections.Generic
 		/// <returns>
 		/// The zero-based <paramref name="index"/> of the first occurrence of <paramref name="item"/> within the range of elements in the
 		/// <see cref="EventedList{T}"/> that starts at <paramref name="index"/> and contains <paramref name="count"/> number of elements, if
-		/// found; otherwise, –1.
+		/// found; otherwise, ï¿½1.
 		/// </returns>
 		/// <exception cref="System.ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is outside the range of valid indexes for the <see cref="EventedList{T}"/>.
@@ -885,7 +885,7 @@ namespace System.Collections.Generic
 		/// <param name="index">The zero-based starting index of the search. 0 (zero) is valid in an empty list.</param>
 		/// <returns>
 		/// The zero-based <paramref name="index"/> of the last occurrence of <paramref name="item"/> within the range of elements in the
-		/// <see cref="EventedList{T}"/> that starts at <paramref name="index"/>, if found; otherwise, –1.
+		/// <see cref="EventedList{T}"/> that starts at <paramref name="index"/>, if found; otherwise, ï¿½1.
 		/// </returns>
 		/// <exception cref="System.ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is outside the range of valid indexes for the <see cref="EventedList{T}"/>.
@@ -909,7 +909,7 @@ namespace System.Collections.Generic
 		/// <returns>
 		/// The zero-based <paramref name="index"/> of the last occurrence of <paramref name="item"/> within the range of elements in the
 		/// <see cref="EventedList{T}"/> that starts at <paramref name="index"/> and contains <paramref name="count"/> number of elements, if
-		/// found; otherwise, –1.
+		/// found; otherwise, ï¿½1.
 		/// </returns>
 		/// <exception cref="System.ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is outside the range of valid indexes for the <see cref="EventedList{T}"/>.

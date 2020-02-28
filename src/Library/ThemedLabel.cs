@@ -2,9 +2,12 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
-using Vanara.Interop.DesktopWindowManager;
-using static Vanara.Interop.NativeMethods;
+using Vanara.Extensions;
+using Vanara.PInvoke;
+using Vanara.Windows.Forms;
+
+using static Vanara.PInvoke.Gdi32;
+using static Vanara.PInvoke.UxTheme;
 
 namespace AeroWizard
 {
@@ -12,7 +15,7 @@ namespace AeroWizard
 	//[Designer("AeroWizard.Design.ThemedLabelDesigner")]
 	[DefaultProperty("Text")]
 	[ToolboxItem(true), ToolboxBitmap(typeof(ThemedLabel), "ThemedLabel.bmp")]
-	public class ThemedLabel : Label
+	internal class ThemedLabel : Label
 	{
 		/// <summary>Initializes a new instance of the <see cref="ThemedLabel"/> class.</summary>
 		public ThemedLabel()
@@ -96,60 +99,59 @@ namespace AeroWizard
 		{
 			if (Visible)
 			{
-				using (var hTheme = new SafeThemeHandle(OpenThemeData(Handle, "Window")))
+				using var hTheme = OpenThemeData(Handle, "Window");
+				if (!hTheme.IsInvalid && (Application.RenderWithVisualStyles || DesktopWindowManager.CompositionEnabled))
 				{
-					if (!hTheme.IsInvalid && (Application.RenderWithVisualStyles || DesktopWindowManager.IsCompositionEnabled()))
-					{
-						using (var dc = new SafeDCHandle(e.Graphics))
-							DrawThemeParentBackground(Handle, dc, ClientRectangle);
-					}
+					using var dc = new SafeHDC(e.Graphics);
+					DrawThemeParentBackground(Handle, dc, ClientRectangle);
+				}
 
-					// Draw image
-					var r = DeflateRect(ClientRectangle, Padding);
-					RECT rR = r;
-					if (Image != null)
+				// Draw image
+				var r = DeflateRect(ClientRectangle, Padding);
+				RECT rR = r;
+				if (Image != null)
+				{
+					//Rectangle ir = CalcImageRenderBounds(this.Image, r, base.RtlTranslateAlignment(this.ImageAlign));
+					if (ImageList != null && ImageIndex == 0)
 					{
-						//Rectangle ir = CalcImageRenderBounds(this.Image, r, base.RtlTranslateAlignment(this.ImageAlign));
-						if (ImageList != null && ImageIndex == 0)
-						{
-							if (!hTheme.IsInvalid && !this.IsDesignMode() && DesktopWindowManager.IsCompositionEnabled())
-								VisualStyleRendererExtension.DrawWrapper(e.Graphics, r, g => DrawThemeIcon(hTheme, g, 1, 1, ref rR, ImageList.Handle, ImageIndex));
-							else
-								ImageList.Draw(e.Graphics, r.X, r.Y, r.Width, r.Height, ImageIndex);
-						}
+						if (!hTheme.IsInvalid && !this.IsDesignMode() && DesktopWindowManager.CompositionEnabled)
+							e.Graphics.DrawViaDIB(r, (memoryHdc, b) => DrawThemeIcon(hTheme, memoryHdc, 1, 1, r, ImageList.Handle, ImageIndex));
 						else
-						{
-							if (!hTheme.IsInvalid && !this.IsDesignMode() && DesktopWindowManager.IsCompositionEnabled())
-								VisualStyleRendererExtension.DrawWrapper(e.Graphics, r, g => Graphics.FromHdc(g.DangerousGetHandle()).DrawImage(Image, r));
-							else
-								e.Graphics.DrawImage(Image, r);
-						}
+							ImageList.Draw(e.Graphics, r.X, r.Y, r.Width, r.Height, ImageIndex);
 					}
-
-					// Draw text
-					if (Text.Length > 0)
+					else
 					{
-						if (this.IsDesignMode() || hTheme.IsInvalid || !DesktopWindowManager.IsCompositionEnabled())
-						{
-							var br = DesktopWindowManager.IsCompositionEnabled() ? SystemBrushes.ActiveCaptionText : SystemBrushes.ControlText;
-							var sf = new StringFormat(StringFormat.GenericDefault);
-							if (this.GetRightToLeftProperty() == RightToLeft.Yes) sf.FormatFlags |= StringFormatFlags.DirectionRightToLeft;
-							e.Graphics.DrawString(Text, Font, br, ClientRectangle, sf);
-						}
-						else
-						{
-							var tff = CreateTextFormatFlags(RtlTranslateAlignment(TextAlign), AutoEllipsis, UseMnemonic);
-							VisualStyleRendererExtension.DrawWrapper(e.Graphics, ClientRectangle, g =>
-							{
-								using (var fontHandle = new SafeDCObjectHandle(g, Font.ToHfont()))
-								{
-									// Draw glowing text
-									var dttOpts = new DrawThemeTextOptions(true) { GlowSize = 10, AntiAliasedAlpha = true, TextColor = ForeColor };
-									var textBounds = new RECT(4, 0, Width - 4, Height);
-									DrawThemeTextEx(hTheme, g, 1, 1, Text, Text.Length, tff, ref textBounds, ref dttOpts);
-								}
+						if (!hTheme.IsInvalid && !this.IsDesignMode() && DesktopWindowManager.CompositionEnabled)
+							e.Graphics.DrawViaDIB(r, (memoryHdc, b) => {
+								using var mg = Graphics.FromHdc(memoryHdc.DangerousGetHandle());
+								mg.DrawImage(Image, r);
 							});
-						}
+						else
+							e.Graphics.DrawImage(Image, r);
+					}
+				}
+
+				// Draw text
+				if (Text.Length > 0)
+				{
+					if (this.IsDesignMode() || hTheme.IsInvalid || !DesktopWindowManager.CompositionEnabled)
+					{
+						var br = DesktopWindowManager.CompositionEnabled ? SystemBrushes.ActiveCaptionText : SystemBrushes.ControlText;
+						var sf = new StringFormat(StringFormat.GenericDefault);
+						if (this.GetRightToLeftProperty() == RightToLeft.Yes) sf.FormatFlags |= StringFormatFlags.DirectionRightToLeft;
+						e.Graphics.DrawString(Text, Font, br, ClientRectangle, sf);
+					}
+					else
+					{
+						var tff = CreateTextFormatFlags(RtlTranslateAlignment(TextAlign), AutoEllipsis, UseMnemonic);
+						e.Graphics.DrawViaDIB(ClientRectangle, (memoryHdc, b) =>
+						{
+							using var o = new GdiObjectContext(memoryHdc, new SafeHFONT(Font.ToHfont(), true));
+							// Draw glowing text
+							var dttOpts = new DTTOPTS(null) { GlowSize = 10, AntiAliasedAlpha = true, TextColor = ForeColor };
+							var textBounds = new RECT(4, 0, Width - 4, Height);
+							DrawThemeTextEx(hTheme, memoryHdc, 1, 1, Text, Text.Length, (DrawTextFlags)tff, ref textBounds, dttOpts);
+						});
 					}
 				}
 			}

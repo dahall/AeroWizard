@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using Vanara.Interop;
+
+using Vanara.Extensions;
+using static Vanara.PInvoke.Shell32;
 
 // ReSharper disable MemberCanBePrivate.Global
 
@@ -39,7 +41,7 @@ namespace AeroWizard
 		private Timer progressTimer;
 		private WizardPage selectedPage;
 		private bool showProgressInTaskbarIcon;
-		private NativeMethods.ITaskbarList4 taskbar;
+		private ITaskbarList4 taskbar;
 
 		/// <summary>Initializes a new instance of the <see cref="Control"/> class.</summary>
 		public WizardPageContainer()
@@ -313,14 +315,14 @@ namespace AeroWizard
 
 		/// <summary>Gets the task bar interface for the current form.</summary>
 		/// <value>The task bar.</value>
-		private NativeMethods.ITaskbarList4 TaskBar
+		private ITaskbarList4 TaskBar
 		{
 			get
 			{
 				if (taskbar != null) return taskbar;
-				taskbar = (NativeMethods.ITaskbarList4)new NativeMethods.CTaskbarList();
+				taskbar = new ITaskbarList4();
 				taskbar.HrInit();
-				if (ParentForm != null) taskbar.SetProgressState(ParentForm.Handle, NativeMethods.TBPF.NORMAL);
+				if (ParentForm != null) taskbar.SetProgressState(ParentForm.Handle, TBPFLAG.TBPF_NORMAL);
 				return taskbar;
 			}
 		}

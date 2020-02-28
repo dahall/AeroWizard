@@ -1,7 +1,8 @@
-﻿using AeroWizard.Properties;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+
+using AeroWizard.Properties;
 
 namespace AeroWizard
 {

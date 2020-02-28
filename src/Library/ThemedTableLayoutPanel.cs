@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
-using Vanara.Interop.DesktopWindowManager;
+using Vanara.Extensions;
+using Vanara.Windows.Forms;
 
 namespace AeroWizard
 {
 	/// <summary>A table layout panel that supports a glass overlay.</summary>
 	[ToolboxItem(true), System.Drawing.ToolboxBitmap(typeof(ThemedTableLayoutPanel), "ThemedTableLayoutPanel.bmp")]
-	public class ThemedTableLayoutPanel : TableLayoutPanel
+	internal class ThemedTableLayoutPanel : TableLayoutPanel
 	{
 		private VisualStyleRenderer rnd;
 
@@ -67,7 +68,7 @@ namespace AeroWizard
 		/// <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs"/> that contains the event data.</param>
 		protected override void OnPaint(PaintEventArgs e)
 		{
-			if (!this.IsDesignMode() && SupportGlass && DesktopWindowManager.IsCompositionEnabled())
+			if (!this.IsDesignMode() && SupportGlass && DesktopWindowManager.CompositionEnabled)
 				try { e.Graphics.Clear(System.Drawing.Color.Black); } catch { }
 			else
 			{

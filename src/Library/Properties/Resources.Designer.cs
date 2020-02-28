@@ -19,10 +19,10 @@ namespace AeroWizard.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace AeroWizard.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AeroWizard.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace AeroWizard.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace AeroWizard.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BackBtnStrip {
+        public static System.Drawing.Bitmap BackBtnStrip {
             get {
                 object obj = ResourceManager.GetObject("BackBtnStrip", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -73,7 +73,7 @@ namespace AeroWizard.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BackBtnStrip2 {
+        public static System.Drawing.Bitmap BackBtnStrip2 {
             get {
                 object obj = ResourceManager.GetObject("BackBtnStrip2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -83,7 +83,7 @@ namespace AeroWizard.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Returns to a previous page.
         /// </summary>
-        internal static string WizardBackButtonToolTip {
+        public static string WizardBackButtonToolTip {
             get {
                 return ResourceManager.GetString("WizardBackButtonToolTip", resourceCulture);
             }
@@ -92,7 +92,7 @@ namespace AeroWizard.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &amp;Back.
         /// </summary>
-        internal static string WizardBackText {
+        public static string WizardBackText {
             get {
                 return ResourceManager.GetString("WizardBackText", resourceCulture);
             }
@@ -101,7 +101,7 @@ namespace AeroWizard.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &amp;Cancel.
         /// </summary>
-        internal static string WizardCancelText {
+        public static string WizardCancelText {
             get {
                 return ResourceManager.GetString("WizardCancelText", resourceCulture);
             }
@@ -110,7 +110,7 @@ namespace AeroWizard.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon WizardControlIcon {
+        public static System.Drawing.Icon WizardControlIcon {
             get {
                 object obj = ResourceManager.GetObject("WizardControlIcon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -120,7 +120,7 @@ namespace AeroWizard.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &amp;Finish.
         /// </summary>
-        internal static string WizardFinishText {
+        public static string WizardFinishText {
             get {
                 return ResourceManager.GetString("WizardFinishText", resourceCulture);
             }
@@ -129,7 +129,7 @@ namespace AeroWizard.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Page Title.
         /// </summary>
-        internal static string WizardHeader {
+        public static string WizardHeader {
             get {
                 return ResourceManager.GetString("WizardHeader", resourceCulture);
             }
@@ -138,7 +138,7 @@ namespace AeroWizard.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &amp;Help.
         /// </summary>
-        internal static string WizardHelpText {
+        public static string WizardHelpText {
             get {
                 return ResourceManager.GetString("WizardHelpText", resourceCulture);
             }
@@ -147,7 +147,7 @@ namespace AeroWizard.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &amp;Next.
         /// </summary>
-        internal static string WizardNextText {
+        public static string WizardNextText {
             get {
                 return ResourceManager.GetString("WizardNextText", resourceCulture);
             }
@@ -156,7 +156,7 @@ namespace AeroWizard.Properties {
         /// <summary>
         ///   Looks up a localized string similar to No wizard pages have been added..
         /// </summary>
-        internal static string WizardNoPagesNotice {
+        public static string WizardNoPagesNotice {
             get {
                 return ResourceManager.GetString("WizardNoPagesNotice", resourceCulture);
             }
@@ -165,7 +165,7 @@ namespace AeroWizard.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Help.
         /// </summary>
-        internal static string WizardPageDefaultHelpText {
+        public static string WizardPageDefaultHelpText {
             get {
                 return ResourceManager.GetString("WizardPageDefaultHelpText", resourceCulture);
             }
@@ -174,7 +174,7 @@ namespace AeroWizard.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Wizard Title.
         /// </summary>
-        internal static string WizardTitle {
+        public static string WizardTitle {
             get {
                 return ResourceManager.GetString("WizardTitle", resourceCulture);
             }

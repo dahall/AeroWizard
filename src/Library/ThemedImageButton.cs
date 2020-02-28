@@ -4,20 +4,22 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
-using Vanara.Interop.DesktopWindowManager;
-using static Vanara.Interop.NativeMethods;
-using static System.Windows.Forms.VisualStyles.VisualStyleRendererExtension;
+using Vanara.Windows.Forms;
+using Vanara.Extensions;
+using Vanara.PInvoke;
+using static Vanara.PInvoke.UxTheme;
+using static Vanara.PInvoke.Gdi32;
 
 namespace AeroWizard
 {
 	/// <summary>A button that displays an image and no text.</summary>
 	[ToolboxItem(true), ToolboxBitmap(typeof(ThemedImageButton), "ThemedImageButton.bmp")]
-	public class ThemedImageButton : ButtonBase
+	internal class ThemedImageButton : ButtonBase
 	{
 		private const string defaultText = "";
 		private const string defaultToolTip = "Returns to a previous page";
 
-		private SafeThemeHandle hTheme;
+		private SafeHTHEME hTheme;
 		private ToolTip toolTip;
 
 		/// <summary>Initializes a new instance of the <see cref="ThemedImageButton"/> class.</summary>
@@ -224,15 +226,14 @@ namespace AeroWizard
 			{
 				if (OnGlass)
 				{
-					DrawWrapper(graphics, bounds, hdc => DrawGlassBackground(hTheme, hdc, StylePart, (int)ButtonState, bounds, false, bounds));
+					graphics.DrawViaDIB(bounds, (hdc, r) => DrawThemeBackground(hTheme, hdc, StylePart, (int)ButtonState, bounds, null));
 				}
 				else
 				{
-					using (var hdc = new SafeDCHandle(graphics))
+					using (var hdc = new SafeHDC(graphics))
 					{
 						DrawThemeParentBackground(Handle, hdc, bounds);
-						RECT rr = bounds;
-						DrawThemeBackground(hTheme, hdc, StylePart, (int)ButtonState, ref rr, null);
+						DrawThemeBackground(hTheme, hdc, StylePart, (int)ButtonState, bounds, null);
 					}
 				}
 			}
@@ -250,7 +251,13 @@ namespace AeroWizard
 					var forceDisabled = !Enabled && ImageList.Images.Count == 1;
 					if (OnGlass)
 					{
-						VisualStyleRendererExtension.DrawGlassImage(null, graphics, bounds, ImageList.Images[idx], forceDisabled);
+						if (!forceDisabled)
+							graphics.DrawViaDIB(bounds, (hdc, r) => DrawThemeIcon(hTheme, hdc, StylePart, (int)ButtonState, r, ImageList.Handle, idx));
+						else
+							graphics.DrawViaDIB(bounds, (hdc, r) => {
+								using (var mg = Graphics.FromHdc(hdc.DangerousGetHandle()))
+									ControlPaint.DrawImageDisabled(mg, ImageList.Images[idx], r.X, r.Y, Color.Transparent);
+							});
 					}
 					else
 					{
@@ -305,11 +312,11 @@ namespace AeroWizard
 
 		private bool InitializeRenderer()
 		{
-			if (Application.RenderWithVisualStyles || DesktopWindowManager.IsCompositionEnabled())
+			if (Application.RenderWithVisualStyles || DesktopWindowManager.CompositionEnabled)
 			{
 				try
 				{
-					hTheme = new SafeThemeHandle(OpenThemeData(Handle, StyleClass));
+					hTheme = OpenThemeData(Handle, StyleClass);
 					return true;
 				}
 				catch { }

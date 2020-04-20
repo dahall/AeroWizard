@@ -2,8 +2,8 @@
 <VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
   <TemplateData>
     <DefaultName>AeroWizard.cs</DefaultName>
-    <Name>AeroWizard Control</Name>
-    <Description>Windows Form hosting a WizardControl to create an Aero style wizard</Description>
+    <Name>Aero Wizard Form (Windows Forms)</Name>
+    <Description>An Aero style wizard for Windows Forms (WinForms) applications.</Description>
     <ProjectType>CSharp</ProjectType>
     <CreateNewFolder>true</CreateNewFolder>
     <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
@@ -12,6 +12,7 @@
     <Icon>WizardControlTemplate.ico</Icon>
     <PreviewImage>__PreviewImage.PNG</PreviewImage>
     <TemplateID>FC7E62A9-102B-4802-9520-29D9E053E9FA</TemplateID>
+    <PromptForSaveOnCreation>true</PromptForSaveOnCreation>
   </TemplateData>
   <TemplateContent>
     <References>
@@ -27,9 +28,6 @@
       <Reference>
         <Assembly>System.Windows.Forms</Assembly>
       </Reference>
-      <Reference>
-        <Assembly>AeroWizard</Assembly>
-      </Reference>
     </References>
     <ProjectItem SubType="Form" TargetFileName="$fileinputname$.cs" ReplaceParameters="true" OpenInEditor="true">AeroWizardItemTemplate.cs</ProjectItem>
     <ProjectItem SubType="" TargetFileName="$fileinputname$.Designer.cs" ReplaceParameters="true">AeroWizardItemTemplate.Designer.cs</ProjectItem>
@@ -40,8 +38,9 @@
     <FullClassName>NuGet.VisualStudio.TemplateWizard</FullClassName>
   </WizardExtension>
   <WizardData>
-    <packages repository="extension" repositoryId="AeroWizardTemplates..134dde00-8c48-450a-926c-63377b215799">
-      <package id="AeroWizard" version="2.3.0" />
+    <packages>
+      <package id="Vanara.Library" version="3.2.0" />
+      <package id="AeroWizard" version="2.2.3" />
     </packages>
   </WizardData>
 </VSTemplate>

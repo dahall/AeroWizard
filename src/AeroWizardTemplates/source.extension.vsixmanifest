@@ -18,7 +18,6 @@
     <InstallationTarget Id="Microsoft.VisualStudio.Enterprise" Version="[11.0,17.0)" />
   </Installation>
   <Assets>
-    <Asset Type="AeroWizard.2.3.0.nupkg" d:Source="File" Path="Packages\AeroWizard.2.3.0.nupkg" d:VsixSubPath="Packages" />
     <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="AeroWizardItemTemplate" d:TargetPath="|AeroWizardItemTemplate;TemplateProjectOutputGroup|" Path="ItemTemplatesA" d:VsixSubPath="ItemTemplates" />
     <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="CustomWizardItemTemplate" d:TargetPath="|CustomWizardItemTemplate;TemplateProjectOutputGroup|" Path="ItemTemplatesB" d:VsixSubPath="ItemTemplates" />
     <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="Wizard97ItemTemplate" d:TargetPath="|Wizard97ItemTemplate;TemplateProjectOutputGroup|" Path="ItemTemplatesC" d:VsixSubPath="ItemTemplates" />

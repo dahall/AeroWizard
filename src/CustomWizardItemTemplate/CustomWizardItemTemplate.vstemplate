@@ -12,6 +12,7 @@
     <Icon>WizardControlTemplate.ico</Icon>
     <PreviewImage>__PreviewImage.PNG</PreviewImage>
     <TemplateID>D2B6F880-8DE9-43F0-B523-DCE11F8EE19C</TemplateID>
+    <PromptForSaveOnCreation>true</PromptForSaveOnCreation>
   </TemplateData>
   <TemplateContent>
     <References>
@@ -27,9 +28,6 @@
       <Reference>
         <Assembly>System.Windows.Forms</Assembly>
       </Reference>
-      <Reference>
-        <Assembly>AeroWizard</Assembly>
-      </Reference>
     </References>
     <ProjectItem SubType="Form" TargetFileName="$fileinputname$.cs" ReplaceParameters="true" OpenInEditor="true">CustomWizardItemTemplate.cs</ProjectItem>
     <ProjectItem SubType="" TargetFileName="$fileinputname$.Designer.cs" ReplaceParameters="true">CustomWizardItemTemplate.Designer.cs</ProjectItem>
@@ -40,8 +38,9 @@
     <FullClassName>NuGet.VisualStudio.TemplateWizard</FullClassName>
   </WizardExtension>
   <WizardData>
-    <packages repository="extension" repositoryId="AeroWizardTemplates..134dde00-8c48-450a-926c-63377b215799">
-      <package id="AeroWizard" version="2.3.0" />
+    <packages>
+      <package id="Vanara.Library" version="3.2.0" />
+      <package id="AeroWizard" version="2.2.3" />
     </packages>
   </WizardData>
 </VSTemplate>

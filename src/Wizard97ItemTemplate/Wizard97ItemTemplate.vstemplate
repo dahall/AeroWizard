@@ -2,7 +2,7 @@
 <VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
   <TemplateData>
     <DefaultName>Wizard97ItemTemplate.cs</DefaultName>
-    <Name>Wizard97 Control</Name>
+    <Name>Wizard97 Form (Windows Forms)</Name>
     <Description>Windows Form hosting controls that allow it to behave as a Wizard97 look alike.</Description>
     <ProjectType>CSharp</ProjectType>
     <CreateNewFolder>true</CreateNewFolder>
@@ -12,6 +12,7 @@
     <Icon>__TemplateIcon.ico</Icon>
     <PreviewImage>__PreviewImage.PNG</PreviewImage>
     <TemplateID>79CB9E7F-B925-42CF-A231-27B4E2C6BA88</TemplateID>
+    <PromptForSaveOnCreation>true</PromptForSaveOnCreation>
   </TemplateData>
   <TemplateContent>
     <References>
@@ -27,9 +28,6 @@
       <Reference>
         <Assembly>System.Windows.Forms</Assembly>
       </Reference>
-      <Reference>
-        <Assembly>AeroWizard</Assembly>
-      </Reference>
     </References>
     <ProjectItem SubType="Form" TargetFileName="$fileinputname$.cs" ReplaceParameters="true" OpenInEditor="true">OldStyleWizard.cs</ProjectItem>
     <ProjectItem SubType="" TargetFileName="$fileinputname$.Designer.cs" ReplaceParameters="true">OldStyleWizard.Designer.cs</ProjectItem>
@@ -40,8 +38,9 @@
     <FullClassName>NuGet.VisualStudio.TemplateWizard</FullClassName>
   </WizardExtension>
   <WizardData>
-    <packages repository="extension" repositoryId="AeroWizardTemplates..134dde00-8c48-450a-926c-63377b215799">
-      <package id="AeroWizard" version="2.3.0" />
+    <packages>
+      <package id="Vanara.Library" version="3.2.0" />
+      <package id="AeroWizard" version="2.2.3" />
     </packages>
   </WizardData>
 </VSTemplate>

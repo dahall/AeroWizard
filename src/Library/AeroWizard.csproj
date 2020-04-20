@@ -6,7 +6,6 @@
     <AssemblyName>AeroWizard</AssemblyName>
     <RootNamespace>AeroWizard</RootNamespace>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>AeroWizard.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
     <PackageId>AeroWizard</PackageId>
     <Version>2.3.0</Version>
@@ -99,6 +98,7 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\AeroWizard.snk" Link="AeroWizard.snk" />
     <None Include="..\AeroWizardHelp\icons\WizardControlIcon48.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>

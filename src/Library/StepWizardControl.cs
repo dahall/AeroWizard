@@ -132,7 +132,7 @@ namespace AeroWizard
 		/// <summary>Gets the step text.</summary>
 		/// <param name="page">The page.</param>
 		/// <returns>Step text for the specified wizard page.</returns>
-		[DefaultValue(null), Category("Appearance"), Description("Alternate text to provide to the StepList. Default value comes the Text property of the WizardPage.")]
+		[DefaultValue(null), Category("Appearance"), Localizable(true), Description("Alternate text to provide to the StepList. Default value comes the Text property of the WizardPage.")]
 		public string GetStepText(WizardPage page) => list.GetStepText(page);
 
 		/// <summary>Gets the step text indent level.</summary>

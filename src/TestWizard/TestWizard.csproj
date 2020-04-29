@@ -71,6 +71,12 @@
     <Compile Include="AeroWizardTemplate.Designer.cs">
       <DependentUpon>AeroWizardTemplate.cs</DependentUpon>
     </Compile>
+    <Compile Include="EmbeddedStepList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmbeddedStepList.Designer.cs">
+      <DependentUpon>EmbeddedStepList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +131,9 @@
     </Compile>
     <EmbeddedResource Include="AeroWizardTemplate.resx">
       <DependentUpon>AeroWizardTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmbeddedStepList.resx">
+      <DependentUpon>EmbeddedStepList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

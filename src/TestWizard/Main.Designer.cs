@@ -35,11 +35,12 @@
 			this.vsOnOS = new System.Windows.Forms.CheckBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.oldButton = new System.Windows.Forms.Button();
 			this.customBtn = new System.Windows.Forms.Button();
 			this.stepBtn = new System.Windows.Forms.Button();
 			this.wizBtn = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.oldButton = new System.Windows.Forms.Button();
+			this.langCombo = new System.Windows.Forms.ComboBox();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
@@ -119,6 +120,16 @@
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Wizard";
 			// 
+			// oldButton
+			// 
+			this.oldButton.Location = new System.Drawing.Point(149, 49);
+			this.oldButton.Name = "oldButton";
+			this.oldButton.Size = new System.Drawing.Size(107, 23);
+			this.oldButton.TabIndex = 0;
+			this.oldButton.Text = "Old Wizard";
+			this.oldButton.UseVisualStyleBackColor = true;
+			this.oldButton.Click += new System.EventHandler(this.oldButton_Click);
+			// 
 			// customBtn
 			// 
 			this.customBtn.Location = new System.Drawing.Point(7, 49);
@@ -154,21 +165,22 @@
 			this.wizBtn.UseVisualStyleBackColor = true;
 			this.wizBtn.Click += new System.EventHandler(this.wizBtn_Click);
 			// 
-			// oldButton
+			// langCombo
 			// 
-			this.oldButton.Location = new System.Drawing.Point(149, 49);
-			this.oldButton.Name = "oldButton";
-			this.oldButton.Size = new System.Drawing.Size(107, 23);
-			this.oldButton.TabIndex = 0;
-			this.oldButton.Text = "Old Wizard";
-			this.oldButton.UseVisualStyleBackColor = true;
-			this.oldButton.Click += new System.EventHandler(this.oldButton_Click);
+			this.langCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.langCombo.FormattingEnabled = true;
+			this.langCombo.Location = new System.Drawing.Point(12, 175);
+			this.langCombo.Name = "langCombo";
+			this.langCombo.Size = new System.Drawing.Size(268, 21);
+			this.langCombo.TabIndex = 9;
+			this.langCombo.SelectedIndexChanged += new System.EventHandler(this.langCombo_SelectedIndexChanged);
 			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(292, 180);
+			this.ClientSize = new System.Drawing.Size(293, 208);
+			this.Controls.Add(this.langCombo);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -196,6 +208,6 @@
 		private System.Windows.Forms.Button wizBtn;
 		private System.Windows.Forms.ToolTip toolTip1;
 		private System.Windows.Forms.Button oldButton;
-
-    }
+		private System.Windows.Forms.ComboBox langCombo;
+	}
 }

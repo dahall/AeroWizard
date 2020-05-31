@@ -101,7 +101,6 @@
 			// pageContainer
 			// 
 			this.pageContainer.BackButton = this.backButton;
-			this.pageContainer.BackButtonText = "";
 			this.pageContainer.CancelButton = this.cancelButton;
 			this.pageContainer.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.pageContainer.Location = new System.Drawing.Point(38, 0);
@@ -140,7 +139,6 @@
 			this.cancelButton.Size = new System.Drawing.Size(70, 25);
 			this.cancelButton.TabIndex = 1;
 			this.cancelButton.Tag = AeroWizard.WizardCommandButtonState.Disabled;
-			this.cancelButton.Text = "&Cancel";
 			this.cancelButton.UseVisualStyleBackColor = true;
 			// 
 			// nextButton
@@ -154,7 +152,6 @@
 			this.nextButton.Name = "nextButton";
 			this.nextButton.Size = new System.Drawing.Size(70, 23);
 			this.nextButton.TabIndex = 0;
-			this.nextButton.Text = "&Next";
 			this.nextButton.UseVisualStyleBackColor = true;
 			// 
 			// header

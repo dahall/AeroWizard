@@ -31,10 +31,9 @@ namespace AeroWizard
 	{
 		private readonly Stack<WizardPage> pageHistory;
 		private ButtonBase backButton, cancelButton, nextButton;
-		private string finishBtnText;
+		private string backBtnText, cancelBtnText, finishBtnText, nextBtnText;
 		private bool initialized;
 		private bool initializing;
-		private string nextBtnText;
 		private bool nextButtonShieldEnabled;
 		private Timer progressTimer;
 		private WizardPage selectedPage;
@@ -94,6 +93,7 @@ namespace AeroWizard
 				if (value == null) return;
 				backButton = value;
 				backButton.Click += backButton_Click;
+				SetCmdButtonText(backButton, BackButtonText);
 			}
 		}
 
@@ -112,8 +112,8 @@ namespace AeroWizard
 		[Category("Wizard"), Localizable(true), Description("The back button text")]
 		public string BackButtonText
 		{
-			get => GetCmdButtonText(BackButton);
-			set => SetCmdButtonText(BackButton, value);
+			get => backBtnText;
+			set => SetCmdButtonText(BackButton, backBtnText = value);
 		}
 
 		/// <summary>Gets or sets the button assigned to canceling the page flow.</summary>
@@ -129,6 +129,7 @@ namespace AeroWizard
 				if (value == null) return;
 				cancelButton = value;
 				cancelButton.Click += cancelButton_Click;
+				SetCmdButtonText(cancelButton, CancelButtonText);
 			}
 		}
 
@@ -147,8 +148,8 @@ namespace AeroWizard
 		[Category("Wizard"), Localizable(true), Description("The cancel button text")]
 		public string CancelButtonText
 		{
-			get => GetCmdButtonText(CancelButton);
-			set => SetCmdButtonText(CancelButton, value);
+			get => cancelBtnText;
+			set => SetCmdButtonText(CancelButton, cancelBtnText = value);
 		}
 
 		/// <summary>Gets or sets the finish button text.</summary>

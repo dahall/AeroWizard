@@ -15,12 +15,11 @@ namespace Vanara.Interop.DesktopWindowManager
 		private static MessageWindow _window;
 		private static readonly object ColorizationColorChangedKey = new object();
 		private static readonly object CompositionChangedKey = new object();
+		private static readonly object NonClientRenderingChangedKey = new object();
 		private static EventHandlerList eventHandlerList;
 
 		//static object WindowMaximizedChangedKey = new object();
 		private static readonly object[] keys = new object[] { CompositionChangedKey, NonClientRenderingChangedKey, ColorizationColorChangedKey/*, WindowMaximizedChangedKey*/ };
-
-		private static readonly object NonClientRenderingChangedKey = new object();
 
 		/// <summary>Occurs when the colorization color has changed.</summary>
 		public static event EventHandler ColorizationColorChanged
@@ -418,7 +417,7 @@ namespace Vanara.Interop.DesktopWindowManager
 				{
 					lock (_lock)
 					{
-						try { ((EventHandler)eventHandlerList[keys[idx]]).Invoke(null, EventArgs.Empty); }
+						try { ((EventHandler)eventHandlerList[keys[idx]])?.Invoke(null, EventArgs.Empty); }
 						catch { };
 					}
 				}

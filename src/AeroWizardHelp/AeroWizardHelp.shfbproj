@@ -66,14 +66,14 @@
     <HelpAttributes />
     <NamespaceSummaries>
       <NamespaceSummaryItem name="Microsoft.Win32.DesktopWindowManager" isDocumented="False">The Microsoft.Win32.DesktopWindowManager namespace includes the DesktopWindowManager class and an extender control which allows the manipulation of the Desktop Window Manager and encapsulates API calls to that end. The DWM controls the glass effect on windows and painting on those affected surfaces.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="AeroWizard" isDocumented="True">The AeroWizard namespace provides the classes and components necessary for the creation of wizards.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="System.Collections.Generic" isDocumented="False" />
-      <NamespaceSummaryItem name="AeroWizard.VisualStyles" isDocumented="True">Extensions to the VisualStyles classes native to .NET that accomodate the AEROWIZARD tag.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="AeroWizard (Group)" isGroup="True" isDocumented="False" />
-      <NamespaceSummaryItem name="Vanara (Group)" isGroup="True" isDocumented="False" />
-      <NamespaceSummaryItem name="Vanara.Interop" isDocumented="False" />
-      <NamespaceSummaryItem name="Vanara.Interop.DesktopWindowManager" isDocumented="False" />
-    </NamespaceSummaries>
+<NamespaceSummaryItem name="AeroWizard" isDocumented="True">The AeroWizard namespace provides the classes and components necessary for the creation of wizards.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="System.Collections.Generic" isDocumented="False" />
+<NamespaceSummaryItem name="AeroWizard.VisualStyles" isDocumented="True">Extensions to the VisualStyles classes native to .NET that accomodate the AEROWIZARD tag.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="AeroWizard (Group)" isGroup="True" isDocumented="False" />
+<NamespaceSummaryItem name="Vanara (Group)" isGroup="True" isDocumented="False" />
+<NamespaceSummaryItem name="Vanara.Interop" isDocumented="False" />
+<NamespaceSummaryItem name="Vanara.Interop.DesktopWindowManager" isDocumented="False" />
+<NamespaceSummaryItem name="(global)" isDocumented="False" /></NamespaceSummaries>
     <PlugInConfigurations>
     </PlugInConfigurations>
     <BuildLogFile />
@@ -97,7 +97,7 @@
     <Preliminary>False</Preliminary>
     <NamingMethod>MemberName</NamingMethod>
     <HelpTitle>Wizard .NET Library</HelpTitle>
-    <CopyrightText>&amp;#169%3b 2018 GitHub Community. All rights reserved.</CopyrightText>
+    <CopyrightText>&amp;#169%3b 2020 David Hall. All rights reserved.</CopyrightText>
     <CopyrightHref>https://github.com/dahall/AeroWizard/blob/master/license.md</CopyrightHref>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <CatalogName>VisualStudio12</CatalogName>
@@ -121,7 +121,7 @@
     <ComponentPath />
     <MaximumGroupParts>2</MaximumGroupParts>
     <NamespaceGrouping>True</NamespaceGrouping>
-    <HelpFileVersion>2.2.3</HelpFileVersion>
+    <HelpFileVersion>2.2.6</HelpFileVersion>
     <WarnOnMissingSourceContext>False</WarnOnMissingSourceContext>
     <SourceCodeBasePath>..\</SourceCodeBasePath>
     <TransformComponentArguments>

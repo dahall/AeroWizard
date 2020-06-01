@@ -2,10 +2,11 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>AeroWizard</id>
-    <version>2.2.6</version>
+    <version>2.2.7</version>
     <title>Windows Forms Aero-Wizard Control</title>
     <authors>David Hall</authors>
-    <licenseUrl>https://github.com/dahall/AeroWizard/blob/master/license.md</licenseUrl>
+    <copyright>Copyright © 2010-2020</copyright>
+    <license type="expression">MIT</license>
     <projectUrl>https://github.com/dahall/AeroWizard</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/dahall/AeroWizard/master/src/AeroWizardHelp/icons/WizardControlIcon48.gif</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -14,20 +15,27 @@
     <releaseNotes>https://aerowizard.codeplex.com/SourceControl/list/changesets</releaseNotes>
     <language>en-US</language>
     <tags>aero wizard control</tags>
+    <repository type="git" url="https://github.com/dahall/AeroWizard" />
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System" targetFramework=".NETFramework2.0, .NETFramework3.5, .NETFramework4.0, .NETFramework4.5" />
+      <frameworkAssembly assemblyName="System.Design" targetFramework=".NETFramework2.0, .NETFramework3.5, .NETFramework4.0, .NETFramework4.5" />
+      <frameworkAssembly assemblyName="System.Drawing" targetFramework=".NETFramework2.0, .NETFramework3.5, .NETFramework4.0, .NETFramework4.5" />
+      <frameworkAssembly assemblyName="System.Windows.Forms" targetFramework=".NETFramework2.0, .NETFramework3.5, .NETFramework4.0, .NETFramework4.5" />
+    </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="bin\Release\v2.0\AeroWizard.dll" target="lib\net20\AeroWizard.dll" />
-    <file src="bin\Release\v2.0\AeroWizard.pdb" target="lib\net20\AeroWizard.pdb" />
-    <file src="bin\Release\v2.0\AeroWizard.XML" target="lib\net20\AeroWizard.XML" />
+    <file src="bin\Release\v2.0\AeroWizard.dll" target="lib\net20" />
+    <file src="bin\Release\v2.0\AeroWizard.XML" target="lib\net20" />
+    <file src="bin\Release\v2.0\**\AeroWizard.resources.dll" target="lib\net20" />
     <file src="bin\Release\v3.5\AeroWizard.dll" target="lib\net35\AeroWizard.dll" />
-    <file src="bin\Release\v3.5\AeroWizard.pdb" target="lib\net35\AeroWizard.pdb" />
     <file src="bin\Release\v3.5\AeroWizard.XML" target="lib\net35\AeroWizard.XML" />
+    <file src="bin\Release\v3.5\**\AeroWizard.resources.dll" target="lib\net35" />
     <file src="bin\Release\v4.0\AeroWizard.dll" target="lib\net40\AeroWizard.dll" />
-    <file src="bin\Release\v4.0\AeroWizard.pdb" target="lib\net40\AeroWizard.pdb" />
     <file src="bin\Release\v4.0\AeroWizard.XML" target="lib\net40\AeroWizard.XML" />
+    <file src="bin\Release\v4.0\**\AeroWizard.resources.dll" target="lib\net40" />
     <file src="bin\Release\v4.5\AeroWizard.dll" target="lib\net45\AeroWizard.dll" />
-    <file src="bin\Release\v4.5\AeroWizard.pdb" target="lib\net45\AeroWizard.pdb" />
     <file src="bin\Release\v4.5\AeroWizard.XML" target="lib\net45\AeroWizard.XML" />
+    <file src="bin\Release\v4.5\**\AeroWizard.resources.dll" target="lib\net45" />
     <file src="*.cs" target="src" />
     <file src="Native\*.cs" target="src\Native" />
     <file src="Properties\*.cs" target="src\Properties" />

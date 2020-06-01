@@ -181,6 +181,7 @@ namespace AeroWizard
 				if (value == null) return;
 				nextButton = value;
 				nextButton.Click += nextButton_Click;
+				SetCmdButtonText(nextButton, NextButtonText);
 			}
 		}
 

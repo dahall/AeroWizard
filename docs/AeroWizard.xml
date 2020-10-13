@@ -322,10 +322,8 @@
       <summary>Gets or sets the finish button text.</summary>
     </member>
     <member name="E:AeroWizard.WizardControl.Finished">
-      <summary>
-            Occurs when the user clicks the Next/Finish button and the page is set to <see cref="P:AeroWizard.WizardPage.IsFinishPage" /> or this is the
-            last page in the <see cref="P:AeroWizard.WizardControl.Pages" /> collection.
-            </summary>
+      <summary>Occurs when the user clicks the Next/Finish button and the page is set to <see cref="P:AeroWizard.WizardPage.IsFinishPage" /> or this is the
+             last page in the <see cref="P:AeroWizard.WizardControl.Pages" /> collection.</summary>
     </member>
     <member name="M:AeroWizard.WizardControl.GetUnthemedBackButtonImage">
       <summary>Gets the unthemed back button image.</summary>

@@ -42,7 +42,7 @@ namespace AeroWizard
 		private WizardClassicStyle classicStyle = WizardClassicStyle.AeroStyle;
 		private Point formMoveLastMousePos;
 		private bool formMoveTracking;
-		private Form parentForm;
+		private ContainerControl parentControl;
 		private bool themePropsSet;
 		private Icon titleImageIcon;
 		private bool titleImageIconSet;
@@ -389,12 +389,16 @@ namespace AeroWizard
 		protected override void OnParentChanged(EventArgs e)
 		{
 			base.OnParentChanged(e);
-			if (parentForm != null)
-				parentForm.Load -= parentForm_Load;
-			parentForm = Parent as Form; // FindForm();
-			Dock = DockStyle.Fill;
-			if (parentForm != null)
-				parentForm.Load += parentForm_Load;
+			if (parentControl is Form oldParentAsForm)
+				oldParentAsForm.Load -= parentForm_Load;
+			if (parentControl is UserControl oldParentAsUserControl)
+				oldParentAsUserControl.Load -= parentForm_Load;
+			parentControl = Parent as ContainerControl;
+			Dock = DockStyle.Fill; Dock = DockStyle.Fill;
+			if (parentControl is Form newParentAsForm)
+				newParentAsForm.Load += parentForm_Load;
+			else if (parentControl is UserControl newParentAsUserControl)
+				newParentAsUserControl.Load += parentForm_Load;
 		}
 
 		/// <summary>Raises the <see cref="E:System.Windows.Forms.Control.RightToLeftChanged"/> event.</summary>
@@ -461,7 +465,7 @@ namespace AeroWizard
 
 		private void ConfigureWindowFrame()
 		{
-			System.Diagnostics.Debug.WriteLine($"ConfigureWindowFrame: compEnab={DesktopWindowManager.IsCompositionEnabled()},parentForm={(parentForm == null ? "null" : parentForm.Name)}");
+			System.Diagnostics.Debug.WriteLine($"ConfigureWindowFrame: compEnab={DesktopWindowManager.IsCompositionEnabled()},parentForm={(parentControl?.Name ?? "null")}");
 			ConfigureStyles();
 			if (DesktopWindowManager.IsCompositionEnabled())
 			{
@@ -472,7 +476,7 @@ namespace AeroWizard
 					//	parentForm.SetWindowAttribute(DesktopWindowManager.SetWindowAttr.NonClientRenderingPolicy, DesktopWindowManager.NonClientRenderingPolicy.Enabled);
 					//parentForm.ExtendFrameIntoClientArea(new Padding(0));
 					//NativeMethods.SetWindowPos(this.Handle, IntPtr.Zero, this.Location.X, this.Location.Y, this.Width, this.Height, NativeMethods.SetWindowPosFlags.FrameChanged);
-					parentForm?.ExtendFrameIntoClientArea(new Padding(0) { Top = titleBar.Visible ? titleBar.Height : 0 });
+					parentControl?.ExtendFrameIntoClientArea(new Padding(0) { Top = titleBar.Visible ? titleBar.Height : 0 });
 				}
 				catch
 				{
@@ -484,19 +488,22 @@ namespace AeroWizard
 				titleBar.BackColor = commandArea.BackColor;
 			}
 
-			if (parentForm == null) return;
+			if (parentControl == null) return;
 			if (!SuppressParentFormCaptionSync)
-				parentForm.Text = Title;
-			if (!SuppressParentFormIconSync && titleImageIcon != null)
+				parentControl.Text = Title;
+			if (parentControl is Form parentAsForm)
 			{
-				parentForm.Icon = TitleIcon;
-				parentForm.ShowIcon = true;
+				if (!SuppressParentFormIconSync && titleImageIcon != null)
+				{
+					parentAsForm.Icon = TitleIcon;
+					parentAsForm.ShowIcon = true;
+				}
+				parentAsForm.CancelButton = cancelButton;
+				parentAsForm.AcceptButton = nextButton;
 			}
-			parentForm.CancelButton = cancelButton;
-			parentForm.AcceptButton = nextButton;
-			parentForm.AutoScaleMode = AutoScaleMode.Font;
-			parentForm.SetWindowThemeAttribute(NativeMethods.WindowThemeNonClientAttributes.NoDrawCaption | NativeMethods.WindowThemeNonClientAttributes.NoDrawIcon | NativeMethods.WindowThemeNonClientAttributes.NoSysMenu);
-			parentForm.Invalidate();
+			parentControl.AutoScaleMode = AutoScaleMode.Font;
+			parentControl.SetWindowThemeAttribute(NativeMethods.WindowThemeNonClientAttributes.NoDrawCaption | NativeMethods.WindowThemeNonClientAttributes.NoDrawIcon | NativeMethods.WindowThemeNonClientAttributes.NoSysMenu);
+			parentControl.Invalidate();
 		}
 
 		private void contentArea_Paint(object sender, PaintEventArgs pe)
@@ -518,7 +525,7 @@ namespace AeroWizard
 		{
 			SetLayout();
 			ConfigureWindowFrame();
-			parentForm?.Refresh();
+			parentControl?.Refresh();
 		}
 
 		/// <summary>Gets the content area rectangle.</summary>
@@ -680,9 +687,9 @@ namespace AeroWizard
 
 				var diff = new Point(screen.X - formMoveLastMousePos.X, screen.Y - formMoveLastMousePos.Y);
 
-				var loc = parentForm.Location;
+				var loc = parentControl.Location;
 				loc.Offset(diff);
-				parentForm.Location = loc;
+				parentControl.Location = loc;
 
 				formMoveLastMousePos = screen;
 			}

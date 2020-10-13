@@ -25,7 +25,7 @@ namespace AeroWizard.Design
 
 		protected override bool EnableDragRect => false;
 
-		public override bool CanBeParentedTo(IDesigner parentDesigner) => parentDesigner?.Component is Form;
+		public override bool CanBeParentedTo(IDesigner parentDesigner) => parentDesigner?.Component is ContainerControl;
 
 		public override bool CanParent(Control control) => control is WizardPage && !Control.Contains(control);
 

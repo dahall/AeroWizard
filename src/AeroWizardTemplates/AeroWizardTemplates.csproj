@@ -53,7 +53,7 @@
     <Content Include="License.txt">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Packages\AeroWizard.2.2.7.nupkg">
+    <Content Include="Packages\AeroWizard.2.2.8.nupkg">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="WizardControlTemplate.ico">

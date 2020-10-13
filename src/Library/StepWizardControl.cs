@@ -78,13 +78,13 @@ namespace AeroWizard
 	[Description("Wizard control that shows a step summary on the left of the wizard page area.")]
 	public class StepWizardControl : WizardControl, IExtenderProvider
 	{
-		private StepList list;
+		private readonly StepList list;
 		private readonly Splitter splitter;
 
 		/// <summary>Initializes a new instance of the <see cref="StepWizardControl"/> class.</summary>
 		public StepWizardControl()
 		{
-			var ds = RightToLeft == System.Windows.Forms.RightToLeft.Yes ? DockStyle.Right : DockStyle.Left;
+			DockStyle ds = RightToLeft == RightToLeft.Yes ? DockStyle.Right : DockStyle.Left;
 			pageContainer.Controls.Add(splitter = new Splitter() { Dock = ds, BorderStyle = BorderStyle.FixedSingle, Width = 1, Name = "splitter" });
 			pageContainer.Controls.Add(list = new StepList() { Dock = ds, Name = "stepList" });
 			list.DrawItem += list_DrawItem;
@@ -154,32 +154,22 @@ namespace AeroWizard
 		/// <summary>Specifies whether this object can provide its extender properties to the specified object.</summary>
 		/// <param name="extendee">The <see cref="T:System.Object"/> to receive the extender properties.</param>
 		/// <returns>true if this object can provide extender properties to the specified object; otherwise, false.</returns>
-		bool IExtenderProvider.CanExtend(object extendee) => (extendee is WizardPage);
+		bool IExtenderProvider.CanExtend(object extendee) => extendee is WizardPage;
 
 		/// <summary>Raises the <see cref="E:AeroWizard.StepWizardControl.DrawStepListItem"/> event.</summary>
 		/// <param name="e">The <see cref="DrawStepListItemEventArgs"/> instance containing the event data.</param>
-		protected virtual void OnDrawStepListItem(DrawStepListItemEventArgs e)
-		{
-			var h = DrawStepListItem;
-			if (h != null)
-				h(this, e);
-		}
+		protected virtual void OnDrawStepListItem(DrawStepListItemEventArgs e) => DrawStepListItem?.Invoke(this, e);
 
 		/// <summary>Raises the <see cref="E:AeroWizard.StepWizardControl.MeasureStepListItem"/> event.</summary>
 		/// <param name="e">The <see cref="MeasureStepListItemEventArgs"/> instance containing the event data.</param>
-		protected virtual void OnMeasureStepListItem(MeasureStepListItemEventArgs e)
-		{
-			var h = MeasureStepListItem;
-			if (h != null)
-				h(this, e);
-		}
+		protected virtual void OnMeasureStepListItem(MeasureStepListItemEventArgs e) => MeasureStepListItem?.Invoke(this, e);
 
 		/// <summary>Raises the <see cref="E:System.Windows.Forms.Control.RightToLeftChanged"/> event.</summary>
 		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
 		protected override void OnRightToLeftChanged(System.EventArgs e)
 		{
 			base.OnRightToLeftChanged(e);
-			var ds = RightToLeft == System.Windows.Forms.RightToLeft.Yes ? DockStyle.Right : DockStyle.Left;
+			DockStyle ds = RightToLeft == RightToLeft.Yes ? DockStyle.Right : DockStyle.Left;
 			if (pageContainer.Controls.Count > 1)
 			{
 				pageContainer.Controls["splitter"].Dock = ds;
@@ -203,6 +193,6 @@ namespace AeroWizard
 
 		private bool ShouldSerializeStepListFont() => Font != list.Font;
 
-		private bool ShouldSerializeStepText(WizardPage page) => (GetStepText(page) != page.Text);
+		private bool ShouldSerializeStepText(WizardPage page) => GetStepText(page) != page.Text;
 	}
 }

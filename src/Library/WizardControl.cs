@@ -71,10 +71,20 @@ namespace AeroWizard
 		[Category("Behavior"), Description("Occurs when the user clicks the Cancel button and allows for programmatic cancellation.")]
 		public event CancelEventHandler Cancelling;
 
-		/// <summary>
-		/// Occurs when the user clicks the Next/Finish button and the page is set to <see cref="WizardPage.IsFinishPage"/> or this is the
-		/// last page in the <see cref="Pages"/> collection.
-		/// </summary>
+		/// <summary>Occurs when the user clicks the Next/Finish button and the page is set to <see cref="WizardPage.IsFinishPage" /> or this is the
+		/// last page in the <see cref="Pages" /> collection.</summary>
+		/// <example>
+		/// <code title="Using Finished event to close form">public MyFormWizard()
+		/// {
+		///     InitializeComponent();
+		///     wizardControl.Finished += wizardControl_Finished;
+		/// }
+		///
+		/// private void wizardControl_Finished(object sender, EventArgs e)
+		/// {
+		///     Close();
+		/// }</code>
+		/// </example>
 		[Category("Behavior"), Description("Occurs when the user clicks the Next/Finish button on last page.")]
 		public event EventHandler Finished;
 
@@ -323,7 +333,7 @@ namespace AeroWizard
 		{
 			Cancelling?.Invoke(this, arg);
 
-			if (arg.Cancel && !this.IsDesignMode()) CloseForm(DialogResult.Cancel);
+			if (!arg.Cancel && !this.IsDesignMode()) CloseForm(DialogResult.Cancel);
 		}
 
 		/// <summary>Raises the <see cref="E:System.Windows.Forms.Control.ControlAdded"/> event.</summary>

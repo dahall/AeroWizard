@@ -14,7 +14,7 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
     <Authors>David Hall</Authors>
-    <PackageIcon>WizardHat.ico</PackageIcon>
+    <PackageIcon>WizardControlIcon48.png</PackageIcon>
     <PackageId>$(AssemblyName)</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/dahall/AeroWizard</PackageProjectUrl>
@@ -107,14 +107,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="AeroWizard.snk" />
-    <None Include="Resources\WizardHat.ico" Pack="true" PackagePath="\" />
+    <None Include="Resources\WizardControlIcon48.png" Pack="true" PackagePath="\" />
+    <None Include="Resources\WizardHat.ico" />
     <None Include="Resources\BackBtnStrip.png" />
     <None Include="Resources\BackBtnStrip2.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="ThemeImageButton.cs" />
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <!--<Copy SourceFiles="$(ProjectDir)bin\$(ConfigurationName)\$(PackageId).$(Version).nupkg" DestinationFolder="$(SolutionDir)AeroWizardTemplates\Packages" />-->
-  </Target>
 </Project>

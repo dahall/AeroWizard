@@ -8,7 +8,6 @@ using System.Windows.Forms.Design;
 
 namespace AeroWizard.Design
 {
-	[System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	internal class WizardControlDesigner : RichParentControlDesigner<WizardControl, WizardControlDesignerActionList>, IToolboxUser
 	{

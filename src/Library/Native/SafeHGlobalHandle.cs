@@ -27,7 +27,6 @@ namespace System.Runtime.InteropServices
 		{
 			if (size < 0)
 				throw new ArgumentOutOfRangeException(nameof(size), "The value of this argument must be non-negative");
-			System.Runtime.CompilerServices.RuntimeHelpers.PrepareConstrainedRegions();
 			SetHandle(Marshal.AllocHGlobal(size));
 			Size = size;
 		}

@@ -6,7 +6,6 @@ namespace System.Runtime.InteropServices
 	{
 		internal const int cbBuffer = 256;
 
-		[Security.Permissions.SecurityPermission(Security.Permissions.SecurityAction.LinkDemand, Flags = Security.Permissions.SecurityPermissionFlag.UnmanagedCode)]
 		public static void AllocString(ref IntPtr ptr, ref uint size)
 		{
 			FreeString(ref ptr, ref size);
@@ -14,7 +13,6 @@ namespace System.Runtime.InteropServices
 			ptr = Marshal.AllocHGlobal(cbBuffer);
 		}
 
-		[Security.Permissions.SecurityPermission(Security.Permissions.SecurityAction.LinkDemand, Flags = Security.Permissions.SecurityPermissionFlag.UnmanagedCode)]
 		public static void FreeString(ref IntPtr ptr, ref uint size)
 		{
 			if (ptr == IntPtr.Zero) return;
@@ -23,7 +21,6 @@ namespace System.Runtime.InteropServices
 			size = 0;
 		}
 
-		[Security.Permissions.SecurityPermission(Security.Permissions.SecurityAction.LinkDemand, Flags = Security.Permissions.SecurityPermissionFlag.UnmanagedCode)]
 		public static string GetString(IntPtr pString) => Marshal.PtrToStringUni(pString);
 
 		/// <summary>Converts an <see cref="IntPtr"/> to a structure. If pointer has no value, <c>null</c> is returned.</summary>
@@ -32,7 +29,6 @@ namespace System.Runtime.InteropServices
 		/// <returns>The converted structure or <c>null</c>.</returns>
 		public static T? PtrToStructure<T>(this IntPtr ptr) where T : struct => ptr != IntPtr.Zero ? ptr.ToStructure<T>() : (T?)null;
 
-		[Security.Permissions.SecurityPermission(Security.Permissions.SecurityAction.LinkDemand, Flags = Security.Permissions.SecurityPermissionFlag.UnmanagedCode)]
 		public static bool SetString(ref IntPtr ptr, ref uint size, string value = null)
 		{
 			var s = GetString(ptr);
@@ -129,7 +125,6 @@ namespace System.Runtime.InteropServices
 				yield return ToStructure<T>(Marshal.ReadIntPtr(ptr, prefixBytes + i * stSize));
 		}
 
-		[Security.Permissions.SecurityPermission(Security.Permissions.SecurityAction.LinkDemand, Flags = Security.Permissions.SecurityPermissionFlag.UnmanagedCode)]
 		public static T ToStructure<T>(this IntPtr ptr) => (T)Marshal.PtrToStructure(ptr, typeof(T));
 	}
 }

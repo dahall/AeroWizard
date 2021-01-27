@@ -8139,7 +8139,7 @@ namespace Vanara.Interop
 					else if (Marshal.IsComObject(value))
 					{
 						var id = Marshal.GetIDispatchForObject(value);
-						if (id != null)
+						if (id != IntPtr.Zero)
 						{
 							vt = (ushort)VarEnum.VT_DISPATCH;
 							valueData = id;

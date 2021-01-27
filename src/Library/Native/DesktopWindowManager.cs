@@ -7,7 +7,6 @@ namespace Vanara.Interop.DesktopWindowManager
 {
 	/// <summary>Main DWM class, provides glass sheet effect and blur behind.</summary>
 	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces")]
-	[System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
 	[System.Security.SecuritySafeCritical]
 	public static class DesktopWindowManager
 	{
@@ -383,7 +382,6 @@ namespace Vanara.Interop.DesktopWindowManager
 			}
 		}
 
-		[System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
 		[System.Security.SecuritySafeCritical]
 		private class MessageWindow : NativeWindow, IDisposable
 		{
@@ -402,7 +400,6 @@ namespace Vanara.Interop.DesktopWindowManager
 
 			public void Dispose() => DestroyHandle();
 
-			[System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
 			protected override void WndProc(ref Message m)
 			{
 				if (m.Msg >= WM_DWMCOMPOSITIONCHANGED && m.Msg <= WM_DWMCOLORIZATIONCOLORCHANGED)

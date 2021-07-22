@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <UseWindowsForms>true</UseWindowsForms>
@@ -10,7 +10,7 @@
     <NeutralLanguage>en-US</NeutralLanguage>
     <Description>Library for easy creation of custom and Aero Wizards. Aero Wizard strictly follows Microsoft guidelines and uses Visual Styles to get visual theming.</Description>
     <Copyright>Copyright © 2010-2021</Copyright>
-    <Version>2.2.9</Version>
+    <Version>2.2.10</Version>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
     <Authors>David Hall</Authors>

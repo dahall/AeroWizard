@@ -122,7 +122,7 @@
     <ComponentPath />
     <MaximumGroupParts>2</MaximumGroupParts>
     <NamespaceGrouping>True</NamespaceGrouping>
-    <HelpFileVersion>2.2.8</HelpFileVersion>
+    <HelpFileVersion>2.3.0</HelpFileVersion>
     <WarnOnMissingSourceContext>False</WarnOnMissingSourceContext>
     <SourceCodeBasePath>..\</SourceCodeBasePath>
     <TransformComponentArguments>

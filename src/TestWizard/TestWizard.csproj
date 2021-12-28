@@ -6,7 +6,7 @@
     <Company>CodePlex Community</Company>
     <Product>TestWizard</Product>
     <Copyright>Copyright © 2013-2021</Copyright>
-    <Version>2.2.10</Version>
+    <Version>2.3.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="AeroWizardTemplate.cs" />

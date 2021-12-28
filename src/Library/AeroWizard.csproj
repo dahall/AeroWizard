@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <UseWindowsForms>true</UseWindowsForms>
-    <TargetFrameworks>net20;net35;net40;net45;net5.0-windows</TargetFrameworks>
+    <TargetFrameworks>net20;net35;net40;net45;net5.0-windows;net6.0-windows</TargetFrameworks>
     <AssemblyName>AeroWizard</AssemblyName>
     <AssemblyTitle>$(AssemblyName)</AssemblyTitle>
     <Company>GitHub Community</Company>
@@ -10,7 +10,7 @@
     <NeutralLanguage>en-US</NeutralLanguage>
     <Description>Library for easy creation of custom and Aero Wizards. Aero Wizard strictly follows Microsoft guidelines and uses Visual Styles to get visual theming.</Description>
     <Copyright>Copyright © 2010-2021</Copyright>
-    <Version>2.2.10</Version>
+    <Version>2.3.0</Version>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
     <Authors>David Hall</Authors>
@@ -46,7 +46,7 @@
     <SourceRoot Include="$(MSBuildThisFileDirectory)/" />
   </ItemGroup>
   <!-- END: Source Link configuration. -->
-  <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0-windows' ">
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0-windows' And '$(TargetFramework)' != 'net6.0-windows' ">
     <Reference Include="System.Design" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>

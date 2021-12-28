@@ -52,9 +52,7 @@ namespace AeroWizard.VisualStyles
 				public static VisualStyleElement Normal => VisualStyleElement.CreateElement(className, 2, 0);
 			}
 
-			/// <summary>
-			/// Provides a <see cref="VisualStyleElement"/> for each state of the titlebar of a wizard. This class cannot be inherited.
-			/// </summary>
+			/// <summary>Provides a <see cref="VisualStyleElement"/> for each state of the titlebar of a wizard. This class cannot be inherited.</summary>
 			public static class TitleBar
 			{
 				/// <summary>Gets a visual style element that represents the titlebar of an active wizard.</summary>
@@ -99,8 +97,7 @@ namespace AeroWizard.VisualStyles
 			}
 
 			/// <summary>
-			/// Provides <see cref="VisualStyleElement"/> objects for the different states of the Forward Button control. This class cannot
-			/// be inherited.
+			/// Provides <see cref="VisualStyleElement"/> objects for the different states of the Forward Button control. This class cannot be inherited.
 			/// </summary>
 			public static class ForwardButton
 			{

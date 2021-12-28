@@ -5,14 +5,13 @@ namespace System.Collections.Generic
 {
 	/// <summary>A generic list that provides event for changes to the list.</summary>
 	/// <typeparam name="T">Type for the list.</typeparam>
-	[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
 	[Serializable]
 	public class EventedList<T> : IList<T>, IList
 	{
 		// Fields
 		private const int _defaultCapacity = 4;
 
-		private static T[] _emptyArray = new T[0];
+		private static readonly T[] _emptyArray = new T[0];
 
 		private T[] _items;
 		private int _size;
@@ -23,25 +22,24 @@ namespace System.Collections.Generic
 		private int _version;
 
 		/// <summary>Initializes a new instance of the <see cref="EventedList{T}"/> class that is empty and has the default initial capacity.</summary>
-		public EventedList() => _items = EventedList<T>._emptyArray;
+		public EventedList() => _items = _emptyArray;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="EventedList{T}"/> class that contains elements copied from the specified collection
-		/// and has sufficient capacity to accommodate the number of elements copied.
+		/// Initializes a new instance of the <see cref="EventedList{T}"/> class that contains elements copied from the specified collection and
+		/// has sufficient capacity to accommodate the number of elements copied.
 		/// </summary>
 		/// <param name="collection">The collection whose elements are copied to the new list.</param>
 		/// <exception cref="ArgumentNullException"><paramref name="collection"/> is <c>null</c>.</exception>
-		[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
 		public EventedList(IEnumerable<T> collection)
 		{
-			if (collection == null)
+			if (collection is null)
 			{
 				throw new ArgumentNullException(nameof(collection));
 			}
-			var is2 = collection as ICollection<T>;
-			if (is2 != null)
+			ICollection<T> is2 = collection as ICollection<T>;
+			if (is2 is not null)
 			{
-				var count = is2.Count;
+				int count = is2.Count;
 				_items = new T[count];
 				is2.CopyTo(_items, 0);
 				_size = count;
@@ -50,19 +48,17 @@ namespace System.Collections.Generic
 			{
 				_size = 0;
 				_items = new T[4];
-				using (var enumerator = collection.GetEnumerator())
+				using IEnumerator<T> enumerator = collection.GetEnumerator();
+				while (enumerator.MoveNext())
 				{
-					while (enumerator.MoveNext())
-					{
-						Add(enumerator.Current);
-					}
+					Add(enumerator.Current);
 				}
 			}
 		}
 
 		/// <summary>Initializes a new instance of the <see cref="EventedList{T}"/> class that is empty and has the default initial capacity.</summary>
 		/// <param name="capacity">The number of elements that the new list can initially store.</param>
-		/// <exception cref="System.ArgumentOutOfRangeException"><paramref name="capacity"/> is less than 0.</exception>
+		/// <exception cref="ArgumentOutOfRangeException"><paramref name="capacity"/> is less than 0.</exception>
 		public EventedList(int capacity)
 		{
 			if (capacity < 0)
@@ -86,7 +82,7 @@ namespace System.Collections.Generic
 
 		/// <summary>Gets or sets the total number of elements the internal data structure can hold without resizing.</summary>
 		/// <value>The number of elements that the <see cref="EventedList{T}"/> can contain before resizing is required.</value>
-		/// <exception cref="System.ArgumentOutOfRangeException"><c>Capacity</c> is set to a value that is less than <see cref="Count"/>.</exception>
+		/// <exception cref="ArgumentOutOfRangeException"><c>Capacity</c> is set to a value that is less than <see cref="Count"/>.</exception>
 		public int Capacity
 		{
 			get => _items.Length;
@@ -100,7 +96,7 @@ namespace System.Collections.Generic
 					}
 					if (value > 0)
 					{
-						var destinationArray = new T[value];
+						T[] destinationArray = new T[value];
 						if (_size > 0)
 						{
 							Array.Copy(_items, 0, destinationArray, 0, _size);
@@ -109,7 +105,7 @@ namespace System.Collections.Generic
 					}
 					else
 					{
-						_items = EventedList<T>._emptyArray;
+						_items = _emptyArray;
 					}
 				}
 			}
@@ -118,6 +114,15 @@ namespace System.Collections.Generic
 		/// <summary>Gets the number of elements contained in the <see cref="EventedList{T}"/>.</summary>
 		/// <value>The number of elements contained in the <see cref="EventedList{T}"/>.</value>
 		public int Count => _size;
+
+		/// <summary>Gets a value indicating whether the <see cref="T:System.Collections.IList"/> has a fixed size.</summary>
+		bool IList.IsFixedSize => false;
+
+		/// <summary>Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.</summary>
+		bool ICollection<T>.IsReadOnly => false;
+
+		/// <summary>Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.</summary>
+		bool IList.IsReadOnly => false;
 
 		/// <summary>
 		/// Gets a value indicating whether access to the <see cref="T:System.Collections.ICollection"/> is synchronized (thread safe).
@@ -129,40 +134,18 @@ namespace System.Collections.Generic
 		{
 			get
 			{
-				if (_syncRoot == null)
+				if (_syncRoot is null)
 				{
-					System.Threading.Interlocked.CompareExchange(ref _syncRoot, new object(), null);
+					Threading.Interlocked.CompareExchange(ref _syncRoot, new object(), null);
 				}
 				return _syncRoot;
-			}
-		}
-
-		/// <summary>Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.</summary>
-		bool ICollection<T>.IsReadOnly => false;
-
-		/// <summary>Gets a value indicating whether the <see cref="T:System.Collections.IList"/> has a fixed size.</summary>
-		bool IList.IsFixedSize => false;
-
-		/// <summary>Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.</summary>
-		bool IList.IsReadOnly => false;
-
-		/// <summary>Gets or sets the <see cref="System.Object"/> at the specified index.</summary>
-		/// <param name="index">The index.</param>
-		/// <returns>The element at the specified index.</returns>
-		object IList.this[int index]
-		{
-			get => this[index];
-			set
-			{
-				EventedList<T>.VerifyValueType(value);
-				this[index] = (T)value;
 			}
 		}
 
 		/// <summary>Gets or sets the element at the specified index.</summary>
 		/// <value>The element at the specified index.</value>
 		/// <param name="index">The zero-based index of the element to get or set.</param>
-		/// <exception cref="System.ArgumentOutOfRangeException"><paramref name="index"/> is less than 0.</exception>
+		/// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/> is less than 0.</exception>
 		public T this[int index]
 		{
 			get
@@ -179,10 +162,23 @@ namespace System.Collections.Generic
 				{
 					throw new ArgumentOutOfRangeException(nameof(index));
 				}
-				var oldValue = _items[index];
+				T oldValue = _items[index];
 				_items[index] = value;
 				_version++;
 				OnItemChanged(index, oldValue, value);
+			}
+		}
+
+		/// <summary>Gets or sets the <see cref="object"/> at the specified index.</summary>
+		/// <param name="index">The index.</param>
+		/// <returns>The element at the specified index.</returns>
+		object IList.this[int index]
+		{
+			get => this[index];
+			set
+			{
+				VerifyValueType(value);
+				this[index] = (T)value;
 			}
 		}
 
@@ -206,23 +202,23 @@ namespace System.Collections.Generic
 
 		/// <summary>Returns a read-only <see cref="EventedList{T}"/> wrapper for the current collection.</summary>
 		/// <returns>A <see cref="ReadOnlyCollection{T}"/> that acts as a read-only wrapper around the current <see cref="EventedList{T}"/>.</returns>
-		public ReadOnlyCollection<T> AsReadOnly() => new ReadOnlyCollection<T>(this);
+		public ReadOnlyCollection<T> AsReadOnly() => new(this);
 
 		/// <summary>
-		/// Searches the entire sorted <see cref="EventedList{T}"/> for an element using the default comparer and returns the zero-based
-		/// index of the element.
+		/// Searches the entire sorted <see cref="EventedList{T}"/> for an element using the default comparer and returns the zero-based index of
+		/// the element.
 		/// </summary>
 		/// <param name="item">The object to locate. The value can be <c>null</c> for reference types.</param>
 		/// <returns>
 		/// The zero-based index of <paramref name="item"/> in the sorted <see cref="EventedList{T}"/>, if <paramref name="item"/> is found;
-		/// otherwise, a negative number that is the bitwise complement of the index of the next element that is larger than item or, if
-		/// there is no larger element, the bitwise complement of <see cref="Count"/>.
+		/// otherwise, a negative number that is the bitwise complement of the index of the next element that is larger than item or, if there is
+		/// no larger element, the bitwise complement of <see cref="Count"/>.
 		/// </returns>
 		public int BinarySearch(T item) => BinarySearch(0, Count, item, null);
 
 		/// <summary>
-		/// Searches the entire sorted <see cref="EventedList{T}"/> for an element using the specified comparer and returns the zero-based
-		/// index of the element.
+		/// Searches the entire sorted <see cref="EventedList{T}"/> for an element using the specified comparer and returns the zero-based index
+		/// of the element.
 		/// </summary>
 		/// <param name="item">The object to locate. The value can be <c>null</c> for reference types.</param>
 		/// <param name="comparer">
@@ -230,14 +226,14 @@ namespace System.Collections.Generic
 		/// </param>
 		/// <returns>
 		/// The zero-based index of <paramref name="item"/> in the sorted <see cref="EventedList{T}"/>, if <paramref name="item"/> is found;
-		/// otherwise, a negative number that is the bitwise complement of the index of the next element that is larger than item or, if
-		/// there is no larger element, the bitwise complement of <see cref="Count"/>.
+		/// otherwise, a negative number that is the bitwise complement of the index of the next element that is larger than item or, if there is
+		/// no larger element, the bitwise complement of <see cref="Count"/>.
 		/// </returns>
 		public int BinarySearch(T item, IComparer<T> comparer) => BinarySearch(0, Count, item, comparer);
 
 		/// <summary>
-		/// Searches a range of elements in the sorted <see cref="EventedList{T}"/> for an element using the specified comparer and returns
-		/// the zero-based index of the element.
+		/// Searches a range of elements in the sorted <see cref="EventedList{T}"/> for an element using the specified comparer and returns the
+		/// zero-based index of the element.
 		/// </summary>
 		/// <param name="index">The zero-based starting index of the range to search.</param>
 		/// <param name="count">The length of the range to search.</param>
@@ -247,13 +243,13 @@ namespace System.Collections.Generic
 		/// </param>
 		/// <returns>
 		/// The zero-based index of <paramref name="item"/> in the sorted <see cref="EventedList{T}"/>, if <paramref name="item"/> is found;
-		/// otherwise, a negative number that is the bitwise complement of the index of the next element that is larger than item or, if
-		/// there is no larger element, the bitwise complement of <see cref="Count"/>.
+		/// otherwise, a negative number that is the bitwise complement of the index of the next element that is larger than item or, if there is
+		/// no larger element, the bitwise complement of <see cref="Count"/>.
 		/// </returns>
-		/// <exception cref="System.ArgumentOutOfRangeException">
+		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is less than 0. -or- <paramref name="count"/> is less than 0.
 		/// </exception>
-		/// <exception cref="System.ArgumentException">
+		/// <exception cref="ArgumentException">
 		/// <paramref name="index"/> and <paramref name="count"/> do not denote a valid range in the <see cref="EventedList{T}"/>.
 		/// </exception>
 		public int BinarySearch(int index, int count, T item, IComparer<T> comparer)
@@ -266,7 +262,7 @@ namespace System.Collections.Generic
 			{
 				throw new ArgumentException($"{nameof(index)} and {nameof(count)} do not denote a valid range in the {nameof(EventedList<T>)}.");
 			}
-			return Array.BinarySearch<T>(_items, index, count, item, comparer);
+			return Array.BinarySearch(_items, index, count, item, comparer);
 		}
 
 		/// <summary>Removes all items from the <see cref="EventedList{T}"/>.</summary>
@@ -284,19 +280,19 @@ namespace System.Collections.Generic
 		/// <returns>true if <paramref name="item"/> is found in the <see cref="EventedList{T}"/>; otherwise, false.</returns>
 		public bool Contains(T item)
 		{
-			if (item == null)
+			if (item is null)
 			{
-				for (var j = 0; j < _size; j++)
+				for (int j = 0; j < _size; j++)
 				{
-					if (_items[j] == null)
+					if (_items[j] is null)
 					{
 						return true;
 					}
 				}
 				return false;
 			}
-			var comparer = EqualityComparer<T>.Default;
-			for (var i = 0; i < _size; i++)
+			EqualityComparer<T> comparer = EqualityComparer<T>.Default;
+			for (int i = 0; i < _size; i++)
 			{
 				if (comparer.Equals(_items[i], item))
 				{
@@ -310,19 +306,17 @@ namespace System.Collections.Generic
 		/// Converts the elements in the current <see cref="EventedList{T}"/> to another type, and returns a list containing the converted elements.
 		/// </summary>
 		/// <typeparam name="TOutput">The type of the elements of the target array.</typeparam>
-		/// <param name="converter">
-		/// A <see cref="Converter{T, TOutput}"/> delegate that converts each element from one type to another type.
-		/// </param>
+		/// <param name="converter">A <see cref="Converter{T, TOutput}"/> delegate that converts each element from one type to another type.</param>
 		/// <returns>A <see cref="EventedList{T}"/> of the target type containing the converted elements from the current <see cref="EventedList{T}"/>.</returns>
-		/// <exception cref="System.ArgumentNullException"><paramref name="converter"/> is <c>null</c>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="converter"/> is <c>null</c>.</exception>
 		public EventedList<TOutput> ConvertAll<TOutput>(Converter<T, TOutput> converter)
 		{
-			if (converter == null)
+			if (converter is null)
 			{
 				throw new ArgumentNullException(nameof(converter));
 			}
-			var list = new EventedList<TOutput>(_size);
-			for (var i = 0; i < _size; i++)
+			EventedList<TOutput> list = new(_size);
+			for (int i = 0; i < _size; i++)
 			{
 				list._items[i] = converter(_items[i]);
 			}
@@ -334,8 +328,8 @@ namespace System.Collections.Generic
 		/// Copies the entire <see cref="EventedList{T}"/> to a compatible one-dimensional array, starting at the beginning of the target array.
 		/// </summary>
 		/// <param name="array">
-		/// The one-dimensional <see cref="T:System.Array"/> that is the destination of the elements copied from <see
-		/// cref="EventedList{T}"/>. The <see cref="T:System.Array"/> must have zero-based indexing.
+		/// The one-dimensional <see cref="T:System.Array"/> that is the destination of the elements copied from <see cref="EventedList{T}"/>.
+		/// The <see cref="T:System.Array"/> must have zero-based indexing.
 		/// </param>
 		public void CopyTo(T[] array) => CopyTo(array, 0);
 
@@ -344,38 +338,38 @@ namespace System.Collections.Generic
 		/// cref="T:System.Array"/> index.
 		/// </summary>
 		/// <param name="array">
-		/// The one-dimensional <see cref="T:System.Array"/> that is the destination of the elements copied from <see
-		/// cref="EventedList{T}"/>. The <see cref="T:System.Array"/> must have zero-based indexing.
+		/// The one-dimensional <see cref="T:System.Array"/> that is the destination of the elements copied from <see cref="EventedList{T}"/>.
+		/// The <see cref="T:System.Array"/> must have zero-based indexing.
 		/// </param>
 		/// <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
 		/// <exception cref="T:System.ArgumentNullException"><paramref name="array"/> is null.</exception>
 		/// <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="arrayIndex"/> is less than 0.</exception>
 		/// <exception cref="T:System.ArgumentException">
-		/// <paramref name="array"/> is multidimensional. -or- <paramref name="arrayIndex"/> is equal to or greater than the length of
-		/// <paramref name="array"/>.-or-The number of elements in the source <see cref="T:System.Collections.Generic.ICollection`1"/> is
-		/// greater than the available space from <paramref name="arrayIndex"/> to the end of the destination <paramref
-		/// name="array"/>.-or-Type <c>T</c> cannot be cast automatically to the type of the destination <paramref name="array"/>.
+		/// <paramref name="array"/> is multidimensional. -or- <paramref name="arrayIndex"/> is equal to or greater than the length of <paramref
+		/// name="array"/>.-or-The number of elements in the source <see cref="T:System.Collections.Generic.ICollection`1"/> is greater than the
+		/// available space from <paramref name="arrayIndex"/> to the end of the destination <paramref name="array"/>.-or-Type <c>T</c> cannot be
+		/// cast automatically to the type of the destination <paramref name="array"/>.
 		/// </exception>
 		public void CopyTo(T[] array, int arrayIndex) => Array.Copy(_items, 0, array, arrayIndex, _size);
 
 		/// <summary>
-		/// Copies a range of elements from the <see cref="EventedList{T}"/> to an <see cref="T:System.Array"/>, starting at a particular
-		/// <see cref="T:System.Array"/> index.
+		/// Copies a range of elements from the <see cref="EventedList{T}"/> to an <see cref="T:System.Array"/>, starting at a particular <see
+		/// cref="T:System.Array"/> index.
 		/// </summary>
 		/// <param name="index">The zero-based index in the source <see cref="EventedList{T}"/> at which copying begins.</param>
 		/// <param name="array">
-		/// The one-dimensional <see cref="T:System.Array"/> that is the destination of the elements copied from <see
-		/// cref="EventedList{T}"/>. The <see cref="T:System.Array"/> must have zero-based indexing.
+		/// The one-dimensional <see cref="T:System.Array"/> that is the destination of the elements copied from <see cref="EventedList{T}"/>.
+		/// The <see cref="T:System.Array"/> must have zero-based indexing.
 		/// </param>
 		/// <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
 		/// <param name="count">The number of elements to copy.</param>
 		/// <exception cref="T:System.ArgumentNullException"><paramref name="array"/> is null.</exception>
 		/// <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="arrayIndex"/> is less than 0.</exception>
 		/// <exception cref="T:System.ArgumentException">
-		/// <paramref name="array"/> is multidimensional. -or- <paramref name="arrayIndex"/> is equal to or greater than the length of
-		/// <paramref name="array"/>.-or-The number of elements in the source <see cref="T:System.Collections.Generic.ICollection`1"/> is
-		/// greater than the available space from <paramref name="arrayIndex"/> to the end of the destination <paramref
-		/// name="array"/>.-or-Type <c>T</c> cannot be cast automatically to the type of the destination <paramref name="array"/>.
+		/// <paramref name="array"/> is multidimensional. -or- <paramref name="arrayIndex"/> is equal to or greater than the length of <paramref
+		/// name="array"/>.-or-The number of elements in the source <see cref="T:System.Collections.Generic.ICollection`1"/> is greater than the
+		/// available space from <paramref name="arrayIndex"/> to the end of the destination <paramref name="array"/>.-or-Type <c>T</c> cannot be
+		/// cast automatically to the type of the destination <paramref name="array"/>.
 		/// </exception>
 		public void CopyTo(int index, T[] array, int arrayIndex, int count)
 		{
@@ -397,8 +391,8 @@ namespace System.Collections.Generic
 		public bool Exists(Predicate<T> match) => (FindIndex(match) != -1);
 
 		/// <summary>
-		/// Searches for an element that matches the conditions defined by the specified predicate, and returns the first occurrence within
-		/// the entire <see cref="EventedList{T}"/>.
+		/// Searches for an element that matches the conditions defined by the specified predicate, and returns the first occurrence within the
+		/// entire <see cref="EventedList{T}"/>.
 		/// </summary>
 		/// <param name="match">The <see cref="Predicate{T}"/> delegate that defines the conditions of the elements to search for.</param>
 		/// <returns>
@@ -407,34 +401,34 @@ namespace System.Collections.Generic
 		/// </returns>
 		public T Find(Predicate<T> match)
 		{
-			if (match == null)
+			if (match is null)
 			{
 				throw new ArgumentNullException(nameof(match));
 			}
-			for (var i = 0; i < _size; i++)
+			for (int i = 0; i < _size; i++)
 			{
 				if (match(_items[i]))
 				{
 					return _items[i];
 				}
 			}
-			return default(T);
+			return default;
 		}
 
 		/// <summary>Retrieves all the elements that match the conditions defined by the specified predicate.</summary>
 		/// <param name="match">The <see cref="Predicate{T}"/> delegate that defines the conditions of the elements to search for.</param>
 		/// <returns>
-		/// A <see cref="EventedList{T}"/> containing all the elements that match the conditions defined by the specified predicate, if
-		/// found; otherwise, an empty <see cref="EventedList{T}"/>.
+		/// A <see cref="EventedList{T}"/> containing all the elements that match the conditions defined by the specified predicate, if found;
+		/// otherwise, an empty <see cref="EventedList{T}"/>.
 		/// </returns>
 		public EventedList<T> FindAll(Predicate<T> match)
 		{
-			if (match == null)
+			if (match is null)
 			{
 				throw new ArgumentNullException(nameof(match));
 			}
-			var list = new EventedList<T>();
-			for (var i = 0; i < _size; i++)
+			EventedList<T> list = new();
+			for (int i = 0; i < _size; i++)
 			{
 				if (match(_items[i]))
 				{
@@ -445,52 +439,51 @@ namespace System.Collections.Generic
 		}
 
 		/// <summary>
-		/// Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the
-		/// first occurrence within the entire <see cref="EventedList{T}"/>.
+		/// Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the first
+		/// occurrence within the entire <see cref="EventedList{T}"/>.
 		/// </summary>
 		/// <param name="match">The <see cref="Predicate{T}"/> delegate that defines the conditions of the elements to search for.</param>
 		/// <returns>
-		/// The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match"/>, if
-		/// found; otherwise, –1.
+		/// The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match"/>, if found;
+		/// otherwise, –1.
 		/// </returns>
-		/// <exception cref="System.ArgumentNullException"><paramref name="match"/> is <c>null</c>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="match"/> is <c>null</c>.</exception>
 		public int FindIndex(Predicate<T> match) => FindIndex(0, _size, match);
 
 		/// <summary>
-		/// Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the
-		/// first occurrence within the range of elements in the <see cref="EventedList{T}"/> that extends from the specified index to the
-		/// last element.
+		/// Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the first
+		/// occurrence within the range of elements in the <see cref="EventedList{T}"/> that extends from the specified index to the last element.
 		/// </summary>
 		/// <param name="startIndex">The zero-based starting index of the search.</param>
 		/// <param name="match">The <see cref="Predicate{T}"/> delegate that defines the conditions of the elements to search for.</param>
 		/// <returns>
-		/// The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match"/>, if
-		/// found; otherwise, –1.
+		/// The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match"/>, if found;
+		/// otherwise, –1.
 		/// </returns>
-		/// <exception cref="System.ArgumentOutOfRangeException">
+		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="startIndex"/> is outside the range of valid indexes for the <see cref="EventedList{T}"/>.
 		/// </exception>
-		/// <exception cref="System.ArgumentNullException"><paramref name="match"/> is <c>null</c>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="match"/> is <c>null</c>.</exception>
 		public int FindIndex(int startIndex, Predicate<T> match) => FindIndex(startIndex, _size - startIndex, match);
 
 		/// <summary>
-		/// Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the
-		/// first occurrence within the range of elements in the <see cref="EventedList{T}"/> that starts at the specified index and contains
-		/// the specified number of elements.
+		/// Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the first
+		/// occurrence within the range of elements in the <see cref="EventedList{T}"/> that starts at the specified index and contains the
+		/// specified number of elements.
 		/// </summary>
 		/// <param name="startIndex">The zero-based starting index of the search.</param>
 		/// <param name="count">The number of elements in the section to search.</param>
 		/// <param name="match">The <see cref="Predicate{T}"/> delegate that defines the conditions of the elements to search for.</param>
 		/// <returns>
-		/// The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match"/>, if
-		/// found; otherwise, –1.
+		/// The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match"/>, if found;
+		/// otherwise, –1.
 		/// </returns>
-		/// <exception cref="System.ArgumentOutOfRangeException">
+		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="startIndex"/> is outside the range of valid indexes for the <see cref="EventedList{T}"/>.
 		/// -or- <paramref name="count"/> is less than 0.
 		/// -or- <paramref name="startIndex"/> and <paramref name="count"/> do not specify a valid section in the <see cref="EventedList{T}"/>.
 		/// </exception>
-		/// <exception cref="System.ArgumentNullException"><paramref name="match"/> is <c>null</c>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="match"/> is <c>null</c>.</exception>
 		public int FindIndex(int startIndex, int count, Predicate<T> match)
 		{
 			if (startIndex > _size)
@@ -501,12 +494,12 @@ namespace System.Collections.Generic
 			{
 				throw new ArgumentOutOfRangeException(nameof(count));
 			}
-			if (match == null)
+			if (match is null)
 			{
 				throw new ArgumentNullException(nameof(match));
 			}
-			var num = startIndex + count;
-			for (var i = startIndex; i < num; i++)
+			int num = startIndex + count;
+			for (int i = startIndex; i < num; i++)
 			{
 				if (match(_items[i]))
 				{
@@ -517,8 +510,8 @@ namespace System.Collections.Generic
 		}
 
 		/// <summary>
-		/// Searches for an element that matches the conditions defined by the specified predicate, and returns the last occurrence within
-		/// the entire <see cref="EventedList{T}"/>.
+		/// Searches for an element that matches the conditions defined by the specified predicate, and returns the last occurrence within the
+		/// entire <see cref="EventedList{T}"/>.
 		/// </summary>
 		/// <param name="match">The <see cref="Predicate{T}"/> delegate that defines the conditions of the elements to search for.</param>
 		/// <returns>
@@ -527,70 +520,69 @@ namespace System.Collections.Generic
 		/// </returns>
 		public T FindLast(Predicate<T> match)
 		{
-			if (match == null)
+			if (match is null)
 			{
 				throw new ArgumentNullException(nameof(match));
 			}
-			for (var i = _size - 1; i >= 0; i--)
+			for (int i = _size - 1; i >= 0; i--)
 			{
 				if (match(_items[i]))
 				{
 					return _items[i];
 				}
 			}
-			return default(T);
+			return default;
 		}
 
 		/// <summary>
-		/// Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the
-		/// last occurrence within the entire <see cref="EventedList{T}"/>.
+		/// Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the last
+		/// occurrence within the entire <see cref="EventedList{T}"/>.
 		/// </summary>
 		/// <param name="match">The <see cref="Predicate{T}"/> delegate that defines the conditions of the elements to search for.</param>
 		/// <returns>
-		/// The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match"/>, if
-		/// found; otherwise, –1.
+		/// The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match"/>, if found;
+		/// otherwise, –1.
 		/// </returns>
-		/// <exception cref="System.ArgumentNullException"><paramref name="match"/> is <c>null</c>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="match"/> is <c>null</c>.</exception>
 		public int FindLastIndex(Predicate<T> match) => FindLastIndex(_size - 1, _size, match);
 
 		/// <summary>
-		/// Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the
-		/// last occurrence within the range of elements in the <see cref="EventedList{T}"/> that extends from the specified index to the
-		/// last element.
+		/// Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the last
+		/// occurrence within the range of elements in the <see cref="EventedList{T}"/> that extends from the specified index to the last element.
 		/// </summary>
 		/// <param name="startIndex">The zero-based starting index of the search.</param>
 		/// <param name="match">The <see cref="Predicate{T}"/> delegate that defines the conditions of the elements to search for.</param>
 		/// <returns>
-		/// The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match"/>, if
-		/// found; otherwise, –1.
+		/// The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match"/>, if found;
+		/// otherwise, –1.
 		/// </returns>
-		/// <exception cref="System.ArgumentOutOfRangeException">
+		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="startIndex"/> is outside the range of valid indexes for the <see cref="EventedList{T}"/>.
 		/// </exception>
-		/// <exception cref="System.ArgumentNullException"><paramref name="match"/> is <c>null</c>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="match"/> is <c>null</c>.</exception>
 		public int FindLastIndex(int startIndex, Predicate<T> match) => FindLastIndex(startIndex, startIndex + 1, match);
 
 		/// <summary>
-		/// Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the
-		/// last occurrence within the range of elements in the <see cref="EventedList{T}"/> that starts at the specified index and contains
-		/// the specified number of elements.
+		/// Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the last
+		/// occurrence within the range of elements in the <see cref="EventedList{T}"/> that starts at the specified index and contains the
+		/// specified number of elements.
 		/// </summary>
 		/// <param name="startIndex">The zero-based starting index of the search.</param>
 		/// <param name="count">The number of elements in the section to search.</param>
 		/// <param name="match">The <see cref="Predicate{T}"/> delegate that defines the conditions of the elements to search for.</param>
 		/// <returns>
-		/// The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match"/>, if
-		/// found; otherwise, –1.
+		/// The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match"/>, if found;
+		/// otherwise, –1.
 		/// </returns>
-		/// <exception cref="System.ArgumentOutOfRangeException">
+		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="startIndex"/> is outside the range of valid indexes for the <see cref="EventedList{T}"/>.
 		/// -or- <paramref name="count"/> is less than 0.
 		/// -or- <paramref name="startIndex"/> and <paramref name="count"/> do not specify a valid section in the <see cref="EventedList{T}"/>.
 		/// </exception>
-		/// <exception cref="System.ArgumentNullException"><paramref name="match"/> is <c>null</c>.</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="match"/> is <c>null</c>.</exception>
 		public int FindLastIndex(int startIndex, int count, Predicate<T> match)
 		{
-			if (match == null)
+			if (match is null)
 			{
 				throw new ArgumentNullException(nameof(match));
 			}
@@ -609,8 +601,8 @@ namespace System.Collections.Generic
 			{
 				throw new ArgumentOutOfRangeException(nameof(count));
 			}
-			var num = startIndex - count;
-			for (var i = startIndex; i > num; i--)
+			int num = startIndex - count;
+			for (int i = startIndex; i > num; i--)
 			{
 				if (match(_items[i]))
 				{
@@ -624,11 +616,11 @@ namespace System.Collections.Generic
 		/// <param name="action">The <see cref="Action{T}"/> delegate to perform on each element of the <see cref="EventedList{T}"/>.</param>
 		public void ForEach(Action<T> action)
 		{
-			if (action == null)
+			if (action is null)
 			{
 				throw new ArgumentNullException(nameof(action));
 			}
-			for (var i = 0; i < _size; i++)
+			for (int i = 0; i < _size; i++)
 			{
 				action(_items[i]);
 			}
@@ -636,7 +628,7 @@ namespace System.Collections.Generic
 
 		/// <summary>Returns an enumerator that iterates through the <see cref="EventedList{T}"/>.</summary>
 		/// <returns>A <see cref="EventedList{T}.Enumerator"/> for the <see cref="EventedList{T}"/>.</returns>
-		public EventedList<T>.Enumerator GetEnumerator() => new EventedList<T>.Enumerator(this);
+		public Enumerator GetEnumerator() => new(this);
 
 		/// <summary>Creates a shallow copy of a range of elements in the source <see cref="EventedList{T}"/>.</summary>
 		/// <param name="index">The zero-based <see cref="EventedList{T}"/> index at which the range starts.</param>
@@ -652,126 +644,50 @@ namespace System.Collections.Generic
 			{
 				throw new ArgumentException($"{nameof(index)} and {nameof(count)} do not denote a valid range of elements in the {nameof(EventedList<T>)}.");
 			}
-			var list = new EventedList<T>(count);
+			EventedList<T> list = new(count);
 			Array.Copy(_items, index, list._items, 0, count);
 			list._size = count;
 			return list;
 		}
 
-		/// <summary>Copies the elements of the ICollection to an Array, starting at a particular Array index.</summary>
-		/// <param name="array">The array.</param>
-		/// <param name="arrayIndex">Index of the array.</param>
-		/// <exception cref="System.ArgumentException">Destination array cannot be null or multidimensional.</exception>
-		void ICollection.CopyTo(Array array, int arrayIndex)
-		{
-			if (array?.Rank != 1)
-				throw new ArgumentException("Destination array cannot be null or multidimensional.", nameof(array));
-			try
-			{
-				Array.Copy(_items, 0, array, arrayIndex, _size);
-			}
-			catch (ArrayTypeMismatchException e)
-			{
-				throw new ArgumentException("Type mismatch", e);
-			}
-		}
-
-		/// <summary>Returns an enumerator that iterates through a collection.</summary>
-		/// <returns>An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.</returns>
-		IEnumerator IEnumerable.GetEnumerator() => new EventedList<T>.Enumerator(this);
-
-		/// <summary>Returns an enumerator that iterates through the collection.</summary>
-		/// <returns>A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.</returns>
-		IEnumerator<T> IEnumerable<T>.GetEnumerator() => new EventedList<T>.Enumerator(this);
-
-		/// <summary>Adds an item to the IList.</summary>
-		/// <param name="item">The item.</param>
-		/// <returns></returns>
-		int IList.Add(object item)
-		{
-			EventedList<T>.VerifyValueType(item);
-			Add((T)item);
-			return (Count - 1);
-		}
-
-		/// <summary>Determines whether the IList contains a specific value.</summary>
-		/// <param name="item">The item.</param>
-		/// <returns><c>true</c> if contains the specified item; otherwise, <c>false</c>.</returns>
-		bool IList.Contains(object item) => (EventedList<T>.IsCompatibleObject(item) && Contains((T)item));
-
-		/// <summary>Determines the index of a specific item in the IList.</summary>
-		/// <param name="item">The item.</param>
-		/// <returns></returns>
-		int IList.IndexOf(object item)
-		{
-			if (EventedList<T>.IsCompatibleObject(item))
-			{
-				return IndexOf((T)item);
-			}
-			return -1;
-		}
-
-		/// <summary>Inserts an item to the IList at the specified index.</summary>
-		/// <param name="index">The index.</param>
-		/// <param name="item">The item.</param>
-		void IList.Insert(int index, object item)
-		{
-			EventedList<T>.VerifyValueType(item);
-			Insert(index, (T)item);
-		}
-
-		/// <summary>Removes the first occurrence of a specific object from the IList.</summary>
-		/// <param name="item">The item.</param>
-		void IList.Remove(object item)
-		{
-			if (EventedList<T>.IsCompatibleObject(item))
-			{
-				Remove((T)item);
-			}
-		}
-
-		/// <summary>
-		/// Searches for the specified object and returns the zero-based index of the first occurrence within the entire <see cref="EventedList{T}"/>.
-		/// </summary>
+		/// <summary>Searches for the specified object and returns the zero-based index of the first occurrence within the entire <see cref="EventedList{T}"/>.</summary>
 		/// <param name="item">The object to locate in the <see cref="EventedList{T}"/>. The value can be <c>null</c> for reference types.</param>
 		/// <returns>The index of <paramref name="item"/> if found in the list; otherwise, -1.</returns>
-		public int IndexOf(T item) => Array.IndexOf<T>(_items, item, 0, _size);
+		public int IndexOf(T item) => Array.IndexOf(_items, item, 0, _size);
 
 		/// <summary>
-		/// Searches for the specified object and returns the zero-based index of the first occurrence within the range of elements in the
-		/// <see cref="EventedList{T}"/> that starts at the specified index.
+		/// Searches for the specified object and returns the zero-based index of the first occurrence within the range of elements in the <see
+		/// cref="EventedList{T}"/> that starts at the specified index.
 		/// </summary>
 		/// <param name="item">The object to locate in the <see cref="EventedList{T}"/>. The value can be <c>null</c> for reference types.</param>
 		/// <param name="index">The zero-based starting index of the search. 0 (zero) is valid in an empty list.</param>
 		/// <returns>
-		/// The zero-based <paramref name="index"/> of the first occurrence of <paramref name="item"/> within the range of elements in the
-		/// <see cref="EventedList{T}"/> that starts at <paramref name="index"/>, if found; otherwise, –1.
+		/// The zero-based <paramref name="index"/> of the first occurrence of <paramref name="item"/> within the range of elements in the <see
+		/// cref="EventedList{T}"/> that starts at <paramref name="index"/>, if found; otherwise, –1.
 		/// </returns>
-		/// <exception cref="System.ArgumentOutOfRangeException">
-		/// <paramref name="index"/> is outside the range of valid indexes for the <see cref="EventedList{T}"/>.
-		/// </exception>
+		/// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/> is outside the range of valid indexes for the <see cref="EventedList{T}"/>.</exception>
 		public int IndexOf(T item, int index)
 		{
 			if (index > _size)
 			{
 				throw new ArgumentOutOfRangeException(nameof(index));
 			}
-			return Array.IndexOf<T>(_items, item, index, _size - index);
+			return Array.IndexOf(_items, item, index, _size - index);
 		}
 
 		/// <summary>
-		/// Searches for the specified object and returns the zero-based index of the first occurrence within the range of elements in the
-		/// <see cref="EventedList{T}"/> that starts at the specified index and contains the specified number of elements.
+		/// Searches for the specified object and returns the zero-based index of the first occurrence within the range of elements in the <see
+		/// cref="EventedList{T}"/> that starts at the specified index and contains the specified number of elements.
 		/// </summary>
 		/// <param name="item">The object to locate in the <see cref="EventedList{T}"/>. The value can be <c>null</c> for reference types.</param>
 		/// <param name="index">The zero-based starting index of the search. 0 (zero) is valid in an empty list.</param>
 		/// <param name="count">The number of elements in the section to search.</param>
 		/// <returns>
-		/// The zero-based <paramref name="index"/> of the first occurrence of <paramref name="item"/> within the range of elements in the
-		/// <see cref="EventedList{T}"/> that starts at <paramref name="index"/> and contains <paramref name="count"/> number of elements, if
-		/// found; otherwise, –1.
+		/// The zero-based <paramref name="index"/> of the first occurrence of <paramref name="item"/> within the range of elements in the <see
+		/// cref="EventedList{T}"/> that starts at <paramref name="index"/> and contains <paramref name="count"/> number of elements, if found;
+		/// otherwise, –1.
 		/// </returns>
-		/// <exception cref="System.ArgumentOutOfRangeException">
+		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is outside the range of valid indexes for the <see cref="EventedList{T}"/>.
 		/// -or- <paramref name="count"/> is less than 0.
 		/// -or- <paramref name="index"/> and <paramref name="count"/> do not specify a valid section in the <see cref="EventedList{T}"/>.
@@ -786,7 +702,7 @@ namespace System.Collections.Generic
 			{
 				throw new ArgumentOutOfRangeException(nameof(count));
 			}
-			return Array.IndexOf<T>(_items, item, index, count);
+			return Array.IndexOf(_items, item, index, count);
 		}
 
 		/// <summary>Inserts an item to the <see cref="EventedList{T}"/> at the specified index.</summary>
@@ -817,12 +733,12 @@ namespace System.Collections.Generic
 		/// <summary>Inserts the elements of a collection into the <see cref="EventedList{T}"/> at the specified index.</summary>
 		/// <param name="index">The zero-based index at which the new elements should be inserted.</param>
 		/// <param name="collection">
-		/// The collection whose elements should be inserted into the <see cref="EventedList{T}"/>. The collection itself cannot be
-		/// <c>null</c>, but it can contain elements that are <c>null</c>, if type <typeparamref name="T"/> is a reference type.
+		/// The collection whose elements should be inserted into the <see cref="EventedList{T}"/>. The collection itself cannot be <c>null</c>,
+		/// but it can contain elements that are <c>null</c>, if type <typeparamref name="T"/> is a reference type.
 		/// </param>
 		public void InsertRange(int index, IEnumerable<T> collection)
 		{
-			if (collection == null)
+			if (collection is null)
 			{
 				throw new ArgumentNullException(nameof(collection));
 			}
@@ -830,10 +746,10 @@ namespace System.Collections.Generic
 			{
 				throw new ArgumentOutOfRangeException(nameof(index));
 			}
-			var is2 = collection as ICollection<T>;
-			if (is2 != null)
+			ICollection<T> is2 = collection as ICollection<T>;
+			if (is2 is not null)
 			{
-				var count = is2.Count;
+				int count = is2.Count;
 				if (count > 0)
 				{
 					EnsureCapacity(_size + count);
@@ -848,48 +764,44 @@ namespace System.Collections.Generic
 					}
 					else
 					{
-						var array = new T[count];
+						T[] array = new T[count];
 						is2.CopyTo(array, 0);
 						array.CopyTo(_items, index);
 					}
 					_size += count;
-					for (var i = index; i < index + count; i++)
+					for (int i = index; i < index + count; i++)
+					{
 						OnItemAdded(i, _items[i]);
+					}
 				}
 			}
 			else
 			{
-				using (var enumerator = collection.GetEnumerator())
+				using IEnumerator<T> enumerator = collection.GetEnumerator();
+				while (enumerator.MoveNext())
 				{
-					while (enumerator.MoveNext())
-					{
-						Insert(index++, enumerator.Current);
-					}
+					Insert(index++, enumerator.Current);
 				}
 			}
 			_version++;
 		}
 
-		/// <summary>
-		/// Searches for the specified object and returns the zero-based index of the last occurrence within the entire <see cref="EventedList{T}"/>.
-		/// </summary>
+		/// <summary>Searches for the specified object and returns the zero-based index of the last occurrence within the entire <see cref="EventedList{T}"/>.</summary>
 		/// <param name="item">The object to locate in the <see cref="EventedList{T}"/>. The value can be <c>null</c> for reference types.</param>
 		/// <returns>The index of <paramref name="item"/> if found in the list; otherwise, -1.</returns>
 		public int LastIndexOf(T item) => LastIndexOf(item, _size - 1, _size);
 
 		/// <summary>
-		/// Searches for the specified object and returns the zero-based index of the last occurrence within the range of elements in the
-		/// <see cref="EventedList{T}"/> that starts at the specified index.
+		/// Searches for the specified object and returns the zero-based index of the last occurrence within the range of elements in the <see
+		/// cref="EventedList{T}"/> that starts at the specified index.
 		/// </summary>
 		/// <param name="item">The object to locate in the <see cref="EventedList{T}"/>. The value can be <c>null</c> for reference types.</param>
 		/// <param name="index">The zero-based starting index of the search. 0 (zero) is valid in an empty list.</param>
 		/// <returns>
-		/// The zero-based <paramref name="index"/> of the last occurrence of <paramref name="item"/> within the range of elements in the
-		/// <see cref="EventedList{T}"/> that starts at <paramref name="index"/>, if found; otherwise, –1.
+		/// The zero-based <paramref name="index"/> of the last occurrence of <paramref name="item"/> within the range of elements in the <see
+		/// cref="EventedList{T}"/> that starts at <paramref name="index"/>, if found; otherwise, –1.
 		/// </returns>
-		/// <exception cref="System.ArgumentOutOfRangeException">
-		/// <paramref name="index"/> is outside the range of valid indexes for the <see cref="EventedList{T}"/>.
-		/// </exception>
+		/// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/> is outside the range of valid indexes for the <see cref="EventedList{T}"/>.</exception>
 		public int LastIndexOf(T item, int index)
 		{
 			if (index >= _size)
@@ -900,18 +812,18 @@ namespace System.Collections.Generic
 		}
 
 		/// <summary>
-		/// Searches for the specified object and returns the zero-based index of the last occurrence within the range of elements in the
-		/// <see cref="EventedList{T}"/> that starts at the specified index and contains the specified number of elements.
+		/// Searches for the specified object and returns the zero-based index of the last occurrence within the range of elements in the <see
+		/// cref="EventedList{T}"/> that starts at the specified index and contains the specified number of elements.
 		/// </summary>
 		/// <param name="item">The object to locate in the <see cref="EventedList{T}"/>. The value can be <c>null</c> for reference types.</param>
 		/// <param name="index">The zero-based starting index of the search. 0 (zero) is valid in an empty list.</param>
 		/// <param name="count">The number of elements in the section to search.</param>
 		/// <returns>
-		/// The zero-based <paramref name="index"/> of the last occurrence of <paramref name="item"/> within the range of elements in the
-		/// <see cref="EventedList{T}"/> that starts at <paramref name="index"/> and contains <paramref name="count"/> number of elements, if
-		/// found; otherwise, –1.
+		/// The zero-based <paramref name="index"/> of the last occurrence of <paramref name="item"/> within the range of elements in the <see
+		/// cref="EventedList{T}"/> that starts at <paramref name="index"/> and contains <paramref name="count"/> number of elements, if found;
+		/// otherwise, –1.
 		/// </returns>
-		/// <exception cref="System.ArgumentOutOfRangeException">
+		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="index"/> is outside the range of valid indexes for the <see cref="EventedList{T}"/>.
 		/// -or- <paramref name="count"/> is less than 0.
 		/// -or- <paramref name="index"/> and <paramref name="count"/> do not specify a valid section in the <see cref="EventedList{T}"/>.
@@ -930,19 +842,19 @@ namespace System.Collections.Generic
 			{
 				throw new ArgumentOutOfRangeException((index >= _size) ? "index" : "count");
 			}
-			return Array.LastIndexOf<T>(_items, item, index, count);
+			return Array.LastIndexOf(_items, item, index, count);
 		}
 
 		/// <summary>Removes the first occurrence of a specific object from the <see cref="EventedList{T}"/>.</summary>
 		/// <param name="item">The object to remove from the <see cref="EventedList{T}"/>.</param>
 		/// <returns>
-		/// true if <paramref name="item"/> was successfully removed from the <see cref="EventedList{T}"/>; otherwise, false. This method
-		/// also returns false if <paramref name="item"/> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1"/>.
+		/// true if <paramref name="item"/> was successfully removed from the <see cref="EventedList{T}"/>; otherwise, false. This method also
+		/// returns false if <paramref name="item"/> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1"/>.
 		/// </returns>
 		/// <exception cref="T:System.NotSupportedException">The <see cref="EventedList{T}"/> is read-only.</exception>
 		public bool Remove(T item)
 		{
-			var index = IndexOf(item);
+			int index = IndexOf(item);
 			if (index >= 0)
 			{
 				RemoveAt(index);
@@ -956,11 +868,11 @@ namespace System.Collections.Generic
 		/// <returns>The number of elements removed from the <see cref="EventedList{T}"/>.</returns>
 		public int RemoveAll(Predicate<T> match)
 		{
-			if (match == null)
+			if (match is null)
 			{
 				throw new ArgumentNullException(nameof(match));
 			}
-			var index = 0;
+			int index = 0;
 			while ((index < _size) && !match(_items[index]))
 			{
 				index++;
@@ -969,7 +881,7 @@ namespace System.Collections.Generic
 			{
 				return 0;
 			}
-			var num2 = index + 1;
+			int num2 = index + 1;
 			while (num2 < _size)
 			{
 				while ((num2 < _size) && match(_items[num2]))
@@ -978,13 +890,13 @@ namespace System.Collections.Generic
 				}
 				if (num2 < _size)
 				{
-					var oldVal = _items[index + 1];
+					T oldVal = _items[index + 1];
 					_items[index++] = _items[num2++];
 					OnItemDeleted(index, oldVal);
 				}
 			}
 			Array.Clear(_items, index, _size - index);
-			var num3 = _size - index;
+			int num3 = _size - index;
 			_size = index;
 			_version++;
 			return num3;
@@ -1001,12 +913,12 @@ namespace System.Collections.Generic
 				throw new ArgumentOutOfRangeException(nameof(index));
 			}
 			_size--;
-			var oldVal = _items[index];
+			T oldVal = _items[index];
 			if (index < _size)
 			{
 				Array.Copy(_items, index + 1, _items, index, _size - index);
 			}
-			_items[_size] = default(T);
+			_items[_size] = default;
 			_version++;
 			OnItemDeleted(index, oldVal);
 		}
@@ -1027,7 +939,7 @@ namespace System.Collections.Generic
 			if (count > 0)
 			{
 				_size -= count;
-				var array = new T[count];
+				T[] array = new T[count];
 				Array.Copy(_items, index, array, 0, count);
 				if (index < _size)
 				{
@@ -1035,8 +947,10 @@ namespace System.Collections.Generic
 				}
 				Array.Clear(_items, _size, count);
 				_version++;
-				for (var i = index; i < index + count; i++)
+				for (int i = index; i < index + count; i++)
+				{
 					OnItemDeleted(i, array[i - index]);
+				}
 			}
 		}
 
@@ -1085,7 +999,7 @@ namespace System.Collections.Generic
 			{
 				throw new ArgumentException($"{nameof(index)} and {nameof(count)} do not denote a valid range of elements in the {nameof(EventedList<T>)}.");
 			}
-			Array.Sort<T>(_items, index, count, comparer);
+			Array.Sort(_items, index, count, comparer);
 			_version++;
 		}
 
@@ -1093,7 +1007,7 @@ namespace System.Collections.Generic
 		/// <returns>An array containing copies of the elements of the <see cref="EventedList{T}"/>.</returns>
 		public T[] ToArray()
 		{
-			var destinationArray = new T[_size];
+			T[] destinationArray = new T[_size];
 			Array.Copy(_items, 0, destinationArray, 0, _size);
 			return destinationArray;
 		}
@@ -1103,7 +1017,7 @@ namespace System.Collections.Generic
 		/// </summary>
 		public void TrimExcess()
 		{
-			var num = (int)(_items.Length * 0.9);
+			int num = (int)(_items.Length * 0.9);
 			if (_size < num)
 			{
 				Capacity = _size;
@@ -1120,11 +1034,11 @@ namespace System.Collections.Generic
 		/// </returns>
 		public bool TrueForAll(Predicate<T> match)
 		{
-			if (match == null)
+			if (match is null)
 			{
 				throw new ArgumentNullException(nameof(match));
 			}
-			for (var i = 0; i < _size; i++)
+			for (int i = 0; i < _size; i++)
 			{
 				if (!match(_items[i]))
 				{
@@ -1134,14 +1048,91 @@ namespace System.Collections.Generic
 			return true;
 		}
 
+		/// <summary>Adds an item to the IList.</summary>
+		/// <param name="item">The item.</param>
+		/// <returns></returns>
+		int IList.Add(object item)
+		{
+			VerifyValueType(item);
+			Add((T)item);
+			return (Count - 1);
+		}
+
+		/// <summary>Determines whether the IList contains a specific value.</summary>
+		/// <param name="item">The item.</param>
+		/// <returns><c>true</c> if contains the specified item; otherwise, <c>false</c>.</returns>
+		bool IList.Contains(object item) => (IsCompatibleObject(item) && Contains((T)item));
+
+		/// <summary>Copies the elements of the ICollection to an Array, starting at a particular Array index.</summary>
+		/// <param name="array">The array.</param>
+		/// <param name="arrayIndex">Index of the array.</param>
+		/// <exception cref="ArgumentException">Destination array cannot be null or multidimensional.</exception>
+		void ICollection.CopyTo(Array array, int arrayIndex)
+		{
+			if (array?.Rank != 1)
+			{
+				throw new ArgumentException("Destination array cannot be null or multidimensional.", nameof(array));
+			}
+
+			try
+			{
+				Array.Copy(_items, 0, array, arrayIndex, _size);
+			}
+			catch (ArrayTypeMismatchException e)
+			{
+				throw new ArgumentException("Type mismatch", e);
+			}
+		}
+
+		/// <summary>Returns an enumerator that iterates through a collection.</summary>
+		/// <returns>An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.</returns>
+		IEnumerator IEnumerable.GetEnumerator() => new Enumerator(this);
+
+		/// <summary>Returns an enumerator that iterates through the collection.</summary>
+		/// <returns>A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.</returns>
+		IEnumerator<T> IEnumerable<T>.GetEnumerator() => new Enumerator(this);
+
+		/// <summary>Determines the index of a specific item in the IList.</summary>
+		/// <param name="item">The item.</param>
+		/// <returns></returns>
+		int IList.IndexOf(object item)
+		{
+			if (IsCompatibleObject(item))
+			{
+				return IndexOf((T)item);
+			}
+			return -1;
+		}
+
+		/// <summary>Inserts an item to the IList at the specified index.</summary>
+		/// <param name="index">The index.</param>
+		/// <param name="item">The item.</param>
+		void IList.Insert(int index, object item)
+		{
+			VerifyValueType(item);
+			Insert(index, (T)item);
+		}
+
+		/// <summary>Removes the first occurrence of a specific object from the IList.</summary>
+		/// <param name="item">The item.</param>
+		void IList.Remove(object item)
+		{
+			if (IsCompatibleObject(item))
+			{
+				Remove((T)item);
+			}
+		}
+
 		/// <summary>Raises the <see cref="ItemAdded"/> event.</summary>
 		/// <param name="index">The index of the added item.</param>
 		/// <param name="value">The value of the added item.</param>
 		protected virtual void OnItemAdded(int index, T value)
 		{
-			var h = ItemAdded;
-			if (h != null)
-				h(this, new EventedList<T>.ListChangedEventArgs<T>(ListChangedType.ItemAdded, value, index));
+			EventHandler<ListChangedEventArgs<T>> h = ItemAdded;
+			if (h is not null)
+			{
+				h(this, new ListChangedEventArgs<T>(ListChangedType.ItemAdded, value, index));
+			}
 		}
 
 		/// <summary>Raises the <see cref="ItemChanged"/> event.</summary>
@@ -1150,9 +1141,11 @@ namespace System.Collections.Generic
 		/// <param name="newValue">The new value of the changed item.</param>
 		protected virtual void OnItemChanged(int index, T oldValue, T newValue)
 		{
-			var h = ItemChanged;
-			if (h != null)
-				h(this, new EventedList<T>.ListChangedEventArgs<T>(ListChangedType.ItemChanged, newValue, index, oldValue));
+			EventHandler<ListChangedEventArgs<T>> h = ItemChanged;
+			if (h is not null)
+			{
+				h(this, new ListChangedEventArgs<T>(ListChangedType.ItemChanged, newValue, index, oldValue));
+			}
 		}
 
 		/// <summary>Raises the <see cref="ItemDeleted"/> event.</summary>
@@ -1160,17 +1153,21 @@ namespace System.Collections.Generic
 		/// <param name="value">The value of the deleted item.</param>
 		protected virtual void OnItemDeleted(int index, T value)
 		{
-			var h = ItemDeleted;
-			if (h != null)
-				h(this, new EventedList<T>.ListChangedEventArgs<T>(ListChangedType.ItemDeleted, value, index));
+			EventHandler<ListChangedEventArgs<T>> h = ItemDeleted;
+			if (h is not null)
+			{
+				h(this, new ListChangedEventArgs<T>(ListChangedType.ItemDeleted, value, index));
+			}
 		}
 
 		/// <summary>Raises the <see cref="Reset"/> event.</summary>
 		protected virtual void OnReset()
 		{
-			var h = Reset;
-			if (h != null)
-				h(this, new EventedList<T>.ListChangedEventArgs<T>(ListChangedType.Reset));
+			EventHandler<ListChangedEventArgs<T>> h = Reset;
+			if (h is not null)
+			{
+				h(this, new ListChangedEventArgs<T>(ListChangedType.Reset));
+			}
 		}
 
 		/// <summary>Determines whether the specified object is compatible with this list's item type.</summary>
@@ -1178,7 +1175,7 @@ namespace System.Collections.Generic
 		/// <returns><c>true</c> if the specified object is compatible with this list's item type; otherwise, <c>false</c>.</returns>
 		private static bool IsCompatibleObject(object value)
 		{
-			if (!(value is T) && ((value != null) || typeof(T).IsValueType))
+			if (value is not T && ((value is not null) || typeof(T).IsValueType))
 			{
 				return false;
 			}
@@ -1189,7 +1186,7 @@ namespace System.Collections.Generic
 		/// <param name="value">The value.</param>
 		private static void VerifyValueType(object value)
 		{
-			if (!EventedList<T>.IsCompatibleObject(value))
+			if (!IsCompatibleObject(value))
 			{
 				throw new ArgumentException("Incompatible type.", nameof(value));
 			}
@@ -1201,7 +1198,7 @@ namespace System.Collections.Generic
 		{
 			if (_items.Length < min)
 			{
-				var num = (_items.Length == 0) ? 4 : (_items.Length * 2);
+				int num = (_items.Length == 0) ? 4 : (_items.Length * 2);
 				if (num < min)
 				{
 					num = min;
@@ -1212,10 +1209,10 @@ namespace System.Collections.Generic
 
 		/// <summary>Enumerates over the <see cref="EventedList{T}"/>.</summary>
 		[Serializable,
-		System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+		Runtime.InteropServices.StructLayout(Runtime.InteropServices.LayoutKind.Sequential)]
 		public struct Enumerator : IEnumerator<T>, IDisposable, IEnumerator
 		{
-			private EventedList<T> list;
+			private readonly EventedList<T> list;
 			private int index;
 			private readonly int version;
 			private T current;
@@ -1227,7 +1224,7 @@ namespace System.Collections.Generic
 				this.list = list;
 				index = 0;
 				version = list._version;
-				current = default(T);
+				current = default;
 			}
 
 			/// <summary>Gets the element at the current position of the enumerator.</summary>
@@ -1262,7 +1259,7 @@ namespace System.Collections.Generic
 					throw new InvalidOperationException();
 				}
 				index = 0;
-				current = default(T);
+				current = default;
 			}
 
 			/// <summary>Advances the enumerator to the next element of the collection.</summary>
@@ -1283,7 +1280,7 @@ namespace System.Collections.Generic
 					return true;
 				}
 				index = list._size + 1;
-				current = default(T);
+				current = default;
 				return false;
 			}
 		}
@@ -1292,7 +1289,6 @@ namespace System.Collections.Generic
 		/// <typeparam name="T"></typeparam>
 #pragma warning disable 693
 
-		[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
 		public class ListChangedEventArgs<T> : EventArgs
 		{
 			/// <summary>Initializes a new instance of the <see cref="EventedList{T}.ListChangedEventArgs&lt;T&gt;"/> class.</summary>

@@ -37,7 +37,11 @@ namespace AeroWizard.Design
 			base.Initialize(component);
 			AutoResizeHandles = true;
 			//base.Glyphs.Add(new WizardPageContainerDesignerGlyph(this));
-			if (Control == null) return;
+			if (Control is null)
+			{
+				return;
+			}
+
 			Control.SelectedPageChanged += WizardPageContainer_SelectedPageChanged;
 			//this.Control.GotFocus += WizardPageContainer_OnGotFocus;
 			Control.ControlAdded += WizardPageContainer_OnControlAdded;
@@ -52,39 +56,53 @@ namespace AeroWizard.Design
 		bool IToolboxUser.GetToolSupported(ToolboxItem tool)
 		{
 			if (tool.TypeName == typeof(WizardPage).FullName)
+			{
 				return false;
-			return Control?.SelectedPage != null;
+			}
+
+			return Control?.SelectedPage is not null;
 		}
 
 		void IToolboxUser.ToolPicked(ToolboxItem tool)
 		{
 			if (tool.TypeName == typeof(WizardPage).FullName)
+			{
 				InsertPageIntoWizard(true);
-			if (Control?.SelectedPage != null)
+			}
+
+			if (Control?.SelectedPage is not null)
+			{
 				AddControlToActivePage(tool.TypeName);
+			}
 		}
 
 		internal void InsertPageIntoWizard(bool add)
 		{
-			var h = DesignerHost;
-			var c = ComponentChangeService;
-			var wiz = Control;
-			if (h == null || c == null)
+			IDesignerHost h = DesignerHost;
+			IComponentChangeService c = ComponentChangeService;
+			WizardPageContainer wiz = Control;
+			if (h is null || c is null)
+			{
 				throw new ArgumentException("Both IDesignerHost and IComponentChangeService arguments cannot be null.");
+			}
 
 			DesignerTransaction dt = null;
 			try
 			{
 				dt = h.CreateTransaction("Insert Wizard Page");
-				var page = (WizardPage)h.CreateComponent(typeof(WizardPage));
+				WizardPage page = (WizardPage)h.CreateComponent(typeof(WizardPage));
 				MemberDescriptor member = TypeDescriptor.GetProperties(wiz)["Pages"];
 				RaiseComponentChanging(member);
 
 				//Add a new page to the collection
 				if (wiz.Pages.Count == 0 || add)
+				{
 					wiz.Pages.Add(page);
+				}
 				else
+				{
 					wiz.Pages.Insert(wiz.SelectedPageIndex, page);
+				}
 
 				RaiseComponentChanged(member, null, null);
 			}
@@ -97,19 +115,23 @@ namespace AeroWizard.Design
 
 		internal void RefreshDesigner()
 		{
-			var das = GetService<DesignerActionUIService>();
+			DesignerActionUIService das = GetService<DesignerActionUIService>();
 			das?.Refresh(Control);
 		}
 
 		internal void RemovePageFromWizard(WizardPage page)
 		{
-			var h = DesignerHost;
-			var c = ComponentChangeService;
-			if (h == null || c == null)
+			IDesignerHost h = DesignerHost;
+			IComponentChangeService c = ComponentChangeService;
+			if (h is null || c is null)
+			{
 				throw new ArgumentException("Both IDesignerHost and IComponentChangeService arguments cannot be null.");
+			}
 
-			if (Control == null || !Control.Pages.Contains(page))
+			if (Control is null || !Control.Pages.Contains(page))
+			{
 				return;
+			}
 
 			DesignerTransaction dt = null;
 			try
@@ -119,7 +141,7 @@ namespace AeroWizard.Design
 				MemberDescriptor member = TypeDescriptor.GetProperties(Control)["Pages"];
 				RaiseComponentChanging(member);
 
-				if (page.Owner != null)
+				if (page.Owner is not null)
 				{
 					page.Owner.Pages.Remove(page);
 					h.DestroyComponent(page);
@@ -139,9 +161,12 @@ namespace AeroWizard.Design
 
 		protected override IComponent[] CreateToolCore(ToolboxItem tool, int x, int y, int width, int height, bool hasLocation, bool hasSize)
 		{
-			var pageDes = GetSelectedWizardPageDesigner();
-			if (pageDes != null)
+			WizardPageDesigner pageDes = GetSelectedWizardPageDesigner();
+			if (pageDes is not null)
+			{
 				InvokeCreateTool(pageDes, tool);
+			}
+
 			return null;
 		}
 
@@ -149,7 +174,7 @@ namespace AeroWizard.Design
 		{
 			if (disposing)
 			{
-				if (Control != null)
+				if (Control is not null)
 				{
 					Control.SelectedPageChanged -= WizardPageContainer_SelectedPageChanged;
 					//this.Control.GotFocus -= WizardPageContainer_OnGotFocus;
@@ -165,7 +190,7 @@ namespace AeroWizard.Design
 		{
 			if (forwardOnDrag)
 			{
-				var wizPageDesigner = GetSelectedWizardPageDesigner();
+				WizardPageDesigner wizPageDesigner = GetSelectedWizardPageDesigner();
 				wizPageDesigner?.OnDragDropInternal(de);
 			}
 			else
@@ -178,7 +203,7 @@ namespace AeroWizard.Design
 		protected override void OnDragEnter(DragEventArgs de)
 		{
 			forwardOnDrag = true;
-			var wizPageDesigner = GetSelectedWizardPageDesigner();
+			WizardPageDesigner wizPageDesigner = GetSelectedWizardPageDesigner();
 			wizPageDesigner?.OnDragEnterInternal(de);
 		}
 
@@ -186,7 +211,7 @@ namespace AeroWizard.Design
 		{
 			if (forwardOnDrag)
 			{
-				var wizPageDesigner = GetSelectedWizardPageDesigner();
+				WizardPageDesigner wizPageDesigner = GetSelectedWizardPageDesigner();
 				wizPageDesigner?.OnDragLeaveInternal(e);
 			}
 			else
@@ -200,15 +225,15 @@ namespace AeroWizard.Design
 		{
 			if (forwardOnDrag)
 			{
-				var control = Control;
-				var pt = control.PointToClient(new Point(de.X, de.Y));
+				WizardPageContainer control = Control;
+				Point pt = control.PointToClient(new Point(de.X, de.Y));
 				if (!control.DisplayRectangle.Contains(pt))
 				{
 					de.Effect = DragDropEffects.None;
 				}
 				else
 				{
-					var wizPageDesigner = GetSelectedWizardPageDesigner();
+					WizardPageDesigner wizPageDesigner = GetSelectedWizardPageDesigner();
 					wizPageDesigner?.OnDragOverInternal(de);
 				}
 			}
@@ -222,7 +247,7 @@ namespace AeroWizard.Design
 		{
 			if (forwardOnDrag)
 			{
-				var wizPageDesigner = GetSelectedWizardPageDesigner();
+				WizardPageDesigner wizPageDesigner = GetSelectedWizardPageDesigner();
 				wizPageDesigner?.OnGiveFeedbackInternal(e);
 			}
 			else
@@ -233,12 +258,15 @@ namespace AeroWizard.Design
 
 		protected override void OnSelectionChanged(object sender, EventArgs e)
 		{
-			if (!(SelectionService.PrimarySelection is WizardPageContainer))
+			if (SelectionService.PrimarySelection is not WizardPageContainer)
 			{
-				var p = SelectionService.PrimarySelection as WizardPage;
-				if (p == null && SelectionService.PrimarySelection is Control)
+				WizardPage p = SelectionService.PrimarySelection as WizardPage;
+				if (p is null && SelectionService.PrimarySelection is Control)
+				{
 					p = ((Control)SelectionService.PrimarySelection).GetParent<WizardPage>();
-				if (p != null && Control.SelectedPage != p)
+				}
+
+				if (p is not null && Control.SelectedPage != p)
 				{
 					Control.SelectedPage = p;
 				}
@@ -249,11 +277,11 @@ namespace AeroWizard.Design
 
 		private void AddControlToActivePage(string typeName)
 		{
-			var c = GetService<IComponentChangeService>();
+			IComponentChangeService c = GetService<IComponentChangeService>();
 
-			var dt = DesignerHost?.CreateTransaction("Add Control");
-			var comp = DesignerHost?.CreateComponent(Type.GetType(typeName, false));
-			if (comp != null)
+			DesignerTransaction dt = DesignerHost?.CreateTransaction("Add Control");
+			IComponent comp = DesignerHost?.CreateComponent(Type.GetType(typeName, false));
+			if (comp is not null)
 			{
 				c.OnComponentChanging(Control.SelectedPage, null);
 				Control.SelectedPage?.Container?.Add(comp);
@@ -264,35 +292,46 @@ namespace AeroWizard.Design
 
 		private void CheckStatus()
 		{
-			if (Verbs.Count < 3) return;
-			Verbs[1].Enabled = Control != null && Control.Pages.Count > 0;
-			Verbs[2].Enabled = Control?.SelectedPage != null;
+			if (Verbs.Count < 3)
+			{
+				return;
+			}
+
+			Verbs[1].Enabled = Control is not null && Control.Pages.Count > 0;
+			Verbs[2].Enabled = Control?.SelectedPage is not null;
 		}
 
-		private WizardPageDesigner GetSelectedWizardPageDesigner() => Control.SelectedPage != null ? DesignerHost?.GetDesigner(Control.SelectedPage) as WizardPageDesigner : null;
+		private WizardPageDesigner GetSelectedWizardPageDesigner() => Control.SelectedPage is not null ? DesignerHost?.GetDesigner(Control.SelectedPage) as WizardPageDesigner : null;
 
 		[DesignerVerb("Remove page")]
 		private void RemovePage(object sender, EventArgs e)
 		{
-			if (Control?.SelectedPage == null) return;
+			if (Control?.SelectedPage is null)
+			{
+				return;
+			}
+
 			RemovePageFromWizard(Control.SelectedPage);
 			OnSelectionChanged(sender, e);
 		}
 
 		private void SelectComponent(Component p)
 		{
-			if (SelectionService != null)
+			if (SelectionService is not null)
 			{
 				SelectionService.SetSelectedComponents(new object[] { Control }, SelectionTypes.Primary);
-				if (p?.Site != null)
+				if (p?.Site is not null)
+				{
 					SelectionService.SetSelectedComponents(new object[] { p });
+				}
+
 				RefreshDesigner();
 			}
 		}
 
 		private void WizardPageContainer_OnControlAdded(object sender, ControlEventArgs e)
 		{
-			/*if ((e.Control != null) && !e.Control.IsHandleCreated)
+			/*if ((e.Control is not null) && !e.Control.IsHandleCreated)
 			{
 				var handle = e.Control.Handle;
 			}*/
@@ -302,14 +341,18 @@ namespace AeroWizard.Design
 
 		private void WizFirstPage(object sender, EventArgs e)
 		{
-			if (Control != null && Control.Pages.Count > 0)
+			if (Control is not null && Control.Pages.Count > 0)
+			{
 				Control.SelectedPage = Control.Pages[0];
+			}
 		}
 
 		private void WizLastPage(object sender, EventArgs e)
 		{
-			if (Control != null && Control.Pages.Count > 0)
+			if (Control is not null && Control.Pages.Count > 0)
+			{
 				Control.SelectedPage = Control.Pages[Control.Pages.Count - 1];
+			}
 		}
 
 		private void WizNextPage(object sender, EventArgs e) => Control?.NextPage();
@@ -328,15 +371,17 @@ namespace AeroWizard.Design
 				get => Component.SelectedPage;
 				set
 				{
-					if (value != null)
+					if (value is not null)
+					{
 						Component.SelectedPage = value;
+					}
 				}
 			}
 
 			[DesignerActionProperty("Edit pages...")]
 			public WizardPageCollection Pages => Component?.Pages;
 
-			internal bool HasPages => Pages != null && Pages.Count > 0;
+			internal bool HasPages => Pages is not null && Pages.Count > 0;
 
 			[DesignerActionMethod("Add page", 1, IncludeAsDesignerVerb = true)]
 			private void AddPage()

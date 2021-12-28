@@ -185,7 +185,7 @@ namespace System.Windows.Forms.VisualStyles
 			{
 				// Create a device-independent bitmap and select it into our DC
 				var info = new BITMAPINFO(bounds.Width, -bounds.Height);
-				using (new SafeDCObjectHandle(memoryHdc, CreateDIBSection(SafeDCHandle.Null, ref info, DIBColorMode.DIB_RGB_COLORS, out var ppv, IntPtr.Zero, 0)))
+				using (new SafeDCObjectHandle(memoryHdc, CreateDIBSection(SafeDCHandle.Null, info, DIBColorMode.DIB_RGB_COLORS, out var ppv)))
 				{
 					using (var memoryGraphics = Graphics.FromHdc(memoryHdc.DangerousGetHandle()))
 					{
@@ -240,7 +240,7 @@ namespace System.Windows.Forms.VisualStyles
 				{
 					// Create a device-independent bitmap and select it into our DC
 					var info = new BITMAPINFO(bounds.Width, -bounds.Height);
-					using (new SafeDCObjectHandle(memoryHdc, CreateDIBSection(sdc, ref info, 0, out var pBits, IntPtr.Zero, 0)))
+					using (new SafeDCObjectHandle(memoryHdc, CreateDIBSection(sdc, info, 0, out var pBits)))
 					{
 						// Call method
 						func(memoryHdc);

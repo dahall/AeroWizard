@@ -109,7 +109,7 @@ namespace Vanara.Interop
 		/// <para>ICM: No color management is done.</para>
 		/// </remarks>
 		[DllImport(GDI32, ExactSpelling = true, SetLastError = true)]
-		public static extern IntPtr CreateDIBSection(SafeDCHandle hdc, ref BITMAPINFO pbmi, DIBColorMode iUsage, out IntPtr ppvBits, IntPtr hSection, int dwOffset);
+		public static extern IntPtr CreateDIBSection(SafeDCHandle hdc, in BITMAPINFO pbmi, DIBColorMode iUsage, out IntPtr ppvBits, [In, Optional] IntPtr hSection, [In, Optional] int dwOffset);
 
 		/// <summary>
 		/// The GetDIBits function retrieves the bits of the specified compatible bitmap and copies them into a buffer as a DIB using the
@@ -184,7 +184,7 @@ namespace Vanara.Interop
 		/// </para>
 		/// </remarks>
 		[DllImport(GDI32, ExactSpelling = true, SetLastError = true)]
-		public static extern int GetDIBits(SafeDCHandle hdc, IntPtr hbmp, int uStartScan, int cScanLines, ref byte[] lpvBits, ref BITMAPINFO lpbi, DIBColorMode uUsage);
+		public static extern int GetDIBits(SafeDCHandle hdc, IntPtr hbmp, int uStartScan, int cScanLines, [Out, Optional] byte[] lpvBits, ref BITMAPINFO lpbi, DIBColorMode uUsage);
 
 		/// <summary>
 		/// The GetDIBits function retrieves the bits of the specified compatible bitmap and copies them into a buffer as a DIB using the
@@ -259,14 +259,14 @@ namespace Vanara.Interop
 		/// </para>
 		/// </remarks>
 		[DllImport(GDI32, ExactSpelling = true, SetLastError = true)]
-		public static extern int GetDIBits(SafeDCHandle hdc, IntPtr hbmp, int uStartScan, int cScanLines, IntPtr lpvBits, ref BITMAPINFO lpbi, DIBColorMode uUsage);
+		public static extern int GetDIBits(SafeDCHandle hdc, IntPtr hbmp, int uStartScan, int cScanLines, [Out, Optional] IntPtr lpvBits, ref BITMAPINFO lpbi, DIBColorMode uUsage);
 
 		/// <summary>The BITMAPINFO structure defines the dimensions and color information for a DIB.</summary>
 		/// <remarks>
 		/// A DIB consists of two distinct parts: a BITMAPINFO structure describing the dimensions and colors of the bitmap, and an array of
 		/// bytes defining the pixels of the bitmap. The bits in the array are packed together, but each scan line must be padded with zeros
-		/// to end on a LONG data-type boundary. If the height of the bitmap is positive, the bitmap is a bottom-up DIB and its origin is the
-		/// lower-left corner. If the height is negative, the bitmap is a top-down DIB and its origin is the upper left corner.
+		/// to end on a LONG data-type boundary. If the height of the bitmap is positive, the bitmap is a bottom-up DIB and its origin is
+		/// the lower-left corner. If the height is negative, the bitmap is a top-down DIB and its origin is the upper left corner.
 		/// <para>
 		/// A bitmap is packed when the bitmap array immediately follows the BITMAPINFO header. Packed bitmaps are referenced by a single
 		/// pointer. For packed bitmaps, the biClrUsed member must be set to an even number when using the DIB_PAL_COLORS mode so that the
@@ -295,9 +295,9 @@ namespace Vanara.Interop
 			/// <item>
 			/// <description>
 			/// An array of 16-bit unsigned integers that specifies indexes into the currently realized logical palette. This use of
-			/// bmiColors is allowed for functions that use DIBs. When bmiColors elements contain indexes to a realized logical palette, they
-			/// must also call the following bitmap functions: CreateDIBitmap, CreateDIBPatternBrush, CreateDIBSection (The iUsage parameter
-			/// of CreateDIBSection must be set to DIB_PAL_COLORS.)
+			/// bmiColors is allowed for functions that use DIBs. When bmiColors elements contain indexes to a realized logical palette,
+			/// they must also call the following bitmap
+			/// functions: CreateDIBitmap, CreateDIBPatternBrush, CreateDIBSection (The iUsage parameter of CreateDIBSection must be set to DIB_PAL_COLORS.)
 			/// </description>
 			/// </item>
 			/// </list>
@@ -306,7 +306,7 @@ namespace Vanara.Interop
 			/// </para>
 			/// <para>The colors in the bmiColors table appear in order of importance. For more information, see the Remarks section.</para>
 			/// </summary>
-			[MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 1, ArraySubType = UnmanagedType.Struct)]
+			[MarshalAs(UnmanagedType.ByValArray, SizeConst = 1)]
 			public RGBQUAD[] bmiColors;
 
 			/// <summary>Initializes a new instance of the <see cref="BITMAPINFO"/> structure.</summary>
@@ -316,171 +316,222 @@ namespace Vanara.Interop
 			public BITMAPINFO(int width, int height, ushort bitCount = 32)
 				: this()
 			{
-				bmiHeader.biSize = Marshal.SizeOf(typeof(BITMAPINFO));
-				bmiHeader.biWidth = width;
-				bmiHeader.biHeight = height;
-				bmiHeader.biPlanes = 1;
-				bmiHeader.biBitCount = bitCount;
-				bmiHeader.biCompression = BitmapCompressionMode.BI_RGB;
-				bmiHeader.biSizeImage = 0; // (uint)width * (uint)height * bitCount / 8;
+				bmiHeader = new BITMAPINFOHEADER(width, height, bitCount);
 			}
 		}
 
-		/// <summary>The BITMAPINFOHEADER structure contains information about the dimensions and color format of a DIB.</summary>
-		[StructLayout(LayoutKind.Sequential)]
+		/// <summary>
+		/// <para>
+		/// The <c>BITMAPINFOHEADER</c> structure contains information about the dimensions and color format of a device-independent bitmap (DIB).
+		/// </para>
+		/// <para>
+		/// <c>Note</c> This structure is also described in the GDI documentation. However, the semantics for video data are slightly
+		/// different than the semantics used for GDI. If you are using this structure to describe video data, use the information given here.
+		/// </para>
+		/// </summary>
+		/// <remarks>
+		/// <para>Color Tables</para>
+		/// <para>
+		/// The <c>BITMAPINFOHEADER</c> structure may be followed by an array of palette entries or color masks. The rules depend on the
+		/// value of <c>biCompression</c>.
+		/// </para>
+		/// <list type="bullet">
+		/// <item>
+		/// <term>
+		/// If <c>biCompression</c> equals <c>BI_RGB</c> and the bitmap uses 8 bpp or less, the bitmap has a color table immediatelly
+		/// following the <c>BITMAPINFOHEADER</c> structure. The color table consists of an array of <c>RGBQUAD</c> values. The size of the
+		/// array is given by the <c>biClrUsed</c> member. If <c>biClrUsed</c> is zero, the array contains the maximum number of colors for
+		/// the given bitdepth; that is, 2^ <c>biBitCount</c> colors.
+		/// </term>
+		/// </item>
+		/// <item>
+		/// <term>
+		/// If <c>biCompression</c> equals <c>BI_BITFIELDS</c>, the bitmap uses three <c>DWORD</c> color masks (red, green, and blue,
+		/// respectively), which specify the byte layout of the pixels. The 1 bits in each mask indicate the bits for that color within the pixel.
+		/// </term>
+		/// </item>
+		/// <item>
+		/// <term>
+		/// If <c>biCompression</c> is a video FOURCC, the presence of a color table is implied by the video format. You should not assume
+		/// that a color table exists when the bit depth is 8 bpp or less. However, some legacy components might assume that a color table
+		/// is present. Therefore, if you are allocating a <c>BITMAPINFOHEADER</c> structure, it is recommended to allocate space for a
+		/// color table when the bit depth is 8 bpp or less, even if the color table is not used.
+		/// </term>
+		/// </item>
+		/// </list>
+		/// <para>
+		/// When the <c>BITMAPINFOHEADER</c> is followed by a color table or a set of color masks, you can use the BITMAPINFO structure to
+		/// reference the color table of the color masks. The <c>BITMAPINFO</c> structure is defined as follows:
+		/// </para>
+		/// <para>
+		/// <code>typedef struct tagBITMAPINFO { BITMAPINFOHEADER bmiHeader; RGBQUAD bmiColors[1]; } BITMAPINFO;</code>
+		/// </para>
+		/// <para>
+		/// If you cast the <c>BITMAPINFOHEADER</c> to a BITMAPINFO, the <c>bmiHeader</c> member refers to the <c>BITMAPINFOHEADER</c> and
+		/// the <c>bmiColors</c> member refers to the first entry in the color table, or the first color mask.
+		/// </para>
+		/// <para>
+		/// Be aware that if the bitmap uses a color table or color masks, then the size of the entire format structure (the
+		/// <c>BITMAPINFOHEADER</c> plus the color information) is not equal to
+		/// <code>sizeof(BITMAPINFOHEADER)</code>
+		/// or
+		/// <code>sizeof(BITMAPINFO)</code>
+		/// . You must calculate the actual size for each instance.
+		/// </para>
+		/// <para>Calculating Surface Stride</para>
+		/// <para>
+		/// In an uncompressed bitmap, the stride is the number of bytes needed to go from the start of one row of pixels to the start of
+		/// the next row. The image format defines a minimum stride for an image. In addition, the graphics hardware might require a larger
+		/// stride for the surface that contains the image.
+		/// </para>
+		/// <para>
+		/// For uncompressed RGB formats, the minimum stride is always the image width in bytes, rounded up to the nearest <c>DWORD</c>. You
+		/// can use the following formula to calculate the stride:
+		/// </para>
+		/// <para>
+		/// <code>stride = ((((biWidth * biBitCount) + 31) &amp; ~31) &gt;&gt; 3)</code>
+		/// </para>
+		/// <para>
+		/// For YUV formats, there is no general rule for calculating the minimum stride. You must understand the rules for the particular
+		/// YUV format. For a description of the most common YUV formats, see Recommended 8-Bit YUV Formats for Video Rendering.
+		/// </para>
+		/// <para>
+		/// Decoders and video sources should propose formats where biWidth is the width of the image in pixels. If the video renderer
+		/// requires a surface stride that is larger than the default image stride, it modifies the proposed media type by setting the
+		/// following values:
+		/// </para>
+		/// <list type="bullet">
+		/// <item>
+		/// <term>It sets <c>biWidth</c> equal to the surface stride in pixels.</term>
+		/// </item>
+		/// <item>
+		/// <term>It sets the <c>rcTarget</c> member of the VIDEOINFOHEADER or VIDEOINFOHEADER2 structure equal to the image width, in pixels.</term>
+		/// </item>
+		/// </list>
+		/// <para>
+		/// Then the video renderer proposes the modified format by calling IPin::QueryAccept on the upstream pin. For more information
+		/// about this mechanism, see Dynamic Format Changes.
+		/// </para>
+		/// <para>
+		/// If there is padding in the image buffer, never dereference a pointer into the memory that has been reserved for the padding. If
+		/// the image buffer has been allocated in video memory, the padding might not be readable memory.
+		/// </para>
+		/// </remarks>
+		// https://docs.microsoft.com/en-us/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader typedef struct tagBITMAPINFOHEADER { DWORD
+		// biSize; LONG biWidth; LONG biHeight; WORD biPlanes; WORD biBitCount; DWORD biCompression; DWORD biSizeImage; LONG
+		// biXPelsPerMeter; LONG biYPelsPerMeter; DWORD biClrUsed; DWORD biClrImportant; } BITMAPINFOHEADER, *LPBITMAPINFOHEADER, *PBITMAPINFOHEADER;
+		[StructLayout(LayoutKind.Sequential, Pack = 2)]
 		public struct BITMAPINFOHEADER
 		{
-			/// <summary>The number of bytes required by the structure.</summary>
-			public int biSize;
+			/// <summary>
+			/// Specifies the number of bytes required by the structure. This value does not include the size of the color table or the size
+			/// of the color masks, if they are appended to the end of structure. See Remarks.
+			/// </summary>
+			public uint biSize;
 
 			/// <summary>
-			/// The width of the bitmap, in pixels. If biCompression is BI_JPEG or BI_PNG, the biWidth member specifies the width of the
-			/// decompressed JPEG or PNG image file, respectively.
+			/// Specifies the width of the bitmap, in pixels. For information about calculating the stride of the bitmap, see Remarks.
 			/// </summary>
 			public int biWidth;
 
 			/// <summary>
-			/// The height of the bitmap, in pixels. If biHeight is positive, the bitmap is a bottom-up DIB and its origin is the lower-left
-			/// corner. If biHeight is negative, the bitmap is a top-down DIB and its origin is the upper-left corner.
-			/// <para>
-			/// If biHeight is negative, indicating a top-down DIB, biCompression must be either BI_RGB or BI_BITFIELDS. Top-down DIBs cannot
-			/// be compressed.
-			/// </para>
-			/// <para>
-			/// If biCompression is BI_JPEG or BI_PNG, the biHeight member specifies the height of the decompressed JPEG or PNG image file, respectively.
-			/// </para>
-			/// </summary>
-			public int biHeight;
-
-			/// <summary>The number of planes for the target device. This value must be set to 1.</summary>
-			public ushort biPlanes;
-
-			/// <summary>
-			/// The number of bits-per-pixel. The biBitCount member of the BITMAPINFOHEADER structure determines the number of bits that
-			/// define each pixel and the maximum number of colors in the bitmap. This member must be one of the following values.
-			/// <list type="table">
-			/// <listheader>
-			/// <term>Value</term>
-			/// <description>Meaning</description>
-			/// </listheader>
+			/// <para>Specifies the height of the bitmap, in pixels.</para>
+			/// <list type="bullet">
 			/// <item>
-			/// <term>0</term>
-			/// <description>The number of bits-per-pixel is specified or is implied by the JPEG or PNG format.</description>
+			/// <term>
+			/// For uncompressed RGB bitmaps, if <c>biHeight</c> is positive, the bitmap is a bottom-up DIB with the origin at the lower
+			/// left corner. If <c>biHeight</c> is negative, the bitmap is a top-down DIB with the origin at the upper left corner.
+			/// </term>
 			/// </item>
 			/// <item>
-			/// <term>1</term>
-			/// <description>
-			/// The bitmap is monochrome, and the bmiColors member of BITMAPINFO contains two entries. Each bit in the bitmap array
-			/// represents a pixel. If the bit is clear, the pixel is displayed with the color of the first entry in the bmiColors table; if
-			/// the bit is set, the pixel has the color of the second entry in the table.
-			/// </description>
+			/// <term>
+			/// For YUV bitmaps, the bitmap is always top-down, regardless of the sign of <c>biHeight</c>. Decoders should offer YUV formats
+			/// with postive <c>biHeight</c>, but for backward compatibility they should accept YUV formats with either positive or negative <c>biHeight</c>.
+			/// </term>
 			/// </item>
 			/// <item>
-			/// <term>4</term>
-			/// <description>
-			/// The bitmap has a maximum of 16 colors, and the bmiColors member of BITMAPINFO contains up to 16 entries. Each pixel in the
-			/// bitmap is represented by a 4-bit index into the color table. For example, if the first byte in the bitmap is 0x1F, the byte
-			/// represents two pixels. The first pixel contains the color in the second table entry, and the second pixel contains the color
-			/// in the sixteenth table entry.
-			/// </description>
-			/// </item>
-			/// <item>
-			/// <term>8</term>
-			/// <description>
-			/// The bitmap has a maximum of 256 colors, and the bmiColors member of BITMAPINFO contains up to 256 entries. In this case, each
-			/// byte in the array represents a single pixel.
-			/// </description>
-			/// </item>
-			/// <item>
-			/// <term>16</term>
-			/// <description>
-			/// The bitmap has a maximum of 2^16 colors. If the biCompression member of the BITMAPINFOHEADER is BI_RGB, the bmiColors member
-			/// of BITMAPINFO is NULL. Each WORD in the bitmap array represents a single pixel. The relative intensities of red, green, and
-			/// blue are represented with five bits for each color component. The value for blue is in the least significant five bits,
-			/// followed by five bits each for green and red. The most significant bit is not used. The bmiColors color table is used for
-			/// optimizing colors used on palette-based devices, and must contain the number of entries specified by the biClrUsed member of
-			/// the BITMAPINFOHEADER.
-			/// <para>
-			/// If the biCompression member of the BITMAPINFOHEADER is BI_BITFIELDS, the bmiColors member contains three DWORD color masks
-			/// that specify the red, green, and blue components, respectively, of each pixel. Each WORD in the bitmap array represents a
-			/// single pixel.
-			/// </para>
-			/// <para>
-			/// When the biCompression member is BI_BITFIELDS, bits set in each DWORD mask must be contiguous and should not overlap the bits
-			/// of another mask. All the bits in the pixel do not have to be used.
-			/// </para>
-			/// </description>
-			/// </item>
-			/// <item>
-			/// <term>24</term>
-			/// <description>
-			/// The bitmap has a maximum of 2^24 colors, and the bmiColors member of BITMAPINFO is NULL. Each 3-byte triplet in the bitmap
-			/// array represents the relative intensities of blue, green, and red, respectively, for a pixel. The bmiColors color table is
-			/// used for optimizing colors used on palette-based devices, and must contain the number of entries specified by the biClrUsed
-			/// member of the BITMAPINFOHEADER.
-			/// </description>
-			/// </item>
-			/// <item>
-			/// <term>32</term>
-			/// <description>
-			/// The bitmap has a maximum of 2^32 colors. If the biCompression member of the BITMAPINFOHEADER is BI_RGB, the bmiColors member
-			/// of BITMAPINFO is NULL. Each DWORD in the bitmap array represents the relative intensities of blue, green, and red for a
-			/// pixel. The value for blue is in the least significant 8 bits, followed by 8 bits each for green and red. The high byte in
-			/// each DWORD is not used. The bmiColors color table is used for optimizing colors used on palette-based devices, and must
-			/// contain the number of entries specified by the biClrUsed member of the BITMAPINFOHEADER.
-			/// <para>
-			/// If the biCompression member of the BITMAPINFOHEADER is BI_BITFIELDS, the bmiColors member contains three DWORD color masks
-			/// that specify the red, green, and blue components, respectively, of each pixel. Each DWORD in the bitmap array represents a
-			/// single pixel.
-			/// </para>
-			/// <para>
-			/// When the biCompression member is BI_BITFIELDS, bits set in each DWORD mask must be contiguous and should not overlap the bits
-			/// of another mask. All the bits in the pixel do not need to be used.
-			/// </para>
-			/// </description>
+			/// <term>For compressed formats, <c>biHeight</c> must be positive, regardless of image orientation.</term>
 			/// </item>
 			/// </list>
 			/// </summary>
+			public int biHeight;
+
+			/// <summary>Specifies the number of planes for the target device. This value must be set to 1.</summary>
+			public ushort biPlanes;
+
+			/// <summary>
+			/// Specifies the number of bits per pixel (bpp). For uncompressed formats, this value is the average number of bits per pixel.
+			/// For compressed formats, this value is the implied bit depth of the uncompressed image, after the image has been decoded.
+			/// </summary>
 			public ushort biBitCount;
 
-			/// <summary>The type of compression for a compressed bottom-up bitmap (top-down DIBs cannot be compressed).</summary>
+			/// <summary>
+			/// <para>
+			/// For compressed video and YUV formats, this member is a FOURCC code, specified as a <c>DWORD</c> in little-endian order. For
+			/// example, YUYV video has the FOURCC 'VYUY' or 0x56595559. For more information, see FOURCC Codes.
+			/// </para>
+			/// <para>For uncompressed RGB formats, the following values are possible:</para>
+			/// <list type="table">
+			/// <listheader>
+			/// <term>Value</term>
+			/// <term>Meaning</term>
+			/// </listheader>
+			/// <item>
+			/// <term>BI_RGB</term>
+			/// <term>Uncompressed RGB.</term>
+			/// </item>
+			/// <item>
+			/// <term>BI_BITFIELDS</term>
+			/// <term>Uncompressed RGB with color masks. Valid for 16-bpp and 32-bpp bitmaps.</term>
+			/// </item>
+			/// </list>
+			/// <para>See Remarks for more information. Note that <c>BI_JPG</c> and <c>BI_PNG</c> are not valid video formats.</para>
+			/// <para>
+			/// For 16-bpp bitmaps, if <c>biCompression</c> equals <c>BI_RGB</c>, the format is always RGB 555. If <c>biCompression</c>
+			/// equals <c>BI_BITFIELDS</c>, the format is either RGB 555 or RGB 565. Use the subtype GUID in the AM_MEDIA_TYPE structure to
+			/// determine the specific RGB type.
+			/// </para>
+			/// </summary>
 			public BitmapCompressionMode biCompression;
 
-			/// <summary>
-			/// The size, in bytes, of the image. This may be set to zero for BI_RGB bitmaps. If biCompression is BI_JPEG or BI_PNG,
-			/// biSizeImage indicates the size of the JPEG or PNG image buffer, respectively.
-			/// </summary>
+			/// <summary>Specifies the size, in bytes, of the image. This can be set to 0 for uncompressed RGB bitmaps.</summary>
 			public uint biSizeImage;
 
-			/// <summary>
-			/// The horizontal resolution, in pixels-per-meter, of the target device for the bitmap. An application can use this value to
-			/// select a bitmap from a resource group that best matches the characteristics of the current device.
-			/// </summary>
+			/// <summary>Specifies the horizontal resolution, in pixels per meter, of the target device for the bitmap.</summary>
 			public int biXPelsPerMeter;
 
-			/// <summary>The vertical resolution, in pixels-per-meter, of the target device for the bitmap.</summary>
+			/// <summary>Specifies the vertical resolution, in pixels per meter, of the target device for the bitmap.</summary>
 			public int biYPelsPerMeter;
 
 			/// <summary>
-			/// The number of color indexes in the color table that are actually used by the bitmap. If this value is zero, the bitmap uses
-			/// the maximum number of colors corresponding to the value of the biBitCount member for the compression mode specified by biCompression.
-			/// <para>
-			/// If biClrUsed is nonzero and the biBitCount member is less than 16, the biClrUsed member specifies the actual number of colors
-			/// the graphics engine or device driver accesses. If biBitCount is 16 or greater, the biClrUsed member specifies the size of the
-			/// color table used to optimize performance of the system color palettes. If biBitCount equals 16 or 32, the optimal color
-			/// palette starts immediately following the three DWORD masks.
-			/// </para>
-			/// <para>
-			/// When the bitmap array immediately follows the BITMAPINFO structure, it is a packed bitmap. Packed bitmaps are referenced by a
-			/// single pointer. Packed bitmaps require that the biClrUsed member must be either zero or the actual size of the color table.
-			/// </para>
+			/// Specifies the number of color indices in the color table that are actually used by the bitmap. See Remarks for more information.
 			/// </summary>
 			public uint biClrUsed;
 
 			/// <summary>
-			/// The number of color indexes that are required for displaying the bitmap. If this value is zero, all colors are required.
+			/// Specifies the number of color indices that are considered important for displaying the bitmap. If this value is zero, all
+			/// colors are important.
 			/// </summary>
 			public uint biClrImportant;
+
+			/// <summary>Initializes a new instance of the <see cref="BITMAPINFOHEADER"/> structure.</summary>
+			/// <param name="width">The width.</param>
+			/// <param name="height">The height.</param>
+			/// <param name="bitCount">The bit count.</param>
+			public BITMAPINFOHEADER(int width, int height, ushort bitCount = 32)
+				: this()
+			{
+				biSize = (uint)Marshal.SizeOf(typeof(BITMAPINFO));
+				biWidth = width;
+				biHeight = height;
+				biPlanes = 1;
+				biBitCount = bitCount;
+				biCompression = BitmapCompressionMode.BI_RGB;
+				biSizeImage = 0; // (uint)width * (uint)height * bitCount / 8;
+			}
+
+			/// <summary>Gets the default value for this structure with size fields set appropriately.</summary>
+			public static readonly BITMAPINFOHEADER Default = new() { biSize = (uint)Marshal.SizeOf(typeof(BITMAPINFOHEADER)) };
 		}
 
 		/// <summary>The RGBQUAD structure describes a color consisting of relative intensities of red, green, and blue.</summary>

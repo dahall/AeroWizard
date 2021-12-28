@@ -3,8 +3,8 @@
 	internal static class ControlExtension
 	{
 		/// <summary>
-		/// Performs an action on a control after its handle has been created. If the control's handle has already been created, the action
-		/// is executed immediately.
+		/// Performs an action on a control after its handle has been created. If the control's handle has already been created, the action is
+		/// executed immediately.
 		/// </summary>
 		/// <param name="ctrl">This control.</param>
 		/// <param name="action">The action to execute.</param>
@@ -16,15 +16,15 @@
 			}
 			else
 			{
-				LayoutEventHandler handler = null;
-				handler = (sender, e) =>
+				void handler(object sender, LayoutEventArgs e)
 				{
 					if (ctrl.IsHandleCreated)
 					{
 						ctrl.Layout -= handler;
 						action(ctrl);
 					}
-				};
+				}
+
 				ctrl.Layout += handler;
 			}
 		}
@@ -33,12 +33,14 @@
 		/// <typeparam name="T">The <see cref="Control"/> based <see cref="Type"/> of the parent control to retrieve.</typeparam>
 		/// <param name="ctrl">This control.</param>
 		/// <returns>The parent control matching T or null if not found.</returns>
-		[Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
 		public static T GetParent<T>(this Control ctrl) where T : Control, new()
 		{
-			var p = ctrl.Parent;
-			while (p != null & !(p is T))
+			Control p = ctrl.Parent;
+			while (p is not null & p is not T)
+			{
 				p = p.Parent;
+			}
+
 			return p as T;
 		}
 
@@ -48,7 +50,10 @@
 		public static RightToLeft GetRightToLeftProperty(this Control ctrl)
 		{
 			if (ctrl.RightToLeft == RightToLeft.Inherit)
+			{
 				return GetRightToLeftProperty(ctrl.Parent);
+			}
+
 			return ctrl.RightToLeft;
 		}
 
@@ -58,16 +63,21 @@
 		/// <returns>The top-most parent control matching T or null if not found.</returns>
 		public static T GetTopMostParent<T>(this Control ctrl) where T : Control, new()
 		{
-			var stack = new System.Collections.Generic.Stack<Control>();
-			var p = ctrl.Parent;
-			while (p != null)
+			Collections.Generic.Stack<Control> stack = new();
+			Control p = ctrl.Parent;
+			while (p is not null)
 			{
 				stack.Push(p);
 				p = p.Parent;
 			}
 			while (stack.Count > 0)
+			{
 				if ((p = stack.Pop()) is T)
+				{
 					return p as T;
+				}
+			}
+
 			return null;
 		}
 
@@ -76,12 +86,15 @@
 		/// <returns><c>true</c> if in design mode; otherwise, <c>false</c>.</returns>
 		public static bool IsDesignMode(this Control ctrl)
 		{
-			var p = ctrl;
-			while (p != null)
+			Control p = ctrl;
+			while (p is not null)
 			{
-				var site = p.Site;
-				if (site != null && site.DesignMode)
+				System.ComponentModel.ISite site = p.Site;
+				if (site is not null && site.DesignMode)
+				{
 					return true;
+				}
+
 				p = p.Parent;
 			}
 			return false;

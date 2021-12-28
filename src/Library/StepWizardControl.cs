@@ -166,7 +166,7 @@ namespace AeroWizard
 
 		/// <summary>Raises the <see cref="E:System.Windows.Forms.Control.RightToLeftChanged"/> event.</summary>
 		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
-		protected override void OnRightToLeftChanged(System.EventArgs e)
+		protected override void OnRightToLeftChanged(EventArgs e)
 		{
 			base.OnRightToLeftChanged(e);
 			DockStyle ds = RightToLeft == RightToLeft.Yes ? DockStyle.Right : DockStyle.Left;

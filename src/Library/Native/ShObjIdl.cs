@@ -42,12 +42,7 @@ namespace Vanara.Interop
 		/// <summary>Determines whether the specified <see cref="System.Object"/>, is equal to this instance.</summary>
 		/// <param name="obj">The <see cref="System.Object"/> to compare with this instance.</param>
 		/// <returns><c>true</c> if the specified <see cref="System.Object"/> is equal to this instance; otherwise, <c>false</c>.</returns>
-		public override bool Equals(object obj)
-		{
-			if (obj != null && obj is ShellItemPropertyKey)
-				return Guid.Equals(fmtid, ((ShellItemPropertyKey)obj).fmtid) && pid == ((ShellItemPropertyKey)obj).pid;
-			return false;
-		}
+		public override bool Equals(object obj) => obj is ShellItemPropertyKey key && Equals(fmtid, key.fmtid) && pid == key.pid;
 
 		/// <summary>Returns a hash code for this instance.</summary>
 		/// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>

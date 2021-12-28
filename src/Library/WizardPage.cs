@@ -22,7 +22,7 @@ namespace AeroWizard
 		{
 			InitializeComponent();
 			Margin = Padding.Empty;
-			base.Text = Properties.Resources.WizardHeader;
+			base.Text = Resources.WizardHeader;
 		}
 
 		/// <summary>Occurs when the user has clicked the Next/Finish button but before the page is changed.</summary>
@@ -49,7 +49,11 @@ namespace AeroWizard
 			get => allowBack;
 			set
 			{
-				if (allowBack == value) return;
+				if (allowBack == value)
+				{
+					return;
+				}
+
 				allowBack = value;
 				UpdateOwner();
 			}
@@ -63,7 +67,11 @@ namespace AeroWizard
 			get => allowCancel;
 			set
 			{
-				if (allowCancel == value) return;
+				if (allowCancel == value)
+				{
+					return;
+				}
+
 				allowCancel = value;
 				UpdateOwner();
 			}
@@ -77,15 +85,19 @@ namespace AeroWizard
 			get => allowNext;
 			set
 			{
-				if (allowNext == value) return;
+				if (allowNext == value)
+				{
+					return;
+				}
+
 				allowNext = value;
 				UpdateOwner();
 			}
 		}
 
 		/// <summary>
-		/// Gets or sets the help text. When value is not <c>null</c>, a help link will be displayed at the bottom left of the content area.
-		/// When clicked, the <see cref="OnHelpClicked"/> method will call the <see cref="HelpClicked"/> event.
+		/// Gets or sets the help text. When value is not <c>null</c>, a help link will be displayed at the bottom left of the content area. When
+		/// clicked, the <see cref="OnHelpClicked"/> method will call the <see cref="HelpClicked"/> event.
 		/// </summary>
 		/// <value>The help text to display.</value>
 		[DefaultValue(null), Category("Appearance"), Description("Help text to display on hyperlink at bottom left of content area.")]
@@ -94,14 +106,14 @@ namespace AeroWizard
 			get => helpText;
 			set
 			{
-				if (helpLink == null)
+				if (helpLink is null)
 				{
 					helpLink = new LinkLabel() { AutoSize = true, Dock = DockStyle.Bottom, Text = Resources.WizardPageDefaultHelpText, Visible = false };
 					helpLink.LinkClicked += helpLink_LinkClicked;
 					Controls.Add(helpLink);
 				}
 				helpText = value;
-				if (helpText == null)
+				if (helpText is null)
 				{
 					helpLink.Visible = false;
 				}
@@ -114,8 +126,8 @@ namespace AeroWizard
 		}
 
 		/// <summary>
-		/// Gets or sets a value indicating whether this page is the last page in the sequence and should display the Finish text instead of
-		/// the Next text on the Next/Finish button.
+		/// Gets or sets a value indicating whether this page is the last page in the sequence and should display the Finish text instead of the
+		/// Next text on the Next/Finish button.
 		/// </summary>
 		/// <value><c>true</c> if this page is a finish page; otherwise, <c>false</c>.</value>
 		[DefaultValue(false), Category("Behavior"), Description("Indicates whether this page is the last page")]
@@ -124,16 +136,20 @@ namespace AeroWizard
 			get => isFinishPage;
 			set
 			{
-				if (isFinishPage == value) return;
+				if (isFinishPage == value)
+				{
+					return;
+				}
+
 				isFinishPage = value;
 				UpdateOwner();
 			}
 		}
 
 		/// <summary>
-		/// Gets or sets the next page that should be used when the user clicks the Next button or when the <see
-		/// cref="WizardControl.NextPage"/> method is called. This is used to override the default behavior of going to the next page in the
-		/// sequence defined within the <see cref="WizardControl.Pages"/> collection.
+		/// Gets or sets the next page that should be used when the user clicks the Next button or when the <see cref="WizardControl.NextPage"/>
+		/// method is called. This is used to override the default behavior of going to the next page in the sequence defined within the <see
+		/// cref="WizardControl.Pages"/> collection.
 		/// </summary>
 		/// <value>The wizard page to go to.</value>
 		[DefaultValue(null), Category("Behavior"),
@@ -146,8 +162,8 @@ namespace AeroWizard
 		public virtual WizardPageContainer Owner { get; internal set; }
 
 		/// <summary>
-		/// Gets or sets a value indicating whether to show the Cancel button. If both <see cref="ShowCancel"/> and <see cref="ShowNext"/>
-		/// are <c>false</c>, then the bottom command area will not be shown.
+		/// Gets or sets a value indicating whether to show the Cancel button. If both <see cref="ShowCancel"/> and <see cref="ShowNext"/> are
+		/// <c>false</c>, then the bottom command area will not be shown.
 		/// </summary>
 		/// <value><c>true</c> if Cancel button should be shown; otherwise, <c>false</c>.</value>
 		[DefaultValue(true), Category("Behavior"), Description("Indicates whether to show the Cancel button")]
@@ -156,15 +172,19 @@ namespace AeroWizard
 			get => showCancel;
 			set
 			{
-				if (showCancel == value) return;
+				if (showCancel == value)
+				{
+					return;
+				}
+
 				showCancel = value;
 				UpdateOwner();
 			}
 		}
 
 		/// <summary>
-		/// Gets or sets a value indicating whether to show the Next/Finish button. If both <see cref="ShowCancel"/> and <see
-		/// cref="ShowNext"/> are <c>false</c>, then the bottom command area will not be shown.
+		/// Gets or sets a value indicating whether to show the Next/Finish button. If both <see cref="ShowCancel"/> and <see cref="ShowNext"/>
+		/// are <c>false</c>, then the bottom command area will not be shown.
 		/// </summary>
 		/// <value><c>true</c> if Next/Finish button should be shown; otherwise, <c>false</c>.</value>
 		[DefaultValue(true), Category("Behavior"), Description("Indicates whether to show the Next/Finish button")]
@@ -173,24 +193,12 @@ namespace AeroWizard
 			get => showNext;
 			set
 			{
-				if (showNext == value) return;
-				showNext = value;
-				UpdateOwner();
-			}
-		}
+				if (showNext == value)
+				{
+					return;
+				}
 
-		/// <summary>
-		/// Gets or sets a value indicating whether this <see cref="WizardPage"/> is suppressed and not shown in the normal flow.
-		/// </summary>
-		/// <value><c>true</c> if suppressed; otherwise, <c>false</c>.</value>
-		[DefaultValue(false), Category("Behavior"), Description("Suppresses this page from viewing if selected as next.")]
-		public virtual bool Suppress
-		{
-			get => suppress;
-			set
-			{
-				if (suppress == value) return;
-				suppress = value;
+				showNext = value;
 				UpdateOwner();
 			}
 		}
@@ -201,18 +209,35 @@ namespace AeroWizard
 		[Browsable(false)]
 		public new System.Drawing.Size Size { get => base.Size; set => base.Size = value; }
 
+		/// <summary>Gets or sets a value indicating whether this <see cref="WizardPage"/> is suppressed and not shown in the normal flow.</summary>
+		/// <value><c>true</c> if suppressed; otherwise, <c>false</c>.</value>
+		[DefaultValue(false), Category("Behavior"), Description("Suppresses this page from viewing if selected as next.")]
+		public virtual bool Suppress
+		{
+			get => suppress;
+			set
+			{
+				if (suppress == value)
+				{
+					return;
+				}
+
+				suppress = value;
+				UpdateOwner();
+			}
+		}
+
 		/// <summary>Gets the required creation parameters when the control handle is created.</summary>
 		/// <returns>
-		/// A <see cref="T:System.Windows.Forms.CreateParams"/> that contains the required creation parameters when the handle to the control
-		/// is created.
+		/// A <see cref="T:System.Windows.Forms.CreateParams"/> that contains the required creation parameters when the handle to the control is created.
 		/// </returns>
 		protected override CreateParams CreateParams
 		{
 			get
 			{
-				var createParams = base.CreateParams;
-				var parent = FindForm();
-				var parentRightToLeftLayout = parent != null && parent.RightToLeftLayout;
+				CreateParams createParams = base.CreateParams;
+				Form parent = FindForm();
+				bool parentRightToLeftLayout = parent is not null && parent.RightToLeftLayout;
 				if ((RightToLeft == RightToLeft.Yes) && parentRightToLeftLayout)
 				{
 					createParams.ExStyle |= 0x500000; // WS_EX_LAYOUTRTL | WS_EX_NOINHERITLAYOUT
@@ -222,8 +247,8 @@ namespace AeroWizard
 			}
 		}
 
-		/// <summary>Returns a <see cref="System.String"/> that represents this wizard page.</summary>
-		/// <returns>A <see cref="System.String"/> that represents this wizard page.</returns>
+		/// <summary>Returns a <see cref="string"/> that represents this wizard page.</summary>
+		/// <returns>A <see cref="string"/> that represents this wizard page.</returns>
 		public override string ToString() => $"{Name} (\"{Text}\")";
 
 		internal bool CommitPage() => OnCommit();
@@ -233,12 +258,10 @@ namespace AeroWizard
 		internal bool RollbackPage() => OnRollback();
 
 		/// <summary>Raises the <see cref="Commit"/> event.</summary>
-		/// <returns>
-		/// <c>true</c> if handler does not set the <see cref="WizardPageConfirmEventArgs.Cancel"/> to <c>true</c>; otherwise, <c>false</c>.
-		/// </returns>
+		/// <returns><c>true</c> if handler does not set the <see cref="WizardPageConfirmEventArgs.Cancel"/> to <c>true</c>; otherwise, <c>false</c>.</returns>
 		protected virtual bool OnCommit()
 		{
-			var e = new WizardPageConfirmEventArgs(this);
+			WizardPageConfirmEventArgs e = new(this);
 			Commit?.Invoke(this, e);
 			return !e.Cancel;
 		}
@@ -248,7 +271,7 @@ namespace AeroWizard
 		protected override void OnGotFocus(EventArgs e)
 		{
 			base.OnGotFocus(e);
-			var firstChild = GetNextControl(this, true);
+			Control firstChild = GetNextControl(this, true);
 			firstChild?.Focus();
 		}
 
@@ -260,12 +283,10 @@ namespace AeroWizard
 		protected virtual void OnInitialize(WizardPage prevPage) => Initialize?.Invoke(this, new WizardPageInitEventArgs(this, prevPage));
 
 		/// <summary>Raises the <see cref="Rollback"/> event.</summary>
-		/// <returns>
-		/// <c>true</c> if handler does not set the <see cref="WizardPageConfirmEventArgs.Cancel"/> to <c>true</c>; otherwise, <c>false</c>.
-		/// </returns>
+		/// <returns><c>true</c> if handler does not set the <see cref="WizardPageConfirmEventArgs.Cancel"/> to <c>true</c>; otherwise, <c>false</c>.</returns>
 		protected virtual bool OnRollback()
 		{
-			var e = new WizardPageConfirmEventArgs(this);
+			WizardPageConfirmEventArgs e = new(this);
 			Rollback?.Invoke(this, e);
 			return !e.Cancel;
 		}
@@ -274,8 +295,10 @@ namespace AeroWizard
 
 		private void UpdateOwner()
 		{
-			if (Owner != null && this == Owner.SelectedPage)
+			if (Owner is not null && this == Owner.SelectedPage)
+			{
 				Owner.UpdateUIDependencies();
+			}
 		}
 	}
 

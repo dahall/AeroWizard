@@ -3,6 +3,7 @@
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <UseWindowsForms>true</UseWindowsForms>
     <TargetFrameworks>net20;net35;net40;net45;net5.0-windows;net6.0-windows</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
     <AssemblyName>AeroWizard</AssemblyName>
     <AssemblyTitle>$(AssemblyName)</AssemblyTitle>
     <Company>GitHub Community</Company>

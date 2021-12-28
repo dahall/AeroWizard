@@ -45,18 +45,15 @@ namespace AeroWizard
 
 		/// <summary>Gets or sets the image that is displayed on a <see cref="T:System.Windows.Forms.Label"/>.</summary>
 		/// <value></value>
-		/// <returns>
-		/// An <see cref="T:System.Drawing.Image"/> displayed on the <see cref="T:System.Windows.Forms.Label"/>. The default is null.
-		/// </returns>
+		/// <returns>An <see cref="T:System.Drawing.Image"/> displayed on the <see cref="T:System.Windows.Forms.Label"/>. The default is null.</returns>
 		/// <PermissionSet>
 		/// <IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral,
-		/// PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission
-		/// class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral,
-		/// PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission
+		/// PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.FileIOPermission,
+		/// mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission
 		/// class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral,
 		/// PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence"/><IPermission
-		/// class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral,
-		/// PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/>
+		/// class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+		/// version="1" Unrestricted="true"/>
 		/// </PermissionSet>
 		[DefaultValue((Image)null)]
 		public new Image Image
@@ -65,7 +62,7 @@ namespace AeroWizard
 			set
 			{
 				base.Image = value;
-				base.ImageIndex = -1;
+				ImageIndex = -1;
 				ImageList = null;
 			}
 		}
@@ -75,9 +72,12 @@ namespace AeroWizard
 		/// <returns>An ordered pair of type <see cref="T:System.Drawing.Size"/> representing the width and height of a rectangle.</returns>
 		public override Size GetPreferredSize(Size proposedSize)
 		{
-			var sz = base.GetPreferredSize(proposedSize);
+			Size sz = base.GetPreferredSize(proposedSize);
 			if (Text.Length > 0)
+			{
 				sz.Width += 10;
+			}
+
 			return sz;
 		}
 
@@ -96,60 +96,68 @@ namespace AeroWizard
 		{
 			if (Visible)
 			{
-				using (var hTheme = new SafeThemeHandle(OpenThemeData(Handle, "Window")))
+				using SafeThemeHandle hTheme = new(OpenThemeData(Handle, "Window"));
+				if (!hTheme.IsInvalid && (Application.RenderWithVisualStyles || DesktopWindowManager.IsCompositionEnabled()))
 				{
-					if (!hTheme.IsInvalid && (Application.RenderWithVisualStyles || DesktopWindowManager.IsCompositionEnabled()))
-					{
-						using (var dc = new SafeDCHandle(e.Graphics))
-							DrawThemeParentBackground(Handle, dc, ClientRectangle);
-					}
+					using SafeDCHandle dc = new(e.Graphics);
+					DrawThemeParentBackground(Handle, dc, ClientRectangle);
+				}
 
-					// Draw image
-					var r = DeflateRect(ClientRectangle, Padding);
-					RECT rR = r;
-					if (Image != null)
+				// Draw image
+				Rectangle r = DeflateRect(ClientRectangle, Padding);
+				RECT rR = r;
+				if (Image is not null)
+				{
+					//Rectangle ir = CalcImageRenderBounds(this.Image, r, base.RtlTranslateAlignment(this.ImageAlign));
+					if (ImageList is not null && ImageIndex == 0)
 					{
-						//Rectangle ir = CalcImageRenderBounds(this.Image, r, base.RtlTranslateAlignment(this.ImageAlign));
-						if (ImageList != null && ImageIndex == 0)
+						if (!hTheme.IsInvalid && !this.IsDesignMode() && DesktopWindowManager.IsCompositionEnabled())
 						{
-							if (!hTheme.IsInvalid && !this.IsDesignMode() && DesktopWindowManager.IsCompositionEnabled())
-								VisualStyleRendererExtension.DrawWrapper(e.Graphics, r, g => DrawThemeIcon(hTheme, g, 1, 1, ref rR, ImageList.Handle, ImageIndex));
-							else
-								ImageList.Draw(e.Graphics, r.X, r.Y, r.Width, r.Height, ImageIndex);
+							VisualStyleRendererExtension.DrawWrapper(e.Graphics, r, g => DrawThemeIcon(hTheme, g, 1, 1, ref rR, ImageList.Handle, ImageIndex));
 						}
 						else
 						{
-							if (!hTheme.IsInvalid && !this.IsDesignMode() && DesktopWindowManager.IsCompositionEnabled())
-								VisualStyleRendererExtension.DrawWrapper(e.Graphics, r, g => Graphics.FromHdc(g.DangerousGetHandle()).DrawImage(Image, r));
-							else
-								e.Graphics.DrawImage(Image, r);
+							ImageList.Draw(e.Graphics, r.X, r.Y, r.Width, r.Height, ImageIndex);
 						}
 					}
-
-					// Draw text
-					if (Text.Length > 0)
+					else
 					{
-						if (this.IsDesignMode() || hTheme.IsInvalid || !DesktopWindowManager.IsCompositionEnabled())
+						if (!hTheme.IsInvalid && !this.IsDesignMode() && DesktopWindowManager.IsCompositionEnabled())
 						{
-							var br = DesktopWindowManager.IsCompositionEnabled() ? SystemBrushes.ActiveCaptionText : SystemBrushes.ControlText;
-							var sf = new StringFormat(StringFormat.GenericDefault);
-							if (this.GetRightToLeftProperty() == RightToLeft.Yes) sf.FormatFlags |= StringFormatFlags.DirectionRightToLeft;
-							e.Graphics.DrawString(Text, Font, br, ClientRectangle, sf);
+							VisualStyleRendererExtension.DrawWrapper(e.Graphics, r, g => Graphics.FromHdc(g.DangerousGetHandle()).DrawImage(Image, r));
 						}
 						else
 						{
-							var tff = CreateTextFormatFlags(RtlTranslateAlignment(TextAlign), AutoEllipsis, UseMnemonic);
-							VisualStyleRendererExtension.DrawWrapper(e.Graphics, ClientRectangle, g =>
-							{
-								using (var fontHandle = new SafeDCObjectHandle(g, Font.ToHfont()))
-								{
-									// Draw glowing text
-									var dttOpts = new DrawThemeTextOptions(true) { GlowSize = 10, AntiAliasedAlpha = true, TextColor = ForeColor };
-									var textBounds = new RECT(4, 0, Width - 4, Height);
-									DrawThemeTextEx(hTheme, g, 1, 1, Text, Text.Length, tff, ref textBounds, ref dttOpts);
-								}
-							});
+							e.Graphics.DrawImage(Image, r);
 						}
+					}
+				}
+
+				// Draw text
+				if (Text.Length > 0)
+				{
+					if (this.IsDesignMode() || hTheme.IsInvalid || !DesktopWindowManager.IsCompositionEnabled())
+					{
+						Brush br = DesktopWindowManager.IsCompositionEnabled() ? SystemBrushes.ActiveCaptionText : SystemBrushes.ControlText;
+						StringFormat sf = new(StringFormat.GenericDefault);
+						if (this.GetRightToLeftProperty() == RightToLeft.Yes)
+						{
+							sf.FormatFlags |= StringFormatFlags.DirectionRightToLeft;
+						}
+
+						e.Graphics.DrawString(Text, Font, br, ClientRectangle, sf);
+					}
+					else
+					{
+						TextFormatFlags tff = CreateTextFormatFlags(RtlTranslateAlignment(TextAlign), AutoEllipsis, UseMnemonic);
+						VisualStyleRendererExtension.DrawWrapper(e.Graphics, ClientRectangle, g =>
+						{
+							using SafeDCObjectHandle fontHandle = new(g, Font.ToHfont());
+							// Draw glowing text
+							DrawThemeTextOptions dttOpts = new(true) { GlowSize = 10, AntiAliasedAlpha = true, TextColor = ForeColor };
+							RECT textBounds = new(4, 0, Width - 4, Height);
+							DrawThemeTextEx(hTheme, g, 1, 1, Text, Text.Length, tff, ref textBounds, ref dttOpts);
+						});
 					}
 				}
 			}
@@ -164,28 +172,54 @@ namespace AeroWizard
 
 			base.WndProc(ref m);
 			if (m.Msg == WM_NCHITTEST)
+			{
 				m.Result = new IntPtr(HTTRANSPARENT);
+			}
 		}
 
 		private TextFormatFlags CreateTextFormatFlags(System.Drawing.ContentAlignment textAlign, bool showEllipsis, bool useMnemonic)
 		{
-			var flags = TextFormatFlags.GlyphOverhangPadding | TextFormatFlags.SingleLine;
+			TextFormatFlags flags = TextFormatFlags.GlyphOverhangPadding | TextFormatFlags.SingleLine;
 			if ((textAlign & (System.Drawing.ContentAlignment.BottomRight | System.Drawing.ContentAlignment.BottomCenter | System.Drawing.ContentAlignment.BottomLeft)) != 0)
+			{
 				flags |= TextFormatFlags.Bottom;
+			}
+
 			if ((textAlign & (System.Drawing.ContentAlignment.MiddleRight | System.Drawing.ContentAlignment.MiddleCenter | System.Drawing.ContentAlignment.MiddleLeft)) != 0)
+			{
 				flags |= TextFormatFlags.VerticalCenter;
+			}
+
 			if ((textAlign & (System.Drawing.ContentAlignment.BottomRight | System.Drawing.ContentAlignment.MiddleRight | System.Drawing.ContentAlignment.TopRight)) != 0)
+			{
 				flags |= TextFormatFlags.Right;
+			}
+
 			if ((textAlign & (System.Drawing.ContentAlignment.BottomCenter | System.Drawing.ContentAlignment.MiddleCenter | System.Drawing.ContentAlignment.TopCenter)) != 0)
+			{
 				flags |= TextFormatFlags.HorizontalCenter;
+			}
+
 			if (showEllipsis)
+			{
 				flags |= TextFormatFlags.EndEllipsis;
+			}
+
 			if (this.GetRightToLeftProperty() == RightToLeft.Yes)
+			{
 				flags |= TextFormatFlags.RightToLeft;
+			}
+
 			if (!useMnemonic)
+			{
 				return (flags | TextFormatFlags.NoPrefix);
+			}
+
 			if (!ShowKeyboardCues)
+			{
 				flags |= TextFormatFlags.HidePrefix;
+			}
+
 			return flags;
 		}
 	}

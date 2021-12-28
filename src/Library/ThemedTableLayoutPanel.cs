@@ -32,9 +32,13 @@ namespace AeroWizard
 		public void SetTheme(VisualStyleElement element)
 		{
 			if (VisualStyleRenderer.IsSupported && VisualStyleRenderer.IsElementDefined(element))
+			{
 				rnd = new VisualStyleRenderer(element);
+			}
 			else
+			{
 				rnd = null;
+			}
 		}
 
 		/// <summary>Sets the theme using theme class information.</summary>
@@ -68,21 +72,27 @@ namespace AeroWizard
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			if (!this.IsDesignMode() && SupportGlass && DesktopWindowManager.IsCompositionEnabled())
+			{
 				try { e.Graphics.Clear(System.Drawing.Color.Black); } catch { }
+			}
 			else
 			{
-				if (this.IsDesignMode() || rnd == null || !Application.RenderWithVisualStyles)
+				if (this.IsDesignMode() || rnd is null || !Application.RenderWithVisualStyles)
+				{
 					try { e.Graphics.Clear(BackColor); } catch { }
+				}
 				else
+				{
 					rnd.DrawBackground(e.Graphics, ClientRectangle, e.ClipRectangle);
+				}
 			}
 			base.OnPaint(e);
 		}
 
 		private void AttachToFormEvents()
 		{
-			var pForm = FindForm();
-			if (pForm != null && WatchFocus)
+			Form pForm = FindForm();
+			if (pForm is not null && WatchFocus)
 			{
 				pForm.Activated += new System.EventHandler(Form_GotFocus);
 				pForm.Deactivate += new System.EventHandler(Form_LostFocus);
@@ -92,16 +102,22 @@ namespace AeroWizard
 		private void Form_GotFocus(object sender, System.EventArgs e)
 		{
 			OnGotFocus(e);
-			if (rnd != null && Application.RenderWithVisualStyles)
+			if (rnd is not null && Application.RenderWithVisualStyles)
+			{
 				rnd.SetParameters(rnd.Class, rnd.Part, 1);
+			}
+
 			Refresh();
 		}
 
 		private void Form_LostFocus(object sender, System.EventArgs e)
 		{
 			OnLostFocus(e);
-			if (rnd != null && Application.RenderWithVisualStyles)
+			if (rnd is not null && Application.RenderWithVisualStyles)
+			{
 				rnd.SetParameters(rnd.Class, rnd.Part, 2);
+			}
+
 			Refresh();
 		}
 	}

@@ -6,8 +6,8 @@
     <members>
         <member name="M:System.Windows.Forms.ControlExtension.CallWhenHandleValid(System.Windows.Forms.Control,System.Action{System.Windows.Forms.Control})">
             <summary>
-            Performs an action on a control after its handle has been created. If the control's handle has already been created, the action
-            is executed immediately.
+            Performs an action on a control after its handle has been created. If the control's handle has already been created, the action is
+            executed immediately.
             </summary>
             <param name="ctrl">This control.</param>
             <param name="action">The action to execute.</param>
@@ -134,8 +134,8 @@
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
             <summary>
-            Initializes a new instance of the <see cref="T:System.Collections.Generic.EventedList`1"/> class that contains elements copied from the specified collection
-            and has sufficient capacity to accommodate the number of elements copied.
+            Initializes a new instance of the <see cref="T:System.Collections.Generic.EventedList`1"/> class that contains elements copied from the specified collection and
+            has sufficient capacity to accommodate the number of elements copied.
             </summary>
             <param name="collection">The collection whose elements are copied to the new list.</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="collection"/> is <c>null</c>.</exception>
@@ -166,6 +166,15 @@
             <summary>Gets the number of elements contained in the <see cref="T:System.Collections.Generic.EventedList`1"/>.</summary>
             <value>The number of elements contained in the <see cref="T:System.Collections.Generic.EventedList`1"/>.</value>
         </member>
+        <member name="P:System.Collections.Generic.EventedList`1.System#Collections#IList#IsFixedSize">
+            <summary>Gets a value indicating whether the <see cref="T:System.Collections.IList"/> has a fixed size.</summary>
+        </member>
+        <member name="P:System.Collections.Generic.EventedList`1.System#Collections#Generic#ICollection{T}#IsReadOnly">
+            <summary>Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.</summary>
+        </member>
+        <member name="P:System.Collections.Generic.EventedList`1.System#Collections#IList#IsReadOnly">
+            <summary>Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.</summary>
+        </member>
         <member name="P:System.Collections.Generic.EventedList`1.System#Collections#ICollection#IsSynchronized">
             <summary>
             Gets a value indicating whether access to the <see cref="T:System.Collections.ICollection"/> is synchronized (thread safe).
@@ -174,25 +183,16 @@
         <member name="P:System.Collections.Generic.EventedList`1.System#Collections#ICollection#SyncRoot">
             <summary>Gets an object that can be used to synchronize access to the <see cref="T:System.Collections.ICollection"/>.</summary>
         </member>
-        <member name="P:System.Collections.Generic.EventedList`1.System#Collections#Generic#ICollection{T}#IsReadOnly">
-            <summary>Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.</summary>
-        </member>
-        <member name="P:System.Collections.Generic.EventedList`1.System#Collections#IList#IsFixedSize">
-            <summary>Gets a value indicating whether the <see cref="T:System.Collections.IList"/> has a fixed size.</summary>
-        </member>
-        <member name="P:System.Collections.Generic.EventedList`1.System#Collections#IList#IsReadOnly">
-            <summary>Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.</summary>
-        </member>
-        <member name="P:System.Collections.Generic.EventedList`1.System#Collections#IList#Item(System.Int32)">
-            <summary>Gets or sets the <see cref="T:System.Object"/> at the specified index.</summary>
-            <param name="index">The index.</param>
-            <returns>The element at the specified index.</returns>
-        </member>
         <member name="P:System.Collections.Generic.EventedList`1.Item(System.Int32)">
             <summary>Gets or sets the element at the specified index.</summary>
             <value>The element at the specified index.</value>
             <param name="index">The zero-based index of the element to get or set.</param>
             <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is less than 0.</exception>
+        </member>
+        <member name="P:System.Collections.Generic.EventedList`1.System#Collections#IList#Item(System.Int32)">
+            <summary>Gets or sets the <see cref="T:System.Object"/> at the specified index.</summary>
+            <param name="index">The index.</param>
+            <returns>The element at the specified index.</returns>
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.Add(`0)">
             <summary>Adds an item to the <see cref="T:System.Collections.Generic.EventedList`1"/>.</summary>
@@ -209,20 +209,20 @@
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.BinarySearch(`0)">
             <summary>
-            Searches the entire sorted <see cref="T:System.Collections.Generic.EventedList`1"/> for an element using the default comparer and returns the zero-based
-            index of the element.
+            Searches the entire sorted <see cref="T:System.Collections.Generic.EventedList`1"/> for an element using the default comparer and returns the zero-based index of
+            the element.
             </summary>
             <param name="item">The object to locate. The value can be <c>null</c> for reference types.</param>
             <returns>
             The zero-based index of <paramref name="item"/> in the sorted <see cref="T:System.Collections.Generic.EventedList`1"/>, if <paramref name="item"/> is found;
-            otherwise, a negative number that is the bitwise complement of the index of the next element that is larger than item or, if
-            there is no larger element, the bitwise complement of <see cref="P:System.Collections.Generic.EventedList`1.Count"/>.
+            otherwise, a negative number that is the bitwise complement of the index of the next element that is larger than item or, if there is
+            no larger element, the bitwise complement of <see cref="P:System.Collections.Generic.EventedList`1.Count"/>.
             </returns>
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.BinarySearch(`0,System.Collections.Generic.IComparer{`0})">
             <summary>
-            Searches the entire sorted <see cref="T:System.Collections.Generic.EventedList`1"/> for an element using the specified comparer and returns the zero-based
-            index of the element.
+            Searches the entire sorted <see cref="T:System.Collections.Generic.EventedList`1"/> for an element using the specified comparer and returns the zero-based index
+            of the element.
             </summary>
             <param name="item">The object to locate. The value can be <c>null</c> for reference types.</param>
             <param name="comparer">
@@ -230,14 +230,14 @@
             </param>
             <returns>
             The zero-based index of <paramref name="item"/> in the sorted <see cref="T:System.Collections.Generic.EventedList`1"/>, if <paramref name="item"/> is found;
-            otherwise, a negative number that is the bitwise complement of the index of the next element that is larger than item or, if
-            there is no larger element, the bitwise complement of <see cref="P:System.Collections.Generic.EventedList`1.Count"/>.
+            otherwise, a negative number that is the bitwise complement of the index of the next element that is larger than item or, if there is
+            no larger element, the bitwise complement of <see cref="P:System.Collections.Generic.EventedList`1.Count"/>.
             </returns>
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.BinarySearch(System.Int32,System.Int32,`0,System.Collections.Generic.IComparer{`0})">
             <summary>
-            Searches a range of elements in the sorted <see cref="T:System.Collections.Generic.EventedList`1"/> for an element using the specified comparer and returns
-            the zero-based index of the element.
+            Searches a range of elements in the sorted <see cref="T:System.Collections.Generic.EventedList`1"/> for an element using the specified comparer and returns the
+            zero-based index of the element.
             </summary>
             <param name="index">The zero-based starting index of the range to search.</param>
             <param name="count">The length of the range to search.</param>
@@ -247,8 +247,8 @@
             </param>
             <returns>
             The zero-based index of <paramref name="item"/> in the sorted <see cref="T:System.Collections.Generic.EventedList`1"/>, if <paramref name="item"/> is found;
-            otherwise, a negative number that is the bitwise complement of the index of the next element that is larger than item or, if
-            there is no larger element, the bitwise complement of <see cref="P:System.Collections.Generic.EventedList`1.Count"/>.
+            otherwise, a negative number that is the bitwise complement of the index of the next element that is larger than item or, if there is
+            no larger element, the bitwise complement of <see cref="P:System.Collections.Generic.EventedList`1.Count"/>.
             </returns>
             <exception cref="T:System.ArgumentOutOfRangeException">
             <paramref name="index"/> is less than 0. -or- <paramref name="count"/> is less than 0.
@@ -271,9 +271,7 @@
             Converts the elements in the current <see cref="T:System.Collections.Generic.EventedList`1"/> to another type, and returns a list containing the converted elements.
             </summary>
             <typeparam name="TOutput">The type of the elements of the target array.</typeparam>
-            <param name="converter">
-            A <see cref="T:System.Converter`2"/> delegate that converts each element from one type to another type.
-            </param>
+            <param name="converter">A <see cref="T:System.Converter`2"/> delegate that converts each element from one type to another type.</param>
             <returns>A <see cref="T:System.Collections.Generic.EventedList`1"/> of the target type containing the converted elements from the current <see cref="T:System.Collections.Generic.EventedList`1"/>.</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="converter"/> is <c>null</c>.</exception>
         </member>
@@ -282,8 +280,8 @@
             Copies the entire <see cref="T:System.Collections.Generic.EventedList`1"/> to a compatible one-dimensional array, starting at the beginning of the target array.
             </summary>
             <param name="array">
-            The one-dimensional <see cref="T:System.Array"/> that is the destination of the elements copied from <see
-            cref="T:System.Collections.Generic.EventedList`1"/>. The <see cref="T:System.Array"/> must have zero-based indexing.
+            The one-dimensional <see cref="T:System.Array"/> that is the destination of the elements copied from <see cref="T:System.Collections.Generic.EventedList`1"/>.
+            The <see cref="T:System.Array"/> must have zero-based indexing.
             </param>
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.CopyTo(`0[],System.Int32)">
@@ -292,38 +290,38 @@
             cref="T:System.Array"/> index.
             </summary>
             <param name="array">
-            The one-dimensional <see cref="T:System.Array"/> that is the destination of the elements copied from <see
-            cref="T:System.Collections.Generic.EventedList`1"/>. The <see cref="T:System.Array"/> must have zero-based indexing.
+            The one-dimensional <see cref="T:System.Array"/> that is the destination of the elements copied from <see cref="T:System.Collections.Generic.EventedList`1"/>.
+            The <see cref="T:System.Array"/> must have zero-based indexing.
             </param>
             <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="array"/> is null.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="arrayIndex"/> is less than 0.</exception>
             <exception cref="T:System.ArgumentException">
-            <paramref name="array"/> is multidimensional. -or- <paramref name="arrayIndex"/> is equal to or greater than the length of
-            <paramref name="array"/>.-or-The number of elements in the source <see cref="T:System.Collections.Generic.ICollection`1"/> is
-            greater than the available space from <paramref name="arrayIndex"/> to the end of the destination <paramref
-            name="array"/>.-or-Type <c>T</c> cannot be cast automatically to the type of the destination <paramref name="array"/>.
+            <paramref name="array"/> is multidimensional. -or- <paramref name="arrayIndex"/> is equal to or greater than the length of <paramref
+            name="array"/>.-or-The number of elements in the source <see cref="T:System.Collections.Generic.ICollection`1"/> is greater than the
+            available space from <paramref name="arrayIndex"/> to the end of the destination <paramref name="array"/>.-or-Type <c>T</c> cannot be
+            cast automatically to the type of the destination <paramref name="array"/>.
             </exception>
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.CopyTo(System.Int32,`0[],System.Int32,System.Int32)">
             <summary>
-            Copies a range of elements from the <see cref="T:System.Collections.Generic.EventedList`1"/> to an <see cref="T:System.Array"/>, starting at a particular
-            <see cref="T:System.Array"/> index.
+            Copies a range of elements from the <see cref="T:System.Collections.Generic.EventedList`1"/> to an <see cref="T:System.Array"/>, starting at a particular <see
+            cref="T:System.Array"/> index.
             </summary>
             <param name="index">The zero-based index in the source <see cref="T:System.Collections.Generic.EventedList`1"/> at which copying begins.</param>
             <param name="array">
-            The one-dimensional <see cref="T:System.Array"/> that is the destination of the elements copied from <see
-            cref="T:System.Collections.Generic.EventedList`1"/>. The <see cref="T:System.Array"/> must have zero-based indexing.
+            The one-dimensional <see cref="T:System.Array"/> that is the destination of the elements copied from <see cref="T:System.Collections.Generic.EventedList`1"/>.
+            The <see cref="T:System.Array"/> must have zero-based indexing.
             </param>
             <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
             <param name="count">The number of elements to copy.</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="array"/> is null.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="arrayIndex"/> is less than 0.</exception>
             <exception cref="T:System.ArgumentException">
-            <paramref name="array"/> is multidimensional. -or- <paramref name="arrayIndex"/> is equal to or greater than the length of
-            <paramref name="array"/>.-or-The number of elements in the source <see cref="T:System.Collections.Generic.ICollection`1"/> is
-            greater than the available space from <paramref name="arrayIndex"/> to the end of the destination <paramref
-            name="array"/>.-or-Type <c>T</c> cannot be cast automatically to the type of the destination <paramref name="array"/>.
+            <paramref name="array"/> is multidimensional. -or- <paramref name="arrayIndex"/> is equal to or greater than the length of <paramref
+            name="array"/>.-or-The number of elements in the source <see cref="T:System.Collections.Generic.ICollection`1"/> is greater than the
+            available space from <paramref name="arrayIndex"/> to the end of the destination <paramref name="array"/>.-or-Type <c>T</c> cannot be
+            cast automatically to the type of the destination <paramref name="array"/>.
             </exception>
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.Exists(System.Predicate{`0})">
@@ -338,8 +336,8 @@
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.Find(System.Predicate{`0})">
             <summary>
-            Searches for an element that matches the conditions defined by the specified predicate, and returns the first occurrence within
-            the entire <see cref="T:System.Collections.Generic.EventedList`1"/>.
+            Searches for an element that matches the conditions defined by the specified predicate, and returns the first occurrence within the
+            entire <see cref="T:System.Collections.Generic.EventedList`1"/>.
             </summary>
             <param name="match">The <see cref="T:System.Predicate`1"/> delegate that defines the conditions of the elements to search for.</param>
             <returns>
@@ -351,33 +349,32 @@
             <summary>Retrieves all the elements that match the conditions defined by the specified predicate.</summary>
             <param name="match">The <see cref="T:System.Predicate`1"/> delegate that defines the conditions of the elements to search for.</param>
             <returns>
-            A <see cref="T:System.Collections.Generic.EventedList`1"/> containing all the elements that match the conditions defined by the specified predicate, if
-            found; otherwise, an empty <see cref="T:System.Collections.Generic.EventedList`1"/>.
+            A <see cref="T:System.Collections.Generic.EventedList`1"/> containing all the elements that match the conditions defined by the specified predicate, if found;
+            otherwise, an empty <see cref="T:System.Collections.Generic.EventedList`1"/>.
             </returns>
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.FindIndex(System.Predicate{`0})">
             <summary>
-            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the
-            first occurrence within the entire <see cref="T:System.Collections.Generic.EventedList`1"/>.
+            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the first
+            occurrence within the entire <see cref="T:System.Collections.Generic.EventedList`1"/>.
             </summary>
             <param name="match">The <see cref="T:System.Predicate`1"/> delegate that defines the conditions of the elements to search for.</param>
             <returns>
-            The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match"/>, if
-            found; otherwise, –1.
+            The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match"/>, if found;
+            otherwise, –1.
             </returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="match"/> is <c>null</c>.</exception>
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.FindIndex(System.Int32,System.Predicate{`0})">
             <summary>
-            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the
-            first occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1"/> that extends from the specified index to the
-            last element.
+            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the first
+            occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1"/> that extends from the specified index to the last element.
             </summary>
             <param name="startIndex">The zero-based starting index of the search.</param>
             <param name="match">The <see cref="T:System.Predicate`1"/> delegate that defines the conditions of the elements to search for.</param>
             <returns>
-            The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match"/>, if
-            found; otherwise, –1.
+            The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match"/>, if found;
+            otherwise, –1.
             </returns>
             <exception cref="T:System.ArgumentOutOfRangeException">
             <paramref name="startIndex"/> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.EventedList`1"/>.
@@ -386,16 +383,16 @@
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.FindIndex(System.Int32,System.Int32,System.Predicate{`0})">
             <summary>
-            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the
-            first occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1"/> that starts at the specified index and contains
-            the specified number of elements.
+            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the first
+            occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1"/> that starts at the specified index and contains the
+            specified number of elements.
             </summary>
             <param name="startIndex">The zero-based starting index of the search.</param>
             <param name="count">The number of elements in the section to search.</param>
             <param name="match">The <see cref="T:System.Predicate`1"/> delegate that defines the conditions of the elements to search for.</param>
             <returns>
-            The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match"/>, if
-            found; otherwise, –1.
+            The zero-based index of the first occurrence of an element that matches the conditions defined by <paramref name="match"/>, if found;
+            otherwise, –1.
             </returns>
             <exception cref="T:System.ArgumentOutOfRangeException">
             <paramref name="startIndex"/> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.EventedList`1"/>.
@@ -406,8 +403,8 @@
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.FindLast(System.Predicate{`0})">
             <summary>
-            Searches for an element that matches the conditions defined by the specified predicate, and returns the last occurrence within
-            the entire <see cref="T:System.Collections.Generic.EventedList`1"/>.
+            Searches for an element that matches the conditions defined by the specified predicate, and returns the last occurrence within the
+            entire <see cref="T:System.Collections.Generic.EventedList`1"/>.
             </summary>
             <param name="match">The <see cref="T:System.Predicate`1"/> delegate that defines the conditions of the elements to search for.</param>
             <returns>
@@ -417,27 +414,26 @@
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.FindLastIndex(System.Predicate{`0})">
             <summary>
-            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the
-            last occurrence within the entire <see cref="T:System.Collections.Generic.EventedList`1"/>.
+            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the last
+            occurrence within the entire <see cref="T:System.Collections.Generic.EventedList`1"/>.
             </summary>
             <param name="match">The <see cref="T:System.Predicate`1"/> delegate that defines the conditions of the elements to search for.</param>
             <returns>
-            The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match"/>, if
-            found; otherwise, –1.
+            The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match"/>, if found;
+            otherwise, –1.
             </returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="match"/> is <c>null</c>.</exception>
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.FindLastIndex(System.Int32,System.Predicate{`0})">
             <summary>
-            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the
-            last occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1"/> that extends from the specified index to the
-            last element.
+            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the last
+            occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1"/> that extends from the specified index to the last element.
             </summary>
             <param name="startIndex">The zero-based starting index of the search.</param>
             <param name="match">The <see cref="T:System.Predicate`1"/> delegate that defines the conditions of the elements to search for.</param>
             <returns>
-            The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match"/>, if
-            found; otherwise, –1.
+            The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match"/>, if found;
+            otherwise, –1.
             </returns>
             <exception cref="T:System.ArgumentOutOfRangeException">
             <paramref name="startIndex"/> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.EventedList`1"/>.
@@ -446,16 +442,16 @@
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.FindLastIndex(System.Int32,System.Int32,System.Predicate{`0})">
             <summary>
-            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the
-            last occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1"/> that starts at the specified index and contains
-            the specified number of elements.
+            Searches for an element that matches the conditions defined by the specified predicate, and returns the zero-based index of the last
+            occurrence within the range of elements in the <see cref="T:System.Collections.Generic.EventedList`1"/> that starts at the specified index and contains the
+            specified number of elements.
             </summary>
             <param name="startIndex">The zero-based starting index of the search.</param>
             <param name="count">The number of elements in the section to search.</param>
             <param name="match">The <see cref="T:System.Predicate`1"/> delegate that defines the conditions of the elements to search for.</param>
             <returns>
-            The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match"/>, if
-            found; otherwise, –1.
+            The zero-based index of the last occurrence of an element that matches the conditions defined by <paramref name="match"/>, if found;
+            otherwise, –1.
             </returns>
             <exception cref="T:System.ArgumentOutOfRangeException">
             <paramref name="startIndex"/> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.EventedList`1"/>.
@@ -478,78 +474,36 @@
             <param name="count">The number of elements in the range.</param>
             <returns>A shallow copy of a range of elements in the source <see cref="T:System.Collections.Generic.EventedList`1"/>.</returns>
         </member>
-        <member name="M:System.Collections.Generic.EventedList`1.System#Collections#ICollection#CopyTo(System.Array,System.Int32)">
-            <summary>Copies the elements of the ICollection to an Array, starting at a particular Array index.</summary>
-            <param name="array">The array.</param>
-            <param name="arrayIndex">Index of the array.</param>
-            <exception cref="T:System.ArgumentException">Destination array cannot be null or multidimensional.</exception>
-        </member>
-        <member name="M:System.Collections.Generic.EventedList`1.System#Collections#IEnumerable#GetEnumerator">
-            <summary>Returns an enumerator that iterates through a collection.</summary>
-            <returns>An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.</returns>
-        </member>
-        <member name="M:System.Collections.Generic.EventedList`1.System#Collections#Generic#IEnumerable{T}#GetEnumerator">
-            <summary>Returns an enumerator that iterates through the collection.</summary>
-            <returns>A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.</returns>
-        </member>
-        <member name="M:System.Collections.Generic.EventedList`1.System#Collections#IList#Add(System.Object)">
-            <summary>Adds an item to the IList.</summary>
-            <param name="item">The item.</param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Collections.Generic.EventedList`1.System#Collections#IList#Contains(System.Object)">
-            <summary>Determines whether the IList contains a specific value.</summary>
-            <param name="item">The item.</param>
-            <returns><c>true</c> if contains the specified item; otherwise, <c>false</c>.</returns>
-        </member>
-        <member name="M:System.Collections.Generic.EventedList`1.System#Collections#IList#IndexOf(System.Object)">
-            <summary>Determines the index of a specific item in the IList.</summary>
-            <param name="item">The item.</param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Collections.Generic.EventedList`1.System#Collections#IList#Insert(System.Int32,System.Object)">
-            <summary>Inserts an item to the IList at the specified index.</summary>
-            <param name="index">The index.</param>
-            <param name="item">The item.</param>
-        </member>
-        <member name="M:System.Collections.Generic.EventedList`1.System#Collections#IList#Remove(System.Object)">
-            <summary>Removes the first occurrence of a specific object from the IList.</summary>
-            <param name="item">The item.</param>
-        </member>
         <member name="M:System.Collections.Generic.EventedList`1.IndexOf(`0)">
-            <summary>
-            Searches for the specified object and returns the zero-based index of the first occurrence within the entire <see cref="T:System.Collections.Generic.EventedList`1"/>.
-            </summary>
+            <summary>Searches for the specified object and returns the zero-based index of the first occurrence within the entire <see cref="T:System.Collections.Generic.EventedList`1"/>.</summary>
             <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.EventedList`1"/>. The value can be <c>null</c> for reference types.</param>
             <returns>The index of <paramref name="item"/> if found in the list; otherwise, -1.</returns>
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.IndexOf(`0,System.Int32)">
             <summary>
-            Searches for the specified object and returns the zero-based index of the first occurrence within the range of elements in the
-            <see cref="T:System.Collections.Generic.EventedList`1"/> that starts at the specified index.
+            Searches for the specified object and returns the zero-based index of the first occurrence within the range of elements in the <see
+            cref="T:System.Collections.Generic.EventedList`1"/> that starts at the specified index.
             </summary>
             <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.EventedList`1"/>. The value can be <c>null</c> for reference types.</param>
             <param name="index">The zero-based starting index of the search. 0 (zero) is valid in an empty list.</param>
             <returns>
-            The zero-based <paramref name="index"/> of the first occurrence of <paramref name="item"/> within the range of elements in the
-            <see cref="T:System.Collections.Generic.EventedList`1"/> that starts at <paramref name="index"/>, if found; otherwise, –1.
+            The zero-based <paramref name="index"/> of the first occurrence of <paramref name="item"/> within the range of elements in the <see
+            cref="T:System.Collections.Generic.EventedList`1"/> that starts at <paramref name="index"/>, if found; otherwise, –1.
             </returns>
-            <exception cref="T:System.ArgumentOutOfRangeException">
-            <paramref name="index"/> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.EventedList`1"/>.
-            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.EventedList`1"/>.</exception>
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.IndexOf(`0,System.Int32,System.Int32)">
             <summary>
-            Searches for the specified object and returns the zero-based index of the first occurrence within the range of elements in the
-            <see cref="T:System.Collections.Generic.EventedList`1"/> that starts at the specified index and contains the specified number of elements.
+            Searches for the specified object and returns the zero-based index of the first occurrence within the range of elements in the <see
+            cref="T:System.Collections.Generic.EventedList`1"/> that starts at the specified index and contains the specified number of elements.
             </summary>
             <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.EventedList`1"/>. The value can be <c>null</c> for reference types.</param>
             <param name="index">The zero-based starting index of the search. 0 (zero) is valid in an empty list.</param>
             <param name="count">The number of elements in the section to search.</param>
             <returns>
-            The zero-based <paramref name="index"/> of the first occurrence of <paramref name="item"/> within the range of elements in the
-            <see cref="T:System.Collections.Generic.EventedList`1"/> that starts at <paramref name="index"/> and contains <paramref name="count"/> number of elements, if
-            found; otherwise, –1.
+            The zero-based <paramref name="index"/> of the first occurrence of <paramref name="item"/> within the range of elements in the <see
+            cref="T:System.Collections.Generic.EventedList`1"/> that starts at <paramref name="index"/> and contains <paramref name="count"/> number of elements, if found;
+            otherwise, –1.
             </returns>
             <exception cref="T:System.ArgumentOutOfRangeException">
             <paramref name="index"/> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.EventedList`1"/>.
@@ -568,44 +522,40 @@
             <summary>Inserts the elements of a collection into the <see cref="T:System.Collections.Generic.EventedList`1"/> at the specified index.</summary>
             <param name="index">The zero-based index at which the new elements should be inserted.</param>
             <param name="collection">
-            The collection whose elements should be inserted into the <see cref="T:System.Collections.Generic.EventedList`1"/>. The collection itself cannot be
-            <c>null</c>, but it can contain elements that are <c>null</c>, if type <typeparamref name="T"/> is a reference type.
+            The collection whose elements should be inserted into the <see cref="T:System.Collections.Generic.EventedList`1"/>. The collection itself cannot be <c>null</c>,
+            but it can contain elements that are <c>null</c>, if type <typeparamref name="T"/> is a reference type.
             </param>
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.LastIndexOf(`0)">
-            <summary>
-            Searches for the specified object and returns the zero-based index of the last occurrence within the entire <see cref="T:System.Collections.Generic.EventedList`1"/>.
-            </summary>
+            <summary>Searches for the specified object and returns the zero-based index of the last occurrence within the entire <see cref="T:System.Collections.Generic.EventedList`1"/>.</summary>
             <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.EventedList`1"/>. The value can be <c>null</c> for reference types.</param>
             <returns>The index of <paramref name="item"/> if found in the list; otherwise, -1.</returns>
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.LastIndexOf(`0,System.Int32)">
             <summary>
-            Searches for the specified object and returns the zero-based index of the last occurrence within the range of elements in the
-            <see cref="T:System.Collections.Generic.EventedList`1"/> that starts at the specified index.
+            Searches for the specified object and returns the zero-based index of the last occurrence within the range of elements in the <see
+            cref="T:System.Collections.Generic.EventedList`1"/> that starts at the specified index.
             </summary>
             <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.EventedList`1"/>. The value can be <c>null</c> for reference types.</param>
             <param name="index">The zero-based starting index of the search. 0 (zero) is valid in an empty list.</param>
             <returns>
-            The zero-based <paramref name="index"/> of the last occurrence of <paramref name="item"/> within the range of elements in the
-            <see cref="T:System.Collections.Generic.EventedList`1"/> that starts at <paramref name="index"/>, if found; otherwise, –1.
+            The zero-based <paramref name="index"/> of the last occurrence of <paramref name="item"/> within the range of elements in the <see
+            cref="T:System.Collections.Generic.EventedList`1"/> that starts at <paramref name="index"/>, if found; otherwise, –1.
             </returns>
-            <exception cref="T:System.ArgumentOutOfRangeException">
-            <paramref name="index"/> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.EventedList`1"/>.
-            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.EventedList`1"/>.</exception>
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.LastIndexOf(`0,System.Int32,System.Int32)">
             <summary>
-            Searches for the specified object and returns the zero-based index of the last occurrence within the range of elements in the
-            <see cref="T:System.Collections.Generic.EventedList`1"/> that starts at the specified index and contains the specified number of elements.
+            Searches for the specified object and returns the zero-based index of the last occurrence within the range of elements in the <see
+            cref="T:System.Collections.Generic.EventedList`1"/> that starts at the specified index and contains the specified number of elements.
             </summary>
             <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.EventedList`1"/>. The value can be <c>null</c> for reference types.</param>
             <param name="index">The zero-based starting index of the search. 0 (zero) is valid in an empty list.</param>
             <param name="count">The number of elements in the section to search.</param>
             <returns>
-            The zero-based <paramref name="index"/> of the last occurrence of <paramref name="item"/> within the range of elements in the
-            <see cref="T:System.Collections.Generic.EventedList`1"/> that starts at <paramref name="index"/> and contains <paramref name="count"/> number of elements, if
-            found; otherwise, –1.
+            The zero-based <paramref name="index"/> of the last occurrence of <paramref name="item"/> within the range of elements in the <see
+            cref="T:System.Collections.Generic.EventedList`1"/> that starts at <paramref name="index"/> and contains <paramref name="count"/> number of elements, if found;
+            otherwise, –1.
             </returns>
             <exception cref="T:System.ArgumentOutOfRangeException">
             <paramref name="index"/> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.EventedList`1"/>.
@@ -617,8 +567,8 @@
             <summary>Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.EventedList`1"/>.</summary>
             <param name="item">The object to remove from the <see cref="T:System.Collections.Generic.EventedList`1"/>.</param>
             <returns>
-            true if <paramref name="item"/> was successfully removed from the <see cref="T:System.Collections.Generic.EventedList`1"/>; otherwise, false. This method
-            also returns false if <paramref name="item"/> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            true if <paramref name="item"/> was successfully removed from the <see cref="T:System.Collections.Generic.EventedList`1"/>; otherwise, false. This method also
+            returns false if <paramref name="item"/> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1"/>.
             </returns>
             <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.EventedList`1"/> is read-only.</exception>
         </member>
@@ -681,6 +631,44 @@
             <c>true</c> if every element in the <see cref="T:System.Collections.Generic.EventedList`1"/> matches the conditions defined by the specified predicate;
             otherwise, <c>false</c>. If the list has no elements, the return value is <c>true</c>.
             </returns>
+        </member>
+        <member name="M:System.Collections.Generic.EventedList`1.System#Collections#IList#Add(System.Object)">
+            <summary>Adds an item to the IList.</summary>
+            <param name="item">The item.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Collections.Generic.EventedList`1.System#Collections#IList#Contains(System.Object)">
+            <summary>Determines whether the IList contains a specific value.</summary>
+            <param name="item">The item.</param>
+            <returns><c>true</c> if contains the specified item; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:System.Collections.Generic.EventedList`1.System#Collections#ICollection#CopyTo(System.Array,System.Int32)">
+            <summary>Copies the elements of the ICollection to an Array, starting at a particular Array index.</summary>
+            <param name="array">The array.</param>
+            <param name="arrayIndex">Index of the array.</param>
+            <exception cref="T:System.ArgumentException">Destination array cannot be null or multidimensional.</exception>
+        </member>
+        <member name="M:System.Collections.Generic.EventedList`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>Returns an enumerator that iterates through a collection.</summary>
+            <returns>An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:System.Collections.Generic.EventedList`1.System#Collections#Generic#IEnumerable{T}#GetEnumerator">
+            <summary>Returns an enumerator that iterates through the collection.</summary>
+            <returns>A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:System.Collections.Generic.EventedList`1.System#Collections#IList#IndexOf(System.Object)">
+            <summary>Determines the index of a specific item in the IList.</summary>
+            <param name="item">The item.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Collections.Generic.EventedList`1.System#Collections#IList#Insert(System.Int32,System.Object)">
+            <summary>Inserts an item to the IList at the specified index.</summary>
+            <param name="index">The index.</param>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:System.Collections.Generic.EventedList`1.System#Collections#IList#Remove(System.Object)">
+            <summary>Removes the first occurrence of a specific object from the IList.</summary>
+            <param name="item">The item.</param>
         </member>
         <member name="M:System.Collections.Generic.EventedList`1.OnItemAdded(System.Int32,`0)">
             <summary>Raises the <see cref="E:System.Collections.Generic.EventedList`1.ItemAdded"/> event.</summary>
@@ -1260,7 +1248,7 @@
             <para>ICM: No color management is done.</para>
             </remarks>
         </member>
-        <member name="M:Vanara.Interop.NativeMethods.GetDIBits(Vanara.Interop.NativeMethods.SafeDCHandle,System.IntPtr,System.Int32,System.Int32,System.Byte[]@,Vanara.Interop.NativeMethods.BITMAPINFO@,Vanara.Interop.NativeMethods.DIBColorMode)">
+        <member name="M:Vanara.Interop.NativeMethods.GetDIBits(Vanara.Interop.NativeMethods.SafeDCHandle,System.IntPtr,System.Int32,System.Int32,System.Byte[],Vanara.Interop.NativeMethods.BITMAPINFO@,Vanara.Interop.NativeMethods.DIBColorMode)">
             <summary>
             The GetDIBits function retrieves the bits of the specified compatible bitmap and copies them into a buffer as a DIB using the
             specified format.
@@ -1413,8 +1401,8 @@
             <remarks>
             A DIB consists of two distinct parts: a BITMAPINFO structure describing the dimensions and colors of the bitmap, and an array of
             bytes defining the pixels of the bitmap. The bits in the array are packed together, but each scan line must be padded with zeros
-            to end on a LONG data-type boundary. If the height of the bitmap is positive, the bitmap is a bottom-up DIB and its origin is the
-            lower-left corner. If the height is negative, the bitmap is a top-down DIB and its origin is the upper left corner.
+            to end on a LONG data-type boundary. If the height of the bitmap is positive, the bitmap is a bottom-up DIB and its origin is
+            the lower-left corner. If the height is negative, the bitmap is a top-down DIB and its origin is the upper left corner.
             <para>
             A bitmap is packed when the bitmap array immediately follows the BITMAPINFO header. Packed bitmaps are referenced by a single
             pointer. For packed bitmaps, the biClrUsed member must be set to an even number when using the DIB_PAL_COLORS mode so that the
@@ -1442,9 +1430,9 @@
             <item>
             <description>
             An array of 16-bit unsigned integers that specifies indexes into the currently realized logical palette. This use of
-            bmiColors is allowed for functions that use DIBs. When bmiColors elements contain indexes to a realized logical palette, they
-            must also call the following bitmap functions: CreateDIBitmap, CreateDIBPatternBrush, CreateDIBSection (The iUsage parameter
-            of CreateDIBSection must be set to DIB_PAL_COLORS.)
+            bmiColors is allowed for functions that use DIBs. When bmiColors elements contain indexes to a realized logical palette,
+            they must also call the following bitmap
+            functions: CreateDIBitmap, CreateDIBPatternBrush, CreateDIBSection (The iUsage parameter of CreateDIBSection must be set to DIB_PAL_COLORS.)
             </description>
             </item>
             </list>
@@ -1461,159 +1449,203 @@
             <param name="bitCount">The bit count.</param>
         </member>
         <member name="T:Vanara.Interop.NativeMethods.BITMAPINFOHEADER">
-            <summary>The BITMAPINFOHEADER structure contains information about the dimensions and color format of a DIB.</summary>
+            <summary>
+            <para>
+            The <c>BITMAPINFOHEADER</c> structure contains information about the dimensions and color format of a device-independent bitmap (DIB).
+            </para>
+            <para>
+            <c>Note</c> This structure is also described in the GDI documentation. However, the semantics for video data are slightly
+            different than the semantics used for GDI. If you are using this structure to describe video data, use the information given here.
+            </para>
+            </summary>
+            <remarks>
+            <para>Color Tables</para>
+            <para>
+            The <c>BITMAPINFOHEADER</c> structure may be followed by an array of palette entries or color masks. The rules depend on the
+            value of <c>biCompression</c>.
+            </para>
+            <list type="bullet">
+            <item>
+            <term>
+            If <c>biCompression</c> equals <c>BI_RGB</c> and the bitmap uses 8 bpp or less, the bitmap has a color table immediatelly
+            following the <c>BITMAPINFOHEADER</c> structure. The color table consists of an array of <c>RGBQUAD</c> values. The size of the
+            array is given by the <c>biClrUsed</c> member. If <c>biClrUsed</c> is zero, the array contains the maximum number of colors for
+            the given bitdepth; that is, 2^ <c>biBitCount</c> colors.
+            </term>
+            </item>
+            <item>
+            <term>
+            If <c>biCompression</c> equals <c>BI_BITFIELDS</c>, the bitmap uses three <c>DWORD</c> color masks (red, green, and blue,
+            respectively), which specify the byte layout of the pixels. The 1 bits in each mask indicate the bits for that color within the pixel.
+            </term>
+            </item>
+            <item>
+            <term>
+            If <c>biCompression</c> is a video FOURCC, the presence of a color table is implied by the video format. You should not assume
+            that a color table exists when the bit depth is 8 bpp or less. However, some legacy components might assume that a color table
+            is present. Therefore, if you are allocating a <c>BITMAPINFOHEADER</c> structure, it is recommended to allocate space for a
+            color table when the bit depth is 8 bpp or less, even if the color table is not used.
+            </term>
+            </item>
+            </list>
+            <para>
+            When the <c>BITMAPINFOHEADER</c> is followed by a color table or a set of color masks, you can use the BITMAPINFO structure to
+            reference the color table of the color masks. The <c>BITMAPINFO</c> structure is defined as follows:
+            </para>
+            <para>
+            <code>typedef struct tagBITMAPINFO { BITMAPINFOHEADER bmiHeader; RGBQUAD bmiColors[1]; } BITMAPINFO;</code>
+            </para>
+            <para>
+            If you cast the <c>BITMAPINFOHEADER</c> to a BITMAPINFO, the <c>bmiHeader</c> member refers to the <c>BITMAPINFOHEADER</c> and
+            the <c>bmiColors</c> member refers to the first entry in the color table, or the first color mask.
+            </para>
+            <para>
+            Be aware that if the bitmap uses a color table or color masks, then the size of the entire format structure (the
+            <c>BITMAPINFOHEADER</c> plus the color information) is not equal to
+            <code>sizeof(BITMAPINFOHEADER)</code>
+            or
+            <code>sizeof(BITMAPINFO)</code>
+            . You must calculate the actual size for each instance.
+            </para>
+            <para>Calculating Surface Stride</para>
+            <para>
+            In an uncompressed bitmap, the stride is the number of bytes needed to go from the start of one row of pixels to the start of
+            the next row. The image format defines a minimum stride for an image. In addition, the graphics hardware might require a larger
+            stride for the surface that contains the image.
+            </para>
+            <para>
+            For uncompressed RGB formats, the minimum stride is always the image width in bytes, rounded up to the nearest <c>DWORD</c>. You
+            can use the following formula to calculate the stride:
+            </para>
+            <para>
+            <code>stride = ((((biWidth * biBitCount) + 31) &amp; ~31) &gt;&gt; 3)</code>
+            </para>
+            <para>
+            For YUV formats, there is no general rule for calculating the minimum stride. You must understand the rules for the particular
+            YUV format. For a description of the most common YUV formats, see Recommended 8-Bit YUV Formats for Video Rendering.
+            </para>
+            <para>
+            Decoders and video sources should propose formats where biWidth is the width of the image in pixels. If the video renderer
+            requires a surface stride that is larger than the default image stride, it modifies the proposed media type by setting the
+            following values:
+            </para>
+            <list type="bullet">
+            <item>
+            <term>It sets <c>biWidth</c> equal to the surface stride in pixels.</term>
+            </item>
+            <item>
+            <term>It sets the <c>rcTarget</c> member of the VIDEOINFOHEADER or VIDEOINFOHEADER2 structure equal to the image width, in pixels.</term>
+            </item>
+            </list>
+            <para>
+            Then the video renderer proposes the modified format by calling IPin::QueryAccept on the upstream pin. For more information
+            about this mechanism, see Dynamic Format Changes.
+            </para>
+            <para>
+            If there is padding in the image buffer, never dereference a pointer into the memory that has been reserved for the padding. If
+            the image buffer has been allocated in video memory, the padding might not be readable memory.
+            </para>
+            </remarks>
         </member>
         <member name="F:Vanara.Interop.NativeMethods.BITMAPINFOHEADER.biSize">
-            <summary>The number of bytes required by the structure.</summary>
+            <summary>
+            Specifies the number of bytes required by the structure. This value does not include the size of the color table or the size
+            of the color masks, if they are appended to the end of structure. See Remarks.
+            </summary>
         </member>
         <member name="F:Vanara.Interop.NativeMethods.BITMAPINFOHEADER.biWidth">
             <summary>
-            The width of the bitmap, in pixels. If biCompression is BI_JPEG or BI_PNG, the biWidth member specifies the width of the
-            decompressed JPEG or PNG image file, respectively.
+            Specifies the width of the bitmap, in pixels. For information about calculating the stride of the bitmap, see Remarks.
             </summary>
         </member>
         <member name="F:Vanara.Interop.NativeMethods.BITMAPINFOHEADER.biHeight">
             <summary>
-            The height of the bitmap, in pixels. If biHeight is positive, the bitmap is a bottom-up DIB and its origin is the lower-left
-            corner. If biHeight is negative, the bitmap is a top-down DIB and its origin is the upper-left corner.
-            <para>
-            If biHeight is negative, indicating a top-down DIB, biCompression must be either BI_RGB or BI_BITFIELDS. Top-down DIBs cannot
-            be compressed.
-            </para>
-            <para>
-            If biCompression is BI_JPEG or BI_PNG, the biHeight member specifies the height of the decompressed JPEG or PNG image file, respectively.
-            </para>
-            </summary>
-        </member>
-        <member name="F:Vanara.Interop.NativeMethods.BITMAPINFOHEADER.biPlanes">
-            <summary>The number of planes for the target device. This value must be set to 1.</summary>
-        </member>
-        <member name="F:Vanara.Interop.NativeMethods.BITMAPINFOHEADER.biBitCount">
-            <summary>
-            The number of bits-per-pixel. The biBitCount member of the BITMAPINFOHEADER structure determines the number of bits that
-            define each pixel and the maximum number of colors in the bitmap. This member must be one of the following values.
-            <list type="table">
-            <listheader>
-            <term>Value</term>
-            <description>Meaning</description>
-            </listheader>
+            <para>Specifies the height of the bitmap, in pixels.</para>
+            <list type="bullet">
             <item>
-            <term>0</term>
-            <description>The number of bits-per-pixel is specified or is implied by the JPEG or PNG format.</description>
+            <term>
+            For uncompressed RGB bitmaps, if <c>biHeight</c> is positive, the bitmap is a bottom-up DIB with the origin at the lower
+            left corner. If <c>biHeight</c> is negative, the bitmap is a top-down DIB with the origin at the upper left corner.
+            </term>
             </item>
             <item>
-            <term>1</term>
-            <description>
-            The bitmap is monochrome, and the bmiColors member of BITMAPINFO contains two entries. Each bit in the bitmap array
-            represents a pixel. If the bit is clear, the pixel is displayed with the color of the first entry in the bmiColors table; if
-            the bit is set, the pixel has the color of the second entry in the table.
-            </description>
+            <term>
+            For YUV bitmaps, the bitmap is always top-down, regardless of the sign of <c>biHeight</c>. Decoders should offer YUV formats
+            with postive <c>biHeight</c>, but for backward compatibility they should accept YUV formats with either positive or negative <c>biHeight</c>.
+            </term>
             </item>
             <item>
-            <term>4</term>
-            <description>
-            The bitmap has a maximum of 16 colors, and the bmiColors member of BITMAPINFO contains up to 16 entries. Each pixel in the
-            bitmap is represented by a 4-bit index into the color table. For example, if the first byte in the bitmap is 0x1F, the byte
-            represents two pixels. The first pixel contains the color in the second table entry, and the second pixel contains the color
-            in the sixteenth table entry.
-            </description>
-            </item>
-            <item>
-            <term>8</term>
-            <description>
-            The bitmap has a maximum of 256 colors, and the bmiColors member of BITMAPINFO contains up to 256 entries. In this case, each
-            byte in the array represents a single pixel.
-            </description>
-            </item>
-            <item>
-            <term>16</term>
-            <description>
-            The bitmap has a maximum of 2^16 colors. If the biCompression member of the BITMAPINFOHEADER is BI_RGB, the bmiColors member
-            of BITMAPINFO is NULL. Each WORD in the bitmap array represents a single pixel. The relative intensities of red, green, and
-            blue are represented with five bits for each color component. The value for blue is in the least significant five bits,
-            followed by five bits each for green and red. The most significant bit is not used. The bmiColors color table is used for
-            optimizing colors used on palette-based devices, and must contain the number of entries specified by the biClrUsed member of
-            the BITMAPINFOHEADER.
-            <para>
-            If the biCompression member of the BITMAPINFOHEADER is BI_BITFIELDS, the bmiColors member contains three DWORD color masks
-            that specify the red, green, and blue components, respectively, of each pixel. Each WORD in the bitmap array represents a
-            single pixel.
-            </para>
-            <para>
-            When the biCompression member is BI_BITFIELDS, bits set in each DWORD mask must be contiguous and should not overlap the bits
-            of another mask. All the bits in the pixel do not have to be used.
-            </para>
-            </description>
-            </item>
-            <item>
-            <term>24</term>
-            <description>
-            The bitmap has a maximum of 2^24 colors, and the bmiColors member of BITMAPINFO is NULL. Each 3-byte triplet in the bitmap
-            array represents the relative intensities of blue, green, and red, respectively, for a pixel. The bmiColors color table is
-            used for optimizing colors used on palette-based devices, and must contain the number of entries specified by the biClrUsed
-            member of the BITMAPINFOHEADER.
-            </description>
-            </item>
-            <item>
-            <term>32</term>
-            <description>
-            The bitmap has a maximum of 2^32 colors. If the biCompression member of the BITMAPINFOHEADER is BI_RGB, the bmiColors member
-            of BITMAPINFO is NULL. Each DWORD in the bitmap array represents the relative intensities of blue, green, and red for a
-            pixel. The value for blue is in the least significant 8 bits, followed by 8 bits each for green and red. The high byte in
-            each DWORD is not used. The bmiColors color table is used for optimizing colors used on palette-based devices, and must
-            contain the number of entries specified by the biClrUsed member of the BITMAPINFOHEADER.
-            <para>
-            If the biCompression member of the BITMAPINFOHEADER is BI_BITFIELDS, the bmiColors member contains three DWORD color masks
-            that specify the red, green, and blue components, respectively, of each pixel. Each DWORD in the bitmap array represents a
-            single pixel.
-            </para>
-            <para>
-            When the biCompression member is BI_BITFIELDS, bits set in each DWORD mask must be contiguous and should not overlap the bits
-            of another mask. All the bits in the pixel do not need to be used.
-            </para>
-            </description>
+            <term>For compressed formats, <c>biHeight</c> must be positive, regardless of image orientation.</term>
             </item>
             </list>
             </summary>
         </member>
+        <member name="F:Vanara.Interop.NativeMethods.BITMAPINFOHEADER.biPlanes">
+            <summary>Specifies the number of planes for the target device. This value must be set to 1.</summary>
+        </member>
+        <member name="F:Vanara.Interop.NativeMethods.BITMAPINFOHEADER.biBitCount">
+            <summary>
+            Specifies the number of bits per pixel (bpp). For uncompressed formats, this value is the average number of bits per pixel.
+            For compressed formats, this value is the implied bit depth of the uncompressed image, after the image has been decoded.
+            </summary>
+        </member>
         <member name="F:Vanara.Interop.NativeMethods.BITMAPINFOHEADER.biCompression">
-            <summary>The type of compression for a compressed bottom-up bitmap (top-down DIBs cannot be compressed).</summary>
+            <summary>
+            <para>
+            For compressed video and YUV formats, this member is a FOURCC code, specified as a <c>DWORD</c> in little-endian order. For
+            example, YUYV video has the FOURCC 'VYUY' or 0x56595559. For more information, see FOURCC Codes.
+            </para>
+            <para>For uncompressed RGB formats, the following values are possible:</para>
+            <list type="table">
+            <listheader>
+            <term>Value</term>
+            <term>Meaning</term>
+            </listheader>
+            <item>
+            <term>BI_RGB</term>
+            <term>Uncompressed RGB.</term>
+            </item>
+            <item>
+            <term>BI_BITFIELDS</term>
+            <term>Uncompressed RGB with color masks. Valid for 16-bpp and 32-bpp bitmaps.</term>
+            </item>
+            </list>
+            <para>See Remarks for more information. Note that <c>BI_JPG</c> and <c>BI_PNG</c> are not valid video formats.</para>
+            <para>
+            For 16-bpp bitmaps, if <c>biCompression</c> equals <c>BI_RGB</c>, the format is always RGB 555. If <c>biCompression</c>
+            equals <c>BI_BITFIELDS</c>, the format is either RGB 555 or RGB 565. Use the subtype GUID in the AM_MEDIA_TYPE structure to
+            determine the specific RGB type.
+            </para>
+            </summary>
         </member>
         <member name="F:Vanara.Interop.NativeMethods.BITMAPINFOHEADER.biSizeImage">
-            <summary>
-            The size, in bytes, of the image. This may be set to zero for BI_RGB bitmaps. If biCompression is BI_JPEG or BI_PNG,
-            biSizeImage indicates the size of the JPEG or PNG image buffer, respectively.
-            </summary>
+            <summary>Specifies the size, in bytes, of the image. This can be set to 0 for uncompressed RGB bitmaps.</summary>
         </member>
         <member name="F:Vanara.Interop.NativeMethods.BITMAPINFOHEADER.biXPelsPerMeter">
-            <summary>
-            The horizontal resolution, in pixels-per-meter, of the target device for the bitmap. An application can use this value to
-            select a bitmap from a resource group that best matches the characteristics of the current device.
-            </summary>
+            <summary>Specifies the horizontal resolution, in pixels per meter, of the target device for the bitmap.</summary>
         </member>
         <member name="F:Vanara.Interop.NativeMethods.BITMAPINFOHEADER.biYPelsPerMeter">
-            <summary>The vertical resolution, in pixels-per-meter, of the target device for the bitmap.</summary>
+            <summary>Specifies the vertical resolution, in pixels per meter, of the target device for the bitmap.</summary>
         </member>
         <member name="F:Vanara.Interop.NativeMethods.BITMAPINFOHEADER.biClrUsed">
             <summary>
-            The number of color indexes in the color table that are actually used by the bitmap. If this value is zero, the bitmap uses
-            the maximum number of colors corresponding to the value of the biBitCount member for the compression mode specified by biCompression.
-            <para>
-            If biClrUsed is nonzero and the biBitCount member is less than 16, the biClrUsed member specifies the actual number of colors
-            the graphics engine or device driver accesses. If biBitCount is 16 or greater, the biClrUsed member specifies the size of the
-            color table used to optimize performance of the system color palettes. If biBitCount equals 16 or 32, the optimal color
-            palette starts immediately following the three DWORD masks.
-            </para>
-            <para>
-            When the bitmap array immediately follows the BITMAPINFO structure, it is a packed bitmap. Packed bitmaps are referenced by a
-            single pointer. Packed bitmaps require that the biClrUsed member must be either zero or the actual size of the color table.
-            </para>
+            Specifies the number of color indices in the color table that are actually used by the bitmap. See Remarks for more information.
             </summary>
         </member>
         <member name="F:Vanara.Interop.NativeMethods.BITMAPINFOHEADER.biClrImportant">
             <summary>
-            The number of color indexes that are required for displaying the bitmap. If this value is zero, all colors are required.
+            Specifies the number of color indices that are considered important for displaying the bitmap. If this value is zero, all
+            colors are important.
             </summary>
+        </member>
+        <member name="M:Vanara.Interop.NativeMethods.BITMAPINFOHEADER.#ctor(System.Int32,System.Int32,System.UInt16)">
+            <summary>Initializes a new instance of the <see cref="T:Vanara.Interop.NativeMethods.BITMAPINFOHEADER"/> structure.</summary>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
+            <param name="bitCount">The bit count.</param>
+        </member>
+        <member name="F:Vanara.Interop.NativeMethods.BITMAPINFOHEADER.Default">
+            <summary>Gets the default value for this structure with size fields set appropriately.</summary>
         </member>
         <member name="T:Vanara.Interop.NativeMethods.RGBQUAD">
             <summary>The RGBQUAD structure describes a color consisting of relative intensities of red, green, and blue.</summary>
@@ -9608,18 +9640,15 @@
         <member name="P:AeroWizard.ThemedLabel.Image">
             <summary>Gets or sets the image that is displayed on a <see cref="T:System.Windows.Forms.Label"/>.</summary>
             <value></value>
-            <returns>
-            An <see cref="T:System.Drawing.Image"/> displayed on the <see cref="T:System.Windows.Forms.Label"/>. The default is null.
-            </returns>
+            <returns>An <see cref="T:System.Drawing.Image"/> displayed on the <see cref="T:System.Windows.Forms.Label"/>. The default is null.</returns>
             <PermissionSet>
             <IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral,
-            PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission
-            class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral,
-            PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission
+            PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.FileIOPermission,
+            mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission
             class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral,
             PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence"/><IPermission
-            class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral,
-            PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/>
+            class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+            version="1" Unrestricted="true"/>
             </PermissionSet>
         </member>
         <member name="M:AeroWizard.ThemedLabel.GetPreferredSize(System.Drawing.Size)">
@@ -9715,9 +9744,7 @@
             <value>A <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement"/> that represents the header area of a wizard.</value>
         </member>
         <member name="T:AeroWizard.VisualStyles.VisualStyleElementEx.AeroWizard.TitleBar">
-            <summary>
-            Provides a <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement"/> for each state of the titlebar of a wizard. This class cannot be inherited.
-            </summary>
+            <summary>Provides a <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement"/> for each state of the titlebar of a wizard. This class cannot be inherited.</summary>
         </member>
         <member name="P:AeroWizard.VisualStyles.VisualStyleElementEx.AeroWizard.TitleBar.Active">
             <summary>Gets a visual style element that represents the titlebar of an active wizard.</summary>
@@ -9755,8 +9782,7 @@
         </member>
         <member name="T:AeroWizard.VisualStyles.VisualStyleElementEx.Navigation.ForwardButton">
             <summary>
-            Provides <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement"/> objects for the different states of the Forward Button control. This class cannot
-            be inherited.
+            Provides <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement"/> objects for the different states of the Forward Button control. This class cannot be inherited.
             </summary>
         </member>
         <member name="P:AeroWizard.VisualStyles.VisualStyleElementEx.Navigation.ForwardButton.Disabled">
@@ -9797,9 +9823,7 @@
             <value>A <see cref="T:System.Windows.Forms.VisualStyles.VisualStyleElement"/> that represents a menu button in the pressed state.</value>
         </member>
         <member name="T:AeroWizard.WizardClassicStyle">
-            <summary>
-            Styles that can be applied to the body of a <see cref="T:AeroWizard.WizardControl"/> when on XP or earlier or when a Basic theme is applied.
-            </summary>
+            <summary>Styles that can be applied to the body of a <see cref="T:AeroWizard.WizardControl"/> when on XP or earlier or when a Basic theme is applied.</summary>
         </member>
         <member name="F:AeroWizard.WizardClassicStyle.AeroStyle">
             <summary>Windows Vista style theme with large fonts and white background.</summary>
@@ -9820,19 +9844,23 @@
             <summary>Occurs when the user clicks the Cancel button and allows for programmatic cancellation.</summary>
         </member>
         <member name="E:AeroWizard.WizardControl.Finished">
-             <summary>Occurs when the user clicks the Next/Finish button and the page is set to <see cref="P:AeroWizard.WizardPage.IsFinishPage" /> or this is the
-             last page in the <see cref="P:AeroWizard.WizardControl.Pages" /> collection.</summary>
+             <summary>
+             Occurs when the user clicks the Next/Finish button and the page is set to <see cref="P:AeroWizard.WizardPage.IsFinishPage"/> or this is the
+             last page in the <see cref="P:AeroWizard.WizardControl.Pages"/> collection.
+             </summary>
              <example>
-             <code title="Using Finished event to close form">public MyFormWizard()
-             {
-                 InitializeComponent();
-                 wizardControl.Finished += wizardControl_Finished;
-             }
+             <code title="Using Finished event to close form">
+            public MyFormWizard()
+            {
+            InitializeComponent();
+            wizardControl.Finished += wizardControl_Finished;
+            }
             
-             private void wizardControl_Finished(object sender, EventArgs e)
-             {
-                 Close();
-             }</code>
+            private void wizardControl_Finished(object sender, EventArgs e)
+            {
+            Close();
+            }
+             </code>
              </example>
         </member>
         <member name="E:AeroWizard.WizardControl.SelectedPageChanged">
@@ -9875,9 +9903,7 @@
         <member name="P:AeroWizard.WizardControl.NextButtonShieldEnabled">
             <summary>Gets or sets the shield icon on the next button.</summary>
             <value><c>true</c> if Next button should display a shield; otherwise, <c>false</c>.</value>
-            <exception cref="T:System.PlatformNotSupportedException">
-            Setting a UAF shield on a button only works on Vista and later versions of Windows.
-            </exception>
+            <exception cref="T:System.PlatformNotSupportedException">Setting a UAF shield on a button only works on Vista and later versions of Windows.</exception>
         </member>
         <member name="P:AeroWizard.WizardControl.NextButtonState">
             <summary>Gets the state of the next button.</summary>
@@ -9906,15 +9932,13 @@
             </remarks>
             <value><c>true</c> to show progress in taskbar icon; otherwise, <c>false</c>.</value>
         </member>
+        <member name="P:AeroWizard.WizardControl.SuppressParentFormCaptionSync">
+            <summary>Gets or sets a value indicating whether to suppress changing the parent form's caption to match the wizard's <see cref="P:AeroWizard.WizardControl.Title"/>.</summary>
+            <value><c>true</c> to not change the parent form's caption (Text) to match this wizard's title; otherwise, <c>false</c>.</value>
+        </member>
         <member name="P:AeroWizard.WizardControl.SuppressParentFormIconSync">
             <summary>Gets or sets a value indicating whether to suppress changing the parent form's icon to match the wizard's <see cref="P:AeroWizard.WizardControl.TitleIcon"/>.</summary>
             <value><c>true</c> to not change the parent form's icon to match this wizard's icon; otherwise, <c>false</c>.</value>
-        </member>
-        <member name="P:AeroWizard.WizardControl.SuppressParentFormCaptionSync">
-            <summary>
-            Gets or sets a value indicating whether to suppress changing the parent form's caption to match the wizard's <see cref="P:AeroWizard.WizardControl.Title"/>.
-            </summary>
-            <value><c>true</c> to not change the parent form's caption (Text) to match this wizard's title; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:AeroWizard.WizardControl.Title">
             <summary>Gets or sets the title for the wizard.</summary>
@@ -9927,9 +9951,9 @@
         <member name="M:AeroWizard.WizardControl.AddCommandControl(System.Windows.Forms.Control)">
             <summary>Adds a new control to the command bar.</summary>
             <remarks>
-            This will cause your wizard to deviate from the Windows UI guidelines. All controls will display right to left in the order added
-            and will cause the command bar to remain visible as long as the control is visible. The developer must fully manage the state of
-            this added control.
+            This will cause your wizard to deviate from the Windows UI guidelines. All controls will display right to left in the order added and
+            will cause the command bar to remain visible as long as the control is visible. The developer must fully manage the state of this
+            added control.
             </remarks>
             <param name="ctrl">The control to add.</param>
         </member>
@@ -9948,8 +9972,8 @@
         <member name="M:AeroWizard.WizardControl.OverrideThemeFonts(System.Drawing.Font,System.Drawing.Font,System.Drawing.Font)">
             <summary>Overrides the theme fonts provided by the system.</summary>
             <remarks>
-            This is NOT recommended as it will cause the wizard to not match those provided by the system. This should be called only after
-            the handle has been created or it will be overridden with the system theme values.
+            This is NOT recommended as it will cause the wizard to not match those provided by the system. This should be called only after the
+            handle has been created or it will be overridden with the system theme values.
             </remarks>
             <param name="titleFont">The title font.</param>
             <param name="headerFont">The header font.</param>
@@ -10053,23 +10077,23 @@
         </member>
         <member name="P:AeroWizard.WizardPage.HelpText">
             <summary>
-            Gets or sets the help text. When value is not <c>null</c>, a help link will be displayed at the bottom left of the content area.
-            When clicked, the <see cref="M:AeroWizard.WizardPage.OnHelpClicked"/> method will call the <see cref="E:AeroWizard.WizardPage.HelpClicked"/> event.
+            Gets or sets the help text. When value is not <c>null</c>, a help link will be displayed at the bottom left of the content area. When
+            clicked, the <see cref="M:AeroWizard.WizardPage.OnHelpClicked"/> method will call the <see cref="E:AeroWizard.WizardPage.HelpClicked"/> event.
             </summary>
             <value>The help text to display.</value>
         </member>
         <member name="P:AeroWizard.WizardPage.IsFinishPage">
             <summary>
-            Gets or sets a value indicating whether this page is the last page in the sequence and should display the Finish text instead of
-            the Next text on the Next/Finish button.
+            Gets or sets a value indicating whether this page is the last page in the sequence and should display the Finish text instead of the
+            Next text on the Next/Finish button.
             </summary>
             <value><c>true</c> if this page is a finish page; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:AeroWizard.WizardPage.NextPage">
             <summary>
-            Gets or sets the next page that should be used when the user clicks the Next button or when the <see
-            cref="M:AeroWizard.WizardControl.NextPage(AeroWizard.WizardPage,System.Boolean)"/> method is called. This is used to override the default behavior of going to the next page in the
-            sequence defined within the <see cref="P:AeroWizard.WizardControl.Pages"/> collection.
+            Gets or sets the next page that should be used when the user clicks the Next button or when the <see cref="M:AeroWizard.WizardControl.NextPage(AeroWizard.WizardPage,System.Boolean)"/>
+            method is called. This is used to override the default behavior of going to the next page in the sequence defined within the <see
+            cref="P:AeroWizard.WizardControl.Pages"/> collection.
             </summary>
             <value>The wizard page to go to.</value>
         </member>
@@ -10079,34 +10103,31 @@
         </member>
         <member name="P:AeroWizard.WizardPage.ShowCancel">
             <summary>
-            Gets or sets a value indicating whether to show the Cancel button. If both <see cref="P:AeroWizard.WizardPage.ShowCancel"/> and <see cref="P:AeroWizard.WizardPage.ShowNext"/>
-            are <c>false</c>, then the bottom command area will not be shown.
+            Gets or sets a value indicating whether to show the Cancel button. If both <see cref="P:AeroWizard.WizardPage.ShowCancel"/> and <see cref="P:AeroWizard.WizardPage.ShowNext"/> are
+            <c>false</c>, then the bottom command area will not be shown.
             </summary>
             <value><c>true</c> if Cancel button should be shown; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:AeroWizard.WizardPage.ShowNext">
             <summary>
-            Gets or sets a value indicating whether to show the Next/Finish button. If both <see cref="P:AeroWizard.WizardPage.ShowCancel"/> and <see
-            cref="P:AeroWizard.WizardPage.ShowNext"/> are <c>false</c>, then the bottom command area will not be shown.
+            Gets or sets a value indicating whether to show the Next/Finish button. If both <see cref="P:AeroWizard.WizardPage.ShowCancel"/> and <see cref="P:AeroWizard.WizardPage.ShowNext"/>
+            are <c>false</c>, then the bottom command area will not be shown.
             </summary>
             <value><c>true</c> if Next/Finish button should be shown; otherwise, <c>false</c>.</value>
-        </member>
-        <member name="P:AeroWizard.WizardPage.Suppress">
-            <summary>
-            Gets or sets a value indicating whether this <see cref="T:AeroWizard.WizardPage"/> is suppressed and not shown in the normal flow.
-            </summary>
-            <value><c>true</c> if suppressed; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:AeroWizard.WizardPage.Size">
             <summary>Gets or sets the height and width of the control.</summary>
             <value></value>
             <returns>The <see cref="T:System.Drawing.Size"/> that represents the height and width of the control in pixels.</returns>
         </member>
+        <member name="P:AeroWizard.WizardPage.Suppress">
+            <summary>Gets or sets a value indicating whether this <see cref="T:AeroWizard.WizardPage"/> is suppressed and not shown in the normal flow.</summary>
+            <value><c>true</c> if suppressed; otherwise, <c>false</c>.</value>
+        </member>
         <member name="P:AeroWizard.WizardPage.CreateParams">
             <summary>Gets the required creation parameters when the control handle is created.</summary>
             <returns>
-            A <see cref="T:System.Windows.Forms.CreateParams"/> that contains the required creation parameters when the handle to the control
-            is created.
+            A <see cref="T:System.Windows.Forms.CreateParams"/> that contains the required creation parameters when the handle to the control is created.
             </returns>
         </member>
         <member name="M:AeroWizard.WizardPage.ToString">
@@ -10115,9 +10136,7 @@
         </member>
         <member name="M:AeroWizard.WizardPage.OnCommit">
             <summary>Raises the <see cref="E:AeroWizard.WizardPage.Commit"/> event.</summary>
-            <returns>
-            <c>true</c> if handler does not set the <see cref="P:AeroWizard.WizardPageConfirmEventArgs.Cancel"/> to <c>true</c>; otherwise, <c>false</c>.
-            </returns>
+            <returns><c>true</c> if handler does not set the <see cref="P:AeroWizard.WizardPageConfirmEventArgs.Cancel"/> to <c>true</c>; otherwise, <c>false</c>.</returns>
         </member>
         <member name="M:AeroWizard.WizardPage.OnGotFocus(System.EventArgs)">
             <summary>Raises the <see cref="E:System.Windows.Forms.Control.GotFocus"/> event.</summary>
@@ -10132,9 +10151,7 @@
         </member>
         <member name="M:AeroWizard.WizardPage.OnRollback">
             <summary>Raises the <see cref="E:AeroWizard.WizardPage.Rollback"/> event.</summary>
-            <returns>
-            <c>true</c> if handler does not set the <see cref="P:AeroWizard.WizardPageConfirmEventArgs.Cancel"/> to <c>true</c>; otherwise, <c>false</c>.
-            </returns>
+            <returns><c>true</c> if handler does not set the <see cref="P:AeroWizard.WizardPageConfirmEventArgs.Cancel"/> to <c>true</c>; otherwise, <c>false</c>.</returns>
         </member>
         <member name="F:AeroWizard.WizardPage.components">
             <summary>
@@ -10208,8 +10225,8 @@
         </member>
         <member name="E:AeroWizard.WizardPageContainer.Finished">
             <summary>
-            Occurs when the user clicks the Next/Finish button and the page is set to <see cref="P:AeroWizard.WizardPage.IsFinishPage"/> or this is the
-            last page in the <see cref="P:AeroWizard.WizardPageContainer.Pages"/> collection.
+            Occurs when the user clicks the Next/Finish button and the page is set to <see cref="P:AeroWizard.WizardPage.IsFinishPage"/> or this is the last
+            page in the <see cref="P:AeroWizard.WizardPageContainer.Pages"/> collection.
             </summary>
         </member>
         <member name="E:AeroWizard.WizardPageContainer.SelectedPageChanged">
@@ -10252,9 +10269,7 @@
         <member name="P:AeroWizard.WizardPageContainer.NextButtonShieldEnabled">
             <summary>Gets or sets the shield icon on the next button.</summary>
             <value><c>true</c> if Next button should display a shield; otherwise, <c>false</c>.</value>
-            <exception cref="T:System.PlatformNotSupportedException">
-            Setting a UAF shield on a button only works on Vista and later versions of Windows.
-            </exception>
+            <exception cref="T:System.PlatformNotSupportedException">Setting a UAF shield on a button only works on Vista and later versions of Windows.</exception>
         </member>
         <member name="P:AeroWizard.WizardPageContainer.NextButtonState">
             <summary>Gets the state of the next button.</summary>
@@ -10304,9 +10319,7 @@
         <member name="M:AeroWizard.WizardPageContainer.NextPage(AeroWizard.WizardPage,System.Boolean)">
             <summary>Advances to the specified page.</summary>
             <param name="nextPage">The wizard page to go to next.</param>
-            <param name="skipCommit">
-            if set to <c>true</c> prevent the <see cref="E:AeroWizard.WizardPage.Commit"/> event from firing for the current page.
-            </param>
+            <param name="skipCommit">if set to <c>true</c> prevent the <see cref="E:AeroWizard.WizardPage.Commit"/> event from firing for the current page.</param>
             <exception cref="T:System.ArgumentException">When specifying a value for nextPage, it must already be in the Pages collection.</exception>
         </member>
         <member name="M:AeroWizard.WizardPageContainer.PreviousPage">

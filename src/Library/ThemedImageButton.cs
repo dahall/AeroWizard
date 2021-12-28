@@ -5,8 +5,8 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using Vanara.Interop.DesktopWindowManager;
-using static Vanara.Interop.NativeMethods;
 using static System.Windows.Forms.VisualStyles.VisualStyleRendererExtension;
+using static Vanara.Interop.NativeMethods;
 
 namespace AeroWizard
 {
@@ -17,8 +17,8 @@ namespace AeroWizard
 		private const string defaultText = "";
 		private const string defaultToolTip = "Returns to a previous page";
 
+		private readonly ToolTip toolTip;
 		private SafeThemeHandle hTheme;
-		private ToolTip toolTip;
 
 		/// <summary>Initializes a new instance of the <see cref="ThemedImageButton"/> class.</summary>
 		public ThemedImageButton()
@@ -52,13 +52,16 @@ namespace AeroWizard
 			get => base.Image;
 			set
 			{
-				if (value != null)
+				if (value is not null)
 				{
 					InitializeImageList(value.Size);
 					ImageList.Images.Add(value);
 				}
 				else
+				{
 					ImageList = null;
+				}
+
 				base.Image = value;
 			}
 		}
@@ -98,7 +101,7 @@ namespace AeroWizard
 		/// <summary>Retrieves the default size for the control.</summary>
 		/// <value></value>
 		/// <returns>The default <see cref="T:System.Drawing.Size"/> of the control.</returns>
-		protected override Size DefaultSize => new Size(30, 30);
+		protected override Size DefaultSize => new(30, 30);
 
 		/// <summary>Gets a value indicating whether on glass.</summary>
 		/// <value><c>true</c> if on glass; otherwise, <c>false</c>.</value>
@@ -117,16 +120,18 @@ namespace AeroWizard
 		/// <param name="orientation">The orientation of the strip.</param>
 		public void SetImageListImageStrip(Image imageStrip, Orientation orientation)
 		{
-			if (imageStrip == null)
+			if (imageStrip is null)
+			{
 				ImageList = null;
+			}
 			else
 			{
-				var imageSize = orientation == Orientation.Vertical ? new Size(imageStrip.Width, imageStrip.Height / 4) : new Size(imageStrip.Width / 4, imageStrip.Height);
+				Size imageSize = orientation == Orientation.Vertical ? new Size(imageStrip.Width, imageStrip.Height / 4) : new Size(imageStrip.Width / 4, imageStrip.Height);
 				InitializeImageList(imageSize);
-				using (var bmp = new Bitmap(imageStrip))
+				using Bitmap bmp = new(imageStrip);
+				for (Rectangle r = new(Point.Empty, imageSize); r.Y < imageStrip.Height; r.Y += imageSize.Height)
 				{
-					for (var r = new Rectangle(Point.Empty, imageSize); r.Y < imageStrip.Height; r.Y += imageSize.Height)
-						ImageList.Images.Add(bmp.Clone(r, bmp.PixelFormat));
+					ImageList.Images.Add(bmp.Clone(r, bmp.PixelFormat));
 				}
 			}
 		}
@@ -160,7 +165,11 @@ namespace AeroWizard
 		/// <param name="e">A <see cref="T:System.Windows.Forms.MouseEventArgs"/> that contains the event data.</param>
 		protected override void OnMouseDown(MouseEventArgs e)
 		{
-			if ((e.Button & MouseButtons.Left) != MouseButtons.Left) return;
+			if ((e.Button & MouseButtons.Left) != MouseButtons.Left)
+			{
+				return;
+			}
+
 			ButtonState = PushButtonState.Pressed;
 			Invalidate();
 			base.OnMouseDown(e);
@@ -188,7 +197,11 @@ namespace AeroWizard
 		/// <param name="e">A <see cref="T:System.Windows.Forms.MouseEventArgs"/> that contains the event data.</param>
 		protected override void OnMouseUp(MouseEventArgs e)
 		{
-			if ((e.Button & MouseButtons.Left) != MouseButtons.Left) return;
+			if ((e.Button & MouseButtons.Left) != MouseButtons.Left)
+			{
+				return;
+			}
+
 			ButtonState = Enabled ? PushButtonState.Hot : PushButtonState.Disabled;
 			Invalidate();
 			base.OnMouseUp(e);
@@ -200,7 +213,7 @@ namespace AeroWizard
 		{
 			if (Visible)
 			{
-				var g = e.Graphics;
+				Graphics g = e.Graphics;
 				g.SmoothingMode = SmoothingMode.HighQuality;
 				g.CompositingQuality = CompositingQuality.HighQuality;
 				g.InterpolationMode = InterpolationMode.HighQualityBicubic;
@@ -218,7 +231,7 @@ namespace AeroWizard
 		/// <param name="bounds">The bounds.</param>
 		protected virtual void PaintButton(Graphics graphics, Rectangle bounds)
 		{
-			System.Diagnostics.Debug.WriteLine($"PaintButton: desMode:{this.IsDesignMode()};vsEnabled:{Application.RenderWithVisualStyles};vsOnOS:{VisualStyleInformation.IsSupportedByOS};btnState:{ButtonState};enabled:{Enabled};imgCt:{(ImageList != null ? ImageList.Images.Count : 0)}");
+			System.Diagnostics.Debug.WriteLine($"PaintButton: desMode:{this.IsDesignMode()};vsEnabled:{Application.RenderWithVisualStyles};vsOnOS:{VisualStyleInformation.IsSupportedByOS};btnState:{ButtonState};enabled:{Enabled};imgCt:{(ImageList is not null ? ImageList.Images.Count : 0)}");
 
 			if (InitializeRenderer())
 			{
@@ -228,26 +241,31 @@ namespace AeroWizard
 				}
 				else
 				{
-					using (var hdc = new SafeDCHandle(graphics))
-					{
-						DrawThemeParentBackground(Handle, hdc, bounds);
-						RECT rr = bounds;
-						DrawThemeBackground(hTheme, hdc, StylePart, (int)ButtonState, ref rr, null);
-					}
+					using SafeDCHandle hdc = new(graphics);
+					DrawThemeParentBackground(Handle, hdc, bounds);
+					RECT rr = bounds;
+					DrawThemeBackground(hTheme, hdc, StylePart, (int)ButtonState, ref rr, null);
 				}
 			}
 			else
 			{
-				if (ImageList != null && ImageList.Images.Count > 0)
+				if (ImageList is not null && ImageList.Images.Count > 0)
 				{
-					var idx = (int)ButtonState - 1;
+					int idx = (int)ButtonState - 1;
 					if (ImageList.Images.Count == 1)
+					{
 						idx = 0;
+					}
 					else if (ImageList.Images.Count == 2)
+					{
 						idx = ButtonState == PushButtonState.Disabled ? 1 : 0;
+					}
 					else if (ImageList.Images.Count == 3)
+					{
 						idx = ButtonState == PushButtonState.Normal ? 0 : idx - 1;
-					var forceDisabled = !Enabled && ImageList.Images.Count == 1;
+					}
+
+					bool forceDisabled = !Enabled && ImageList.Images.Count == 1;
 					if (OnGlass)
 					{
 						VisualStyleRendererExtension.DrawGlassImage(null, graphics, bounds, ImageList.Images[idx], forceDisabled);
@@ -256,19 +274,24 @@ namespace AeroWizard
 					{
 						if (!Application.RenderWithVisualStyles && VisualStyleInformation.IsSupportedByOS)
 						{
-							var g = graphics.BeginContainer();
-							var translateRect = bounds;
+							GraphicsContainer g = graphics.BeginContainer();
+							Rectangle translateRect = bounds;
 							graphics.TranslateTransform(-bounds.Left, -bounds.Top);
-							var pe = new PaintEventArgs(graphics, translateRect);
+							PaintEventArgs pe = new(graphics, translateRect);
 							InvokePaintBackground(Parent, pe);
 							InvokePaint(Parent, pe);
 							graphics.ResetTransform();
 							graphics.EndContainer(g);
 						}
 						else
+						{
 							graphics.Clear(Parent.BackColor);
+						}
+
 						if (forceDisabled)
+						{
 							ControlPaint.DrawImageDisabled(graphics, ImageList.Images[idx], 0, 0, Color.Transparent);
+						}
 						else
 						{
 							//base.ImageList.Draw(graphics, bounds.X, bounds.Y, bounds.Width, bounds.Height, idx);
@@ -277,14 +300,14 @@ namespace AeroWizard
 						}
 					}
 				}
-				/*else if (this.ImageList != null && this.ImageList.Images.Count > 1)
+				/*else if (this.ImageList is not null && this.ImageList.Images.Count > 1)
 				{
 					int idx = (int)ButtonState - 1;
 					if (this.ImageList.Images.Count == 2)
 						idx = ButtonState == PushButtonState.Disabled ? 1 : 0;
 					if (this.ImageList.Images.Count == 3)
 						idx = ButtonState == PushButtonState.Normal ? 0 : idx - 1;
-					if (rnd != null && !this.IsDesignMode() && DesktopWindowManager.IsCompositionEnabled())
+					if (rnd is not null && !this.IsDesignMode() && DesktopWindowManager.IsCompositionEnabled())
 						rnd.DrawGlassIcon(graphics, bounds, this.ImageList, idx);
 					else
 						this.ImageList.Draw(graphics, bounds.X, bounds.Y, bounds.Width, bounds.Height, idx);
@@ -298,7 +321,9 @@ namespace AeroWizard
 			}
 
 			if (Focused)
+			{
 				ControlPaint.DrawFocusRectangle(graphics, bounds);
+			}
 		}
 
 		private void InitializeImageList(Size imageSize) => ImageList = new ImageList() { ImageSize = imageSize, ColorDepth = ColorDepth.Depth32Bit, TransparentColor = Color.Transparent };

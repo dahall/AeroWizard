@@ -9,9 +9,7 @@ using Vanara.Interop.DesktopWindowManager;
 
 namespace AeroWizard
 {
-	/// <summary>
-	/// Styles that can be applied to the body of a <see cref="WizardControl"/> when on XP or earlier or when a Basic theme is applied.
-	/// </summary>
+	/// <summary>Styles that can be applied to the body of a <see cref="WizardControl"/> when on XP or earlier or when a Basic theme is applied.</summary>
 	public enum WizardClassicStyle
 	{
 		/// <summary>Windows Vista style theme with large fonts and white background.</summary>
@@ -37,6 +35,7 @@ namespace AeroWizard
 #endif
 		, ISupportInitialize
 	{
+		internal int contentCol = 1;
 		private static readonly bool isMin6 = Environment.OSVersion.Version.Major >= 6;
 
 		private WizardClassicStyle classicStyle = WizardClassicStyle.AeroStyle;
@@ -46,8 +45,6 @@ namespace AeroWizard
 		private bool themePropsSet;
 		private Icon titleImageIcon;
 		private bool titleImageIconSet;
-
-		internal int contentCol = 1;
 
 		/// <summary>Initializes a new instance of the <see cref="WizardControl"/> class.</summary>
 		public WizardControl()
@@ -70,24 +67,28 @@ namespace AeroWizard
 		[Category("Behavior"), Description("Occurs when the user clicks the Cancel button and allows for programmatic cancellation.")]
 		public event CancelEventHandler Cancelling;
 
-		/// <summary>Occurs when the user clicks the Next/Finish button and the page is set to <see cref="WizardPage.IsFinishPage" /> or this is the
-		/// last page in the <see cref="Pages" /> collection.</summary>
+		/// <summary>
+		/// Occurs when the user clicks the Next/Finish button and the page is set to <see cref="WizardPage.IsFinishPage"/> or this is the
+		/// last page in the <see cref="Pages"/> collection.
+		/// </summary>
 		/// <example>
-		/// <code title="Using Finished event to close form">public MyFormWizard()
-		/// {
-		///     InitializeComponent();
-		///     wizardControl.Finished += wizardControl_Finished;
-		/// }
+		/// <code title="Using Finished event to close form">
+		///public MyFormWizard()
+		///{
+		///InitializeComponent();
+		///wizardControl.Finished += wizardControl_Finished;
+		///}
 		///
-		/// private void wizardControl_Finished(object sender, EventArgs e)
-		/// {
-		///     Close();
-		/// }</code>
+		///private void wizardControl_Finished(object sender, EventArgs e)
+		///{
+		///Close();
+		///}
+		/// </code>
 		/// </example>
 		[Category("Behavior"), Description("Occurs when the user clicks the Next/Finish button on last page.")]
 		public event EventHandler Finished;
 
-		/// <summary>Occurs when the <see cref="WizardControl.SelectedPage"/> property has changed.</summary>
+		/// <summary>Occurs when the <see cref="SelectedPage"/> property has changed.</summary>
 		[Category("Property Changed"), Description("Occurs when the SelectedPage property has changed.")]
 		public event EventHandler SelectedPageChanged;
 
@@ -162,9 +163,7 @@ namespace AeroWizard
 
 		/// <summary>Gets or sets the shield icon on the next button.</summary>
 		/// <value><c>true</c> if Next button should display a shield; otherwise, <c>false</c>.</value>
-		/// <exception cref="PlatformNotSupportedException">
-		/// Setting a UAF shield on a button only works on Vista and later versions of Windows.
-		/// </exception>
+		/// <exception cref="PlatformNotSupportedException">Setting a UAF shield on a button only works on Vista and later versions of Windows.</exception>
 		[DefaultValue(false), Category("Wizard"), Description("Show a shield icon on the next button")]
 		public bool NextButtonShieldEnabled
 		{
@@ -204,7 +203,13 @@ namespace AeroWizard
 		public virtual WizardPage SelectedPage
 		{
 			get => pageContainer.SelectedPage;
-			internal set { pageContainer.SelectedPage = value; if (value != null) HeaderText = value.Text; }
+			internal set
+			{
+				pageContainer.SelectedPage = value; if (value is not null)
+				{
+					HeaderText = value.Text;
+				}
+			}
 		}
 
 		/// <summary>Gets or sets a value indicating whether to show progress in form's taskbar icon.</summary>
@@ -219,17 +224,15 @@ namespace AeroWizard
 			set => pageContainer.ShowProgressInTaskbarIcon = value;
 		}
 
+		/// <summary>Gets or sets a value indicating whether to suppress changing the parent form's caption to match the wizard's <see cref="Title"/>.</summary>
+		/// <value><c>true</c> to not change the parent form's caption (Text) to match this wizard's title; otherwise, <c>false</c>.</value>
+		[Category("Wizard"), DefaultValue(false), Description("Indicates whether to suppress changing the parent form's caption to match the wizard's")]
+		public bool SuppressParentFormCaptionSync { get; set; }
+
 		/// <summary>Gets or sets a value indicating whether to suppress changing the parent form's icon to match the wizard's <see cref="TitleIcon"/>.</summary>
 		/// <value><c>true</c> to not change the parent form's icon to match this wizard's icon; otherwise, <c>false</c>.</value>
 		[Category("Wizard"), DefaultValue(false), Description("Indicates whether to suppress changing the parent form's icon to match the wizard's")]
 		public bool SuppressParentFormIconSync { get; set; }
-
-		/// <summary>
-		/// Gets or sets a value indicating whether to suppress changing the parent form's caption to match the wizard's <see cref="Title"/>.
-		/// </summary>
-		/// <value><c>true</c> to not change the parent form's caption (Text) to match this wizard's title; otherwise, <c>false</c>.</value>
-		[Category("Wizard"), DefaultValue(false), Description("Indicates whether to suppress changing the parent form's caption to match the wizard's")]
-		public bool SuppressParentFormCaptionSync { get; set; }
 
 		/// <summary>Gets or sets the title for the wizard.</summary>
 		/// <value>The title text.</value>
@@ -250,7 +253,7 @@ namespace AeroWizard
 			{
 				titleImageIcon = value;
 				titleImageList.Images.Clear();
-				if (titleImageIcon != null)
+				if (titleImageIcon is not null)
 				{
 					// Resolve for different DPI settings and ensure that if icon is not a standard size, such as 20x20, that the larger one
 					// (24x24) is downsized and not the smaller up-sized. (thanks demidov)
@@ -269,9 +272,9 @@ namespace AeroWizard
 
 		/// <summary>Adds a new control to the command bar.</summary>
 		/// <remarks>
-		/// This will cause your wizard to deviate from the Windows UI guidelines. All controls will display right to left in the order added
-		/// and will cause the command bar to remain visible as long as the control is visible. The developer must fully manage the state of
-		/// this added control.
+		/// This will cause your wizard to deviate from the Windows UI guidelines. All controls will display right to left in the order added and
+		/// will cause the command bar to remain visible as long as the control is visible. The developer must fully manage the state of this
+		/// added control.
 		/// </remarks>
 		/// <param name="ctrl">The control to add.</param>
 		public void AddCommandControl(Control ctrl) => commandAreaButtonFlowLayout.Controls.Add(ctrl);
@@ -290,8 +293,8 @@ namespace AeroWizard
 
 		/// <summary>Overrides the theme fonts provided by the system.</summary>
 		/// <remarks>
-		/// This is NOT recommended as it will cause the wizard to not match those provided by the system. This should be called only after
-		/// the handle has been created or it will be overridden with the system theme values.
+		/// This is NOT recommended as it will cause the wizard to not match those provided by the system. This should be called only after the
+		/// handle has been created or it will be overridden with the system theme values.
 		/// </remarks>
 		/// <param name="titleFont">The title font.</param>
 		/// <param name="headerFont">The header font.</param>
@@ -316,13 +319,16 @@ namespace AeroWizard
 		/// <returns><see cref="Bitmap"/> with the four state images stacked on top of each other.</returns>
 		protected virtual Bitmap GetUnthemedBackButtonImage() => Environment.OSVersion.Version >= new Version(6, 2) ? Properties.Resources.BackBtnStrip2 : Properties.Resources.BackBtnStrip;
 
-		/// <summary>Raises the <see cref="WizardControl.Cancelling"/> event.</summary>
+		/// <summary>Raises the <see cref="Cancelling"/> event.</summary>
 		/// <param name="arg">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
 		protected virtual void OnCancelling(CancelEventArgs arg)
 		{
 			Cancelling?.Invoke(this, arg);
 
-			if (!arg.Cancel && !this.IsDesignMode()) CloseForm(DialogResult.Cancel);
+			if (!arg.Cancel && !this.IsDesignMode())
+			{
+				CloseForm(DialogResult.Cancel);
+			}
 		}
 
 		/// <summary>Raises the <see cref="E:System.Windows.Forms.Control.ControlAdded"/> event.</summary>
@@ -330,18 +336,24 @@ namespace AeroWizard
 		protected override void OnControlAdded(ControlEventArgs e)
 		{
 			base.OnControlAdded(e);
-			if (!(e.Control is WizardPage page)) return;
+			if (e.Control is not WizardPage page)
+			{
+				return;
+			}
+
 			Controls.Remove(page);
 			Pages.Add(page);
 		}
 
-		/// <summary>Raises the <see cref="WizardControl.Finished"/> event.</summary>
+		/// <summary>Raises the <see cref="Finished"/> event.</summary>
 		protected virtual void OnFinished()
 		{
 			Finished?.Invoke(this, EventArgs.Empty);
 
 			if (!this.IsDesignMode())
+			{
 				CloseForm(DialogResult.OK);
+			}
 		}
 
 		/// <summary>Raises the <see cref="E:System.Windows.Forms.Control.GotFocus"/> event.</summary>
@@ -370,9 +382,59 @@ namespace AeroWizard
 			base.OnHandleDestroyed(e);
 		}
 
+		/// <summary>Raises the <see cref="E:System.Windows.Forms.Control.ParentChanged"/> event.</summary>
+		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
+		protected override void OnParentChanged(EventArgs e)
+		{
+			base.OnParentChanged(e);
+			if (parentControl is Form oldParentAsForm)
+			{
+				oldParentAsForm.Load -= parentForm_Load;
+			}
+
+			if (parentControl is UserControl oldParentAsUserControl)
+			{
+				oldParentAsUserControl.Load -= parentForm_Load;
+			}
+
+			parentControl = Parent as ContainerControl;
+			Dock = DockStyle.Fill; Dock = DockStyle.Fill;
+			if (parentControl is Form newParentAsForm)
+			{
+				newParentAsForm.Load += parentForm_Load;
+			}
+			else if (parentControl is UserControl newParentAsUserControl)
+			{
+				newParentAsUserControl.Load += parentForm_Load;
+			}
+		}
+
+		/// <summary>Raises the <see cref="E:System.Windows.Forms.Control.RightToLeftChanged"/> event.</summary>
+		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
+		protected override void OnRightToLeftChanged(EventArgs e)
+		{
+			base.OnRightToLeftChanged(e);
+			bool r2l = this.GetRightToLeftProperty() == RightToLeft.Yes;
+			Bitmap btnStrip = GetUnthemedBackButtonImage();
+			if (r2l)
+			{
+				btnStrip.RotateFlip(RotateFlipType.RotateNoneFlipX);
+			}
+
+			backButton.SetImageListImageStrip(btnStrip, Orientation.Vertical);
+			backButton.StylePart = r2l ? 2 : 1;
+		}
+
+		/// <summary>Raises the <see cref="SelectedPageChanged"/> event.</summary>
+		protected void OnSelectedPageChanged() => SelectedPageChanged?.Invoke(this, EventArgs.Empty);
+
 		private void AddSystemEvents()
 		{
-			if (this.IsDesignMode()) return;
+			if (this.IsDesignMode())
+			{
+				return;
+			}
+
 			if (DesktopWindowManager.CompositionSupported)
 			{
 				DesktopWindowManager.ColorizationColorChanged += DisplyColorOrCompositionChanged;
@@ -382,58 +444,22 @@ namespace AeroWizard
 			SystemColorsChanged += DisplyColorOrCompositionChanged;
 		}
 
-		private void RemoveSystemEvents()
-		{
-			if (this.IsDesignMode()) return;
-			if (DesktopWindowManager.CompositionSupported)
-			{
-				DesktopWindowManager.CompositionChanged -= DisplyColorOrCompositionChanged;
-				DesktopWindowManager.ColorizationColorChanged -= DisplyColorOrCompositionChanged;
-			}
-			Microsoft.Win32.SystemEvents.DisplaySettingsChanged -= DisplyColorOrCompositionChanged;
-			SystemColorsChanged -= DisplyColorOrCompositionChanged;
-		}
-
-		/// <summary>Raises the <see cref="E:System.Windows.Forms.Control.ParentChanged"/> event.</summary>
-		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
-		protected override void OnParentChanged(EventArgs e)
-		{
-			base.OnParentChanged(e);
-			if (parentControl is Form oldParentAsForm)
-				oldParentAsForm.Load -= parentForm_Load;
-			if (parentControl is UserControl oldParentAsUserControl)
-				oldParentAsUserControl.Load -= parentForm_Load;
-			parentControl = Parent as ContainerControl;
-			Dock = DockStyle.Fill; Dock = DockStyle.Fill;
-			if (parentControl is Form newParentAsForm)
-				newParentAsForm.Load += parentForm_Load;
-			else if (parentControl is UserControl newParentAsUserControl)
-				newParentAsUserControl.Load += parentForm_Load;
-		}
-
-		/// <summary>Raises the <see cref="E:System.Windows.Forms.Control.RightToLeftChanged"/> event.</summary>
-		/// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
-		protected override void OnRightToLeftChanged(EventArgs e)
-		{
-			base.OnRightToLeftChanged(e);
-			var r2l = this.GetRightToLeftProperty() == RightToLeft.Yes;
-			var btnStrip = GetUnthemedBackButtonImage();
-			if (r2l) btnStrip.RotateFlip(RotateFlipType.RotateNoneFlipX);
-			backButton.SetImageListImageStrip(btnStrip, Orientation.Vertical);
-			backButton.StylePart = r2l ? 2 : 1;
-		}
-
-		/// <summary>Raises the <see cref="WizardControl.SelectedPageChanged"/> event.</summary>
-		protected void OnSelectedPageChanged() => SelectedPageChanged?.Invoke(this, EventArgs.Empty);
-
 		private void CloseForm(DialogResult dlgResult)
 		{
-			var form = FindForm();
-			if (form == null) return;
+			Form form = FindForm();
+			if (form is null)
+			{
+				return;
+			}
+
 			if (form.Modal)
+			{
 				form.DialogResult = dlgResult;
+			}
 			else
+			{
 				form.Close();
+			}
 		}
 
 		private void ConfigureStyles()
@@ -458,7 +484,11 @@ namespace AeroWizard
 			{
 				bodyPanel.BorderStyle = BorderStyle.None;
 				header.BackColor = contentArea.BackColor = SystemColors.Window;
-				if (themePropsSet) return;
+				if (themePropsSet)
+				{
+					return;
+				}
+
 				headerLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
 				headerLabel.ForeColor = Color.FromArgb(19, 112, 171);
 				title.Font = Font;
@@ -498,12 +528,19 @@ namespace AeroWizard
 				titleBar.BackColor = commandArea.BackColor;
 			}
 
-			if (parentControl == null) return;
+			if (parentControl is null)
+			{
+				return;
+			}
+
 			if (!SuppressParentFormCaptionSync)
+			{
 				parentControl.Text = Title;
+			}
+
 			if (parentControl is Form parentAsForm)
 			{
-				if (!SuppressParentFormIconSync && titleImageIcon != null)
+				if (!SuppressParentFormIconSync && titleImageIcon is not null)
 				{
 					parentAsForm.Icon = TitleIcon;
 					parentAsForm.ShowIcon = true;
@@ -518,15 +555,19 @@ namespace AeroWizard
 
 		private void contentArea_Paint(object sender, PaintEventArgs pe)
 		{
-			if (!this.IsDesignMode() || Pages.Count != 0) return;
-			var noPagesText = Properties.Resources.WizardNoPagesNotice;
-			var r = GetContentAreaRectangle(false);
+			if (!this.IsDesignMode() || Pages.Count != 0)
+			{
+				return;
+			}
+
+			string noPagesText = Properties.Resources.WizardNoPagesNotice;
+			Rectangle r = GetContentAreaRectangle(false);
 
 			r.Inflate(-2, -2);
 			//pe.Graphics.DrawRectangle(SystemPens.GrayText, r);
 			ControlPaint.DrawFocusRectangle(pe.Graphics, r);
 
-			var textSize = pe.Graphics.MeasureString(noPagesText, Font);
+			SizeF textSize = pe.Graphics.MeasureString(noPagesText, Font);
 			r.Inflate((r.Width - (int)textSize.Width) / -2, (r.Height - (int)textSize.Height) / -2);
 			pe.Graphics.DrawString(noPagesText, Font, SystemBrushes.GrayText, r);
 		}
@@ -543,21 +584,28 @@ namespace AeroWizard
 		/// <returns>Coordinates of content area.</returns>
 		private Rectangle GetContentAreaRectangle(bool parentRelative)
 		{
-			var cw = contentArea.GetColumnWidths();
-			var ch = contentArea.GetRowHeights();
-			var r = new Rectangle(cw[contentCol - 1], 0, cw[contentCol], ch[0]);
+			int[] cw = contentArea.GetColumnWidths();
+			int[] ch = contentArea.GetRowHeights();
+			Rectangle r = new(cw[contentCol - 1], 0, cw[contentCol], ch[0]);
 			if (parentRelative)
+			{
 				r.Offset(contentArea.Location);
+			}
+
 			return r;
 		}
 
+		private void Page_TextChanged(object sender, EventArgs e) => HeaderText = ((WizardPage)sender).Text;
+
 		private void pageContainer_ButtonStateChanged(object sender, EventArgs e)
 		{
-			var vis = false;
+			bool vis = false;
 			foreach (Control c in commandAreaButtonFlowLayout.Controls)
 			{
 				if (c.Visible || (c is ButtonBase && pageContainer.GetCmdButtonState(c as ButtonBase) != WizardCommandButtonState.Hidden))
+				{
 					vis = true;
+				}
 			}
 			commandArea.Visible = vis;
 		}
@@ -568,8 +616,11 @@ namespace AeroWizard
 
 		private void pageContainer_SelectedPageChanged(object sender, EventArgs e)
 		{
-			if (pageContainer.SelectedPage != null)
+			if (pageContainer.SelectedPage is not null)
+			{
 				HeaderText = pageContainer.SelectedPage.Text;
+			}
+
 			OnSelectedPageChanged();
 		}
 
@@ -577,13 +628,27 @@ namespace AeroWizard
 
 		private void Pages_ItemDeleted(object sender, System.Collections.Generic.EventedList<WizardPage>.ListChangedEventArgs<WizardPage> e) => e.Item.TextChanged -= Page_TextChanged;
 
-		private void Page_TextChanged(object sender, EventArgs e) => HeaderText = ((WizardPage)sender).Text;
-
 		private void parentForm_Load(object sender, EventArgs e) => ConfigureWindowFrame();
 
-		private void ResetBackButtonToolTipText() => BackButtonToolTipText = Properties.Resources.WizardBackButtonToolTip;
+		private void RemoveSystemEvents()
+		{
+			if (this.IsDesignMode())
+			{
+				return;
+			}
+
+			if (DesktopWindowManager.CompositionSupported)
+			{
+				DesktopWindowManager.CompositionChanged -= DisplyColorOrCompositionChanged;
+				DesktopWindowManager.ColorizationColorChanged -= DisplyColorOrCompositionChanged;
+			}
+			Microsoft.Win32.SystemEvents.DisplaySettingsChanged -= DisplyColorOrCompositionChanged;
+			SystemColorsChanged -= DisplyColorOrCompositionChanged;
+		}
 
 		private void ResetBackButtonText() => pageContainer.ResetBackButtonText();
+
+		private void ResetBackButtonToolTipText() => BackButtonToolTipText = Properties.Resources.WizardBackButtonToolTip;
 
 		private void ResetCancelButtonText() => pageContainer.ResetCancelButtonText();
 
@@ -603,54 +668,52 @@ namespace AeroWizard
 		{
 			if (isMin6 && Application.RenderWithVisualStyles)
 			{
-				using (var g = CreateGraphics())
+				using Graphics g = CreateGraphics();
+				// Back button
+				VisualStyleRenderer theme = new(VisualStyleElementEx.Navigation.BackButton.Normal);
+				Size bbSize = theme.GetPartSize(g, ThemeSizeType.Draw);
+
+				// Title
+				theme.SetParameters(VisualStyleElementEx.AeroWizard.TitleBar.Active);
+				title.Font = theme.GetFont2(g);
+				titleBar.Height = Math.Max(theme.GetMargins2(g).Top, bbSize.Height + 2);
+				titleBar.ColumnStyles[0].Width = bbSize.Width + 4F;
+				titleBar.ColumnStyles[1].Width = titleImageIcon is not null ? titleImageList.ImageSize.Width + 4F : 0;
+				backButton.Size = bbSize;
+
+				// Header
+				theme.SetParameters(VisualStyleElementEx.AeroWizard.HeaderArea.Normal);
+				headerLabel.Font = theme.GetFont2(g);
+				headerLabel.Margin = theme.GetMargins2(g);
+				headerLabel.ForeColor = theme.GetColor(ColorProperty.TextColor);
+
+				// Content
+				theme.SetParameters(VisualStyleElementEx.AeroWizard.ContentArea.Normal);
+				BackColor = theme.GetColor(ColorProperty.FillColor);
+				contentArea.Font = theme.GetFont2(g);
+				Padding cp = theme.GetMargins2(g);
+				contentArea.ColumnStyles[0].Width = cp.Left;
+				contentArea.RowStyles[1].Height = cp.Bottom;
+
+				// Command
+				theme.SetParameters(VisualStyleElementEx.AeroWizard.CommandArea.Normal);
+				cp = theme.GetMargins2(g);
+				commandArea.RowStyles[0].Height = cp.Top;
+				commandArea.RowStyles[2].Height = cp.Bottom;
+				commandArea.ColumnStyles[1].Width = contentArea.ColumnStyles[contentCol + 1].Width = cp.Right;
+				commandAreaBorder.Height = 0;
+				theme.SetParameters(VisualStyleElementEx.AeroWizard.Button.Normal);
+				int btnHeight = theme.GetInteger(IntegerProperty.Height);
+				commandAreaButtonFlowLayout.MinimumSize = new Size(0, btnHeight);
+				Font btnFont = theme.GetFont2(g);
+				foreach (Control ctrl in commandAreaButtonFlowLayout.Controls)
 				{
-					// Back button
-					var theme = new VisualStyleRenderer(VisualStyleElementEx.Navigation.BackButton.Normal);
-					var bbSize = theme.GetPartSize(g, ThemeSizeType.Draw);
-
-					// Title
-					theme.SetParameters(VisualStyleElementEx.AeroWizard.TitleBar.Active);
-					title.Font = theme.GetFont2(g);
-					titleBar.Height = Math.Max(theme.GetMargins2(g).Top, bbSize.Height + 2);
-					titleBar.ColumnStyles[0].Width = bbSize.Width + 4F;
-					titleBar.ColumnStyles[1].Width = titleImageIcon != null ? titleImageList.ImageSize.Width + 4F : 0;
-					backButton.Size = bbSize;
-
-					// Header
-					theme.SetParameters(VisualStyleElementEx.AeroWizard.HeaderArea.Normal);
-					headerLabel.Font = theme.GetFont2(g);
-					headerLabel.Margin = theme.GetMargins2(g);
-					headerLabel.ForeColor = theme.GetColor(ColorProperty.TextColor);
-
-					// Content
-					theme.SetParameters(VisualStyleElementEx.AeroWizard.ContentArea.Normal);
-					BackColor = theme.GetColor(ColorProperty.FillColor);
-					contentArea.Font = theme.GetFont2(g);
-					var cp = theme.GetMargins2(g);
-					contentArea.ColumnStyles[0].Width = cp.Left;
-					contentArea.RowStyles[1].Height = cp.Bottom;
-
-					// Command
-					theme.SetParameters(VisualStyleElementEx.AeroWizard.CommandArea.Normal);
-					cp = theme.GetMargins2(g);
-					commandArea.RowStyles[0].Height = cp.Top;
-					commandArea.RowStyles[2].Height = cp.Bottom;
-					commandArea.ColumnStyles[1].Width = contentArea.ColumnStyles[contentCol + 1].Width = cp.Right;
-					commandAreaBorder.Height = 0;
-					theme.SetParameters(VisualStyleElementEx.AeroWizard.Button.Normal);
-					var btnHeight = theme.GetInteger(IntegerProperty.Height);
-					commandAreaButtonFlowLayout.MinimumSize = new Size(0, btnHeight);
-					var btnFont = theme.GetFont2(g);
-					foreach (Control ctrl in commandAreaButtonFlowLayout.Controls)
-					{
-						ctrl.Font = btnFont;
-						ctrl.Height = btnHeight;
-						//ctrl.MaximumSize = new Size(0, btnHeight);
-					}
-
-					themePropsSet = true;
+					ctrl.Font = btnFont;
+					ctrl.Height = btnHeight;
+					//ctrl.MaximumSize = new Size(0, btnHeight);
 				}
+
+				themePropsSet = true;
 			}
 			else
 			{
@@ -660,9 +723,9 @@ namespace AeroWizard
 			}
 		}
 
-		private bool ShouldSerializeBackButtonToolTipText() => BackButtonToolTipText != Properties.Resources.WizardBackButtonToolTip;
-
 		private bool ShouldSerializeBackButtonText() => pageContainer.ShouldSerializeBackButtonText();
+
+		private bool ShouldSerializeBackButtonToolTipText() => BackButtonToolTipText != Properties.Resources.WizardBackButtonToolTip;
 
 		private bool ShouldSerializeCancelButtonText() => pageContainer.ShouldSerializeCancelButtonText();
 
@@ -678,7 +741,7 @@ namespace AeroWizard
 		{
 			if (e.Button == MouseButtons.Left)
 			{
-				var c = titleBar.GetChildAtPoint(e.Location);
+				Control c = titleBar.GetChildAtPoint(e.Location);
 				if (c != backButton)
 				{
 					formMoveTracking = true;
@@ -693,11 +756,11 @@ namespace AeroWizard
 		{
 			if (formMoveTracking)
 			{
-				var screen = PointToScreen(e.Location);
+				Point screen = PointToScreen(e.Location);
 
-				var diff = new Point(screen.X - formMoveLastMousePos.X, screen.Y - formMoveLastMousePos.Y);
+				Point diff = new(screen.X - formMoveLastMousePos.X, screen.Y - formMoveLastMousePos.Y);
 
-				var loc = parentControl.Location;
+				Point loc = parentControl.Location;
 				loc.Offset(diff);
 				parentControl.Location = loc;
 
@@ -710,7 +773,9 @@ namespace AeroWizard
 		private void TitleBar_MouseUp(object sender, MouseEventArgs e)
 		{
 			if (e.Button == MouseButtons.Left)
+			{
 				formMoveTracking = false;
+			}
 
 			OnMouseUp(e);
 		}

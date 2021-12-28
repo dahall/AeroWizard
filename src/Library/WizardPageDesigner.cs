@@ -40,7 +40,7 @@ namespace AeroWizard.Design
 
 		protected override void OnPaintAdornments(PaintEventArgs pe)
 		{
-			var clientRectangle = Control.ClientRectangle;
+			Rectangle clientRectangle = Control.ClientRectangle;
 			clientRectangle.Width--;
 			clientRectangle.Height--;
 			ControlPaint.DrawFocusRectangle(pe.Graphics, clientRectangle);
@@ -180,8 +180,8 @@ namespace AeroWizard.Design
 
 		public override Cursor GetHitTest(Point p)
 		{
-			var r1 = new Rectangle(navBox.X + 2, navBox.Y + 2, btnSize, btnSize);
-			for (var i = 0; i < btnCount; i++)
+			Rectangle r1 = new(navBox.X + 2, navBox.Y + 2, btnSize, btnSize);
+			for (int i = 0; i < btnCount; i++)
 			{
 				if (r1.Contains(p))
 				{
@@ -196,27 +196,23 @@ namespace AeroWizard.Design
 
 		public override void Paint(PaintEventArgs pe)
 		{
-			var isMin7 = Environment.OSVersion.Version >= new Version(6, 1);
-			var fn = isMin7 ? "Webdings" : "Arial Narrow";
-			var btnText = isMin7 ? new[] { "9", "3", "4", ":" } : new[] { "«", "<", ">", "»" };
-			using (var f = new Font(fn, btnSize - 2, isMin7 ? FontStyle.Regular : FontStyle.Bold, GraphicsUnit.Pixel))
+			bool isMin7 = Environment.OSVersion.Version >= new Version(6, 1);
+			string fn = isMin7 ? "Webdings" : "Arial Narrow";
+			string[] btnText = isMin7 ? new[] { "9", "3", "4", ":" } : new[] { "«", "<", ">", "»" };
+			using Font f = new(fn, btnSize - 2, isMin7 ? FontStyle.Regular : FontStyle.Bold, GraphicsUnit.Pixel);
+			pe.Graphics.FillRectangle(SystemBrushes.Control, new Rectangle(navBox.X, navBox.Y, navBox.Width + 1, navBox.Height + 1));
+			using Pen pen = new(SystemBrushes.ControlDark, 1f) { DashStyle = System.Drawing.Drawing2D.DashStyle.Dot };
+			pe.Graphics.DrawRectangle(pen, navBox);
+			Rectangle r1 = new(navBox.X + 2, navBox.Y + 2, btnSize, btnSize);
+			pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+			StringFormat sf = new() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+			for (int i = 0; i < btnCount; i++)
 			{
-				pe.Graphics.FillRectangle(SystemBrushes.Control, new Rectangle(navBox.X, navBox.Y, navBox.Width + 1, navBox.Height + 1));
-				using (var pen = new Pen(SystemBrushes.ControlDark, 1f) { DashStyle = System.Drawing.Drawing2D.DashStyle.Dot })
-				{
-					pe.Graphics.DrawRectangle(pen, navBox);
-					var r1 = new Rectangle(navBox.X + 2, navBox.Y + 2, btnSize, btnSize);
-					pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-					var sf = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
-					for (var i = 0; i < btnCount; i++)
-					{
-						pe.Graphics.DrawRectangle(pen, r1);
-						r1.Offset(1, 1);
-						//TextRenderer.DrawText(pe.Graphics, btnText[i], f, r1, SystemColors.ControlDark, SystemColors.Window, TextFormatFlags.NoPadding | TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
-						pe.Graphics.DrawString(btnText[i], f, SystemBrushes.ControlDark, r1, sf);
-						r1.Offset(btnSize + 1, -1);
-					}
-				}
+				pe.Graphics.DrawRectangle(pen, r1);
+				r1.Offset(1, 1);
+				//TextRenderer.DrawText(pe.Graphics, btnText[i], f, r1, SystemColors.ControlDark, SystemColors.Window, TextFormatFlags.NoPadding | TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+				pe.Graphics.DrawString(btnText[i], f, SystemBrushes.ControlDark, r1, sf);
+				r1.Offset(btnSize + 1, -1);
 			}
 		}
 
@@ -246,7 +242,7 @@ namespace AeroWizard.Design
 
 		private void SetNavBoxes()
 		{
-			var pt = Designer.BehaviorService.ControlToAdornerWindow(Designer.Control);
+			Point pt = Designer.BehaviorService.ControlToAdornerWindow(Designer.Control);
 			navBox = new Rectangle(pt.X + Designer.Control.Width - navBoxWidth - 17, pt.Y - navBoxHeight - 5, navBoxWidth, navBoxHeight);
 		}
 	}

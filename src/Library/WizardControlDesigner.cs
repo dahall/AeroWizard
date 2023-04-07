@@ -1,15 +1,26 @@
-﻿using System;
+﻿#if !NETFRAMEWORK
+using Microsoft.DotNet.DesignTools.Designers;
+using Microsoft.DotNet.DesignTools.Designers.Actions;
+using Microsoft.DotNet.DesignTools.Designers.Behaviors;
+using Microsoft.DotNet.DesignTools.Editors;
+#else
+using System.Drawing.Design;
+using System.Windows.Forms.Design.Behavior;
+#endif
+using System;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Drawing;
-using System.Drawing.Design;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
 namespace AeroWizard.Design
 {
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	internal class WizardControlDesigner : RichParentControlDesigner<WizardControl, WizardControlDesignerActionList>, IToolboxUser
+	internal class WizardControlDesigner : RichParentControlDesigner<WizardControl, WizardControlDesignerActionList>
+#if NETFRAMEWORK
+		, IToolboxUser
+#endif
 	{
 		private static readonly string[] propsToRemove = new string[] { "Anchor", "AutoScrollOffset", "AutoSize", "BackColor",
 			"BackgroundImage", "BackgroundImageLayout", "ContextMenuStrip", "Cursor", "Dock", "Enabled", "Font",
@@ -18,7 +29,11 @@ namespace AeroWizard.Design
 
 		private bool forwardOnDrag;
 
-		public override System.Collections.ICollection AssociatedComponents => Control?.Pages ?? base.AssociatedComponents;
+#if NETFRAMEWORK
+		public override System.Collections.ICollection AssociatedComponents => Control.Pages ?? base.AssociatedComponents;
+#else
+		public override System.Collections.Generic.IReadOnlyCollection<IComponent> AssociatedComponents => (System.Collections.Generic.IReadOnlyCollection<IComponent>)Control.Pages ?? base.AssociatedComponents;
+#endif
 
 		public override SelectionRules SelectionRules => SelectionRules.Visible | SelectionRules.Locked;
 
@@ -31,8 +46,6 @@ namespace AeroWizard.Design
 		public override bool CanBeParentedTo(IDesigner parentDesigner) => parentDesigner?.Component is ContainerControl;
 
 		public override bool CanParent(Control control) => control is WizardPage && !Control.Contains(control);
-
-		public bool GetToolSupported(ToolboxItem tool) => tool.TypeName != typeof(WizardControl).FullName && Control?.SelectedPage is not null;
 
 		public override void Initialize(IComponent component)
 		{
@@ -55,6 +68,9 @@ namespace AeroWizard.Design
 			Control.Text = Properties.Resources.WizardTitle;
 		}
 
+#if NETFRAMEWORK
+		public bool GetToolSupported(ToolboxItem tool) => tool.TypeName != typeof(WizardControl).FullName && Control?.SelectedPage is not null;
+
 		public void ToolPicked(ToolboxItem tool)
 		{
 			if (tool.TypeName == "AeroWizard.WizardPage")
@@ -67,6 +83,18 @@ namespace AeroWizard.Design
 				AddControlToActivePage(tool.TypeName);
 			}
 		}
+
+		protected override IComponent[] CreateToolCore(ToolboxItem tool, int x, int y, int width, int height, bool hasLocation, bool hasSize)
+		{
+			WizardPageDesigner pageDes = GetSelectedWizardPageDesigner();
+			if (pageDes is not null)
+			{
+				InvokeCreateTool(pageDes, tool);
+			}
+
+			return null;
+		}
+#endif
 
 		internal void InsertPageIntoWizard(bool add)
 		{
@@ -147,17 +175,6 @@ namespace AeroWizard.Design
 				dt?.Commit();
 			}
 			RefreshDesigner();
-		}
-
-		protected override IComponent[] CreateToolCore(ToolboxItem tool, int x, int y, int width, int height, bool hasLocation, bool hasSize)
-		{
-			WizardPageDesigner pageDes = GetSelectedWizardPageDesigner();
-			if (pageDes is not null)
-			{
-				InvokeCreateTool(pageDes, tool);
-			}
-
-			return null;
 		}
 
 		protected override void Dispose(bool disposing)

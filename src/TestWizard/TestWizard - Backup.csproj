@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <AssemblyTitle>TestWizard</AssemblyTitle>
     <Company>CodePlex Community</Company>
     <Product>TestWizard</Product>
     <Copyright>Copyright © 2013-2021</Copyright>
-    <Version>2.3.1</Version>
+    <Version>2.3.2</Version>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="AeroWizardTemplate.cs" />
@@ -21,7 +21,9 @@
     <Compile Update="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Update="MyStepWizard.cs" />
+    <Compile Update="MyStepWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="MyStepWizard.Designer.cs">
       <DependentUpon>MyStepWizard.cs</DependentUpon>
     </Compile>
@@ -29,7 +31,9 @@
     <Compile Update="MyWizard.Designer.cs">
       <DependentUpon>MyWizard.cs</DependentUpon>
     </Compile>
-    <Compile Update="Native\CommandLink.cs" />
+    <Compile Update="Native\CommandLink.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Native\VistaButtonBase.cs" />
     <Compile Update="OldStyleWizard.cs" />
     <Compile Update="OldStyleWizard.Designer.cs">

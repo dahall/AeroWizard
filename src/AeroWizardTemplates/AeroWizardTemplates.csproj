@@ -53,7 +53,7 @@
     <Content Include="License.txt">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Packages\AeroWizard.2.3.1.nupkg">
+    <Content Include="Packages\AeroWizard.2.3.2.nupkg">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="WizardControlTemplate.ico">
@@ -62,6 +62,9 @@
     <Content Include="__PreviewImage.PNG">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>

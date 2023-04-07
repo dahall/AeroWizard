@@ -233,10 +233,7 @@ namespace Vanara.Interop.DesktopWindowManager
 				return;
 			}
 
-			if (g is null)
-			{
-				g = form.CreateGraphics();
-			}
+			g ??= form.CreateGraphics();
 
 			if (!formProps.TryGetValue(form, out GlassFormProperties prop))
 			{

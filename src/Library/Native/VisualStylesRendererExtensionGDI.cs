@@ -168,7 +168,7 @@ namespace System.Windows.Forms.VisualStyles
 			const int wh = 200;
 			if (rnd == null) throw new ArgumentNullException(nameof(rnd));
 			rnd.SetParameters(rnd.Class, rnd.Part, 0);
-			if (states == null) states = new[] { rnd.State };
+			states ??= new[] { rnd.State };
 			var i = states.Length;
 
 			// Get image size

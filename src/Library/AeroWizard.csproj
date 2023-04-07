@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <UseWindowsForms>true</UseWindowsForms>
-    <TargetFrameworks>net20;net35;net40;net45;net5.0-windows;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net20;net35;net462;net48;net6.0-windows;net7.0-windows</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <AssemblyName>AeroWizard</AssemblyName>
     <AssemblyTitle>$(AssemblyName)</AssemblyTitle>
@@ -10,8 +10,8 @@
     <Product>AeroWizard</Product>
     <NeutralLanguage>en-US</NeutralLanguage>
     <Description>Library for easy creation of custom and Aero Wizards. Aero Wizard strictly follows Microsoft guidelines and uses Visual Styles to get visual theming.</Description>
-    <Copyright>Copyright © 2010-2021</Copyright>
-    <Version>2.3.1</Version>
+    <Copyright>Copyright © 2010-2023</Copyright>
+    <Version>2.3.2</Version>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
     <Authors>David Hall</Authors>
@@ -28,6 +28,9 @@
     <DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
     <NoWarn>$(NoWarn);CS0618</NoWarn>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net20' Or '$(TargetFramework)' == 'net35' ">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageOutputPath>$(SolutionDir)AeroWizardTemplates\Packages</PackageOutputPath>
@@ -43,11 +46,14 @@
     <DeterministicSourcePaths>$(CIBUILD)</DeterministicSourcePaths>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     <SourceRoot Include="$(MSBuildThisFileDirectory)/" />
   </ItemGroup>
   <!-- END: Source Link configuration. -->
-  <ItemGroup Condition=" '$(TargetFramework)' != 'net5.0-windows' And '$(TargetFramework)' != 'net6.0-windows' ">
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WinForms.Designer.SDK" Version="1.1.0-prerelease-preview3.22076.5" Condition=" !$(TargetFramework.StartsWith('net2')) And !$(TargetFramework.StartsWith('net3')) And !$(TargetFramework.StartsWith('net4')) " />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net6.0-windows' And '$(TargetFramework)' != 'net7.0-windows' ">
     <Reference Include="System.Design" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>

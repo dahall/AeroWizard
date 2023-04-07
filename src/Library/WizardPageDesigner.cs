@@ -1,4 +1,14 @@
-﻿using System;
+﻿#if !NETFRAMEWORK
+using Microsoft.DotNet.DesignTools.Designers;
+using Microsoft.DotNet.DesignTools.Designers.Actions;
+using Microsoft.DotNet.DesignTools.Designers.Behaviors;
+using Microsoft.DotNet.DesignTools.Editors;
+#else
+using System.Drawing.Design;
+using System.Windows.Forms.Design.Behavior;
+#endif
+using System;
+using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Drawing;
 using System.Windows.Forms;
@@ -112,7 +122,7 @@ namespace AeroWizard.Design
 		{
 		}
 
-		public override bool OnMouseDown(System.Windows.Forms.Design.Behavior.Glyph g, MouseButtons button, Point mouseLoc)
+		public override bool OnMouseDown(Glyph g, MouseButtons button, Point mouseLoc)
 		{
 			if (button == MouseButtons.Left)
 			{

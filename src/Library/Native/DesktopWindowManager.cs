@@ -363,10 +363,8 @@ namespace Vanara.Interop.DesktopWindowManager
 		{
 			lock (_lock)
 			{
-				if (_window == null)
-					_window = new MessageWindow();
-				if (eventHandlerList == null)
-					eventHandlerList = new EventHandlerList();
+				_window ??= new MessageWindow();
+				eventHandlerList ??= new EventHandlerList();
 				eventHandlerList.AddHandler(id, value);
 			}
 		}

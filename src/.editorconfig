@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# GlobalUsingsAnalyzer: Using should be in global file
+dotnet_diagnostic.GlobalUsingsAnalyzer.severity = none

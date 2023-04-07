@@ -140,8 +140,7 @@ namespace System.Runtime.InteropServices
 		/// <param name="children">Collection of SafeHGlobalHandle objects referred to by this object.</param>
 		public void AddSubReference(IEnumerable<SafeHGlobalHandle> children)
 		{
-			if (references == null)
-				references = new List<SafeHGlobalHandle>();
+			references ??= new List<SafeHGlobalHandle>();
 			references.AddRange(children);
 		}
 
